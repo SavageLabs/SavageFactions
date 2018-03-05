@@ -397,10 +397,6 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
         return Access.UNDEFINED;
     }
 
-    public Map<Permissable, Map<PermissableAction, Access>> getAccessMap() {
-        return Collections.unmodifiableMap(permissions);
-    }
-
     public void setPermission(Permissable permissable, PermissableAction permissableAction, Access access) {
         Map<PermissableAction, Access> accessMap = permissions.get(permissable);
         if (accessMap == null) {
@@ -423,13 +419,13 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
         // Put the map in there for each relation.
         for (Relation relation : Relation.values()) {
-            permissions.put(relation, freshMap);
+            permissions.put(relation, new HashMap<>(freshMap));
         }
 
         // And each role.
         for (Role role : Role.values()) {
             if (role != Role.ADMIN) {
-                permissions.put(role, freshMap);
+                permissions.put(role, new HashMap<>(freshMap));
             }
         }
     }
@@ -690,6 +686,33 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
         for (FPlayer fplayer : fplayers) {
             if (fplayer.isOnline() == online) {
                 ret.add(fplayer);
+            }
+        }
+
+        return ret;
+    }
+
+    public Set<FPlayer> getFPlayersWhereOnline(boolean online, FPlayer viewer) {
+        Set<FPlayer> ret = new HashSet<>();
+        if (!this.isNormal()) {
+            return ret;
+        }
+
+        for (FPlayer viewed : fplayers) {
+            // Add if their online status is what we want
+            if (viewed.isOnline() == online) {
+                // If we want online, check to see if we are able to see this player
+                // This checks if they are in vanish.
+                if (online
+                        && viewed.getPlayer() != null
+                        && viewer.getPlayer() != null
+                        && viewer.getPlayer().canSee(viewed.getPlayer())) {
+                    ret.add(viewed);
+                    // If we want offline, just add them.
+                    // Prob a better way to do this but idk.
+                } else if (!online) {
+                    ret.add(viewed);
+                }
             }
         }
 
