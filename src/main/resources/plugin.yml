@@ -286,3 +286,5 @@ permissions:
     description: Ban players from Factions
   factions.fly:
     description: Allow use of /f fly
+  factions.rules:
+    description: add/remove/set rules for your own faction.

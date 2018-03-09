@@ -178,6 +178,35 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
         return this.bans;
     }
 
+    public HashMap<Integer,String> rules = new HashMap<Integer, String>();
+
+    public String getRule(int index){
+        if (rules.size() == 0) return null;
+        return rules.get(index);
+    }
+
+    public HashMap<Integer,String> getRulesMap(){
+        return rules;
+    }
+
+    public void setRule(int index,String rule) {
+        rules.put(index,rule);
+    }
+
+    public void removeRule(int index){
+        HashMap<Integer,String> newRule = rules;
+        newRule.remove(index);
+        rules = newRule;
+    }
+
+    public void clearRules(){
+        rules.clear();
+    }
+
+    public void addRule(String rule){
+        rules.put(rules.size(),rule);
+    }
+
     public boolean getOpen() {
         return open;
     }

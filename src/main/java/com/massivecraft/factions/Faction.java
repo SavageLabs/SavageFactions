@@ -65,6 +65,18 @@ public interface Faction extends EconomyParticipator {
 
     public Set<BanInfo> getBannedPlayers();
 
+    public HashMap<Integer,String> getRulesMap();
+
+    public void setRule(int index,String rule);
+
+    public void addRule(String rule);
+
+    public void removeRule(int index);
+
+    public void clearRules();
+
+    public String getRule(int index);
+
     public boolean getOpen();
 
     public void setOpen(boolean isOpen);

@@ -88,6 +88,7 @@ public enum Permission {
     TOP("top"),
     VAULT("vault"),
     SETMAXVAULTS("setmaxvaults"),
+    RULES("rules"),
     WARP("warp");
 
     public final String node;

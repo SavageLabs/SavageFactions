@@ -586,6 +586,16 @@ public enum TL {
     COMMAND_WARUNCLAIMALL_SUCCESS("<i>You unclaimed ALL war zone land."),
     COMMAND_WARUNCLAIMALL_LOG("%1$s unclaimed all war zones."),
 
+    COMMAND_RULES_DESCRIPTION("set/remove/add rules!"),
+    COMMAND_RULES_ADD_INVALIDARGS("Please include a rule!"),
+    COMMAND_RULES_SET_INVALIDARGS("Please include a line number & rule!"),
+    COMMAND_RULES_REMOVE_INVALIDARGS("Please include a line number!"),
+    COMMAND_RULES_ADD_SUCCESS("&cRule added successfully!"),
+    COMMAND_RULES_REMOVE_SUCCESS("&cRule removed successfully!"),
+    COMMAND_RULES_SET_SUCCESS("&cRule set successfully!"),
+    COMMAND_RULES_CLEAR_SUCCESS("&cRule cleared successfully!"),
+
+
 
     /**
      * Leaving - This is accessed through a command, and so it MAY need a COMMAND_* slug :s
@@ -705,6 +715,7 @@ public enum TL {
     /**
      * Roles
      */
+    ROLE_OWNER("owner"),
     ROLE_ADMIN("admin"),
     ROLE_MODERATOR("moderator"),
     ROLE_NORMAL("normal member"),

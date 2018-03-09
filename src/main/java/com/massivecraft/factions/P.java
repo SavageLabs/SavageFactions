@@ -18,6 +18,7 @@ import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TextUtil;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,11 +29,9 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 public class P extends MPlugin {
@@ -322,6 +321,19 @@ public class P extends MPlugin {
         }
 
         return me.getTitle().trim();
+    }
+
+    public String color(String line) {
+        line = ChatColor.translateAlternateColorCodes('&', line);
+        return line;
+    }
+
+    //colors a string list
+    public List<String> colorList(List<String> lore) {
+        for (int i = 0; i <= lore.size()-1;i++){
+            lore.set(i,color(lore.get(i)));
+        }
+        return lore;
     }
 
     // Get a list of all faction tags (names)
