@@ -12,6 +12,7 @@ public class CmdRules extends FCommand {
         super();
         aliases.add("r");
         aliases.add("rule");
+        aliases.add("rules");
 
         this.optionalArgs.put("add/remove/set","");
         this.errorOnToManyArgs = false;
