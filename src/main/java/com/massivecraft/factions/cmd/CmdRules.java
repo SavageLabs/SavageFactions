@@ -14,7 +14,7 @@ public class CmdRules extends FCommand {
         aliases.add("rule");
         aliases.add("rules");
 
-        this.optionalArgs.put("add/remove/set","");
+        this.optionalArgs.put("add/remove/set/clear","");
         this.errorOnToManyArgs = false;
 
         permission = Permission.RULES.node;
