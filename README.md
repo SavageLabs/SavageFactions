@@ -1,12 +1,20 @@
-FactionsUUID
+SavageFactions
 ====================
 
 [![Discord](https://imgur.com/MFRRBn4.png)](https://discord.gg/FfAz3eE)
+SavageFaction is a fork of FactionsUUID by drtshock, this fork is designed for competitive factions servers and has more features than the original. 
 
-<rant>
-I'd appreciate it if you could pay for the (http://www.spigotmc.org/resources/factionsuuid.1035/) if your server makes money. If you only run your server for your kids or some friends and don't make any money, then I don't want to stop you from doing so by forcing you to buy a $15 plugin. If that's the case, then just send me a message and we can work something out.
+Current Features
+1. /f tnt add/take <amount> - store tnt virtually into your faction.
+2. /f rules add/remove/set - Set some rules for your faction to see. Can be useful for new members etc.
+3. /f getvault - receive a vault item, place it in faction land
+4. /f vault - remotely access placed vault.
+5. /f upgrades - Upgrade crop growth, mob spawners, and exp drops in your claims
+6. /f perms - Improved perms, fixed issue where options wouldnt set even though they appeared to.
+7. /f near - View nearby Faction Members 
+8. /f checkpoint - Go to your faction checkpoint (if set)
+9. /f checkpoint set - Set your faction checkpoint 
 
-The repo is open because of that and because I still hope to see people contributing upstream :)
 </rant>
 
 This plugin will allow the players on the server to create factions/guilds. The factions can claim territory that will be protected from non-members. Factions can forge alliances and declare themselves enemies with others. Land may be taken from other factions through war.
