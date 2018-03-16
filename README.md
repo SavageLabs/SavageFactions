@@ -1,7 +1,10 @@
 SavageFactions
 ====================
 
-[![Discord](https://imgur.com/MFRRBn4.png)](https://discord.gg/FfAz3eE)
+[![Discord](https://imgur.com/MFRRBn4.png)](https://discord.gg/JfQKSDh)
+
+
+
 SavageFaction is a fork of FactionsUUID by drtshock, this fork is designed for competitive factions servers and has more features than the original. 
 
 Current Features
