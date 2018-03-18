@@ -1,6 +1,7 @@
 package com.massivecraft.factions.zcore.persist;
 
 import com.massivecraft.factions.*;
+import com.massivecraft.factions.cmd.CmdFly;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.event.LandClaimEvent;
 import com.massivecraft.factions.iface.EconomyParticipator;
@@ -24,10 +25,7 @@ import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -64,6 +62,8 @@ public abstract class MemoryFPlayer implements FPlayer {
     protected boolean willAutoLeave = true;
     protected int mapHeight = 8; // default to old value
     protected boolean isFlying = false;
+    protected boolean enteringPassword = false;
+    protected String enteringPasswordWarp = "";
 
     protected transient FLocation lastStoodAt = new FLocation(); // Where did this player stand the last time we checked?
     protected transient boolean mapAutoUpdating;
@@ -907,6 +907,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         // If leaving fly mode, don't let them take fall damage for x seconds.
         if (!fly) {
             int cooldown = P.p.getConfig().getInt("fly-falldamage-cooldown", 3);
+            CmdFly.flyMap.remove(player.getName());
 
             // If the value is 0 or lower, make them take fall damage.
             // Otherwise, start a timer and have this cancel after a few seconds.
@@ -923,6 +924,23 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
 
         isFlying = fly;
+    }
+
+
+
+
+
+
+
+
+    public boolean inVault = false;
+
+    public boolean isInVault(){
+        return inVault;
+    }
+
+    public void setInVault(boolean status){
+        inVault = status;
     }
 
     public boolean canFlyAtLocation() {
@@ -948,6 +966,19 @@ public abstract class MemoryFPlayer implements FPlayer {
 
     public void setTakeFallDamage(boolean fallDamage) {
         this.shouldTakeFallDamage = fallDamage;
+    }
+
+    public boolean isEnteringPassword() {
+        return enteringPassword;
+    }
+
+    public void setEnteringPassword(boolean toggle, String warp) {
+        enteringPassword = toggle;
+        enteringPasswordWarp = warp;
+    }
+
+    public String getEnteringWarp() {
+        return enteringPasswordWarp;
     }
 
     // -------------------------------------------- //

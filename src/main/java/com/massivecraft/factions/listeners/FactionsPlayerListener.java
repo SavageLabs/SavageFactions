@@ -17,17 +17,22 @@ import com.massivecraft.factions.zcore.persist.MemoryFPlayer;
 import com.massivecraft.factions.zcore.util.TL;
 import com.massivecraft.factions.zcore.util.TextUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
 
 import java.util.HashMap;
@@ -46,6 +51,33 @@ public class FactionsPlayerListener implements Listener {
             initPlayer(player);
         }
     }
+
+    @EventHandler
+    public void onVaultPlace(BlockPlaceEvent e){
+        if (e.getItemInHand().getType() == Material.CHEST){
+            ItemStack vault = P.p.createItem(Material.CHEST,1,(short) 0,P.p.color(P.p.getConfig().getString("fvault.Item.Name")),P.p.colorList(P.p.getConfig().getStringList("fvault.Item.Lore")));
+            if (e.getItemInHand().equals(vault)){
+                FPlayer fme = FPlayers.getInstance().getByPlayer(e.getPlayer());
+                if (fme.getFaction().getVault() != null){
+                    fme.msg(TL.COMMAND_GETVAULT_ALREADYSET);
+                    e.setCancelled(true);
+                    return;
+                }
+                FLocation flocation = new FLocation(e.getBlockPlaced().getLocation());
+                if (Board.getInstance().getFactionAt(flocation) != fme.getFaction()){
+                    fme.msg(TL.COMMAND_GETVAULT_INVALIDLOCATION);
+                    e.setCancelled(true);
+                    return;
+                }
+                fme.msg(TL.COMMAND_GETVAULT_SUCCESS);
+                fme.getFaction().setVault(e.getBlockPlaced().getLocation());
+
+            }
+        }
+    }
+
+
+
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -177,11 +209,7 @@ public class FactionsPlayerListener implements Listener {
         Faction factionTo = Board.getInstance().getFactionAt(to);
         boolean changedFaction = (factionFrom != factionTo);
 
-        if (p.getConfig().getBoolean("enable-faction-flight", false) && changedFaction) {
-            if (!me.canFlyAtLocation() && me.isFlying()) {
-                me.setFlying(false);
-            }
-        }
+
 
         if (me.isMapAutoUpdating()) {
             if (showTimes.containsKey(player.getUniqueId()) && (showTimes.get(player.getUniqueId()) > System.currentTimeMillis())) {
@@ -234,6 +262,14 @@ public class FactionsPlayerListener implements Listener {
                 }
             }
         }
+    }
+    @EventHandler
+    public void onClose(InventoryCloseEvent e){
+        FPlayer fme = FPlayers.getInstance().getById(e.getPlayer().getUniqueId().toString());
+        if (fme.isInVault()){
+            fme.setInVault(false);
+        }
+
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -364,11 +400,7 @@ public class FactionsPlayerListener implements Listener {
         Relation rel = myFaction.getRelationTo(otherFaction);
 
 
-        Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
-        if (access != null && access != Access.UNDEFINED) {
-            // TODO: Update this once new access values are added other than just allow / deny.
-            return access == Access.ALLOW;
-        }
+
 
         // Cancel if we are not in our own territory
         if (rel.confDenyUseage()) {
@@ -377,6 +409,11 @@ public class FactionsPlayerListener implements Listener {
             }
 
             return false;
+        }
+        Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
+        if (access != null && access != Access.UNDEFINED) {
+            // TODO: Update this once new access values are added other than just allow / deny.
+            return access == Access.ALLOW;
         }
 
         // Also cancel if player doesn't have ownership rights for this claim
@@ -458,6 +495,10 @@ public class FactionsPlayerListener implements Listener {
                 action = PermissableAction.CONTAINER;
                 break;
             default:
+                // Check for doors that might have diff material name in old version.
+                if (block.getType().name().contains("DOOR")) {
+                    action = PermissableAction.DOOR;
+                }
                 break;
         }
 

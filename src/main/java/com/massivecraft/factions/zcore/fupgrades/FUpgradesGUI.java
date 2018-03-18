@@ -1,8 +1,9 @@
-package com.massivecraft.factions.util;
+package com.massivecraft.factions.zcore.fupgrades;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.P;
+import com.massivecraft.factions.zcore.util.TL;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,15 +40,6 @@ public class FUpgradesGUI implements Listener
             inventory.setItem(dummySlots.get(i),dummyItem);
         }
         ItemStack[] items = buildItems(fme);
-        Material cropMaterial = Material.getMaterial(P.p.getConfig().getString("fupgrades.MainMenu.Crops.CropItem.Type"));
-        int cropAmt =  P.p.getConfig().getInt("fupgrades.MainMenu.Crops.CropItem.Amount");
-        short cropData = Short.parseShort(P.p.getConfig().getInt("fupgrades.MainMenu.Crops.CropItem.Damage") + "");
-        String cropName = P.p.color(P.p.getConfig().getString("fupgrades.MainMenu.Crops.CropItem.Name"));
-        List<String> cropLore = P.p.colorList(P.p.getConfig().getStringList("fupgrades.MainMenu.Crops.CropItem.Lore"));
-        int cropLevel = fme.getFaction().getUpgrade("Crop");
-
-        ItemStack cropItem = P.p.createItem(cropMaterial,cropAmt,cropData,cropName,cropLore);
-        fme.getPlayer().getInventory().addItem(cropItem);
 
         List<Integer> cropSlots = P.p.getConfig().getIntegerList("fupgrades.MainMenu.Crops.CropItem.slots");
         for (int i = 0; i <= cropSlots.size()-1;i++){
@@ -65,9 +57,11 @@ public class FUpgradesGUI implements Listener
     }
     @EventHandler
     public void onClick(InventoryClickEvent e){
+        if (e.getClickedInventory() == null || e.getCurrentItem() == null || e.getCurrentItem().getItemMeta() == null || e.getCursor() == null){
+            return;
+        }
         FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
         if (e.getClickedInventory().getTitle().equalsIgnoreCase(P.p.color(P.p.getConfig().getString("fupgrades.MainMenu.Title").replace("{faction}",fme.getFaction().getTag())))){
-            Bukkit.broadcastMessage("Upgrade gui");
             e.setCancelled(true);
             ItemStack[] items = buildItems(fme);
             ItemStack cropItem = items[2];
@@ -80,22 +74,31 @@ public class FUpgradesGUI implements Listener
                 }
                 if (cropLevel == 2){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Crops.Cost.level-3");
-                    takeMoney(fme,cost);
-                    fme.getFaction().setUpgrades("Crop",3);
-                    fme.getPlayer().closeInventory();
+
+                    if (hasMoney(fme,cost)){
+                        fme.getFaction().setUpgrades("Crop",3);
+                        fme.getPlayer().closeInventory();
+                        takeMoney(fme,cost);
+                    }
+
                 }
                 if (cropLevel == 1){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Crops.Cost.level-2");
-                    takeMoney(fme,cost);
-                    fme.getFaction().setUpgrades("Crop",2);
-                    fme.getPlayer().closeInventory();
+                    if (hasMoney(fme,cost)){
+                        takeMoney(fme,cost);
+                        fme.getFaction().setUpgrades("Crop",2);
+                        fme.getPlayer().closeInventory();
+                    }
+
                 }
                 if (cropLevel == 0){
-                    Bukkit.broadcastMessage("Level is zero");
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Crops.Cost.level-1");
-                    takeMoney(fme,cost);
-                    fme.getFaction().setUpgrades("Crop",1);
-                    fme.getPlayer().closeInventory();
+                    if (hasMoney(fme,cost)){
+                        takeMoney(fme,cost);
+                        fme.getFaction().setUpgrades("Crop",1);
+                        fme.getPlayer().closeInventory();
+                    }
+
                 }
             }
             int spawnerLevel = fme.getFaction().getUpgrade("Spawner");
@@ -105,18 +108,21 @@ public class FUpgradesGUI implements Listener
                 }
                 if (spawnerLevel == 2){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Spawners.Cost.level-3");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Spawner",3);
                     fme.getPlayer().closeInventory();
                 }
                 if (spawnerLevel == 1){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Spawners.Cost.level-2");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Spawner",2);
                     fme.getPlayer().closeInventory();
                 }
                 if (spawnerLevel == 0){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.Spawners.Cost.level-1");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Spawner",1);
                     fme.getPlayer().closeInventory();
@@ -129,18 +135,21 @@ public class FUpgradesGUI implements Listener
                 }
                 if (expLevel == 2){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.EXP.Cost.level-3");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Exp",3);
                     fme.getPlayer().closeInventory();
                 }
                 if (expLevel == 1){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.EXP.Cost.level-2");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Exp",2);
                     fme.getPlayer().closeInventory();
                 }
                 if (expLevel == 0){
                     int cost = P.p.getConfig().getInt("fupgrades.MainMenu.EXP.Cost.level-1");
+                    if (!hasMoney(fme,cost)){return; }
                     takeMoney(fme,cost);
                     fme.getFaction().setUpgrades("Exp",1);
                     fme.getPlayer().closeInventory();
@@ -240,7 +249,7 @@ public class FUpgradesGUI implements Listener
         if (hasMoney(fme, amt)){
             Economy econ = P.p.getEcon();
             econ.withdrawPlayer(fme.getPlayer(),amt);
-            fme.sendMessage(P.p.color(amt + " has been taken from your account."));
+            fme.sendMessage(TL.COMMAND_UPGRADES_MONEYTAKE.toString().replace("{amount}",amt + ""));
         }
     }
 }

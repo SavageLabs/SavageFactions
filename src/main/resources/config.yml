@@ -61,6 +61,10 @@ warp-cost:
 # Faction Fly
 # Enable Faction Fly:
 enable-faction-flight: true
+ffly:
+  Particles:
+    Enabled: true
+
 
 # If a player leaves fly (out of territory or took damage)
 # how long should they not take fall damage for?
@@ -171,6 +175,8 @@ warmups:
   f-warp: 0
   # Delay for /f fly
   f-fly: 0
+  #Delay for /f checkpoint's teleport
+  f-checkpoint: 0
 
 ######################################################
 #################### HCF Features ####################
@@ -308,42 +314,52 @@ list:
 ############################################################
 
 # set to true to use legacy factions help
-use-old-help: true
+use-old-help: false
 
 help:
+
+
   # You can change the page name to whatever you like
   # We use '1' to preserve default functionality of /f help 1
-  '1':
-    - '&e&m----------------------------------------------'
-    - '                  &c&lFactions Help               '
-    - '&e&m----------------------------------------------'
-    - '&3/f create  &e>>  &7Create your own faction'
-    - '&3/f who      &e>>  &7Show factions info'
-    - '&3/f tag      &e>>  &7Change faction tag'
-    - '&3/f join     &e>>  &7Join faction'
-    - '&3/f list      &e>>  &7List all factions'
-    - '&e&m--------------&r &2/f help 2 for more &e&m--------------'
-  '2':
-    - '&e&m------------------&r&c&l Page 2 &e&m--------------------'
-    - '&3/f home     &e>>  &7Teleport to faction home'
-    - '&3/f sethome &e>>  &7Set your faction home'
-    - '&3/f leave    &e>>  &7Leave your faction'
-    - '&3/f invite    &e>>  &7Invite a player to your faction'
-    - '&3/f deinvite &e>>  &7Revoke invitation to player'
-    - '&e&m--------------&r &2/f help 3 for more &e&m--------------'
-  '3':
-    - '&e&m------------------&r&c&l Page 3 &e&m--------------------'
-    - '&3/f claim     &e>>  &7Claim land'
-    - '&3/f unclaim  &e>>  &7Unclaim land'
-    - '&3/f kick      &e>>  &7Kick player from your faction'
-    - '&3/f mod      &e>>  &7Set player role in faction'
-    - '&3/f chat     &e>>  &7Switch to faction chat'
-    - '&e&m--------------&r &2/f help 4 for more &e&m--------------'
-  '4':
-    - '&e&m------------------&r&c&l Page 4 &e&m--------------------'
-    - '&3/f version &e>>  &7Display version information'
-    - '&e&m--------------&r&2 End of /f help &e&m-----------------'
-
+    '1':
+     - '&c&m----------------------------------------------'
+     - '                  &c&lFactions Help               '
+     - '&c&m----------------------------------------------'
+     - '&7/f create  &c»  &7Create your own faction'
+     - '&7/f who      &c»  &7Show factions info'
+     - '&7/f tag      &c»  &7Change faction tag'
+     - '&7/f join     &c»  &7Join faction'
+     - '&7/f list      &c»  &7List all factions'
+     - '&7/f ban  &c»  &7Ban a member from your faction!'
+     - '&7/f unban  &c»  &7Unban a member from your faction!'
+     - '&7/f banlist  &c»  &7List banned players from your faction!'
+     - '&7&m--------------&r &c/f help 2 for more &7&m--------------'
+    '2':
+     - '&7&m------------------&r&c&l Page 2 &7&m--------------------'
+     - '&7/f home     &c»  &7Teleport to faction home'
+     - '&7/f sethome &c»  &7Set your faction home'
+     - '&7/f leave    &c»  &7Leave your faction'
+     - '&7/f invite    &c»  &7Invite a player to your faction'
+     - '&7/f deinvite &c»  &7Revoke invitation to player'
+     - '&7/f warp  &c»  &7Open the warp GUI!'
+     - '&7/f setwarp  &c»  &7set a warp!'
+     - '&7/f perms  &c»  &7Change what players can do in your claims!'
+     - '&7&m--------------&r &c/f help 3 for more &7&m--------------'
+    '3':
+     - '&7&m------------------&r&c&l Page 3 &7&m--------------------'
+     - '&7/f claim     &c»  &7Claim land'
+     - '&7/f unclaim  &c»  &7Unclaim land'
+     - '&7/f kick      &c»  &7Kick player from your faction'
+     - '&7/f mod      &c»  &7Set player role in faction'
+     - '&7/f chat     &c»  &7Switch to faction chat'
+     - '&7/f tnt add/take <amount>     &c»  &7Faction Based TNT Bank'
+     - '&7/f map  &c»  &7Map of the surrounding area!'
+     - '&7/f checkpoint  &c»  &7Set a faction checkpoint'
+     - '&7&m--------------&r &2/f help 4 for more &7&m--------------'
+    '4':
+     - '&7&m------------------&r&c&l Page 4 &7&m--------------------'
+     - '&7/f version &c»  &7Display version information'
+     - '&7&m--------------&r&2 End of /f help &7&m-----------------'
 ############################################################
 # +------------------------------------------------------+ #
 # |                  F Permission GUI                    | #
@@ -379,7 +395,7 @@ fperm-gui:
     # Note: Slots start at 0 and end at one less that GUI size
     slots:
       recruit: 10
-      member: 11
+      normal: 11
       moderator: 12
       truce: 13
       ally: 14
@@ -388,7 +404,7 @@ fperm-gui:
     # Material to be displayed
     materials:
       recruit: WOOD_SWORD
-      member: STONE_SWORD
+      normal: STONE_SWORD
       moderator: IRON_SWORD
       truce: IRON_AXE
       ally: DIAMOND_SWORD
@@ -538,6 +554,7 @@ fperm-gui:
 fwarp-gui:
   name: "Faction Warps"
   rows: 3
+  password-timeout: 5
   warp-slots:
     - 11
     - 12
@@ -592,9 +609,165 @@ fwarp-gui:
 # +------------------------------------------------------+ #
 ############################################################
 frules:
+  Enabled: true
   default-rules:
   - '&cDefault Faction Rules :('
   - '&cUse /f rules add <rule> to add a rule'
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction TNT Bank                    | #
+# +------------------------------------------------------+ #
+############################################################
+ftnt:
+  Enabled: true
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Checkpoints                 | #
+# +------------------------------------------------------+ #
+############################################################
+checkpoints:
+  Enabled: true
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Near                 | #
+# +------------------------------------------------------+ #
+############################################################
+fnear:
+  Enabled: true
+  Radius: 50
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Vault                       | #
+# +------------------------------------------------------+ #
+fvault:
+  Enabled: true
+  Item:
+    Name: '&cFaction Vault'
+    Lore:
+    - '&cPlace&7 this vault in a claim!'
+    - '&7You will then be able to access it'
+    - '&7Use &c/f vault&7 to access it once placed!'
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Upgrades                    | #
+# +------------------------------------------------------+ #
+############################################################
+fupgrades:
+  Enabled: true
+  MainMenu:
+    Title: '&9{faction} Upgrade Menu'
+    DummyItem:
+      Name: '&cChoose an Option!'
+      Type: STAINED_GLASS_PANE
+      Amount: 1
+      Damage: 7
+      Lore:
+      - '&7Please choose an option!'
+      rows: 3
+      slots:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      - 26
+    Crops:
+      Crop-Boost:
+        level-1: 10
+        level-2: 20
+        level-3: 30
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      CropItem:
+        Name: '&7Upgrade Growth Speed'
+        Type: WHEAT
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Chance for Crops to Grow Two levels!'
+        - ''
+        - ' &7Lv &c1 » &c10% &7chance&c » &c$50,000'
+        - ' &7Lv &c2 » &c20% &7chance &c» $750,000'
+        - ' &7Lv &c3 » &c30% &7chance &c» $1,750,000'
+        slots:
+        - 10
+    EXP:
+      EXP-Boost:
+        level-1: 1.2
+        level-2: 1.25
+        level-3: 1.5
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      EXPItem:
+        Name: '&7Upgrade EXP Drop Rate'
+        Type: EXP_BOTTLE
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Mobs drop extra exp in claims!'
+        - ''
+        - ' &7Lv&c 1 » &c1.2x multiplier'
+        - ' &7Lv&c 2 » &c1.25x multiplier'
+        - ' &7Lv&c 3 » &c1.5x multiplier'
+        slots:
+        - 13
+    Spawners:
+      Spawner-Boost:
+      # This is a Percentage so .10 means 10% lowered spawner delay!
+        level-1: 0.10
+        level-2: 0.20
+        level-3: 0.30
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      SpawnerItem:
+        Name: '&7Upgrade Spawn Rate'
+        Type: MOB_SPAWNER
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Lower Mob Spawner Delay'
+        - '&7By a certain percentage.'
+        - ''
+        - ' &7Lv &c1 » &c10% &7lower delay&c » &c$50,000'
+        - ' &7Lv &c2 » &c20% &7lower delay &c» $750,000'
+        - ' &7Lv &c3 » &c30% &7lower delay &c» $1,750,000'
+        slots:
+        - 16
 
 
 ############################################################

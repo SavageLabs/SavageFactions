@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Role implements Permissable {
-    OWNER(4,TL.ROLE_OWNER),
     ADMIN(3, TL.ROLE_ADMIN),
     MODERATOR(2, TL.ROLE_MODERATOR),
     NORMAL(1, TL.ROLE_NORMAL),
@@ -53,8 +52,6 @@ public enum Role implements Permissable {
                 return MODERATOR;
             case 3:
                 return ADMIN;
-            case 4:
-                return OWNER;
         }
 
         return null;
@@ -62,8 +59,6 @@ public enum Role implements Permissable {
 
     public static Role fromString(String check) {
         switch (check.toLowerCase()) {
-            case "owner":
-                return OWNER;
             case "admin":
                 return ADMIN;
             case "mod":
@@ -90,9 +85,6 @@ public enum Role implements Permissable {
     }
 
     public String getPrefix() {
-        if (this == Role.OWNER){
-            return Conf.prefixOwner;
-        }
         if (this == Role.ADMIN) {
             return Conf.prefixAdmin;
         }
@@ -112,7 +104,6 @@ public enum Role implements Permissable {
         return "";
     }
 
-
     // Utility method to build items for F Perm GUI
     @Override
     public ItemStack buildItem() {
@@ -121,7 +112,7 @@ public enum Role implements Permissable {
         String displayName = replacePlaceholders(RELATION_CONFIG.getString("placeholder-item.name", ""));
         List<String> lore = new ArrayList<>();
 
-        Material material = Material.matchMaterial(RELATION_CONFIG.getString("materials." + name().toLowerCase()));
+        Material material = Material.matchMaterial(RELATION_CONFIG.getString("materials." + name().toLowerCase(), "STAINED_CLAY"));
         if (material == null) {
             return null;
         }

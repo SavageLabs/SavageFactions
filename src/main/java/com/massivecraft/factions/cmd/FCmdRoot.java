@@ -83,7 +83,12 @@ public class FCmdRoot extends FCommand {
     public CmdUnban cmdUnban = new CmdUnban();
     public CmdBanlist cmdbanlist = new CmdBanlist();
     public CmdRules cmdRules = new CmdRules();
-
+    public CmdCheckpoint cmdCheckpoint = new CmdCheckpoint();
+    public CmdTnt cmdTnt = new CmdTnt();
+    public CmdNear cmdNear = new CmdNear();
+    public CmdUpgrades cmdUpgrades = new CmdUpgrades();
+    public CmdVault cmdVault = new CmdVault();
+    public CmdGetVault cmdGetVault = new CmdGetVault();
     public FCmdRoot() {
         super();
         this.aliases.addAll(Conf.baseCommandAliases);
@@ -177,6 +182,13 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdUnban);
         this.addSubCommand(this.cmdbanlist);
         this.addSubCommand(this.cmdRules);
+        this.addSubCommand(this.cmdCheckpoint);
+        this.addSubCommand(this.cmdTnt);
+        this.addSubCommand(this.cmdNear);
+        this.addSubCommand(this.cmdUpgrades);
+        this.addSubCommand(this.cmdVault);
+        this.addSubCommand(this.cmdGetVault);
+
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("FactionsTop")) {
             P.p.log(Level.INFO, "Found FactionsTop plugin. Disabling our own /f top command.");
         } else {
@@ -184,8 +196,10 @@ public class FCmdRoot extends FCommand {
         }
         if (P.p.isHookedPlayervaults()) {
             P.p.log("Found playervaults hook, adding /f vault and /f setmaxvault commands.");
-            this.addSubCommand(new CmdSetMaxVaults());
-            this.addSubCommand(new CmdVault());
+           // this.addSubCommand(new CmdSetMaxVaults());
+          //  this.addSubCommand(new CmdVault());
+        }else{
+           // this.addSubCommand(new CmdVault());
         }
     }
 

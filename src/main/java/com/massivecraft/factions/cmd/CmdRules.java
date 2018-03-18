@@ -27,6 +27,10 @@ public class CmdRules extends FCommand {
 
     @Override
     public void perform(){
+        if (!P.p.getConfig().getBoolean("frules.Enabled")){
+            fme.msg(TL.COMMAND_RULES_DISABLED_MSG);
+            return;
+        }
         if (this.args.size() == 0){
             HashMap<Integer,String> rules = fme.getFaction().getRulesMap();
             if (rules.size() == 0){

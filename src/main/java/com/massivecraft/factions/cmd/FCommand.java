@@ -24,6 +24,7 @@ public abstract class FCommand extends MCommand<P> {
     public boolean senderMustBeMember;
     public boolean senderMustBeModerator;
     public boolean senderMustBeAdmin;
+    public boolean senderMustBeOwner;
 
     public boolean isMoneyCommand;
 
@@ -80,7 +81,7 @@ public abstract class FCommand extends MCommand<P> {
             return false;
         }
 
-        if (!(this.senderMustBeMember || this.senderMustBeModerator || this.senderMustBeAdmin)) {
+        if (!(this.senderMustBeMember || this.senderMustBeModerator || this.senderMustBeAdmin || this.senderMustBeOwner)) {
             return true;
         }
 
@@ -102,6 +103,8 @@ public abstract class FCommand extends MCommand<P> {
             sender.sendMessage(p.txt.parse("<b>Only faction admins can %s.", this.getHelpShort()));
             return false;
         }
+
+
 
         return true;
     }

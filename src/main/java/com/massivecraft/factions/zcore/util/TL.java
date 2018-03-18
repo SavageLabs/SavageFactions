@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 drtshock
+ * Copyright (C) 2018 ProSavage
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,65 @@ public enum TL {
     /**
      * Command translations
      */
-    COMMAND_ADMIN_NOTMEMBER("%1$s<i> is not a member in your faction."),
+
+    /**
+     * Messsges for /f help
+     */
+    COMMAND_HELP_NEXTCREATE("<i>Learn how to create a faction on the next page."),
+    COMMAND_HELP_INVITATIONS("command.help.invitations", "<i>You might want to close it and use invitations:"),
+    COMMAND_HELP_HOME("<i>And don't forget to set your home:"),
+    COMMAND_HELP_404("&c&l» &7This page does &cnot &7exist"),
+    COMMAND_HELP_BANK_1("<i>Your faction has a bank which is used to pay for certain"), //Move to last /f help page
+    COMMAND_HELP_BANK_2("<i>things, so it will need to have money deposited into it."), //Move to last /f help page
+    COMMAND_HELP_BANK_3("<i>To learn more, use the money command."), //Move to last /f help page
+    COMMAND_HELP_PLAYERTITLES("<i>Player titles are just for fun. No rules connected to them."), //Move to last /f help page
+    COMMAND_HELP_OWNERSHIP_1("<i>Claimed land with ownership set is further protected so"), //Move to last /f help page
+    COMMAND_HELP_OWNERSHIP_2("<i>that only the owner(s), faction admin, and possibly the"), //Move to last /f help page
+    COMMAND_HELP_OWNERSHIP_3("<i>faction moderators have full access."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_1("<i>Set the relation you WISH to have with another faction."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_2("<i>Your default relation with other factions will be neutral."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_3("<i>If BOTH factions choose \"ally\" you will be allies."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_4("<i>If ONE faction chooses \"enemy\" you will be enemies."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_5("<i>You can never hurt members or allies."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_6("<i>You can not hurt neutrals in their own territory."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_7("<i>You can always hurt enemies and players without faction."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_8(""),
+    COMMAND_HELP_RELATIONS_9("<i>Damage from enemies is reduced in your own territory."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_10("<i>When you die you lose power. It is restored over time."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_11("<i>The power of a faction is the sum of all member power."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_12("<i>The power of a faction determines how much land it can hold."), //Move to last /f help page
+    COMMAND_HELP_RELATIONS_13("<i>You can claim land from factions with too little power."), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_1("<i>Only faction members can build and destroy in their own"), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_2("<i>territory. Usage of the following items is also restricted:"), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_3("<i>Door, Chest, Furnace, Dispenser, Diode."), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_4(""),
+    COMMAND_HELP_PERMISSIONS_5("<i>Make sure to put pressure plates in front of doors for your"), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_6("<i>guest visitors. Otherwise they can't get through. You can"), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_7("<i>also use this to create member only areas."), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_8("<i>As dispensers are protected, you can create traps without"), //Move to last /f help page
+    COMMAND_HELP_PERMISSIONS_9("<i>worrying about those arrows getting stolen."), //Move to last /f help page
+    COMMAND_HELP_ADMIN_1("&a&l» &a/f claim safezone \n   &7claim land for the Safe Zone"),
+    COMMAND_HELP_ADMIN_2("&a&l» &a/f claim warzone \n   &7claim land for the War Zone"),
+    COMMAND_HELP_ADMIN_3("&a&l» &a/f autoclaim [safezone|warzone] \n   &7take a guess"),
+    COMMAND_HELP_MOAR_1("Finally some commands for the server admins:"),
+    COMMAND_HELP_MOAR_2("<i>More commands for server admins:"),
+    COMMAND_HELP_MOAR_3("<i>Even more commands for server admins:"),
+    COMMAND_HELP_DESCRIPTION("\n  &a&l» &7Display a &ahelp &7page"),
+
+    COMMAND_NEAR_DESCRIPTION("Get nearby faction players in a radius."),
+    COMMAND_NEAR_DISABLED_MSG("&cThis command is disabled!"),
+    COMMAND_NEAR_FORMAT("{playername} &c({distance}m)"),
+    COMMAND_NEAR_USE_MSG("&cFaction members nearby"),
+
+    /**
+     * Messsges for Faction Admins/Mods
+     */
+
+    COMMAND_UPGRADES_DESCRIPTION("&cOpen the Upgrades Menu"),
+    COMMAND_UPGRADES_MONEYTAKE("&c{amount} has been taken from your account."),
+
+
+    COMMAND_ADMIN_NOTMEMBER("%1$s<i> is not a&c member in your faction."),
     COMMAND_ADMIN_NOTADMIN("<b>You are not the faction admin."),
     COMMAND_ADMIN_TARGETSELF("<b>The target player musn't be yourself."),
     COMMAND_ADMIN_DEMOTES("<i>You have demoted %1$s<i> from the position of faction admin."),
@@ -66,6 +124,13 @@ public enum TL {
     COMMAND_AHOME_TARGET("You were sent to your f home."),
 
     COMMAND_ANNOUNCE_DESCRIPTION("Announce a message to players in faction."),
+
+    COMMAND_FREECAM_ENEMYINRADIUS("Freecam disabled, An enemy is closeby!"),
+    COMMAND_FREECAM_OUTSIDEFLIGHT("Please dont leave the flight radius!"),
+    COMMAND_FREECAM_ENABLED("Freecam is now enabled!"),
+    COMMAND_FREECAM_DISABLED("Freecam is now disabled"),
+    COMMAND_FREECAM_DESCRIPTION("Go into spectator mode"),
+
 
     COMMAND_AUTOCLAIM_ENABLED("<i>Now auto-claiming land for <h>%1$s<i>."),
     COMMAND_AUTOCLAIM_DISABLED("<i>Auto-claiming of land disabled."),
@@ -91,6 +156,7 @@ public enum TL {
     COMMAND_BOOM_FORTOGGLE("for toggling explosions"),
     COMMAND_BOOM_ENABLED("%1$s<i> has %2$s explosions in your faction's territory."),
     COMMAND_BOOM_DESCRIPTION("Toggle explosions (peaceful factions only)"),
+
 
     COMMAND_BYPASS_ENABLE("<i>You have enabled admin bypass mode. You will be able to build or destroy anywhere."),
     COMMAND_BYPASS_ENABLELOG(" has ENABLED admin bypass mode."),
@@ -151,6 +217,13 @@ public enum TL {
     COMMAND_CONVERT_BACKEND_INVALID("Invalid backend"),
     COMMAND_CONVERT_DESCRIPTION("Convert the plugin backend"),
 
+    COMMAND_CHECKPOINT_DISABLED("You cannot use checkpoint while disabled!"),
+    COMMAND_CHECKPOINT_SET("&cYou have set the faction checkpoint at your Location."),
+    COMMAND_CHECKPOINT_GO("&cTeleporting to faction checkpoint"),
+    COMMAND_CHECKPOINT_NOT_SET("&cYou have to set the faction checkpoint first."),
+    COMMAND_CHECKPOINT_CLAIMED("&cYour current faction checkpoint is claimed, set a new one!"),
+    COMMAND_CHECKPOINT_DESCRIPTION("Set or go to your faction checkpoint!"),
+
     COMMAND_CREATE_MUSTLEAVE("<b>You must leave your current faction first."),
     COMMAND_CREATE_INUSE("<b>That tag is already in use."),
     COMMAND_CREATE_TOCREATE("to create a new faction"),
@@ -193,6 +266,8 @@ public enum TL {
     COMMAND_FLY_CHANGE("&eFaction flight &d%1$s"),
     COMMAND_FLY_DAMAGE("&eFaction flight &ddisabled&e due to entering combat"),
     COMMAND_FLY_NO_ACCESS("&cCannot fly in territory of %1$s"),
+    COMMAND_FLY_ENEMY_NEAR("&cFlight has been disabled an enemy is nearby"),
+    COMMAND_FLY_CHECK_ENEMY("&cCannot fly here, an enemy is nearby"),
 
     COMMAND_FWARP_CLICKTOWARP("Click to warp!"),
     COMMAND_FWARP_COMMANDFORMAT("<i>/f warp <warpname> [password]"),
@@ -203,48 +278,8 @@ public enum TL {
     COMMAND_FWARP_WARPS("Warps: "),
     COMMAND_FWARP_DESCRIPTION("Teleport to a faction warp"),
     COMMAND_FWARP_INVALID_PASSWORD("&4Invalid password!"),
-    COMMAND_FWARP_PASSWORD_REQUIRED("&cThis faction warp requires a password, use command instead"),
-
-    COMMAND_HELP_404("<b>This page does not exist"),
-    COMMAND_HELP_NEXTCREATE("<i>Learn how to create a faction on the next page."),
-    COMMAND_HELP_INVITATIONS("command.help.invitations", "<i>You might want to close it and use invitations:"),
-    COMMAND_HELP_HOME("<i>And don't forget to set your home:"),
-    COMMAND_HELP_BANK_1("<i>Your faction has a bank which is used to pay for certain"),
-    COMMAND_HELP_BANK_2("<i>things, so it will need to have money deposited into it."),
-    COMMAND_HELP_BANK_3("<i>To learn more, use the money command."),
-    COMMAND_HELP_PLAYERTITLES("<i>Player titles are just for fun. No rules connected to them."),
-    COMMAND_HELP_OWNERSHIP_1("<i>Claimed land with ownership set is further protected so"),
-    COMMAND_HELP_OWNERSHIP_2("<i>that only the owner(s), faction admin, and possibly the"),
-    COMMAND_HELP_OWNERSHIP_3("<i>faction moderators have full access."),
-    COMMAND_HELP_RELATIONS_1("<i>Set the relation you WISH to have with another faction."),
-    COMMAND_HELP_RELATIONS_2("<i>Your default relation with other factions will be neutral."),
-    COMMAND_HELP_RELATIONS_3("<i>If BOTH factions choose \"ally\" you will be allies."),
-    COMMAND_HELP_RELATIONS_4("<i>If ONE faction chooses \"enemy\" you will be enemies."),
-    COMMAND_HELP_RELATIONS_5("<i>You can never hurt members or allies."),
-    COMMAND_HELP_RELATIONS_6("<i>You can not hurt neutrals in their own territory."),
-    COMMAND_HELP_RELATIONS_7("<i>You can always hurt enemies and players without faction."),
-    COMMAND_HELP_RELATIONS_8(""),
-    COMMAND_HELP_RELATIONS_9("<i>Damage from enemies is reduced in your own territory."),
-    COMMAND_HELP_RELATIONS_10("<i>When you die you lose power. It is restored over time."),
-    COMMAND_HELP_RELATIONS_11("<i>The power of a faction is the sum of all member power."),
-    COMMAND_HELP_RELATIONS_12("<i>The power of a faction determines how much land it can hold."),
-    COMMAND_HELP_RELATIONS_13("<i>You can claim land from factions with too little power."),
-    COMMAND_HELP_PERMISSIONS_1("<i>Only faction members can build and destroy in their own"),
-    COMMAND_HELP_PERMISSIONS_2("<i>territory. Usage of the following items is also restricted:"),
-    COMMAND_HELP_PERMISSIONS_3("<i>Door, Chest, Furnace, Dispenser, Diode."),
-    COMMAND_HELP_PERMISSIONS_4(""),
-    COMMAND_HELP_PERMISSIONS_5("<i>Make sure to put pressure plates in front of doors for your"),
-    COMMAND_HELP_PERMISSIONS_6("<i>guest visitors. Otherwise they can't get through. You can"),
-    COMMAND_HELP_PERMISSIONS_7("<i>also use this to create member only areas."),
-    COMMAND_HELP_PERMISSIONS_8("<i>As dispensers are protected, you can create traps without"),
-    COMMAND_HELP_PERMISSIONS_9("<i>worrying about those arrows getting stolen."),
-    COMMAND_HELP_ADMIN_1("<c>/f claim safezone <i>claim land for the Safe Zone"),
-    COMMAND_HELP_ADMIN_2("<c>/f claim warzone <i>claim land for the War Zone"),
-    COMMAND_HELP_ADMIN_3("<c>/f autoclaim [safezone|warzone] <i>take a guess"),
-    COMMAND_HELP_MOAR_1("Finally some commands for the server admins:"),
-    COMMAND_HELP_MOAR_2("<i>More commands for server admins:"),
-    COMMAND_HELP_MOAR_3("<i>Even more commands for server admins:"),
-    COMMAND_HELP_DESCRIPTION("Display a help page"),
+    COMMAND_FWARP_PASSWORD_REQUIRED("&a&lWarp Password:"),
+    COMMAND_FWARP_PASSWORD_TIMEOUT("&cWarp password canceled"),
 
     COMMAND_HOME_DISABLED("<b>Sorry, Faction homes are disabled on this server."),
     COMMAND_HOME_TELEPORTDISABLED("<b>Sorry, the ability to teleport to Faction homes is disabled on this server."),
@@ -280,7 +315,7 @@ public enum TL {
     COMMAND_JOIN_JOINED("<i>%1$s joined your faction."),
     COMMAND_JOIN_JOINEDLOG("%1$s joined the faction %2$s."),
     COMMAND_JOIN_MOVEDLOG("%1$s moved the player %2$s into the faction %3$s."),
-    COMMAND_JOIN_DESCRIPTION("Join a faction"),
+    COMMAND_JOIN_DESCRIPTION("\\n  &a&l» &7Join a faction"),
     COMMAND_JOIN_BANNED("&cYou are banned from %1$s &c:("),
 
     COMMAND_KICK_CANDIDATES("Players you can kick: "),
@@ -301,7 +336,7 @@ public enum TL {
     COMMAND_LIST_TOLIST("to list the factions"),
     COMMAND_LIST_FORLIST("for listing the factions"),
     COMMAND_LIST_ONLINEFACTIONLESS("Online factionless: "),
-    COMMAND_LIST_DESCRIPTION("See a list of the factions"),
+    COMMAND_LIST_DESCRIPTION("\n  &a&l» &7See a list of the factions"),
 
     COMMAND_LOCK_LOCKED("<i>Factions is now locked"),
     COMMAND_LOCK_UNLOCKED("<i>Factions in now unlocked"),
@@ -420,10 +455,10 @@ public enum TL {
 
     COMMAND_POWER_TOSHOW("to show player power info"),
     COMMAND_POWER_FORSHOW("for showing player power info"),
-    COMMAND_POWER_POWER("%1$s<a> - Power / Maxpower: <i>%2$d / %3$d %4$s"),
+    COMMAND_POWER_POWER("%1$s &a&l» &7Power &a/ &7Maxpower&a: &a%2$d &7/&a%3$d %4$s"),
     COMMAND_POWER_BONUS(" (bonus: "),
     COMMAND_POWER_PENALTY(" (penalty: "),
-    COMMAND_POWER_DESCRIPTION("Show player power info"),
+    COMMAND_POWER_DESCRIPTION("\\n  &a&l» &7Show player &apower &7info"),
 
     COMMAND_POWERBOOST_HELP_1("<b>You must specify \"p\" or \"player\" to target a player or \"f\" or \"faction\" to target a faction."),
     COMMAND_POWERBOOST_HELP_2("<b>ex. /f powerboost p SomePlayer 0.5  -or-  /f powerboost f SomeFaction -5"),
@@ -485,8 +520,15 @@ public enum TL {
     COMMAND_SETMAXVAULTS_DESCRIPTION("Set max vaults for a Faction."),
     COMMAND_SETMAXVAULTS_SUCCESS("&aSet max vaults for &e%s &ato &b%d"),
 
-    COMMAND_VAULT_DESCRIPTION("/f vault <number> to open one of your Faction's vaults."),
-    COMMAND_VAULT_TOOHIGH("&cYou tried to open vault %d but your Faction only has %d vaults."),
+    COMMAND_VAULT_DESCRIPTION("Open your placed faction vault!"),
+    COMMAND_VAULT_INVALID("&cYour vault was either claimed, broken, or has not been placed yet."),
+    COMMAND_VAULT_OPENING("&cOpening faction vault."),
+
+    COMMAND_GETVAULT_ALREADYSET("&cVault has already been set!"),
+    COMMAND_GETVAULT_SUCCESS("&cSucessfully set vault."),
+    COMMAND_GETVAULT_INVALIDLOCATION("&cVault can only be placed in faction land!"),
+    COMMAND_GETVAULT_DESCRIPTION("Get the faction vault item!"),
+    COMMAND_GETVAULT_RECEIVE("&cYou have recieved a faction vault!"),
 
     COMMAND_SHOW_NOFACTION_SELF("You are not in a faction"),
     COMMAND_SHOW_NOFACTION_OTHER("That's not a faction"),
@@ -555,6 +597,15 @@ public enum TL {
     COMMAND_TOP_LINE("%d. &6%s: &c%s"), // Rank. Faction: Value
     COMMAND_TOP_INVALID("Could not sort by %s. Try balance, online, members, power or land."),
 
+    COMMAND_TNT_DISABLED_MSG("&cThis command is disabled!"),
+    COMMAND_TNT_INVALID_NUM("The amount needs to be a number!"),
+    COMMAND_TNT_DEPOSIT_SUCCESS("&cSuccessfully deposited tnt."),
+    COMMAND_TNT_WIDTHDRAW_SUCCESS("&cSuccessfully withdrew tnt."),
+    COMMAND_TNT_WIDTHDRAW_NOTENOUGH("&cNot enough tnt in inventory."),
+    COMMAND_TNT_DEPOSIT_NOTENOUGH("&cNot enough tnt in tnt bank."),
+    COMMAND_TNT_AMOUNT("&cYour faction has {amount} tnt in the tnt bank."),
+    COMMAND_TNT_DESCRIPTION("add/widthraw from faction's tnt bank"),
+
     COMMAND_UNBAN_DESCRIPTION("Unban someone from your Faction"),
     COMMAND_UNBAN_NOTBANNED("&7%s &cisn't banned. Not doing anything."),
     COMMAND_UNBAN_UNBANNED("&e%1$s &cunbanned &7%2$s"),
@@ -586,6 +637,7 @@ public enum TL {
     COMMAND_WARUNCLAIMALL_SUCCESS("<i>You unclaimed ALL war zone land."),
     COMMAND_WARUNCLAIMALL_LOG("%1$s unclaimed all war zones."),
 
+    COMMAND_RULES_DISABLED_MSG("&cThis command is disabled!"),
     COMMAND_RULES_DESCRIPTION("set/remove/add rules!"),
     COMMAND_RULES_ADD_INVALIDARGS("Please include a rule!"),
     COMMAND_RULES_SET_INVALIDARGS("Please include a line number & rule!"),
@@ -607,7 +659,7 @@ public enum TL {
     LEAVE_LEFT("%s<i> left faction %s<i>."),
     LEAVE_DISBANDED("<i>%s<i> was disbanded."),
     LEAVE_DISBANDEDLOG("The faction %s (%s) was disbanded due to the last player (%s) leaving."),
-    LEAVE_DESCRIPTION("Leave your faction"),
+    LEAVE_DESCRIPTION("\\n  &a&l» &7Leave your faction"),
 
     /**
      * Claiming - Same as above basically. No COMMAND_* because it's not in a command class, but...
@@ -660,7 +712,7 @@ public enum TL {
     GENERIC_SERVERADMIN("A server admin"),
     GENERIC_DISABLED("disabled"),
     GENERIC_ENABLED("enabled"),
-    GENERIC_INFINITY("∞"),
+    GENERIC_INFINITY("âˆž"),
     GENERIC_CONSOLEONLY("This command cannot be run as a player."),
     GENERIC_PLAYERONLY("<b>This command can only be used by ingame players."),
     GENERIC_ASKYOURLEADER("<i> Ask your leader to:"),
@@ -715,7 +767,6 @@ public enum TL {
     /**
      * Roles
      */
-    ROLE_OWNER("owner"),
     ROLE_ADMIN("admin"),
     ROLE_MODERATOR("moderator"),
     ROLE_NORMAL("normal member"),

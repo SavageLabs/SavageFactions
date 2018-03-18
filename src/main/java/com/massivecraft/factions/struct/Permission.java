@@ -76,6 +76,7 @@ public enum Permission {
     STATUS("status"),
     STUCK("stuck"),
     TAG("tag"),
+    TNT("tnt"),
     TITLE("title"),
     TITLE_COLOR("title.color"),
     TOGGLE_ALLIANCE_CHAT("togglealliancechat"),
@@ -87,8 +88,11 @@ public enum Permission {
     SETWARP("setwarp"),
     TOP("top"),
     VAULT("vault"),
+    GETVAULT("getvault"),
     SETMAXVAULTS("setmaxvaults"),
     RULES("rules"),
+    CHECKPOINT("checkpoint"),
+    UPGRADES("upgrades"),
     WARP("warp");
 
     public final String node;

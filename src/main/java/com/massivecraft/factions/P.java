@@ -15,23 +15,28 @@ import com.massivecraft.factions.zcore.MPlugin;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
+import com.massivecraft.factions.zcore.fupgrades.CropUpgrades;
+import com.massivecraft.factions.zcore.fupgrades.EXPUpgrade;
+import com.massivecraft.factions.zcore.fupgrades.FUpgradesGUI;
+import com.massivecraft.factions.zcore.fupgrades.SpawnerUpgrades;
 import com.massivecraft.factions.zcore.util.TextUtil;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 
 public class P extends MPlugin {
@@ -54,7 +59,29 @@ public class P extends MPlugin {
     }
 
     private Integer AutoLeaveTask = null;
+    public void playSoundForAll(String sound) {
+        for (Player pl : Bukkit.getOnlinePlayers()) {
+            playSound(pl, sound);
+        }
+    }
 
+    public void playSoundForAll(List<String> sounds) {
+        for (Player pl : Bukkit.getOnlinePlayers()) {
+            playSound(pl, sounds);
+        }
+    }
+
+    public void playSound(Player p, List<String> sounds) {
+        for (String sound : sounds) {
+            playSound(p, sound);
+        }
+    }
+
+    public void playSound(Player p, String sound) {
+        float pitch = Float.valueOf(sound.split(":")[1]);
+        sound = sound.split(":")[0];
+        p.playSound(p.getLocation(), Sound.valueOf(sound), pitch, 5.0F);
+    }
     // Commands
     public FCmdRoot cmdBase;
     public CmdAutoHelp cmdAutoHelp;
@@ -110,13 +137,23 @@ public class P extends MPlugin {
         // start up task which runs the autoLeaveAfterDaysOfInactivity routine
         startAutoLeaveTask(false);
 
+        //Massive stats
+        try {
+            MCUpdate update = new MCUpdate(this, true);
+        } catch (IOException ex){
+
+        }
+
         // Register Event Handlers
         getServer().getPluginManager().registerEvents(new FactionsPlayerListener(this), this);
         getServer().getPluginManager().registerEvents(new FactionsChatListener(this), this);
         getServer().getPluginManager().registerEvents(new FactionsEntityListener(this), this);
         getServer().getPluginManager().registerEvents(new FactionsExploitListener(), this);
         getServer().getPluginManager().registerEvents(new FactionsBlockListener(this), this);
-
+        getServer().getPluginManager().registerEvents(new FUpgradesGUI(), this);
+        getServer().getPluginManager().registerEvents(new EXPUpgrade(),this);
+        getServer().getPluginManager().registerEvents(new CropUpgrades(),this);
+        getServer().getPluginManager().registerEvents(new SpawnerUpgrades(),this);
         // since some other plugins execute commands directly through this command interface, provide it
         this.getCommand(this.refCommand).setExecutor(this);
 
@@ -173,8 +210,7 @@ public class P extends MPlugin {
         Type accessTypeAdatper = new TypeToken<Map<Permissable, Map<PermissableAction, Access>>>() {
         }.getType();
 
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(accessTypeAdatper, new PermissionsMapTypeAdapter()).registerTypeAdapter(LazyLocation.class, new MyLocationTypeAdapter()).registerTypeAdapter(mapFLocToStringSetType, new MapFLocToStringSetTypeAdapter()).registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
-    }
+        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().enableComplexMapKeySerialization().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE).registerTypeAdapter(accessTypeAdatper, new PermissionsMapTypeAdapter()).registerTypeAdapter(LazyLocation.class, new MyLocationTypeAdapter()).registerTypeAdapter(mapFLocToStringSetType, new MapFLocToStringSetTypeAdapter()).registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);    }
 
     @Override
     public void onDisable() {
@@ -209,7 +245,29 @@ public class P extends MPlugin {
         //Board.getInstance().forceSave(); Not sure why this was there as it's called after the board is already saved.
         Conf.save();
     }
+    public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
+        ItemStack item = new ItemStack(material, amount, datavalue);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(color(name));
+        meta.setLore(colorList(lore));
+        item.setItemMeta(meta);
+        return item;
+    }
 
+    public ItemStack createLazyItem(Material material, int amount, short datavalue, String name, String lore) {
+        ItemStack item = new ItemStack(material, amount, datavalue);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(color(P.p.getConfig().getString(name)));
+        meta.setLore(colorList(P.p.getConfig().getStringList(lore)));
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public Economy getEcon() {
+        RegisteredServiceProvider<Economy> rsp = P.p.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        net.milkbowl.vault.economy.Economy econ = rsp.getProvider();
+        return econ;
+    }
     @Override
     public boolean logPlayerCommands() {
         return Conf.logPlayerCommands;
