@@ -5,6 +5,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class CmdGetVault extends FCommand
@@ -30,16 +31,36 @@ public class CmdGetVault extends FCommand
             return;
         }
         Location vaultLocation = fme.getFaction().getVault();
+        ItemStack vault = P.p.createItem(Material.CHEST,1,(short) 0,P.p.color(P.p.getConfig().getString("fvault.Item.Name")),P.p.colorList(P.p.getConfig().getStringList("fvault.Item.Lore")));
+
+        if (inventoryContains(me.getInventory(),vault)){
+            fme.msg(TL.COMMAND_GETVAULT_ALREADYHAVE);
+            return;
+        }
 
         if (vaultLocation != null){
             fme.msg(TL.COMMAND_GETVAULT_ALREADYSET);
             return;
         }
 
-        ItemStack vault = P.p.createItem(Material.CHEST,1,(short) 0,P.p.color(P.p.getConfig().getString("fvault.Item.Name")),P.p.colorList(P.p.getConfig().getStringList("fvault.Item.Lore")));
+
         me.getInventory().addItem(vault);
         fme.msg(TL.COMMAND_GETVAULT_RECEIVE);
 
+    }
+
+    public boolean inventoryContains(Inventory inventory, ItemStack item) {
+        int count = 0;
+        ItemStack[] items = inventory.getContents();
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
+                count += items[i].getAmount();
+            }
+            if (count >= item.getAmount()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

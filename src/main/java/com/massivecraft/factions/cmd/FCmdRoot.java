@@ -22,7 +22,6 @@ public class FCmdRoot extends FCommand {
     public CmdDeinvite cmdDeinvite = new CmdDeinvite();
     public CmdDescription cmdDescription = new CmdDescription();
     public CmdDisband cmdDisband = new CmdDisband();
-    public CmdFly cmdFly = new CmdFly();
     public CmdHelp cmdHelp = new CmdHelp();
     public CmdHome cmdHome = new CmdHome();
     public CmdInvite cmdInvite = new CmdInvite();
@@ -89,6 +88,7 @@ public class FCmdRoot extends FCommand {
     public CmdUpgrades cmdUpgrades = new CmdUpgrades();
     public CmdVault cmdVault = new CmdVault();
     public CmdGetVault cmdGetVault = new CmdGetVault();
+    public CmdFly cmdFly = new CmdFly();
     public FCmdRoot() {
         super();
         this.aliases.addAll(Conf.baseCommandAliases);
@@ -123,7 +123,7 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdDeinvite);
         this.addSubCommand(this.cmdDescription);
         this.addSubCommand(this.cmdDisband);
-        this.addSubCommand(this.cmdFly);
+
         this.addSubCommand(this.cmdHelp);
         this.addSubCommand(this.cmdHome);
         this.addSubCommand(this.cmdInvite);
@@ -189,6 +189,11 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdVault);
         this.addSubCommand(this.cmdGetVault);
 
+
+        if (!P.p.getConfig().getBoolean("enable-faction-flight", false)) {
+            this.addSubCommand(this.cmdFly);
+            return;
+        }
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("FactionsTop")) {
             P.p.log(Level.INFO, "Found FactionsTop plugin. Disabling our own /f top command.");
         } else {

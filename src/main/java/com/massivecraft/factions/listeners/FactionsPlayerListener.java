@@ -69,6 +69,25 @@ public class FactionsPlayerListener implements Listener {
                     e.setCancelled(true);
                     return;
                 }
+                Block start = e.getBlockPlaced();
+                int radius = 1;
+                for(double x = start.getLocation().getX() - radius; x <= start.getLocation().getX() + radius; x++){
+                    for(double y = start.getLocation().getY() - radius; y <= start.getLocation().getY() + radius; y++){
+                        for(double z = start.getLocation().getZ() - radius; z <= start.getLocation().getZ() + radius; z++){
+                            Location blockLoc = new Location(e.getPlayer().getWorld(),x,y,z);
+                            if (blockLoc.getX() == start.getLocation().getX() && blockLoc.getY() == start.getLocation().getY() && blockLoc.getZ() == start.getLocation().getZ()){
+                                continue;
+                            }
+
+                            if (blockLoc.getBlock().getType() == Material.CHEST){
+                                e.setCancelled(true);
+                                fme.msg(TL.COMMAND_GETVAULT_CHESTNEAR);
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 fme.msg(TL.COMMAND_GETVAULT_SUCCESS);
                 fme.getFaction().setVault(e.getBlockPlaced().getLocation());
 

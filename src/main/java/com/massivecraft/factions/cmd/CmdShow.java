@@ -19,6 +19,7 @@ public class CmdShow extends FCommand {
     public CmdShow() {
         this.aliases.add("show");
         this.aliases.add("who");
+        this.aliases.add("f");
 
         // add defaults to /f show in case config doesnt have it
         defaults.add("{header}");
@@ -47,6 +48,10 @@ public class CmdShow extends FCommand {
     @Override
     public void perform() {
         Faction faction = myFaction;
+        if (!fme.hasFaction()){
+            fme.msg(TL.COMMAND_SHOW_NEEDFACTION);
+            return;
+        }
         if (this.argIsSet(0)) {
             faction = this.argAsFaction(0);
         }
@@ -68,6 +73,11 @@ public class CmdShow extends FCommand {
         List<String> show = P.p.getConfig().getStringList("show");
         if (show == null || show.isEmpty()) {
             show = defaults;
+        }
+        for (int i = 0; i <= show.size()-1; i ++){
+            if (show.get(i).contains("{description}")){
+                show.set(i,show.get(i).replace("{description}",faction.getDescription()));
+            }
         }
 
         if (!faction.isNormal()) {

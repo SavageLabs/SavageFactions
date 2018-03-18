@@ -525,6 +525,8 @@ public enum TL {
     COMMAND_VAULT_OPENING("&cOpening faction vault."),
 
     COMMAND_GETVAULT_ALREADYSET("&cVault has already been set!"),
+    COMMAND_GETVAULT_ALREADYHAVE("&cYou already have a vault in your inventory!"),
+    COMMAND_GETVAULT_CHESTNEAR("&cThere is a chest nearby"),
     COMMAND_GETVAULT_SUCCESS("&cSucessfully set vault."),
     COMMAND_GETVAULT_INVALIDLOCATION("&cVault can only be placed in faction land!"),
     COMMAND_GETVAULT_DESCRIPTION("Get the faction vault item!"),
@@ -554,6 +556,7 @@ public enum TL {
     COMMAND_SHOW_COMMANDDESCRIPTION("Show faction information"),
     COMMAND_SHOW_DEATHS_TIL_RAIDABLE("<i>DTR: %1$d"),
     COMMAND_SHOW_EXEMPT("<b>This faction is exempt and cannot be seen."),
+    COMMAND_SHOW_NEEDFACTION("&cYou need to join a faction to view your own!"),
 
     COMMAND_SHOWINVITES_PENDING("Players with pending invites: "),
     COMMAND_SHOWINVITES_CLICKTOREVOKE("Click to revoke invite for %1$s"),
