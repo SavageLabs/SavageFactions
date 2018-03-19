@@ -1,9 +1,8 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.Conf;
-import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.P;
+import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.util.TL;
 import com.massivecraft.factions.zcore.util.TagReplacer;
 import com.massivecraft.factions.zcore.util.TagUtil;
@@ -77,6 +76,30 @@ public class CmdShow extends FCommand {
         for (int i = 0; i <= show.size()-1; i ++){
             if (show.get(i).contains("{description}")){
                 show.set(i,show.get(i).replace("{description}",faction.getDescription()));
+            }
+            if (show.get(i).contains("{online-list}")){
+                String message = "";
+                StringBuilder string = new StringBuilder(message);
+                for (FPlayer fPlayer : myFaction.getFPlayers()){
+                    String prefix = "";
+                    if (fPlayer.getRole() == Role.ADMIN){
+                        prefix = Conf.prefixAdmin;
+                    }
+                    if (fPlayer.getRole() == Role.COLEADER){
+                        prefix = Conf.prefixCoLeader;
+                    }
+                    if (fPlayer.getRole() == Role.MODERATOR){
+                        prefix = Conf.prefixMod;
+                    }
+                    if (fPlayer.getRole() == Role.NORMAL){
+                        prefix = Conf.prefixNormal;
+                    }
+                    if (fPlayer.getRole() == Role.RECRUIT){
+                        prefix = Conf.prefixRecruit;
+                    }
+                    string.append(prefix + fPlayer.getName() + ",");
+                }
+                show.set(i,show.get(i).replace("{online-list}",string));
             }
         }
 

@@ -22,6 +22,7 @@ public class CmdRules extends FCommand {
         senderMustBePlayer = true;
         senderMustBeMember = true;
         senderMustBeModerator = false;
+        senderMustBeColeader = true;
         senderMustBeAdmin = false;
     }
 

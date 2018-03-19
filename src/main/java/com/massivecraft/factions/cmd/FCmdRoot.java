@@ -89,6 +89,7 @@ public class FCmdRoot extends FCommand {
     public CmdVault cmdVault = new CmdVault();
     public CmdGetVault cmdGetVault = new CmdGetVault();
     public CmdFly cmdFly = new CmdFly();
+    public CmdColeader cmdColeader = new CmdColeader();
     public FCmdRoot() {
         super();
         this.aliases.addAll(Conf.baseCommandAliases);
@@ -188,9 +189,10 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdUpgrades);
         this.addSubCommand(this.cmdVault);
         this.addSubCommand(this.cmdGetVault);
+        this.addSubCommand(this.cmdColeader);
 
 
-        if (!P.p.getConfig().getBoolean("enable-faction-flight", false)) {
+        if (P.p.getConfig().getBoolean("enable-faction-flight", false)) {
             this.addSubCommand(this.cmdFly);
             return;
         }

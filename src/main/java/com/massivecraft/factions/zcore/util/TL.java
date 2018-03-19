@@ -106,6 +106,7 @@ public enum TL {
 
     COMMAND_UPGRADES_DESCRIPTION("&cOpen the Upgrades Menu"),
     COMMAND_UPGRADES_MONEYTAKE("&c{amount} has been taken from your account."),
+    COMMAND_UPGRADES_NOTENOUGHMONEY("&cYou dont have enough money!"),
 
 
     COMMAND_ADMIN_NOTMEMBER("%1$s<i> is not a&c member in your faction."),
@@ -366,6 +367,18 @@ public enum TL {
     COMMAND_MOD_PROMOTES("%1$s<i> was promoted to moderator in your faction."),
     COMMAND_MOD_PROMOTED("<i>You have promoted %1$s<i> to moderator."),
     COMMAND_MOD_DESCRIPTION("Give or revoke moderator rights"),
+
+    COMMAND_COLEADER_CANDIDATES("Players you can promote: "),
+    COMMAND_COLEADER_CLICKTOPROMOTE("Click to promote "),
+    COMMAND_COLEADER_NOTMEMBER("%1$s<b> is not a member in your faction."),
+    COMMAND_COLEADER_NOTADMIN("<b>You are not the faction admin."),
+    COMMAND_COLEADER_SELF("<b>The target player musn't be yourself."),
+    COMMAND_COLEADER_TARGETISADMIN("<b>The target player is a faction admin. Demote them first."),
+    COMMAND_COLEADER_REVOKES("<i>You have removed coleader status from %1$s<i>."),
+    COMMAND_COLEADER_REVOKED("%1$s<i> is no longer coleader in your faction."),
+    COMMAND_COLEADER_PROMOTES("%1$s<i> was promoted to coleader in your faction."),
+    COMMAND_COLEADER_PROMOTED("<i>You have promoted %1$s<i> to coleader."),
+    COMMAND_COLEADER_DESCRIPTION("Give or revoke coleader rights"),
 
     COMMAND_MODIFYPOWER_ADDED("<i>Added <a>%1$f <i>power to <a>%2$s. <i>New total rounded power: <a>%3$d"),
     COMMAND_MODIFYPOWER_DESCRIPTION("Modify the power of a faction/player"),
@@ -771,6 +784,7 @@ public enum TL {
      * Roles
      */
     ROLE_ADMIN("admin"),
+    ROLE_COLEADER("coleader"),
     ROLE_MODERATOR("moderator"),
     ROLE_NORMAL("normal member"),
     ROLE_RECRUIT("recruit"),

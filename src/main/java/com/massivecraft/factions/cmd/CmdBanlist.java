@@ -27,6 +27,7 @@ public class CmdBanlist extends FCommand {
         senderMustBePlayer = true;
         senderMustBeMember = false;
         senderMustBeModerator = false;
+        senderMustBeColeader = false;
         senderMustBeAdmin = false;
     }
 

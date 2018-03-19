@@ -210,7 +210,7 @@ public class MCUpdate implements Listener {
     }
 
     /* Messaging */
-    @EventHandler
+
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
@@ -226,7 +226,7 @@ class MCUpdateServerResponse {
     private boolean upToDate;
 
     MCUpdateServerResponse(JavaPlugin plugin, String updateMessage, boolean upToDate) {
-        this.updateMessage = ChatColor.translateAlternateColorCodes('&', updateMessage);
+        this.updateMessage = P.p.color(updateMessage);
         this.upToDate = upToDate;
     }
 

@@ -241,6 +241,8 @@ public class FUpgradesGUI implements Listener
         if (econ.getBalance( (Player) fme.getPlayer()) >= amt){
             return true;
         }else {
+            fme.getPlayer().closeInventory();
+            fme.msg(TL.COMMAND_UPGRADES_NOTENOUGHMONEY);
             return false;
         }
     }

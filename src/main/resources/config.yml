@@ -297,17 +297,18 @@ show-exempt:
 # Lines that arent defined wont be sent (home not set, faction not peaceful / permanent, dtr freeze)
 map:
   # First line can be {header} for default header, or any string (we recommend &m for smooth lines ;p)
-  - '{header}'
-  - '<a>Description: <i>{description}'
-  - '<a>Joining: <i>{joining}    {peaceful}'
-  - '<a>Land / Power / Maxpower: <i> {chunks}/{power}/{maxPower}'
-  - '<a>Founded: <i>{create-date}'
-  - '<a>This faction is permanent, remaining even with no members.' # only shows if faction is permanent
-  - '<a>Land value: <i>{land-value} {land-refund}'
-  - '<a>Balance: <i>{balance}'
-  - '<a>Allies(<i>{allies}<a>/<i>{max-allies}<a>): {allies-list} '
-  - '<a>Online: (<i>{online}<a>/<i>{members}<a>): {online-list}'
-  - '<a>Offline: (<i>{offline}<a>/<i>{members}<a>): {offline-list}'
+  - '&7&m----------------------------------------------------'
+  - '&bFaction: {faction}'
+  - '&bDescription: &f{description}'
+  - '&bAllies &c{allies-list}'
+  - '&bEnemies &c{enemies-list}'
+  - '&bLeader&7: &f{leader}'
+  - '&bOnline &7(&f{online}&7): {online-list}'
+  - '&bOffline &7(&f{offline}&7): {offline-list}'
+  - '&bBalance&7: &f{faction-balance}'
+  - '&bBans: &f{faction-bancount}'
+  - '&bLand / Power / MaxPower&7: &f{chunks} &7/ &f{power} &7/ &f{maxPower}'
+  - '&7&m----------------------------------------------------'
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -371,11 +372,11 @@ help:
      - '&7/f tnt add/take <amount>     &c»  &7Faction Based TNT Bank'
      - '&7/f map  &c»  &7Map of the surrounding area!'
      - '&7/f checkpoint  &c»  &7Set a faction checkpoint'
-     - '&7&m--------------&r &2/f help 4 for more &7&m--------------'
+     - '&7&m--------------&r &c/f help 4 for more &7&m--------------'
     '4':
      - '&7&m------------------&r&c&l Page 4 &7&m--------------------'
      - '&7/f version &c»  &7Display version information'
-     - '&7&m--------------&r&2 End of /f help &7&m-----------------'
+     - '&7&m--------------&r&c End of /f help &7&m-----------------'
 ############################################################
 # +------------------------------------------------------+ #
 # |                  F Permission GUI                    | #
@@ -411,17 +412,19 @@ fperm-gui:
     # Note: Slots start at 0 and end at one less that GUI size
     slots:
       recruit: 10
-      normal: 11
-      moderator: 12
-      truce: 13
-      ally: 14
-      enemy: 15
-      neutral: 16
+      normal: 12
+      moderator: 15
+      coleader: 17
+      truce: 19
+      ally: 21
+      enemy: 24
+      neutral: 26
     # Material to be displayed
     materials:
       recruit: WOOD_SWORD
       normal: STONE_SWORD
       moderator: IRON_SWORD
+      coleader: BEACON
       truce: IRON_AXE
       ally: DIAMOND_SWORD
       enemy: DIAMOND_AXE
