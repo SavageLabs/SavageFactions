@@ -74,7 +74,6 @@ public class CmdFly extends FCommand {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, factionAtLocation.getTag(fme));
                 return;
             }
-
             toggleFlight(argAsBool(0),me);
         }
     }
@@ -83,16 +82,11 @@ public class CmdFly extends FCommand {
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(P.p, new Runnable() {
             @Override
             public void run() {
-                for(String name : flyMap.keySet()){
+                for (String name : flyMap.keySet()) {
                     Player player = Bukkit.getPlayer(name);
-                    if (player == null){
-                        continue;
+                    if (player != null && player.isFlying()) {
+                        ParticleEffect.CLOUD.display((float) 0.3,(float) 0.3,(float) 0.3,(float) 0.3,10,player.getLocation(),32);
                     }
-                    if (!player.isFlying()){
-                        continue;
-                    }
-                    ParticleEffect.CLOUD.display((float) 0.3,(float) 0.3,(float) 0.3,(float) 0.3,10,player.getLocation(),32);
-
                 }
                 if (flyMap.keySet().size() == 0){
                     Bukkit.getScheduler().cancelTask(id);
