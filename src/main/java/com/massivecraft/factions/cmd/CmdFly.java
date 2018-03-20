@@ -17,8 +17,8 @@ public class CmdFly extends FCommand {
 
 
     public static HashMap<String,Boolean> flyMap = new HashMap<String,Boolean>();
-    private int id = -1;
-    private int flyid = -1;
+    public static int id = -1;
+    public static int flyid = -1;
     public CmdFly() {
         super();
         this.aliases.add("fly");
@@ -88,6 +88,9 @@ public class CmdFly extends FCommand {
                     if (player == null){
                         continue;
                     }
+                    if (!player.isFlying()){
+                        continue;
+                    }
                     ParticleEffect.CLOUD.display((float) 0.3,(float) 0.3,(float) 0.3,(float) 0.3,10,player.getLocation(),32);
 
                 }
@@ -119,7 +122,8 @@ public class CmdFly extends FCommand {
                         continue;
                     }
 
-                    for (Entity e : me.getNearbyEntities(16, 255, 16)) {
+                    for (Entity e : player.getNearbyEntities(16, 255, 16)) {
+                        if (e == null) { continue; }
                         if (e instanceof Player) {
                             Player eplayer = (((Player) e).getPlayer());
                             FPlayer efplayer = FPlayers.getInstance().getByPlayer(eplayer);

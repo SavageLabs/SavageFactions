@@ -913,11 +913,11 @@ public abstract class MemoryFPlayer implements FPlayer {
             // Otherwise, start a timer and have this cancel after a few seconds.
             // Short task so we're just doing it in method. Not clean but eh.
             if (cooldown > 0) {
-                this.shouldTakeFallDamage = false;
+                setTakeFallDamage(false);
                 Bukkit.getScheduler().runTaskLater(P.p, new Runnable() {
                     @Override
                     public void run() {
-                        shouldTakeFallDamage = true;
+                        setTakeFallDamage(true);
                     }
                 }, 20L * cooldown);
             }
@@ -957,7 +957,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
 
         Access access = faction.getAccess(this, PermissableAction.FLY);
-        return access != null && access == Access.ALLOW;
+        return access == null || access == Access.UNDEFINED || access == Access.ALLOW;
     }
 
     public boolean shouldTakeFallDamage() {

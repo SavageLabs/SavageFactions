@@ -453,6 +453,7 @@ public enum TL {
     COMMAND_PROMOTE_SUCCESS("You successfully %1$s %2$s to %3$s"),
     COMMAND_PROMOTE_PROMOTED("promoted"),
     COMMAND_PROMOTE_DEMOTED("demoted"),
+    COMMAND_PROMOTE_COLEADER_ADMIN("&cColeaders cant promote players to Admin!"),
 
     COMMAND_PERMANENTPOWER_DESCRIPTION("Toggle faction power permanence"), //TODO: This a real word?
     COMMAND_PERMANENTPOWER_GRANT("added permanentpower status to"),

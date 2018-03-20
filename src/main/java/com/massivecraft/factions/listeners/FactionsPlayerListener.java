@@ -1,6 +1,7 @@
 package com.massivecraft.factions.listeners;
 
 import com.massivecraft.factions.*;
+import com.massivecraft.factions.cmd.CmdFly;
 import com.massivecraft.factions.event.FPlayerJoinEvent;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.scoreboards.FScoreboard;
@@ -153,6 +154,7 @@ public class FactionsPlayerListener implements Listener {
 
         // If they have the permission, don't let them autoleave. Bad inverted setter :\
         me.setAutoLeave(!player.hasPermission(Permission.AUTO_LEAVE_BYPASS.node));
+        me.setTakeFallDamage(true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -227,6 +229,24 @@ public class FactionsPlayerListener implements Listener {
         Faction factionFrom = Board.getInstance().getFactionAt(from);
         Faction factionTo = Board.getInstance().getFactionAt(to);
         boolean changedFaction = (factionFrom != factionTo);
+        if (changedFaction){
+            if (factionTo == me.getFaction()){
+                if (P.p.getConfig().getBoolean("ffly.AutoEnable")){
+                    CmdFly Fly = new CmdFly();
+                    me.setFlying(true);
+                    Fly.flyMap.put(player.getName(),true);
+                    if (Fly.id == -1){
+                        if (P.p.getConfig().getBoolean("ffly.Particles.Enabled")){
+                            Fly.startParticles();
+                        }
+                    }
+                    if (Fly.flyid == -1){
+                        Fly.startFlyCheck();
+                    }
+                }
+            }
+
+        }
 
 
 
