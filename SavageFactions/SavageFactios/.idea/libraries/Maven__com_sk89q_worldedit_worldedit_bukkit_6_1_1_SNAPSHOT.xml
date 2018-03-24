@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/sk89q/worldedit/worldedit-bukkit/6.1.1-SNAPSHOT/worldedit-bukkit-6.1.1-20151030.011615-21.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/sk89q/worldedit/worldedit-bukkit/6.1.1-SNAPSHOT/worldedit-bukkit-6.1.1-20151030.011615-21-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/sk89q/worldedit/worldedit-bukkit/6.1.1-SNAPSHOT/worldedit-bukkit-6.1.1-20151030.011615-21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
