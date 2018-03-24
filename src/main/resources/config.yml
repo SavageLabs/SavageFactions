@@ -1,0 +1,870 @@
+# FactionsUUID by drtshock
+# Report issues https://github.com/drtshock/Factions/issues?state=open
+# Live support http://webchat.esper.net/?channels=factions&prompt=1
+# Website https://www.spigotmc.org/resources/factionsuuid.1035/
+
+# Made with love <3
+
+# Debug
+# Turn this on if you are having issues with something and working on resolving them.
+# This will spam your console with information that is useful if you know how to read the source.
+# It's suggested that you only turn this on at the direction of a developer.
+debug: false
+
+# Prevent find factions exploit
+# This will help limit how many times a player can be sent a map of factions.
+# Set this to the cooldown you want, in miliseconds, for a map to be shown to a player.
+# If you want to log when a player violates this (only happens on chunk enter so it shouldn't be too spammy),
+#   set log to true and it will be logged to console as "player tried to show a faction map too soon and triggered exploit blocker."
+findfactionsexploit:
+  cooldown: 2000 # in miliseconds. 2000 = 2 seconds.
+  log: false
+
+### Hard Core Settings ###
+# Many of the features that are / are to come in this section have been requested by
+#   people in relation to HCF servers. All settings are set to the normal Factions
+#   behavior by default.
+
+# Default Relation allows you to change the default relation for Factions.
+# Example usage would be so people can't leave then make a new Faction while Raiding
+#   in order to be able to execute commands if the default relation is neutral.
+# This has always been neutral.
+default-relation: "neutral"
+
+# Portal Creation
+# Do you want to limit portal creation?
+portals:
+  limit: false # will disable the below check if set to false
+
+  # What should the minimum relation be to create a portal in territory?
+  # Goes in the order of: ENEMY, NEUTRAL, ALLY, MEMBER.
+  # Minimum relation allows that and all listed to the right to create portals.
+  # Example: put ALLY to allow ALLY and MEMBER to be able to create portals.
+  minimum-relation: MEMBER # If typed incorrectly, defaults to NEUTRAL.
+
+### Hard Core Settings ###
+
+# Warps
+# What should be the max amount of warps that a Faction can set?
+max-warps: 5
+
+# This is the cost section for warps.
+# It will charge them each time the command would be successful. (won't charge on erroneous /f warp attempts).
+# You can use decimal places here.
+# If enabled is set to false, it will ignore the values.
+warp-cost:
+  enabled: false
+  setwarp: 5
+  delwarp: 5
+  warp: 5
+
+# Faction Fly
+# Enable Faction Fly:
+enable-faction-flight: true
+fly-falldamage-cooldown: 10
+ffly:
+  Particles:
+    Enabled: true
+  AutoEnable: true #If set to true, fly will automatically enable when walking into your own chunk.
+
+
+# If a player leaves fly (out of territory or took damage)
+# how long should they not take fall damage for?
+# Set to 0 to have them always take fall damage.
+fly-falldamage-cooldown: 3
+
+# Pistons
+# Should we disable pistons in Faction territory? This will prevent people from doing something like:
+# http://i.gyazo.com/6a1a31222e58a5d60ff341c13f6a8404.gif
+disable-pistons-in-territory: false
+
+# ToolTips
+# This section is to configure tooltips for things like /f list
+tooltips:
+
+  # List
+  # This shows up when someone does /f list for the top factions.
+  # It will not sure up for factionless of course, just actual factions.
+  # You can use color codes here.
+  list:
+    - "&6Leader: &f{leader}"
+    - "&6Claimed: &f{chunks}"
+    - "&6Raidable: &f{raidable}"
+    - "&6Warps: &f{warps}"
+    - "&6Power: &f{power}/{maxPower}"
+    - "&6Members: &f{online}/{members}"
+
+  # Show
+  # This shows up when someone does /f show.
+  # It adds tooltips to each player in the list here, nothing else.
+  # {group} will show the players primary group if you have vault installed.
+  # {balance} will show their balance if you have vault installed.
+  # {lastSeen} will show human readable info on when the player was last seen, or online.
+  show:
+    - "&6Last Seen: &f{lastSeen}"
+    - "&6Power: &f{power}"
+    - "&6Rank: &f{group}"
+    - "&6Balance: &a${balance}"
+
+# Configuration section for Scoreboards
+# This will allow you to completely customize how your scoreboards look.
+# Make sure that no lines are duplicates of each other otherwise only the first will display.
+# Use &0-9a-f for colors and include messages in "quotes"
+scoreboard:
+
+# send faction change message as well when scoreboard is up?
+  also-send-chat: true
+# How long do we want scoreboards to stay if set temporarily.
+  expiration: 7
+
+# FInfo scoreboard is displayed when a player walks into a new Faction's territory.
+# Scoreboard disappears after <expiration> seconds.
+# Things to be replaced in this:
+# {power} - faction's power. {chunks} - total claimed chunks. {members} - total members.
+# {online} - online members. {leader} - faction's leader. {open} - shows either true or false if open.
+# {raidable} - true if the faction can be claimed over, otherwise false.
+# {warps} - the number of warps that a faction has set.
+# The title of the scoreboard will be the Faction's tag and colored according to the relation with the player's Faction.
+# Commenting this section out will cause the info to appear in chat as the plugin originally did.
+  finfo-enabled: false
+
+  # SUPPORTS PLACEHOLDERS
+  finfo:
+    - "&6Power"
+    - "{power}"
+    - "&3Members"
+    - "{online}/{members}"
+    - "&4Leader"
+    - "{leader}"
+    - "&bTerritory"
+    - "{chunks}"
+
+# Default board that will always show up if a player wants it to.
+# This can show any arbitrary text or you can use a lot of variables to replace things.
+# Replace {name} - player's name. {faction} - player's faction title, factionless if none.
+# {totalOnline} - total players on the server. {balance} - player's balance.
+# {maxPower} - player's max power.
+# {powerBoost} - player's powerboost.
+
+  default-enabled: true # Default to false to keep original functionality.
+  default-title: "&cSavageFactions" # Can use any of the values from above but this won't update once it's set (so don't set {balance}).
+  default-update-interval: 2 # in seconds.
+
+  # This will show faction prefixes colored based on relation on nametags and in the tab.
+  #   The scoreboard needs to be enabled for this to work.
+  default-prefixes: true
+
+# SUPPORTS PLACEHOLDERS
+
+  default:
+    - "&7&m--------------------------"
+    - "&4&lFaction Info &8»"
+    - " &8> &cLeader&7: &f{leader}"
+    - " &8> &cMembers&7: &f{online}&7/&f{members}"
+    - " &8> &cPower&7: &f{power}&7/&f{maxPower}"
+    - "&m"
+    - "&4&lFaction Stats &8»"
+    - " &8> &cKills&7: &f{faction-kills}"
+    - " &8> &cDeaths&7: &f{faction-deaths}"
+    - " &8> &cBalance&7: &f{faction-balance}"
+    - ""
+    - " &8> &cYour Balance&7: &f{balance}"
+    - "&7&m---------------------------"
+
+  factionless-enabled: true
+  factionless:
+    - "&7&m--------------------------"
+    - "&4&lInformation &8»"
+    - " &8> &cPlayer&7: &f{name}"
+    - " &8> &cRank&7: &f{group}"
+    - " &8> &cBalance&7: &f${balance}"
+    - "&m"
+    - "&4&lServer Info &8» "
+    - " &8» &cIFaction: &fN/A"
+    - " &8» &cOnline Players&7: &f{total-online}"
+    - "&7&m---------------------------"
+
+
+# Configration section for warmups.
+# Warmup times are in seconds - if a value of 0 is set, there is no warmup.
+warmups:
+  # Delay for /f home
+  f-home: 0
+  # Delay for /f warp
+  f-warp: 0
+  # Delay for /f fly
+  f-fly: 0
+  #Delay for /f checkpoint's teleport
+  f-checkpoint: 0
+  #Delay for /f tpbanner
+  f-banner: 0
+
+######################################################
+#################### HCF Features ####################
+######################################################
+# These features were requested as part of Hardcore Factions or something.
+# All of them are disabled by default.
+
+# Max Relation Types
+# Limits factions to having a max number of each relation.
+# Setting to 0 means none allowed. -1 for disabled.
+# This will have no effect on default or existing relations, only when relations are changed.
+# It is advised that you set the default relation to -1 so they can always go back to that.
+# Otherwise Factions could be stuck with not being able to unenemy other Factions.
+max-relations:
+  enabled: false
+  ally: 10
+  truce: 10
+  neutral: -1
+  enemy: 10
+
+# WorldBorder support
+# A buffer of 0 means faction claims can go right up to the border of the world.
+# The buffer is in chunks, so 1 as a buffer means an entire chunk of buffer between
+# the border of the world and what can be claimed to factions
+world-border:
+  buffer: 0
+
+# Raids
+# Allow a faction to be raided if they have more land than power.
+# This will make claimed territory lose all protections
+#   allowing factions to open chests, break blocks, etc. if they
+#   have claimed chunks >= power.
+hcf:
+  raidable: false
+
+  # DTR (death til raidable) will be in /f show if enabled. Configure the message in the lang.yml
+  dtr: false
+
+  # Should we allow Factions to over claim if they are raidable (above has no effect on this)?
+  # This has always been true, allowing factions to over claim others.
+  allow-overclaim: true
+
+  # Power Freeze
+  # After a player dies, how long should the faction not be able to regen power?
+  # This resets on each death but does not accumulate.
+  # Set to 0 for no freeze. Time is in seconds.
+  powerfreeze: 0
+
+  # Buffer Zone
+  # Buffer Zone is an chunk area required between claims of different Factions.
+  # This is default to 0 and has always been that way. Meaning Factions can have
+  #   claims that border each other.
+  # If this is set to 3, then Factions need to have 3 chunks between their claim
+  #   and another Faction's claim.
+  # It's recommended to keep this pretty low as the radius check could be a
+  #   heavy operation if set to a large number.
+  # If this is set to 0, we won't even bother checking which is how Factions has
+  #   always been.
+  buffer-zone: 0
+
+  stuck:
+    delay: 30
+    radius: 10
+
+############################################################
+# +------------------------------------------------------+ #
+# |                Configurable /f show                  | #
+# +------------------------------------------------------+ #
+############################################################
+
+# You can use any variable here, including fancy messages. Color codes and or tags work fine.
+# Lines that arent defined wont be sent (home not set, faction not peaceful / permanent, dtr freeze)
+
+# SUPPORTS PLACEHOLDERS
+show:
+  # First line can be {header} for default header, or any string (we recommend &m for smooth lines ;p)
+  - '&7&m----------------------------------------------------'
+  - '&bFaction: {faction}'
+  - '&bDescription: &f{description}'
+  - '&bAllies &c{allies-list}'
+  - '&bEnemies &c{enemies-list}'
+  - '&bLeader&7: &f{leader}'
+  - '&bOnline &7(&f{online}&7): {online-list}'
+  - '&bOffline &7(&f{offline}&7): {offline-list}'
+  - '&bBalance&7: &f{faction-balance}'
+  - '&bBans: &f{faction-bancount}'
+  - '&bLand / Power / MaxPower&7: &f{chunks} &7/ &f{power} &7/ &f{maxPower}'
+  - '&7&m----------------------------------------------------'
+# For a /f show that does not display fancy messages that are essentially empty, use minimal-show
+minimal-show: false
+
+# Factions that should be exempt from /f show, case sensitive, useful for a
+# serverteam faction, since the command shows vanished players otherwise
+show-exempt:
+  - Wilderness
+
+
+# THIS IS FOR /f map tool tips.
+
+# You can use any variable here, including fancy messages. Color codes and or tags work fine.
+# Lines that arent defined wont be sent (home not set, faction not peaceful / permanent, dtr freeze)
+map:
+  # First line can be {header} for default header, or any string (we recommend &m for smooth lines ;p)
+  - '&7&m----------------------------------------------------'
+  - '&bFaction: {faction}'
+  - '&bDescription: &f{description}'
+  - '&bAllies &c{allies-list}'
+  - '&bEnemies &c{enemies-list}'
+  - '&bLeader&7: &f{leader}'
+  - '&bOnline &7(&f{online}&7): {online-list}'
+  - '&bOffline &7(&f{offline}&7): {offline-list}'
+  - '&bBalance&7: &f{faction-balance}'
+  - '&bBans: &f{faction-bancount}'
+  - '&bLand / Power / MaxPower&7: &f{chunks} &7/ &f{power} &7/ &f{maxPower}'
+  - '&7&m----------------------------------------------------'
+
+############################################################
+# +------------------------------------------------------+ #
+# |                Configurable /f list                  | #
+# +------------------------------------------------------+ #
+############################################################
+
+list:
+  # You can only use {pagenumber} and {pagecount} in the header
+  header: '&e&m----------&r&e[ &2Faction List &9{pagenumber}&e/&9{pagecount} &e]&m----------'
+  # You can use any variables here
+  factionless: '<i>Factionless<i> {factionless} online'
+  # You can use any variable here
+  entry: '<a>{faction} <i>{online} / {members} online, <a>Land / Power / Maxpower: <i>{chunks}/{power}/{maxPower}'
+
+############################################################
+# +------------------------------------------------------+ #
+# |                Configurable /f help                  | #
+# +------------------------------------------------------+ #
+############################################################
+
+# set to true to use legacy factions help
+use-old-help: false
+
+help:
+
+
+  # You can change the page name to whatever you like
+  # We use '1' to preserve default functionality of /f help 1
+    '1':
+     - '&c&m----------------------------------------------'
+     - '                  &c&lFactions Help               '
+     - '&c&m----------------------------------------------'
+     - '&7/f create  &c»  &7Create your own faction'
+     - '&7/f who      &c»  &7Show factions info'
+     - '&7/f tag      &c»  &7Change faction tag'
+     - '&7/f join     &c»  &7Join faction'
+     - '&7/f list      &c»  &7List all factions'
+     - '&7/f ban  &c»  &7Ban a member from your faction!'
+     - '&7/f unban  &c»  &7Unban a member from your faction!'
+     - '&7/f banlist  &c»  &7List banned players from your faction!'
+     - '&7&m--------------&r &c/f help 2 for more &7&m--------------'
+    '2':
+     - '&7&m------------------&r&c&l Page 2 &7&m--------------------'
+     - '&7/f home     &c»  &7Teleport to faction home'
+     - '&7/f sethome &c»  &7Set your faction home'
+     - '&7/f leave    &c»  &7Leave your faction'
+     - '&7/f invite    &c»  &7Invite a player to your faction'
+     - '&7/f deinvite &c»  &7Revoke invitation to player'
+     - '&7/f warp  &c»  &7Open the warp GUI!'
+     - '&7/f setwarp  &c»  &7set a warp!'
+     - '&7/f perms  &c»  &7Change what players can do in your claims!'
+     - '&7&m--------------&r &c/f help 3 for more &7&m--------------'
+    '3':
+     - '&7&m------------------&r&c&l Page 3 &7&m--------------------'
+     - '&7/f claim     &c»  &7Claim land'
+     - '&7/f unclaim  &c»  &7Unclaim land'
+     - '&7/f kick      &c»  &7Kick player from your faction'
+     - '&7/f mod      &c»  &7Set player role in faction'
+     - '&7/f chat     &c»  &7Switch to faction chat'
+     - '&7/f tnt add/take <amount>     &c»  &7Faction Based TNT Bank'
+     - '&7/f map  &c»  &7Map of the surrounding area!'
+     - '&7/f checkpoint  &c»  &7Set a faction checkpoint'
+     - '&7&m--------------&r &c/f help 4 for more &7&m--------------'
+    '4':
+     - '&7&m------------------&r&c&l Page 4 &7&m--------------------'
+     - '&7/f version &c»  &7Display version information'
+     - '&7&m--------------&r&c End of /f help &7&m-----------------'
+############################################################
+# +------------------------------------------------------+ #
+# |                  F Permission GUI                    | #
+# +------------------------------------------------------+ #
+############################################################
+
+# This is the Faction permissions GUI, it consists of 2 inventories
+#
+# 1st: The Relation GUI, here you choose which relation you want to set the permission of
+# 2nd: The Action GUI, here you define the permission of the clicked Action using click types,
+# depending on the click type it will set the permission differently:
+# Left Click: ALLOW
+# Middle Click: UNDEFINED
+# Right Click: DENY
+#
+#
+# The GUI configuration is based off of item placeholders these have specific placeholders that are
+# replaced, for example {relation} will be replaced with the relation that the GUI/Item is based on.
+# There is also 2 other types of GUI items
+#
+# 1st: Special items, these include Back button (Has its own item below), and Relation Item
+# indicating the current relation (Uses relation item placeholder)
+# 2nd: Dummy items, these items server no other purpose than to look good, they have their own
+# items defined in dummy items, and can later be assigned to specific slots in the GUI's
+fperm-gui:
+  relation:
+    # GUI Name
+    name: 'Factions Permissions'
+    # Amount of inventory rows, No larger than 5
+    rows: 3
+
+    # These are the slots where the relations are going to be placed on the first GUI
+    # Note: Slots start at 0 and end at one less that GUI size
+    slots:
+      recruit: 10
+      normal: 12
+      moderator: 15
+      coleader: 17
+      truce: 19
+      ally: 21
+      enemy: 24
+      neutral: 26
+    # Material to be displayed
+    materials:
+      recruit: WOOD_SWORD
+      normal: STONE_SWORD
+      moderator: IRON_SWORD
+      coleader: BEACON
+      truce: IRON_AXE
+      ally: DIAMOND_SWORD
+      enemy: DIAMOND_AXE
+      neutral: STONE
+    # Dummy items using the Items lower down
+    dummy-items:
+      '0':
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 17
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      - 26
+    # This is the item that all relation items are based off of
+    # Replacing {relation} with relation name eg: Moderator, Ally
+    # also replaces {relation-color} with relation color eg: Enemy;RED
+    placeholder-item:
+      name: '&8[{relation-color}{relation}&8]'
+      lore:
+      -
+  action:
+    name: 'Factions Permissions'
+    rows: 4
+    # If this field exists colorable materials will be updated
+    # https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/DyeColor.html
+    access:
+      allow: LIME
+      deny: RED
+      undefined: CYAN
+    slots:
+      # Uses same format as above to inform the player of clicked relation
+      relation: 4
+      # Back button slot
+      back: 0
+
+      # Start action slots
+      build: 9
+      destroy: 10
+      frost-walk: 11
+      pain-build: 12
+      door: 13
+      button: 14
+      lever: 15
+      container: 16
+      invite: 17
+      kick: 18
+      item: 19
+      sethome: 20
+      withdraw: 21
+      territory: 22
+      access: 23
+      promote: 24
+      setwarp: 25
+      warp: 26
+      ban: 27
+      disband: 28
+      fly: 29
+    # Material to show, if the material is colorable eg: Wool, Stained Clay it will update with it's access color
+    materials:
+      build: STAINED_CLAY
+      destroy: STAINED_CLAY
+      frost-walk: STAINED_CLAY
+      pain-build: STAINED_CLAY
+      door: STAINED_CLAY
+      button: STAINED_CLAY
+      lever: STAINED_CLAY
+      container: STAINED_CLAY
+      invite: STAINED_CLAY
+      kick: STAINED_CLAY
+      item: STAINED_CLAY
+      sethome: STAINED_CLAY
+      withdraw: STAINED_CLAY
+      territory: STAINED_CLAY
+      access: STAINED_CLAY
+      promote: STAINED_CLAY
+      setwarp: STAINED_CLAY
+      warp: STAINED_CLAY
+      ban: STAINED_CLAY
+      disband: STAINED_CLAY
+      fly: STAINED_CLAY
+    # Same dummy items format as above
+    dummy-items:
+      '0':
+      - 1
+      - 2
+      - 3
+      - 5
+      - 6
+      - 7
+      - 8
+      - 29
+      - 30
+      - 31
+      - 32
+      - 33
+      - 34
+      - 35
+    # {action} Action name eg: Setwarp, Kick
+    # {action-access} Access name eg: Allow, Deny
+    # {action-access-color} Access color eg: Allow;GREEN
+    placeholder-item:
+      name: '&8[&7{action}&8]'
+      lore:
+      - '&8Access:'
+      - '&8[{action-access-color}{action-access}&8]'
+      - ''
+      - '&8Left click to &a&lAllow'
+      - '&8Right click to &c&lDeny'
+      - '&8Middle click to &lUndefine'
+  # Back item will be take you to the previous GUI
+  back-item:
+    name: '&8&lBack'
+    material: ARROW
+    lore:
+    - '&7Back button'
+  # Dummy Items
+  dummy-items:
+    # Dummy Item id, used to set the slots above
+    '0':
+      material: STAINED_GLASS_PANE
+      # Color will only work on colorable materials
+      color: BLACK
+      name: ' '
+      lore:
+      -
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Warp GUI                    | #
+# +------------------------------------------------------+ #
+############################################################
+
+fwarp-gui:
+  name: "Faction Warps"
+  rows: 3
+  password-timeout: 5
+  warp-slots:
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+  dummy-slots:
+    '0':
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    - 24
+    - 25
+    - 26
+  warp-item:
+    material: STONE
+    name: "&8[&5&l{warp}&8]"
+    # {warp-protected} Warp protection by password, Enabled & Disabled
+    # {warp-cost} Warp cost
+    lore:
+     - "&8Password: &l{warp-protected}"
+     - "&8Cost: &l{warp-cost}"
+  # Dummy Items
+  dummy-items:
+    # Dummy Item id, used to set the slots above
+    '0':
+      material: STAINED_GLASS_PANE
+      # Color will only work on colorable materials
+      color: BLACK
+      name: ' '
+      lore:
+      -
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Rules                       | #
+# +------------------------------------------------------+ #
+############################################################
+frules:
+  Enabled: true
+  default-rules:
+  - '&cDefault Faction Rules :('
+  - '&cUse /f rules add <rule> to add a rule'
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction TNT Bank                    | #
+# +------------------------------------------------------+ #
+############################################################
+ftnt:
+  Enabled: true
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Checkpoints                 | #
+# +------------------------------------------------------+ #
+############################################################
+checkpoints:
+  Enabled: true
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Near                 | #
+# +------------------------------------------------------+ #
+############################################################
+fnear:
+  Enabled: true
+  Radius: 50
+
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Vault                       | #
+# +------------------------------------------------------+ #
+fvault:
+  Enabled: true
+  Item:
+    Name: '&cFaction Vault'
+    Lore:
+    - '&cPlace&7 this vault in a claim!'
+    - '&7You will then be able to access it'
+    - '&7Use &c/f vault&7 to access it once placed!'
+
+############################################################
+# +------------------------------------------------------+ #
+# |                  Faction Upgrades                    | #
+# +------------------------------------------------------+ #
+############################################################
+fupgrades:
+  Enabled: true
+  MainMenu:
+    Title: '&9{faction} Upgrade Menu'
+    DummyItem:
+      Name: '&cChoose an Option!'
+      Type: STAINED_GLASS_PANE
+      Amount: 1
+      Damage: 7
+      Lore:
+      - '&7Please choose an option!'
+      rows: 3
+      slots:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      - 26
+    Crops:
+      Crop-Boost:
+        level-1: 10
+        level-2: 20
+        level-3: 30
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      CropItem:
+        Name: '&7Upgrade Growth Speed'
+        Type: WHEAT
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Chance for Crops to Grow Two levels!'
+        - ''
+        - ' &7Lv &c1 » &c10% &7chance&c » &c$50,000'
+        - ' &7Lv &c2 » &c20% &7chance &c» $750,000'
+        - ' &7Lv &c3 » &c30% &7chance &c» $1,750,000'
+        slots:
+        - 10
+    EXP:
+      EXP-Boost:
+        level-1: 1.2
+        level-2: 1.25
+        level-3: 1.5
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      EXPItem:
+        Name: '&7Upgrade EXP Drop Rate'
+        Type: EXP_BOTTLE
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Mobs drop extra exp in claims!'
+        - ''
+        - ' &7Lv&c 1 » &c1.2x multiplier'
+        - ' &7Lv&c 2 » &c1.25x multiplier'
+        - ' &7Lv&c 3 » &c1.5x multiplier'
+        slots:
+        - 13
+    Spawners:
+      Spawner-Boost:
+      # This is a Percentage so .10 means 10% lowered spawner delay!
+        level-1: 0.10
+        level-2: 0.20
+        level-3: 0.30
+      Cost:
+        level-1: 50000
+        level-2: 750000
+        level-3: 1750000
+      SpawnerItem:
+        Name: '&7Upgrade Spawn Rate'
+        Type: MOB_SPAWNER
+        Amount: 1
+        Damage: 0
+        Lore:
+        - '&7Current Level:&c {level}'
+        - '&7Lower Mob Spawner Delay'
+        - '&7By a certain percentage.'
+        - ''
+        - ' &7Lv &c1 » &c10% &7lower delay&c » &c$50,000'
+        - ' &7Lv &c2 » &c20% &7lower delay &c» $750,000'
+        - ' &7Lv &c3 » &c30% &7lower delay &c» $1,750,000'
+        slots:
+        - 16
+
+fbanners:
+  Item:
+    Name: '&c&lWar Banner'
+    Lore:
+    - '&cPlace &7in the &4Warzone'
+    - '&7Creates a &cWarp Point &7for your faction members'
+    - '&7Faction gain &cPowerful&7 effects while standing near a &cBanner'
+  Banner-Cost: 5000 #The amount charged to change a banner into a War Banner
+  Banner-Time: 60 #IN SECONDS - This is how long the banner will last.
+  Banner-Place-Cooldown: 300
+  Banner-Effect-Radius: 16
+  Effects:
+  - INCREASE_DAMAGE:2
+  - SPEED:2
+  BannerHolo: '&c{Faction}''s WarBanner'
+
+#Title when moving between chunks
+Title:
+  Show-Title: true
+  Format:
+    Title: '{Faction}'
+    Subtitle: '{Description}'
+
+############################################################
+# +------------------------------------------------------+ #
+# |                Big List of variables                 | #
+# +------------------------------------------------------+ #
+############################################################
+# Fancy variables. Can only be used in /f show
+#  - {allies-list}  : Lists each faction ally with tooltips
+#  - {enemies-list} : Lists each faction enemy with tooltips
+#  - {online-list}  : Lists all online members with tooltips
+#  - {offline-list} : Lists all offline members with tooltips
+# Player variables. Can be used in tooltips.show, scoreboards, or /f show
+#  - {group}     : Players group
+#  - {name}      : Players name
+#  - {lastSeen}  : Last time player was seen (if offline), or just 'Online'
+#  - {balance} : Players balance
+#  - {player-kills} : # of kills the player has
+#  - {player-deaths}: # of deaths the player has
+# Faction variables. Can be used in tooltips.list, scoreboards, or /f show
+#  - {header}    : Default factions header (ex. /f show)
+#  - {faction}   : Factions tag (if none, uses lang.yml for factionless name)
+#  - {joining}   : How to join this faction
+#  - {power}     : Factions deaths until raidable value
+#  - {power-boost}  : DTR Symbol based on current DTR (max, regen, frozen, raidable)
+#  - {maxPower}  : Factions max deaths until raidable value
+#  - {chunks}    : # of claims faction has (in chunks)
+#  - {warps}     : # of warps faction has
+#  - {description} : Factions description
+#  - {create-date} : Date faction was created
+#  - {leader}    : Faction leader
+#  - {land-value}  : Value of all claims
+#  - {land-refund} : Calculated refund value
+#  - {allies}    : # of allies faction has
+#  - {enemies}   : # of enemies faction has
+#  - {online}    : # of faction members online
+#  - {offline}   : # of faction members offline
+#  - {members}   : # of faction members (includes offline)
+#  - {faction-balance}      : Faction bank balance
+#  - {world}, {x}, {y}, {z} : Faction home variables. You don't need to use them all.
+#  - {faction-kills} : # of kills the faction has
+#  - {faction-deaths}: # of deaths the faction has
+#  - {faction-bancount} : # of bans the faction has
+# Faction Permissions GUI variables. Can only be used in GUI
+# - {relation}            : Shows relation name (Can be used in action and relation)
+# - {relation-color}      : Relation color
+# - {action}              : Shows action name (Can only be used in action)
+# - {action-access}       : Shows the action's access with current relation
+# - {action-access-color} : Access color
+# General variables. Can be used anywhere.
+# - {total-online}  : Total # of players on the server
+# - {max-warps}     : Max # of warps a faction can set
+# - {max-allies}    : Max # of allies a faction can have
+# - {max-enemies}   : Max # of enemies a faction can have
+# - {factionless}   : Count of all factionless players online

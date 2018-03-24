@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ad68283c-b83d-476a-8053-411bed506c4a" name="Default" comment="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/README.md" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/licenses/LGPL.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/licenses/LICENCE.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/licenses/gson-license.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/assembly/package.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Board.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Conf.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/FLocation.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/FPlayer.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/FPlayers.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Faction.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Factions.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/MassiveStats.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/P.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAHome.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAdmin.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAnnounce.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAutoClaim.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAutoHelp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBan.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBanlist.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBanner.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBoom.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBypass.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdChat.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdChatSpy.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdCheckpoint.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdClaim.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdClaimAt.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdClaimLine.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdColeader.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdConfig.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdConvert.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdCreate.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDeinvite.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDelFWarp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDemote.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDescription.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDisband.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFWarp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFly.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdGetVault.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdHelp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdHome.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdInvite.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdJoin.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKick.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKillHolograms.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdLeave.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdList.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdLock.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdLogins.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMap.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMapHeight.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMod.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdModifyPower.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoney.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyBalance.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyDeposit.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferFf.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferFp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferPf.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyWithdraw.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdNear.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOpen.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOwner.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOwnerList.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPeaceful.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPerm.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPermanent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPermanentPower.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPower.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPowerBoost.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPromote.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationAlly.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationEnemy.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationNeutral.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationTruce.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdReload.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRules.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSB.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSafeunclaimall.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSaveAll.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSeeChunk.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetDefaultRole.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetFWarp.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetMaxVaults.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSethome.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdShow.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdShowInvites.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdStatus.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdStuck.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTag.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTitle.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTnt.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdToggleAllianceChat.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTop.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTpBanner.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdUnban.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdUnclaim.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdUnclaimall.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdUpgrades.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdVault.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdVersion.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdWarunclaimall.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FCmdRoot.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FCommand.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FPromoteCommand.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FRelationCommand.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FPlayerJoinEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FPlayerLeaveEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionCreateEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionDisbandEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionPlayerEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionRelationEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionRelationWishEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/FactionRenameEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/LandClaimEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/LandUnclaimAllEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/LandUnclaimEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/event/PowerLossEvent.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/iface/EconomyParticipator.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/iface/RelationParticipator.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/Econ.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/Essentials.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/Worldguard.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/dynmap/DynmapStyle.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/dynmap/EngineDynmap.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/dynmap/TempAreaMarker.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/dynmap/TempMarker.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/integration/dynmap/TempMarkerSet.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsBlockListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsEntityListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsExploitListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/BufferedObjective.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/FScoreboard.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/FSidebarProvider.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/FTeamWrapper.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/sidebar/FDefaultSidebar.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/sidebar/FInfoSidebar.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/BanInfo.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/ChatMode.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Permission.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Relation.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Role.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/AsciiCompass.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/AutoLeaveProcessTask.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/AutoLeaveTask.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/ClipPlaceholderAPIManager.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/EnumTypeAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/FactionGUI.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/LazyLocation.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/MapFLocToStringSetTypeAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/MiscUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/MyLocationTypeAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/Particle/ParticleEffect.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/Particle/ReflectionUtils.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/PermissionsMapTypeAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/RelationUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/SpiralTask.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/VisualizeUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/WarmUpUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/WarpGUI.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/CommandVisibility.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MCommand.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MPlugin.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MPluginSecretPlayerListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/Access.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/Permissable.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/PermissableAction.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/gui/PermissableActionGUI.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/gui/PermissableRelationGUI.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fupgrades/CropUpgrades.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fupgrades/EXPUpgrade.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fupgrades/FUpgradesGUI.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fupgrades/SpawnerUpgrades.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryBoard.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFPlayer.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFPlayers.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFaction.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFactions.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/SaveTask.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/FactionsJSON.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/JSONBoard.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/JSONFPlayer.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/JSONFPlayers.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/JSONFaction.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/json/JSONFactions.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/DiscUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/PermUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/Persist.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/SmokeUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TL.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TagReplacer.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TagUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TextUtil.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/UUIDFetcher.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/lang.yml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/lang/en_GB.yml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/lang/en_US.yml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/lang/ja_JP.yml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/compiler.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/encodings.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__be_maximvdw_MVdWPlaceholderAPI_2_2_3_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_drtshock_PlayerVaultsX_4_0_4_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_google_code_gson_gson_2_6_2.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_google_guava_guava_10_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_bukkit_6_1_1_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_sk89q_worldedit_worldedit_core_6_1_1_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__com_sk89q_worldguard_6_1_1_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__me_clip_placeholderapi_2_8_4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__mkremins_fanciful_0_4_0_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__net_ess3_EssentialsXChat_2_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__net_ess3_EssentialsX_2_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__net_milkbowl_vault_VaultAPI_1_6.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__org_dynmap_dynmap_2_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__org_spigotmc_spigot_api_1_12_2_R0_1_SNAPSHOT.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/libraries/Maven__org_yaml_snakeyaml_1_19.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/modules.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/vcs.xml" afterPath="" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="FactionsPlayerListener.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="441" column="20" lean-forward="true" selection-start-line="441" selection-start-column="20" selection-end-line="441" selection-end-column="20" />
+              <folding>
+                <element signature="e#37880#37881#0" expanded="true" />
+                <element signature="e#37946#37947#0" expanded="true" />
+                <element signature="e#38081#38082#0" expanded="true" />
+                <element signature="e#38147#38148#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdMod.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdAdmin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAdmin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1633">
+              <caret line="78" column="19" lean-forward="false" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdFly.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFly.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1380">
+              <caret line="72" column="21" lean-forward="false" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
+              <folding>
+                <element signature="e#7519#7520#0" expanded="true" />
+                <element signature="e#7568#7569#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MemoryFPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFPlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18722">
+              <caret line="953" column="9" lean-forward="false" selection-start-line="953" selection-start-column="9" selection-end-line="953" selection-end-column="9" />
+              <folding>
+                <element signature="e#33669#33670#0" expanded="true" />
+                <element signature="e#33721#33722#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FPlayer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/FPlayer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6095">
+              <caret line="277" column="25" lean-forward="false" selection-start-line="277" selection-start-column="25" selection-end-line="277" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmdKick.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKick.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1288">
+              <caret line="68" column="48" lean-forward="false" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClipPlaceholderAPIManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/ClipPlaceholderAPIManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+              <folding>
+                <element signature="e#772#773#0" expanded="true" />
+                <element signature="e#805#806#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TL.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2323">
+              <caret line="119" column="79" lean-forward="false" selection-start-line="119" selection-start-column="79" selection-end-line="119" selection-end-column="79" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="23">
+              <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>nametag</find>
+      <find>mod</find>
+      <find>{members}</find>
+      <find>{online-list}</find>
+      <find>.replace(&quot;{onl</find>
+      <find>members</find>
+      <find>slots</find>
+      <find>relationSlots</find>
+      <find>moder</find>
+      <find>me.setAutol</find>
+      <find>this.shouldTakeFallDamage = false;</find>
+      <find>ffly</find>
+      <find>playermove</find>
+      <find>Access access = faction.getAccess(this, PermissableAction.FLY);</find>
+      <find>FScoreboard</find>
+      <find>finfo</find>
+      <find>chunks</find>
+      <find>warmups</find>
+      <find>damageeve</find>
+      <find>move</find>
+      <find>ENEMY</find>
+      <find>PLAYER_PVP_CANTHURT</find>
+      <find>hurt</find>
+      <find>PVP_CANT</find>
+      <find>2.8.2</find>
+      <find>name</find>
+      <find>DEFAULT_PREFIX</find>
+      <find>map</find>
+      <find>this.clipPlaceholderAPIManager.hook();</find>
+      <find>canFlyA</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>ItemStack[] items</replace>
+      <replace>coleader</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Users\Namandaboss\IdeaProjects\FactionsUUID\Factions</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="1.6.x" />
+      </map>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="1.6.x" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../FactionsFramework" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyBalance.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyDeposit.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferFf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferPf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyTransferFp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMoneyWithdraw.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdNear.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOpen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOwner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOwnerList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPeaceful.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPerm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPermanent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPermanentPower.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPower.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdPowerBoost.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdReload.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRules.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSafeunclaimall.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSaveAll.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSeeChunk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetDefaultRole.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSethome.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetMaxVaults.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/PermissableAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FPromoteCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsBlockListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Role.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdShow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBanner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/WarmUpUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTpBanner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Permission.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/cmdKillHolograms.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FCmdRoot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTnt.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Conf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryBoard.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/gui/PermissableActionGUI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/MCUpdate.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/P.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFly.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKick.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TL.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAdmin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/ClipPlaceholderAPIManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="733" />
+    <option name="y" value="113" />
+    <option name="width" value="1924" />
+    <option name="height" value="907" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Factions" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Factions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Factions" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Factions" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Factions" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Factions" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Namandaboss\IdeaProjects\FactionsUUID\Factions\src\main\java\com\massivecraft\factions\util\Particle" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ad68283c-b83d-476a-8053-411bed506c4a" name="Default" comment="" />
+      <created>1520547507716</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1520547507716</updated>
+    </task>
+    <task id="LOCAL-00001" summary="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it.">
+      <created>1520560803005</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1520560803005</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it.">
+      <created>1520560844769</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1520560844769</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it.">
+      <created>1520560861371</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1520560861371</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521344260135</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1521344260135</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521393650911</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1521393650911</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521434862099</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1521434862099</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521511195479</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1521511195479</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521605997043</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1521605997043</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521674395036</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1521674395036</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521759537782</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1521759537782</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521779583019</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1521779583019</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521869481889</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1521869481889</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521900980024</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1521900980025</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521904511457</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1521904511457</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java">
+      <created>1521922842982</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1521922842982</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.49166667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21551724" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25416666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.027203482" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.07435345" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.027203482" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.011853448" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21551724" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25416666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+    </ignored-roots>
+    <MESSAGE value="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it." />
+    <MESSAGE value="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="4" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1725">
+          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MPluginSecretPlayerListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="28" column="22" lean-forward="false" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/MCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdUnclaim.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="26" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/WarmUpUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="38" column="35" lean-forward="false" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdHome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="736">
+          <caret line="129" column="60" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="129" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDisband.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="655">
+          <caret line="103" column="3" lean-forward="false" selection-start-line="103" selection-start-column="3" selection-end-line="106" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTpBanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="36" column="49" lean-forward="false" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot-api/1.12.2-R0.1-SNAPSHOT/spigot-api-1.12.2-R0.1-20180315.095759-122.jar!/org/bukkit/potion/PotionEffect.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="26" column="87" lean-forward="false" selection-start-line="26" selection-start-column="87" selection-end-line="26" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdLeave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="21" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/struct/Permission.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="99" column="27" lean-forward="false" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdCreate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationTruce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdRelationAlly.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdOpen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="632">
+          <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="51" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKillHolograms.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="33" column="51" lean-forward="false" selection-start-line="33" selection-start-column="51" selection-end-line="33" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FPromoteCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/FCmdRoot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4393">
+          <caret line="197" column="48" lean-forward="false" selection-start-line="197" selection-start-column="48" selection-end-line="197" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdBanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Faction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4439">
+          <caret line="208" column="21" lean-forward="false" selection-start-line="208" selection-start-column="21" selection-end-line="208" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdGetVault.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFWarp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1449">
+          <caret line="82" column="36" lean-forward="false" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDemote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdDelFWarp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/UUIDFetcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Factions/src/main/java/com/massivecraft/factions/listeners/FactionsEntityListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdTnt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="34" column="9" lean-forward="false" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="301" column="26" lean-forward="false" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/Conf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="23" column="42" lean-forward="false" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="295" column="59" lean-forward="false" selection-start-line="295" selection-start-column="59" selection-end-line="295" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/fperms/gui/PermissableActionGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4140">
+          <caret line="202" column="9" lean-forward="false" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="18" column="12" lean-forward="false" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/FTeamWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2047">
+          <caret line="96" column="33" lean-forward="false" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18607">
+          <caret line="809" column="0" lean-forward="false" selection-start-line="809" selection-start-column="0" selection-end-line="809" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/P.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2415">
+          <caret line="147" column="0" lean-forward="false" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding>
+            <element signature="e#6606#6607#0" expanded="false" />
+            <element signature="e#6667#6668#0" expanded="false" />
+            <element signature="e#6718#6719#0" expanded="false" />
+            <element signature="e#6771#6772#0" expanded="false" />
+            <element signature="e#10265#10266#0" expanded="false" />
+            <element signature="e#10310#10311#0" expanded="false" />
+            <element signature="e#12364#12365#0" expanded="false" />
+            <element signature="e#12388#12389#0" expanded="false" />
+            <element signature="e#14019#14020#0" expanded="false" />
+            <element signature="e#14083#14084#0" expanded="false" />
+            <element signature="e#15911#15912#0" expanded="false" />
+            <element signature="e#15973#15974#0" expanded="false" />
+            <element signature="e#16914#16915#0" expanded="false" />
+            <element signature="e#16955#16956#0" expanded="false" />
+            <element signature="e#17346#17347#0" expanded="false" />
+            <element signature="e#17382#17383#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/scoreboards/FScoreboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAnnounce.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="24" column="38" lean-forward="false" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdSetMaxVaults.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/MassiveStats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="356" column="6" lean-forward="false" selection-start-line="356" selection-start-column="6" selection-end-line="356" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdMod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdKick.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1288">
+          <caret line="68" column="48" lean-forward="false" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/util/TL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2323">
+          <caret line="119" column="79" lean-forward="false" selection-start-line="119" selection-start-column="79" selection-end-line="119" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdAdmin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1633">
+          <caret line="78" column="19" lean-forward="false" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/util/ClipPlaceholderAPIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#805#806#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/FPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6095">
+          <caret line="277" column="25" lean-forward="false" selection-start-line="277" selection-start-column="25" selection-end-line="277" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/cmd/CmdFly.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1380">
+          <caret line="72" column="21" lean-forward="false" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
+          <folding>
+            <element signature="e#7519#7520#0" expanded="true" />
+            <element signature="e#7568#7569#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/zcore/persist/MemoryFPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18722">
+          <caret line="953" column="9" lean-forward="false" selection-start-line="953" selection-start-column="9" selection-end-line="953" selection-end-column="9" />
+          <folding>
+            <element signature="e#33669#33670#0" expanded="true" />
+            <element signature="e#33721#33722#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="441" column="20" lean-forward="true" selection-start-line="441" selection-start-column="20" selection-end-line="441" selection-end-column="20" />
+          <folding>
+            <element signature="e#37880#37881#0" expanded="true" />
+            <element signature="e#37946#37947#0" expanded="true" />
+            <element signature="e#38081#38082#0" expanded="true" />
+            <element signature="e#38147#38148#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Factions</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: be.maximvdw:MVdWPlaceholderAPI:2.2.3-SNAPSHOT</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
