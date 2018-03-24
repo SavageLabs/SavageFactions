@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad68283c-b83d-476a-8053-411bed506c4a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/FactionsUUID/FactionsUUIDFORK/.idea/modules.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SavageFactions/SavageFactios/.idea/misc.xml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +18,8 @@
       <file leaf-file-name="FactionsPlayerListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="431" column="33" lean-forward="true" selection-start-line="431" selection-start-column="33" selection-end-line="431" selection-end-column="33" />
+            <state relative-caret-position="345">
+              <caret line="441" column="21" lean-forward="true" selection-start-line="441" selection-start-column="21" selection-end-line="441" selection-end-column="21" />
               <folding>
                 <element signature="e#37880#37881#0" expanded="true" />
                 <element signature="e#37946#37947#0" expanded="true" />
@@ -331,7 +332,7 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
@@ -566,7 +567,14 @@
       <option name="project" value="LOCAL" />
       <updated>1521924460523</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Removed idea files">
+      <created>1521924788057</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1521924788057</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -641,7 +649,8 @@
     <MESSAGE value="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it." />
     <MESSAGE value="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
     <MESSAGE value="Fixing m" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing m" />
+    <MESSAGE value="Removed idea files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed idea files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1061,8 +1070,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="431" column="33" lean-forward="true" selection-start-line="431" selection-start-column="33" selection-end-line="431" selection-end-column="33" />
+        <state relative-caret-position="345">
+          <caret line="441" column="21" lean-forward="true" selection-start-line="441" selection-start-column="21" selection-end-line="441" selection-end-column="21" />
           <folding>
             <element signature="e#37880#37881#0" expanded="true" />
             <element signature="e#37946#37947#0" expanded="true" />
