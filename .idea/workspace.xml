@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad68283c-b83d-476a-8053-411bed506c4a" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/ISSUE_TEMPLATE.md" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MavenInstall.bat" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,8 +17,8 @@
       <file leaf-file-name="FactionsPlayerListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="437" column="21" lean-forward="true" selection-start-line="437" selection-start-column="21" selection-end-line="437" selection-end-column="21" />
+            <state relative-caret-position="115">
+              <caret line="431" column="33" lean-forward="true" selection-start-line="431" selection-start-column="33" selection-end-line="431" selection-end-column="33" />
               <folding>
                 <element signature="e#37880#37881#0" expanded="true" />
                 <element signature="e#37946#37947#0" expanded="true" />
@@ -563,11 +559,19 @@
       <option name="project" value="LOCAL" />
       <updated>1521924145704</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixing m">
+      <created>1521924460522</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1521924460523</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -577,7 +581,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.49166667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297414" sideWeight="0.49166667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21551724" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -636,7 +640,8 @@
     </ignored-roots>
     <MESSAGE value="added /f rules,&#10;&#10;has sub commands&#10;/f rules add &lt;String&gt; - adds a rule to list&#10;/f rules remove &lt;line number&gt; - remove a rule on a line&#10;/f rules clear - clears rules&#10;/f rules - returns faction rules&#10;&#10;Added config entry for default rules&#10;Added to FactionsMemory &amp; Faction interface to get rules.&#10;&#10;Started on adding /f coleader I think I did all the stuff in role.java, I basically made the admin role co leader, and added a new role on top called Owner.&#10;It needs to get a command, and the old admin command needs editing. along with disband needs a perm check edit so only leaders can disband :) I think the f perms gui will need a new entry too. I just wanted to show what I did with the role first, so people approve of it before I go through with it." />
     <MESSAGE value="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch '1.6.x' of https://github.com/ProSavage/Factions into 1.6.x&#10;&#10;# Conflicts:&#10;#&#9;src/main/java/com/massivecraft/factions/cmd/CmdChat.java&#10;#&#9;src/main/java/com/massivecraft/factions/listeners/FactionsChatListener.java" />
+    <MESSAGE value="Fixing m" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing m" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1056,8 +1061,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/massivecraft/factions/listeners/FactionsPlayerListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="437" column="21" lean-forward="true" selection-start-line="437" selection-start-column="21" selection-end-line="437" selection-end-column="21" />
+        <state relative-caret-position="115">
+          <caret line="431" column="33" lean-forward="true" selection-start-line="431" selection-start-column="33" selection-end-line="431" selection-end-column="33" />
           <folding>
             <element signature="e#37880#37881#0" expanded="true" />
             <element signature="e#37946#37947#0" expanded="true" />
