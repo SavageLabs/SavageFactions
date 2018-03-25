@@ -285,8 +285,6 @@ public interface FPlayer extends EconomyParticipator {
 
     public String getEnteringWarp();
 
-    public boolean checkIfNearbyEnemies();
-
 
     // -------------------------------
     // Warmups

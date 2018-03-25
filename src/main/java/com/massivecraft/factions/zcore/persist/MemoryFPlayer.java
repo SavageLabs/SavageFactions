@@ -3,7 +3,6 @@ package com.massivecraft.factions.zcore.persist;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.cmd.CmdFly;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
-import com.massivecraft.factions.event.FPlayerStoppedFlying;
 import com.massivecraft.factions.event.LandClaimEvent;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.iface.RelationParticipator;
@@ -24,7 +23,6 @@ import com.massivecraft.factions.zcore.util.TL;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -951,7 +949,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 
     public boolean canFlyAtLocation(FLocation location) {
         Faction faction = Board.getInstance().getFactionAt(location);
-        if ((!faction.isWilderness() && getPlayer().hasPermission("factions.fly.wilderness")) || (faction.isSafeZone() && getPlayer().hasPermission("factions.fly.safezone") )|| (faction.isWarZone() && getPlayer().hasPermission("factions.fly.warzone"))) {
+        if (faction.isWilderness() || faction.isSafeZone() || faction.isWarZone()) {
             return false;
         }
         if (faction == getFaction() && getRole() == Role.ADMIN) {
@@ -1093,27 +1091,5 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
         this.warmup = warmup;
         this.warmupTask = taskId;
-    }
-
-    @Override
-    public boolean checkIfNearbyEnemies(){
-        Player me = this.getPlayer();
-        for (Entity e : me.getNearbyEntities(16, 255, 16)) {
-            if (e == null) { continue; }
-            if (e instanceof Player) {
-                Player eplayer = (((Player) e).getPlayer());
-                if (eplayer == null) { continue; }
-                FPlayer efplayer = FPlayers.getInstance().getByPlayer(eplayer);
-                if (efplayer == null) { continue; }
-                if (this.getRelationTo(efplayer).equals(Relation.ENEMY)) {
-
-                    this.setFlying(false);
-                    this.msg(TL.COMMAND_FLY_ENEMY_NEAR);
-                    Bukkit.getServer().getPluginManager().callEvent(new FPlayerStoppedFlying(this));
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

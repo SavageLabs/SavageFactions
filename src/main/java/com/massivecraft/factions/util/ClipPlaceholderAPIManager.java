@@ -18,12 +18,12 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
     // Identifier for this expansion
     @Override
     public String getIdentifier() {
-        return "factionsuuid";
+        return "savagefactions";
     }
 
     @Override
     public String getAuthor() {
-        return "drtshock";
+        return "prosavage";
     }
 
     // Since we are registering this expansion from the dependency, this can be null

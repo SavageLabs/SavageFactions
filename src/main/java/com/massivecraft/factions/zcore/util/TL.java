@@ -117,7 +117,6 @@ public enum TL {
     COMMAND_ADMIN_PROMOTES("<i>You have promoted %1$s<i> to the position of faction admin."),
     COMMAND_ADMIN_PROMOTED("%1$s<i> gave %2$s<i> the leadership of %3$s<i>."),
     COMMAND_ADMIN_DESCRIPTION("Hand over your admin rights"),
-    COMMAND_ADMIN_NOMEMBERS("No one else to promote, please disband faction."),
 
     COMMAND_AHOME_DESCRIPTION("Send a player to their f home no matter what."),
     COMMAND_AHOME_NOHOME("%1$s doesn't have an f home."),

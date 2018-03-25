@@ -66,7 +66,7 @@ public class CmdKick extends FCommand {
             return;
         }
 
-        if ((fme.getRole() == Role.MODERATOR || fme.getRole() == Role.COLEADER) && toKick.getRole() == Role.ADMIN){
+        if (fme.getRole() == Role.COLEADER && toKick.getRole() == Role.ADMIN){
             msg(TL.COMMAND_KICK_INSUFFICIENTRANK);
             return;
         }

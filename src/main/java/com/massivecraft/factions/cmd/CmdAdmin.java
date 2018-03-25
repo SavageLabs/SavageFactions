@@ -70,14 +70,8 @@ public class CmdAdmin extends FCommand {
             }
         }
 
-
-
         FPlayer admin = targetFaction.getFPlayerAdmin();
         // if target player is currently admin, demote and replace him
-        if (fyou == admin && fyou.getFaction().getSize() == 1){
-            msg(TL.COMMAND_ADMIN_NOMEMBERS);
-            return;
-        }
         if (fyou == admin) {
             targetFaction.promoteNewLeader();
             msg(TL.COMMAND_ADMIN_DEMOTES, fyou.describeTo(fme, true));
