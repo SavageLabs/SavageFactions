@@ -22,10 +22,7 @@ import com.massivecraft.factions.zcore.util.TextUtil;
 import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -281,6 +278,7 @@ public class FactionsPlayerListener implements Listener {
                 subTitle = parseAllPlaceholders(subTitle, factionTo);
                 me.getPlayer().sendTitle(P.p.color(title), P.p.color(subTitle));
             }
+            // enable fly :)
             if (me.hasFaction()) {
                 if (factionTo == me.getFaction()) {
                     if (P.p.getConfig().getBoolean("ffly.AutoEnable")) {
@@ -469,12 +467,30 @@ public class FactionsPlayerListener implements Listener {
                 FPlayer fvictim = FPlayers.getInstance().getByPlayer(victim);
                 FPlayer fattacker = FPlayers.getInstance().getByPlayer(attacker);
                 if (fattacker.getRelationTo(fvictim) == Relation.TRUCE) {
-                    fattacker.msg(TL.PLAYER_PVP_CANTHURT, fattacker.describeTo(fvictim));
+                    fattacker.msg(TL.PLAYER_PVP_CANTHURT, fvictim.describeTo(fattacker));
                     e.setCancelled(true);
                 }
             }
         }
     }
+
+    @EventHandler
+    public void onBowHit(EntityDamageByEntityEvent e){
+        if (e.getDamager() instanceof Projectile){
+            if (e.getEntity() instanceof Player){
+                Player damager = (Player) ((Projectile) e.getDamager()).getShooter();
+                Player victim = (Player) e.getEntity();
+                FPlayer fdamager = FPlayers.getInstance().getByPlayer(damager);
+                FPlayer fvictim = FPlayers.getInstance().getByPlayer(victim);
+                if (fvictim.getRelationTo(fdamager) == Relation.TRUCE){
+                    fdamager.msg(TL.PLAYER_PVP_CANTHURT, fvictim.describeTo(fdamager));
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
+
+
 
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)

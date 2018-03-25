@@ -48,14 +48,16 @@ public class CmdShow extends FCommand {
     @Override
     public void perform() {
         Faction faction = myFaction;
-        if (!fme.hasFaction()){
-            fme.msg(TL.COMMAND_SHOW_NEEDFACTION);
-            return;
-        }
+
         if (this.argIsSet(0)) {
             faction = this.argAsFaction(0);
         }
         if (faction == null) {
+            return;
+        }
+
+        if (!fme.hasFaction() && fme.getFaction() == faction){
+            fme.msg(TL.COMMAND_SHOW_NEEDFACTION);
             return;
         }
 
@@ -74,15 +76,14 @@ public class CmdShow extends FCommand {
         if (show == null || show.isEmpty()) {
             show = defaults;
         }
-/*        for (int i = 0; i <= show.size()-1; i ++){
+        for (int i = 0; i <= show.size()-1; i ++){
             if (show.get(i).contains("{description}")){
                 show.set(i,show.get(i).replace("{description}",faction.getDescription()));
             }
             if (show.get(i).contains("{online-list}")){
                 String message = "";
                 StringBuilder string = new StringBuilder(message);
-                if (myFaction == null) {continue;}
-                for (FPlayer fPlayer : myFaction.getFPlayers()){
+                for (FPlayer fPlayer : faction.getFPlayers()){
                     Bukkit.broadcastMessage(fPlayer.getTag());
                     if (fPlayer.getPlayer().isOnline()){
                         String prefix = "";
@@ -110,7 +111,7 @@ public class CmdShow extends FCommand {
             if (show.get(i).contains("{offline-list}")){
                 String message = "";
                 StringBuilder string = new StringBuilder(message);
-                for (FPlayer fPlayer : myFaction.getFPlayers()){
+                for (FPlayer fPlayer : faction.getFPlayers()){
                     if (!fPlayer.getPlayer().isOnline()){
                         String prefix = "";
                         if (fPlayer.getRole() == Role.ADMIN){
@@ -134,7 +135,7 @@ public class CmdShow extends FCommand {
                 }
             }
         }
-*/
+
         if (!faction.isNormal()) {
             String tag = faction.getTag(fme);
             // send header and that's all
