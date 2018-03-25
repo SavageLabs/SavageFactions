@@ -40,10 +40,24 @@ public class CmdFly extends FCommand {
         }
 
         FLocation myfloc = new FLocation(me.getLocation());
+        Faction toFac = Board.getInstance().getFactionAt(myfloc);
         if (Board.getInstance().getFactionAt(myfloc) != fme.getFaction()){
-            fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
-            return;
-        }
+            if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness()) {
+                fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                return;
+            }
+            if (!me.hasPermission("factions.fly.safezone") && toFac.isSafeZone()) {
+                fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                return;
+            }
+            if (!me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
+                fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                return;
+            }
+
+            }
+
+
         List<Entity> entities = me.getNearbyEntities(16,256,16);
         for (int i = 0; i <= entities.size() -1;i++)
         {
@@ -63,18 +77,35 @@ public class CmdFly extends FCommand {
 
         if (args.size() == 0) {
             if (!fme.canFlyAtLocation() && !fme.isFlying()) {
-                Faction factionAtLocation = Board.getInstance().getFactionAt(fme.getLastStoodAt());
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, factionAtLocation.getTag(fme));
-                return;
+                if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                } else if (!me.hasPermission("factions.fly.safezone") && toFac.isSafeZone()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                } else if (!me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                }
+
             }
 
             toggleFlight(!fme.isFlying(),me);
         } else if (args.size() == 1) {
             if (!fme.canFlyAtLocation() && argAsBool(0)) {
-                Faction factionAtLocation = Board.getInstance().getFactionAt(fme.getLastStoodAt());
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, factionAtLocation.getTag(fme));
-                return;
+                if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                } else if (!me.hasPermission("factions.fly.safezone") && toFac.isSafeZone()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                } else if (!me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(myfloc).getTag(fme));
+                    return;
+                }
+
             }
+
 
             toggleFlight(argAsBool(0),me);
         }
@@ -101,7 +132,7 @@ public class CmdFly extends FCommand {
                     if (!player.isFlying()){
                         continue;
                     }
-                    ParticleEffect.CLOUD.display((float) 0.3,(float) 0.3,(float) 0.3,(float) 0.3,10,player.getLocation(),32);
+                    ParticleEffect.CLOUD.display((float) 0.1,(float) 0.1,(float) 0.1,(float) 0.1,3,player.getLocation(),32);
 
                 }
                 if (flyMap.keySet().size() == 0){
@@ -109,7 +140,7 @@ public class CmdFly extends FCommand {
                     id = -1;
                 }
             }
-        },20L,20L);
+        },20L,40L);
     }
 
     public void startFlyCheck(){
@@ -126,52 +157,52 @@ public class CmdFly extends FCommand {
                         continue;
                     }
                     Faction myFaction = fPlayer.getFaction();
-                    if (myFaction == Factions.getInstance().getWilderness()){
+                    if (myFaction.isWilderness()){
                         fPlayer.setFlying(false);
                         flyMap.remove(name);
+                        continue;
+                    }
+                    if(fPlayer.checkIfNearbyEnemies()){
                         continue;
                     }
                     FLocation myFloc = new FLocation(player.getLocation());
                     Faction toFac = Board.getInstance().getFactionAt(myFloc);
                     if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
-                        if (player.hasPermission("factions.fly.wilderness") && toFac.isWilderness()){
+                        if (!checkBypassPerms(fPlayer,player,toFac)){
+                            fPlayer.setFlying(false);
+                            flyMap.remove(name);
                             continue;
-                        }
-                        if (player.hasPermission("factions.fly.warzone") && toFac.isWarZone()){
-                            continue;
-                        }
-                        if (player.hasPermission("factions.fly.safezone") && toFac.isSafeZone()){
-                            continue;
-                        }
-                        fPlayer.setFlying(false);
-                        flyMap.remove(name);
-                        continue;
-                    }
-
-                    for (Entity e : player.getNearbyEntities(16, 255, 16)) {
-                        if (e == null) { continue; }
-                        if (e instanceof Player) {
-                            Player eplayer = (((Player) e).getPlayer());
-                            if (eplayer == null) { continue; }
-                            FPlayer efplayer = FPlayers.getInstance().getByPlayer(eplayer);
-                            if (efplayer == null) { continue; }
-                            if (fme.getRelationTo(efplayer) == Relation.ENEMY) {
-                                fPlayer.setFlying(false);
-                                flyMap.remove(name);
-                                fme.msg(TL.COMMAND_FLY_ENEMY_NEAR);
-                                break;
-
-                            }
                         }
 
                     }
-                    if (flyMap.keySet().size() == 0) {
-                        Bukkit.getScheduler().cancelTask(flyid);
-                        flyid = -1;
-                    }
+
+
+                   checkTaskState();
                 }
             }
         },20L,20L);
+    }
+
+
+
+    private boolean checkBypassPerms(FPlayer fplayer, Player player,Faction toFac){
+        if (player.hasPermission("factions.fly.wilderness") && toFac.isWilderness()){
+           return true;
+        }
+        if (player.hasPermission("factions.fly.warzone") && toFac.isWarZone()){
+          return true;
+        }
+        if (player.hasPermission("factions.fly.safezone") && toFac.isSafeZone()){
+            return true;
+        }
+        return false;
+    }
+
+    public void checkTaskState(){
+        if (flyMap.keySet().size() == 0) {
+            Bukkit.getScheduler().cancelTask(flyid);
+            flyid = -1;
+        }
     }
 
 
