@@ -297,10 +297,10 @@
         </dependency>
         <dependency>
             <groupId>com.drtshock</groupId>
-            <artifactId>PlayerVaultsX</artifactId>
+            <artifactId>PlayerVaults</artifactId>
             <version>4.0.6</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/dependencies/PlayerVaultsX.jar</systemPath>
+            <systemPath>${project.basedir}/dependencies/PlayerVaults.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

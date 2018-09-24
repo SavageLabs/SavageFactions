@@ -8,6 +8,7 @@ import com.drtshock.playervaults.vaultmanagement.VaultViewInfo;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -44,7 +45,7 @@ public class CmdVault extends FCommand {
 
         int max = myFaction.getMaxVaults();
         if (number > max) {
-            me.sendMessage(TL.COMMAND_GETVAULT_ALREADYHAVE.format(number, max));
+            me.sendMessage(ChatColor.translateAlternateColorCodes('&', "Ta faction n'a pas de coffre, achètes en catégorie \"Extras\" avec &b&l/vip&r !"));
             return;
         }
 
@@ -69,7 +70,7 @@ public class CmdVault extends FCommand {
         } // end listing vaults.
 
         // Attempt to open vault.
-        if (VaultOperations.openOtherVault(player, null, String.valueOf(number))) {
+        if (VaultOperations.openOtherVault(player, vaultName, String.valueOf(number))) {
             // Success
             PlayerVaults.getInstance().getInVault().put(player.getUniqueId().toString(), new VaultViewInfo(vaultName, number));
         }
