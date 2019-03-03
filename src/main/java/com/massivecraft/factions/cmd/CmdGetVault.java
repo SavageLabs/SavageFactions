@@ -56,6 +56,7 @@ public class CmdGetVault extends FCommand {
 
 	}
 
+	/*
 	public boolean inventoryContains(Inventory inventory, ItemStack item) {
 		int count = 0;
 		ItemStack[] items = inventory.getContents();
@@ -69,6 +70,7 @@ public class CmdGetVault extends FCommand {
 		}
 		return false;
 	}
+	 */
 
 	@Override
 	public TL getUsageTranslation() {

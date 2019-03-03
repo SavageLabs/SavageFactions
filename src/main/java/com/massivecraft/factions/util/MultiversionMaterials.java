@@ -2,6 +2,8 @@ package com.massivecraft.factions.util;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 
@@ -911,7 +913,11 @@ public enum MultiversionMaterials {
 		if (isNewVersion()) {
 			return new ItemStack(mat);
 		}
-		return new ItemStack(mat, 1, (byte) data);
+		ItemStack itemStack = new ItemStack(mat, 1);
+		ItemMeta meta = itemStack.getItemMeta();
+		((Damageable) meta).setDamage((byte) data);
+		itemStack.setItemMeta(meta);
+		return itemStack;
 	}
 
 	public boolean isSameMaterial(ItemStack comp) {

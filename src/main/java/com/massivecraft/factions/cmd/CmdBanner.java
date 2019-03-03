@@ -81,6 +81,7 @@ public class CmdBanner extends FCommand {
 		}
 	}
 
+	/*
 	public boolean inventoryContains(Inventory inventory, ItemStack item) {
 		int count = 0;
 		ItemStack[] items = inventory.getContents();
@@ -95,7 +96,9 @@ public class CmdBanner extends FCommand {
 		return false;
 	}
 
+	 */
 
+	/*
 	public void removeFromInventory(Inventory inventory, ItemStack item) {
 		int amt = item.getAmount();
 		ItemStack[] items = inventory.getContents();
@@ -115,7 +118,9 @@ public class CmdBanner extends FCommand {
 		}
 		inventory.setContents(items);
 	}
+	 */
 
+	/*
 	public int getEmptySlots(Player p) {
 		PlayerInventory inventory = p.getInventory();
 		ItemStack[] cont = inventory.getContents();
@@ -127,6 +132,7 @@ public class CmdBanner extends FCommand {
 		return 36 - i;
 	}
 
+	 */
 
 	@Override
 	public TL getUsageTranslation() {

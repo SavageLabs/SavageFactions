@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class CmdTnt extends FCommand {
 	public CmdTnt() {
@@ -131,8 +133,8 @@ public class CmdTnt extends FCommand {
 		fme.sendMessage(TL.COMMAND_TNT_AMOUNT.toString().replace("{amount}", fme.getFaction().getTnt() + ""));
 	}
 
-
-	public boolean inventoryContains(Inventory inventory, ItemStack item) {
+	/*
+		public boolean inventoryContains(Inventory inventory, ItemStack item) {
 		int count = 0;
 		ItemStack[] items = inventory.getContents();
 		for (int i = 0; i < items.length; i++) {
@@ -145,6 +147,7 @@ public class CmdTnt extends FCommand {
 		}
 		return false;
 	}
+	 */
 
 	public boolean hasAvaliableSlot(Player player, int howmany) {
 		Integer check = 0;
@@ -157,14 +160,21 @@ public class CmdTnt extends FCommand {
 	}
 
 	public void removeFromInventory(Inventory inventory, ItemStack item) {
+		ItemMeta meta = item.getItemMeta();
 		int amt = item.getAmount();
 		ItemStack[] items = inventory.getContents();
 		for (int i = 0; i < items.length; i++) {
-			if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
-				if (items[i].getAmount() > amt) {
-					items[i].setAmount(items[i].getAmount() - amt);
+			if(items[i] == null) {
+				continue;
+			}
+			ItemStack currItem = items[i];
+			ItemMeta currMeta = currItem.getItemMeta();
+
+			if (currItem.getType() == item.getType() && ((Damageable) currMeta).getDamage() == ((Damageable) meta).getDamage()) {
+				if (currItem.getAmount() > amt) {
+					items[i].setAmount(currItem.getAmount() - amt);
 					break;
-				} else if (items[i].getAmount() == amt) {
+				} else if (currItem.getAmount() == amt) {
 					items[i] = null;
 					break;
 				} else {

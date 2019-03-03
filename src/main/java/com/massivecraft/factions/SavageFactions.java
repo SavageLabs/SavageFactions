@@ -38,6 +38,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -488,8 +489,9 @@ public class SavageFactions extends MPlugin {
 	}
 
 	public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
-		ItemStack item = new ItemStack(material, amount, datavalue);
+		ItemStack item = new ItemStack(material, amount);
 		ItemMeta meta = item.getItemMeta();
+		((Damageable) meta).setDamage(datavalue);
 		meta.setDisplayName(color(name));
 		meta.setLore(colorList(lore));
 		item.setItemMeta(meta);
@@ -497,8 +499,9 @@ public class SavageFactions extends MPlugin {
 	}
 
 	public ItemStack createLazyItem(Material material, int amount, short datavalue, String name, String lore) {
-		ItemStack item = new ItemStack(material, amount, datavalue);
+		ItemStack item = new ItemStack(material, amount);
 		ItemMeta meta = item.getItemMeta();
+		((Damageable) meta).setDamage(datavalue);
 		meta.setDisplayName(color(SavageFactions.plugin.getConfig().getString(name)));
 		meta.setLore(colorList(SavageFactions.plugin.getConfig().getStringList(lore)));
 		item.setItemMeta(meta);

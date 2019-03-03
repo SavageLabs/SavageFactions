@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.Damageable;
 
 public class CmdTntFill extends FCommand {
 
@@ -205,7 +206,7 @@ public class CmdTntFill extends FCommand {
 		int count = 0;
 		ItemStack[] items = inventory.getContents();
 		for (int i = 0; i < items.length; i++) {
-			if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
+			if (items[i] != null && items[i].getType() == item.getType() && ((Damageable) items[i].getItemMeta()).getDamage() == ((Damageable) item.getItemMeta()).getDamage()) {
 				count += items[i].getAmount();
 			}
 			if (count >= item.getAmount()) {
@@ -220,7 +221,7 @@ public class CmdTntFill extends FCommand {
 		int amt = item.getAmount();
 		ItemStack[] items = inventory.getContents();
 		for (int i = 0; i < items.length; i++) {
-			if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
+			if (items[i] != null && items[i].getType() == item.getType() && ((Damageable) items[i].getItemMeta()).getDamage() == ((Damageable) item.getItemMeta()).getDamage()) {
 				if (items[i].getAmount() > amt) {
 					items[i].setAmount(items[i].getAmount() - amt);
 					break;

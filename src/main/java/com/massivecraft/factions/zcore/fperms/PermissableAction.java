@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -133,7 +134,7 @@ public enum PermissableAction {
 			}
 
 			if (dyeColor != null) {
-				item.setDurability(dyeColor.getWoolData());
+				((Damageable) itemMeta).setDamage(dyeColor.getWoolData());
 			}
 		} else {
 			// so this is in 1.13 mode, our config will automatically be updated to a material instead of color because of it being removed in the new api
