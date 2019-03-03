@@ -10,6 +10,7 @@
     <name>SavageFactions</name>
 
     <properties>
+        <kotlin.version>1.3.21</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd--HH-mm</maven.build.timestamp.format>
@@ -18,7 +19,6 @@
     <build>
         <defaultGoal>clean install deploy</defaultGoal>
         <finalName>${project.name}</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -77,10 +77,29 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.1</version>
             </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
