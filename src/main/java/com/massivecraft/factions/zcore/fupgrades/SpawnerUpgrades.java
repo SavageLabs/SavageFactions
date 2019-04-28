@@ -4,6 +4,8 @@ import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
+
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.SpawnerSpawnEvent;
@@ -20,13 +22,13 @@ public class SpawnerUpgrades implements Listener {
 			if (level != 0) {
 				switch (level) {
 					case 1:
-						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-1"));
+						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-1"));
 						break;
 					case 2:
-						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-2"));
+						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-2"));
 						break;
 					case 3:
-						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-3"));
+						lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-3"));
 						break;
 				}
 			}
@@ -34,8 +36,10 @@ public class SpawnerUpgrades implements Listener {
 	}
 
 	private void lowerSpawnerDelay(SpawnerSpawnEvent e, double multiplier) {
-		int lowerby = (int) Math.round(e.getSpawner().getDelay() * multiplier);
-		e.getSpawner().setDelay(e.getSpawner().getDelay() - lowerby);
+		CreatureSpawner spawner = (CreatureSpawner) e.getSpawner();
+		spawner.setMinSpawnDelay(500 - (int) Math.round(500 * multiplier));
+		spawner.setMaxSpawnDelay(500 - (int) Math.round(500 * multiplier));
+		spawner.update();
 	}
 
 }
