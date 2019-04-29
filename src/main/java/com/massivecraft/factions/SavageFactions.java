@@ -176,9 +176,7 @@ public class SavageFactions extends MPlugin {
 			faction.addFPlayer(fPlayer);
 		}
 		playersFlying.clear();
-		for (FPlayer fPlayer : FPlayers.getInstance().getAllFPlayers()) {
-			playersFlying.add(fPlayer);
-		}
+		playersFlying.addAll(FPlayers.getInstance().getAllFPlayers());
 		UtilFly.run();
 
 		Board.getInstance().load();
