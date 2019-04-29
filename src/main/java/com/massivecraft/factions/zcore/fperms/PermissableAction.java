@@ -66,6 +66,14 @@ public enum PermissableAction {
 		return null;
 	}
 
+	public static Map<PermissableAction, Access> fromDefaults(DefaultPermissions defaultPermissions) {
+		Map<PermissableAction, Access> defaultMap = new HashMap<>();
+		for (PermissableAction permissableAction : PermissableAction.values()) {
+			defaultMap.put(permissableAction, defaultPermissions.getbyName(permissableAction.name) ? Access.ALLOW : Access.DENY);
+		}
+		return defaultMap;
+	}
+
 	/**
 	 * Get the friendly name of this action. Used for editing in commands.
 	 *
@@ -171,14 +179,6 @@ public enum PermissableAction {
 		string = string.replace("{action-access-color}", access.getColor().toString());
 
 		return string;
-	}
-
-	public static Map<PermissableAction, Access> fromDefaults(DefaultPermissions defaultPermissions) {
-		Map<PermissableAction, Access> defaultMap = new HashMap<>();
-		for (PermissableAction permissableAction : PermissableAction.values()) {
-			defaultMap.put(permissableAction, defaultPermissions.getbyName(permissableAction.name) ? Access.ALLOW : Access.DENY);
-		}
-		return defaultMap;
 	}
 
 }

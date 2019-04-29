@@ -1049,7 +1049,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 				continue;
 			}
 			if (e instanceof Player) {
-				Player eplayer = (((Player) e).getPlayer());
+                Player eplayer = ((Player) e).getPlayer();
 				if (eplayer == null) {
 					continue;
 				}
@@ -1057,7 +1057,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 				if (efplayer == null) {
 					continue;
 				}
-				if (efplayer != null && this.getRelationTo(efplayer).equals(Relation.ENEMY) && !efplayer.isStealthEnabled()) {
+                if (this.getRelationTo(efplayer).equals(Relation.ENEMY) && !efplayer.isStealthEnabled()) {
 					setFlying(false);
 					msg(TL.COMMAND_FLY_ENEMY_NEAR);
 					Bukkit.getServer().getPluginManager().callEvent(new FPlayerStoppedFlying(this));

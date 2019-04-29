@@ -2,10 +2,11 @@
 			xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.massivecraft</groupId>
-	<artifactId>Factions</artifactId>
-	<version>1.6.9.5-U0.2.1-RC-1.6-RC</version>
-	<packaging>jar</packaging>
+    <groupId>com.massivecraft</groupId>
+    <artifactId>Factions</artifactId>
+    <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.0-ALPHA</version>
+    <packaging>jar</packaging>
+
 
 	<name>SavageFactions</name>
 

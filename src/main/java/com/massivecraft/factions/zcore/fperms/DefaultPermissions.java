@@ -1,6 +1,34 @@
 package com.massivecraft.factions.zcore.fperms;
 
 public class DefaultPermissions {
+	public boolean ban;
+	public boolean build;
+	public boolean destroy;
+	public boolean frostwalk;
+	public boolean painbuild;
+	public boolean door;
+	public boolean button;
+	public boolean lever;
+	public boolean container;
+	public boolean invite;
+	public boolean kick;
+	public boolean items;
+	public boolean sethome;
+	public boolean territory;
+	public boolean access;
+	public boolean home;
+	public boolean disband;
+	public boolean promote;
+	public boolean setwarp;
+	public boolean warp;
+	public boolean fly;
+	public boolean vault;
+	public boolean tntbank;
+	public boolean tntfill;
+	public boolean withdraw;
+	public boolean chest;
+	public boolean spawner;
+
 	public DefaultPermissions() {
 	}
 
@@ -35,32 +63,32 @@ public class DefaultPermissions {
 	}
 
 	public DefaultPermissions(boolean canBan,
-									  boolean canBuild,
-									  boolean canDestory,
-									  boolean canFrostwalk,
-									  boolean canPainbuild,
-									  boolean canDoor,
-									  boolean canButton,
-									  boolean canLever,
-									  boolean canContainer,
-									  boolean canInvite,
-									  boolean canKick,
-									  boolean canItems,
-									  boolean canSethome,
-									  boolean canTerritory,
-									  boolean canAccess,
-									  boolean canHome,
-									  boolean canDisband,
-									  boolean canPromote,
-									  boolean canSetwarp,
-									  boolean canWarp,
-									  boolean canFly,
-									  boolean canVault,
-									  boolean canTntbank,
-									  boolean canTntfill,
-									  boolean canWithdraw,
-									  boolean canChest,
-									  boolean canSpawners) {
+	                          boolean canBuild,
+	                          boolean canDestory,
+	                          boolean canFrostwalk,
+	                          boolean canPainbuild,
+	                          boolean canDoor,
+	                          boolean canButton,
+	                          boolean canLever,
+	                          boolean canContainer,
+	                          boolean canInvite,
+	                          boolean canKick,
+	                          boolean canItems,
+	                          boolean canSethome,
+	                          boolean canTerritory,
+	                          boolean canAccess,
+	                          boolean canHome,
+	                          boolean canDisband,
+	                          boolean canPromote,
+	                          boolean canSetwarp,
+	                          boolean canWarp,
+	                          boolean canFly,
+	                          boolean canVault,
+	                          boolean canTntbank,
+	                          boolean canTntfill,
+	                          boolean canWithdraw,
+	                          boolean canChest,
+	                          boolean canSpawners) {
 		this.ban = canBan;
 		this.build = canBuild;
 		this.destroy = canDestory;
@@ -89,34 +117,6 @@ public class DefaultPermissions {
 		this.chest = canChest;
 		this.spawner = canSpawners;
 	}
-
-	public boolean ban;
-	public boolean build;
-	public boolean destroy;
-	public boolean frostwalk;
-	public boolean painbuild;
-	public boolean door;
-	public boolean button;
-	public boolean lever;
-	public boolean container;
-	public boolean invite;
-	public boolean kick;
-	public boolean items;
-	public boolean sethome;
-	public boolean territory;
-	public boolean access;
-	public boolean home;
-	public boolean disband;
-	public boolean promote;
-	public boolean setwarp;
-	public boolean warp;
-	public boolean fly;
-	public boolean vault;
-	public boolean tntbank;
-	public boolean tntfill;
-	public boolean withdraw;
-	public boolean chest;
-	public boolean spawner;
 
 	@Deprecated
 	public boolean getbyName(String name) {

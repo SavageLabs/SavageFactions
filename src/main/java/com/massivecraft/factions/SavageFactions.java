@@ -2,7 +2,6 @@ package com.massivecraft.factions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
-import com.earth2me.essentials.Essentials;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
@@ -56,9 +55,15 @@ public class SavageFactions extends MPlugin {
 	// Single 4 life.
 	public static SavageFactions plugin;
 	public static Permission perms = null;
+	// This plugin sets the boolean true when fully enabled.
+	// Plugins can check this boolean while hooking in have
+	// a green light to use the api.
+	public static boolean startupFinished = false;
+
+
 	// Persistence related
 	public static ArrayList<FPlayer> playersFlying = new ArrayList();
-	public Essentials ess;
+
 	public boolean PlaceholderApi;
 	// Commands
 	public FCmdRoot cmdBase;
@@ -171,9 +176,7 @@ public class SavageFactions extends MPlugin {
 			faction.addFPlayer(fPlayer);
 		}
 		playersFlying.clear();
-		for (FPlayer fPlayer : FPlayers.getInstance().getAllFPlayers()) {
-			playersFlying.add(fPlayer);
-		}
+		playersFlying.addAll(FPlayers.getInstance().getAllFPlayers());
 		UtilFly.run();
 
 		Board.getInstance().load();
@@ -195,11 +198,6 @@ public class SavageFactions extends MPlugin {
 
 		// start up task which runs the autoLeaveAfterDaysOfInactivity routine
 		startAutoLeaveTask(false);
-
-		if (getConfig().getBoolean("MassiveStats")) {
-			// massive stats
-			new MassiveStats(this);
-		}
 
 		if (version > 8) {
 			useNonPacketParticles = true;
@@ -242,8 +240,6 @@ public class SavageFactions extends MPlugin {
 		getCommand(this.refCommand).setExecutor(this);
 		getCommand(this.refCommand).setTabCompleter(this);
 
-		setupEssentials();
-
 		if (getDescription().getFullName().contains("BETA")) {
 			divider();
 			System.out.println("You are using a BETA version of the plugin!");
@@ -255,6 +251,8 @@ public class SavageFactions extends MPlugin {
 		this.setupPlaceholderAPI();
 		this.postEnable();
 		this.loadSuccessful = true;
+		// Set startup finished to true. to give plugins hooking in a greenlight
+		SavageFactions.startupFinished = true;
 	}
 
 	public SkriptAddon getSkriptAddon() {
@@ -488,7 +486,7 @@ public class SavageFactions extends MPlugin {
 	}
 
 	public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
-		ItemStack item = new ItemStack(material, amount, datavalue);
+       ItemStack item = new ItemStack(MultiversionMaterials.fromString(material.toString()).parseMaterial(), amount, datavalue);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(color(name));
 		meta.setLore(colorList(lore));
@@ -511,10 +509,6 @@ public class SavageFactions extends MPlugin {
 		return econ;
 	}
 
-	private boolean setupEssentials() {
-		SavageFactions.plugin.ess = (Essentials) this.getServer().getPluginManager().getPlugin("Essentials");
-		return SavageFactions.plugin.ess == null;
-	}
 
 	@Override
 	public boolean logPlayerCommands() {
@@ -581,8 +575,13 @@ public class SavageFactions extends MPlugin {
 		completions = completions.stream()
 				  .filter(m -> m.toLowerCase().startsWith(lastArg))
 				  .collect(Collectors.toList());
-
-		return completions;
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            completions.add(player.getName());
+        }
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            completions.add(player.getName());
+        }
+        return completions;
 	}
 
 	public void createTimedHologram(final Location location, String text, Long timeout) {
