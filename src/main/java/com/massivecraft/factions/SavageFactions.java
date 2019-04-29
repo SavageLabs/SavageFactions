@@ -71,6 +71,7 @@ public class SavageFactions extends MPlugin {
 	public boolean mc17 = false;
 	public boolean mc18 = false;
 	public boolean mc113 = false;
+	public boolean mc114 = false;
 	public boolean useNonPacketParticles = false;
 	public boolean factionsFlight = false;
 	//multiversion material fields
@@ -145,6 +146,10 @@ public class SavageFactions extends MPlugin {
 			mc18 = true;
 		} else if (version == 13) {
 			SavageFactions.plugin.log("Minecraft Version 1.13 found, New Items will be used.");
+			mc113 = true;
+			changeItemIDSInConfig();
+		} else if (version == 14) {
+			SavageFactions.plugin.log("Minecraft Version 1.14 found.");
 			mc113 = true;
 			changeItemIDSInConfig();
 		}
@@ -260,7 +265,7 @@ public class SavageFactions extends MPlugin {
 	}
 
 	private void setupMultiversionMaterials() {
-		if (mc113) {
+		if (mc113 || mc114) {
 			BANNER = Material.valueOf("LEGACY_BANNER");
 			CROPS = Material.valueOf("LEGACY_CROPS");
 			SUGAR_CANE_BLOCK = Material.valueOf("LEGACY_SUGAR_CANE_BLOCK");
@@ -283,6 +288,9 @@ public class SavageFactions extends MPlugin {
 			DIODE_BLOCK_ON = Material.valueOf("LEGACY_DIODE_BLOCK_ON");
 			ENCHANTMENT_TABLE = Material.valueOf("LEGACY_ENCHANTMENT_TABLE");
 			FIREBALL = Material.valueOf("LEGACY_FIREBALL");
+			if(mc114) {
+
+			}
 
 		} else {
 			if (!mc17) {

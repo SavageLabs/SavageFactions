@@ -63,7 +63,7 @@ public class FUpgradesGUI implements Listener {
 			return;
 
 		FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
-		if (e.getClickedInventory().getTitle().equalsIgnoreCase(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.MainMenu.Title").replace("{faction}", fme.getFaction().getTag())))) {
+		if (e.getView().getTitle().equalsIgnoreCase(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.MainMenu.Title").replace("{faction}", fme.getFaction().getTag())))) {
 			e.setCancelled(true);
 			ItemStack[] items = buildItems(fme);
 			ItemStack cropItem = items[2];
@@ -149,7 +149,7 @@ public class FUpgradesGUI implements Listener {
 		String invName = SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title"));
 
 		for (Player player : faction.getOnlinePlayers()) {
-			if (player.getInventory().getTitle() != null && player.getInventory().getTitle().equalsIgnoreCase(invName))
+			if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
 				player.closeInventory();
 		}
 
