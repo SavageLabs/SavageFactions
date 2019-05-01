@@ -841,7 +841,7 @@ public class FactionsPlayerListener implements Listener {
             return PermissableAction.DOOR;
         if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE"))
             return PermissableAction.BUTTON;
-        if (SavageFactions.plugin.mc113) {
+        if (SavageFactions.plugin.mc113 || SavageFactions.plugin.mc114) {
             switch (material) {
                 case LEVER:
                     return PermissableAction.LEVER;
