@@ -150,7 +150,7 @@ public class SavageFactions extends MPlugin {
 			changeItemIDSInConfig();
 		} else if (version == 14) {
 			SavageFactions.plugin.log("Minecraft Version 1.14 found.");
-			mc113 = true;
+			mc114 = true;
 			changeItemIDSInConfig();
 		}
 		setupMultiversionMaterials();
@@ -289,9 +289,9 @@ public class SavageFactions extends MPlugin {
 			ENCHANTMENT_TABLE = Material.valueOf("LEGACY_ENCHANTMENT_TABLE");
 			FIREBALL = Material.valueOf("LEGACY_FIREBALL");
 			if(mc114) {
-
+				//TODO We have to support here all of new items of MC 1.14
+				// but i'm too lazy to implement them now, hihihi
 			}
-
 		} else {
 			if (!mc17) {
 				BANNER = Material.valueOf("BANNER");

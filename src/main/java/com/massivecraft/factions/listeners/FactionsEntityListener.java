@@ -649,7 +649,8 @@ public class FactionsEntityListener implements Listener {
 		}
 
 		//TODO Make it work without TravelAgent or wait Spigot to handle it again
-		// Cf : "The TravelAgent has been removed as it was too difficult to maintain due to internal changes. It may be added back in the future, but only if it can be implemented in a sustainable manner."
+		// Cf : "The TravelAgent has been removed as it was too difficult to maintain due to internal changes.
+		// 		It may be added back in the future, but only if it can be implemented in a sustainable manner."
 		// - Spigot 1.14 dev build 23/04/2019
 		/*
 		TravelAgent agent = event.getPortalTravelAgent();
