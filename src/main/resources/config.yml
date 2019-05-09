@@ -408,6 +408,9 @@ help:
 # indicating the current relation (Uses relation item placeholder)
 # 2nd: Dummy items, these items server no other purpose than to look good, they have their own
 # items defined in dummy items, and can later be assigned to specific slots in the GUI's
+# If you would like to set default permissions in the /f perms gui find the option 'useDefaultPermissions' in conf.json.
+# This can be useful if you would like to create
+# A template for factions in your server to have for /f perms.
 fperm-gui:
   relation:
     # GUI Name
@@ -628,9 +631,7 @@ fperm-gui:
       color: BLACK
       name: ' '
       lore:
-        -
-
-############################################################
+        - ############################################################
 # +------------------------------------------------------+ #
 # |                  Faction Warp GUI                    | #
 # +------------------------------------------------------+ #
