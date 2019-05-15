@@ -138,20 +138,25 @@ public class SavageFactions extends MPlugin {
 		}
 
 		int version = Integer.parseInt(ReflectionUtils.PackageType.getServerVersion().split("_")[1]);
-		if (version == 7) {
-			SavageFactions.plugin.log("Minecraft Version 1.7 found, disabling banners, itemflags inside GUIs, and Titles.");
-			mc17 = true;
-		} else if (version == 8) {
-			SavageFactions.plugin.log("Minecraft Version 1.8 found, Title Fadeouttime etc will not be configurable.");
-			mc18 = true;
-		} else if (version == 13) {
-			SavageFactions.plugin.log("Minecraft Version 1.13 found, New Items will be used.");
-			mc113 = true;
-			changeItemIDSInConfig();
-		} else if (version == 14) {
-			SavageFactions.plugin.log("Minecraft Version 1.14 found.");
-			mc114 = true;
-			changeItemIDSInConfig();
+        switch (version) {
+            case 7:
+                SavageFactions.plugin.log("Minecraft Version 1.7 found, disabling banners, itemflags inside GUIs, and Titles.");
+                mc17 = true;
+                break;
+            case 8:
+                SavageFactions.plugin.log("Minecraft Version 1.8 found, Title Fadeouttime etc will not be configurable.");
+                mc18 = true;
+                break;
+            case 13:
+                SavageFactions.plugin.log("Minecraft Version 1.13 found, New Items will be used.");
+                mc113 = true;
+                changeItemIDSInConfig();
+                break;
+            case 14:
+                SavageFactions.plugin.log("Minecraft Version 1.14 found.");
+                mc114 = true;
+                changeItemIDSInConfig();
+                break;
 		}
 		setupMultiversionMaterials();
 		migrateFPlayerLeaders();
