@@ -114,7 +114,6 @@ public enum PermissableAction {
 		if (access == null) {
 			access = Access.UNDEFINED;
 		}
-
 		ItemStack item = new ItemStack(material);
 		ItemMeta itemMeta = item.getItemMeta();
 

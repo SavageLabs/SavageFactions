@@ -45,6 +45,7 @@ import java.io.*;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -748,7 +749,13 @@ public class SavageFactions extends MPlugin {
 	}
 
 	public String getPrimaryGroup(OfflinePlayer player) {
-		return perms == null || !perms.hasGroupSupport() ? " " : perms.getPrimaryGroup(Bukkit.getWorlds().get(0).toString(), player);
+        AtomicReference<String> primaryGroup = new AtomicReference<>();
+
+        if (perms == null || !perms.hasGroupSupport()) return " ";
+        else {
+            Bukkit.getScheduler().runTaskAsynchronously(this, () -> primaryGroup.set(perms.getPrimaryGroup(Bukkit.getWorlds().get(0).toString(), player)));
+            return primaryGroup.get();
+        }
 	}
 
 	public void debug(Level level, String s) {
