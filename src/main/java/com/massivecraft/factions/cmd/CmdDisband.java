@@ -46,7 +46,8 @@ public class CmdDisband extends FCommand {
 			return;
 		}
 
-		boolean isMyFaction = fme != null && faction == myFaction;
+
+       boolean isMyFaction = fme != null && faction == myFaction;
 
 		if (isMyFaction) {
 			if (!assertMinRole(Role.LEADER)) {

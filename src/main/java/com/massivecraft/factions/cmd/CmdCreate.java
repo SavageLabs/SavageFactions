@@ -97,22 +97,12 @@ public class CmdCreate extends FCommand {
 			}
 		}
 		msg(TL.COMMAND_CREATE_YOUSHOULD, p.cmdBase.cmdDescription.getUseageTemplate());
-
-		if (Conf.econEnabled) {
-			Econ.setBalance(faction.getAccountId(), Conf.econFactionStartingBalance);
-		}
-
-		if (Conf.logFactionCreate) {
-			SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CREATE_CREATEDLOG.toString() + tag);
-		}
-		if (SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) {
-			this.fme.msg(TL.COMMAND_PAYPALSET_CREATED);
-		}
-		if (Conf.useCustomDefaultPermissions) {
-			faction.setDefaultPerms();
-			if (Conf.usePermissionHints)
-				this.fme.msg(TL.COMMAND_HINT_PERMISSION);
-		}
+       if (Conf.econEnabled) Econ.setBalance(faction.getAccountId(), Conf.econFactionStartingBalance);
+       if (Conf.logFactionCreate)
+          SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CREATE_CREATEDLOG.toString() + tag);
+       if (SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) this.fme.msg(TL.COMMAND_PAYPALSET_CREATED);
+       if (Conf.useCustomDefaultPermissions) faction.setDefaultPerms();
+       if (Conf.usePermissionHints) this.fme.msg(TL.COMMAND_HINT_PERMISSION);
 	}
 
 	@Override
