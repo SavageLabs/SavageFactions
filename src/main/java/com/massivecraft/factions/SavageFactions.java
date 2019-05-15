@@ -344,7 +344,7 @@ public class SavageFactions extends MPlugin {
 
 	private void migrateFPlayerLeaders() {
 		List<String> lines = new ArrayList<>();
-		File fplayerFile = new File("plugins\\Factions\\players.json");
+		File fplayerFile = new File("plugins/Factions/players.json");
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(fplayerFile));
