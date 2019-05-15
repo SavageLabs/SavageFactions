@@ -60,10 +60,6 @@ public class SavageFactions extends MPlugin {
 	// a green light to use the api.
 	public static boolean startupFinished = false;
 
-
-	// Persistence related
-	public static ArrayList<FPlayer> playersFlying = new ArrayList();
-
 	public boolean PlaceholderApi;
 	// Commands
 	public FCmdRoot cmdBase;
@@ -185,8 +181,7 @@ public class SavageFactions extends MPlugin {
 			}
 			faction.addFPlayer(fPlayer);
 		}
-		playersFlying.clear();
-		playersFlying.addAll(FPlayers.getInstance().getAllFPlayers());
+
 		UtilFly.run();
 
 		Board.getInstance().load();

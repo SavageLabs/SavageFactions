@@ -77,6 +77,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 	protected transient long lastFrostwalkerMessage;
 	protected transient boolean shouldTakeFallDamage = true;
 	protected boolean isStealthEnabled = false;
+
 	boolean playerAlerts = false;
 	boolean inspectMode = false;
 

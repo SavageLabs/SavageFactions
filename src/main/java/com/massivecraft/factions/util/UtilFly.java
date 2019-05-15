@@ -1,29 +1,24 @@
 package com.massivecraft.factions.util;
 
 import com.massivecraft.factions.FPlayer;
+import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class UtilFly {
 
-	public static ArrayList<FPlayer> playersFlying = SavageFactions.playersFlying;
+
 
 	public static void run() {
 		if (!SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight"))
 			return;
 
-		playersFlying.clear();
-
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, () -> {
-			for (FPlayer fp : playersFlying) {
-				if (fp != null)
-					fp.checkIfNearbyEnemies();
+			for (FPlayer fp : FPlayers.getInstance().getAllFPlayers()) {
+				if (fp.isFlying()) fp.checkIfNearbyEnemies();
 			}
 		}, 0, SavageFactions.plugin.getConfig().getInt("fly-task-interval", 10));
 	}
@@ -36,11 +31,6 @@ public class UtilFly {
 		fp.getPlayer().setFlying(fly);
 		fp.setFlying(fly);
 
-		if (fly) {
-			playersFlying.add(fp);
-		} else {
-			playersFlying.remove(fp);
-		}
 
 		if (!silent) {
 			if (!damage) {
