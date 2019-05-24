@@ -246,9 +246,9 @@ public class SavageFactions extends MPlugin {
 		getCommand(this.refCommand).setExecutor(this);
 		getCommand(this.refCommand).setTabCompleter(this);
 
-		if (getDescription().getFullName().contains("BETA")) {
+		if (getDescription().getFullName().contains("BETA") ||getDescription().getFullName().contains("ALPHA") ) {
 			divider();
-			System.out.println("You are using a BETA version of the plugin!");
+			System.out.println("You are using an unstable version of the plugin!");
 			System.out.println("This comes with risks of small bugs in newer features!");
 			System.out.println("For support head to: https://github.com/ProSavage/SavageFactions/issues");
 			divider();

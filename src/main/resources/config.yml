@@ -2,8 +2,11 @@
 # Report issues: https://github.com/ProSavage/SavageFactions/issues/new
 # Live support: https://discord.gg/W9dv9WP
 # Spigot Site: https://www.spigotmc.org/resources/savagefactions-factionsuuid-reimagined-1-7-1-12.52891/
-# Website: https://www.prosavage.net/
-# Jenkins: https://jenkins.prosavage.net/
+# Website: http://www.prosavage.net/
+# CI: http://ci.prosavage.net/
+# Wiki: http://wiki.prosavage.net/display/savagefactions
+# Make sure to check the wiki mentioned above before making a issue on github or asking for help in the discord chat!
+# There are additional options present in the conf.json file.
 
 # Made with love <3
 
@@ -1033,6 +1036,8 @@ Tntfill:
 #  - {enemies-list} : Lists each faction enemy with tooltips
 #  - {online-list}  : Lists all online members with tooltips
 #  - {offline-list} : Lists all offline members with tooltips
+#  - {truces-list}  : Lists each faction truce with tooltips
+
 # Player variables. Can be used in tooltips.show, scoreboards, or /f show
 #  - {group}     : Players group
 #  - {name}      : Players name

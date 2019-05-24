@@ -133,13 +133,6 @@ public enum TL {
 
 	COMMAND_ANNOUNCE_DESCRIPTION("Announce a message to players in faction."),
 
-	COMMAND_FREECAM_ENEMYINRADIUS("Freecam disabled, An enemy is closeby!"),
-	COMMAND_FREECAM_OUTSIDEFLIGHT("Please dont leave the flight radius!"),
-	COMMAND_FREECAM_ENABLED("Freecam is now enabled!"),
-	COMMAND_FREECAM_DISABLED("Freecam is now disabled"),
-	COMMAND_FREECAM_DESCRIPTION("Go into spectator mode"),
-
-
 	COMMAND_AUTOCLAIM_ENABLED("&c&l[!] &7Now &cauto-claiming&7 land for <h>%1$s<i>."),
 	COMMAND_AUTOCLAIM_DISABLED("&c&l[!] Auto-claiming&7 of land is now &cdisabled."),
 	COMMAND_AUTOCLAIM_REQUIREDRANK("&c&l[!] &7You must be &c%1$s&7 to claim land."),
