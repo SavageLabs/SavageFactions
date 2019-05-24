@@ -1,5 +1,8 @@
 package com.massivecraft.factions.util.Particles;
 
+import com.massivecraft.factions.Conf;
+import com.massivecraft.factions.util.Particles.flyparticledata.FlyParticleData;
+
 public enum FlyParticle {
 
     /*
@@ -15,10 +18,14 @@ public enum FlyParticle {
     YELLOW_CLOUD,
     PURPLE_CLOUD,
     PINK_CLOUD,
-    FLAME_RING,
-    ROTATING_SPHERE,
-    PENTAGON_RING,
-    HEXAGON_RING,
+    RED_CLOUD;
+//    FLAME_RING,
+//    ROTATING_SPHERE,
+//    PENTAGON_RING,
+//    HEXAGON_RING;
 
+    public FlyParticleData getData() {
+        return Conf.particleEffectSettings.get(this);
+    }
 
 }
