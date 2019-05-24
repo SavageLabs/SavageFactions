@@ -2,7 +2,6 @@ package com.massivecraft.factions;
 
 import com.google.common.collect.ImmutableMap;
 import com.massivecraft.factions.integration.dynmap.DynmapStyle;
-import com.massivecraft.factions.util.MultiversionMaterials;
 import com.massivecraft.factions.zcore.fperms.DefaultPermissions;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

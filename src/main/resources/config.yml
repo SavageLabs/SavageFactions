@@ -803,7 +803,7 @@ fchest:
 fupgrades:
   Enabled: true
   MainMenu:
-    Title: '{faction}''s Upgrade Menu'
+    Title: '{faction}''s UpgradeType Menu'
     DummyItem:
       Name: '&f'
       Type: STAINED_GLASS_PANE
@@ -1019,6 +1019,9 @@ Tntfill:
   enabled: true
   max-radius: 32
   max-amount: 64
+
+
+
 
 ############################################################
 # +------------------------------------------------------+ #
