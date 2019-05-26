@@ -292,6 +292,7 @@ public enum TL {
 	COMMAND_FLY_CHECK_ENEMY("&c&l[!]&7 Cannot fly here, an enemy is &cnearby"),
 	COMMAND_FLY_NO_EPEARL("&c&l[!] &7You &ccannot&7 throw enderpearls while flying!"),
 
+
 	COMMAND_FOCUS_SAMEFACTION("&c[!] You may not focus players in your faction!"),
 	COMMAND_FOCUS_FOCUSING("&c&l[!] &7Your faction is now focusing &c%s"),
 	COMMAND_FOCUS_NO_LONGER("&c&l[!] &7Your faction is no longer focusing &c%s"),
@@ -478,6 +479,10 @@ public enum TL {
 	COMMAND_OWNERLIST_NONE("&c&l[!]&7 No owners are set here; everyone in the faction has access."),
 	COMMAND_OWNERLIST_OWNERS("&c&l[!]&7 Current owner(s) of this land: %1$s"),
 	COMMAND_OWNERLIST_DESCRIPTION("List owner(s) of this claimed land"),
+
+	COMMAND_PARTICLE_NO_SELECTED_PARTICLE("&c&l[!] &7You need to select a particle using &c/f particle"),
+	COMMAND_PARTICLE_SELECTED_PARTICLE("&c&l[!] &7You have selected the {particle} particle type!"),
+	COMMAND_PARTICLE_DESCRIPTION("Select the particle for your player"),
 
 	COMMAND_PAYPALSET_DESCRIPTION("&c&l[!] &7Set the email of your faction to claim rewards."),
 	COMMAND_PAYPALSEE_DESCRIPTION("&c&l[!] &7View a specific factions paypal email with &b/f <seepaypal/getpaypal> <faction>&b."),

@@ -19,7 +19,8 @@ public class JSONFPlayer extends MemoryFPlayer {
 		((JSONFPlayers) FPlayers.getInstance()).fPlayers.remove(getId());
 	}
 
-	public boolean shouldBeSaved() {
+
+   public boolean shouldBeSaved() {
 		return this.hasFaction() || (this.getPowerRounded() != this.getPowerMaxRounded() && this.getPowerRounded() != (int) Math.round(Conf.powerPlayerStarting));
 	}
 }

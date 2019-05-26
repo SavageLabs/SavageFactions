@@ -1,4 +1,4 @@
-package com.massivecraft.factions.util;
+package com.massivecraft.factions.zcore.ffly;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;

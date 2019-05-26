@@ -233,7 +233,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		this.bans.add(info);
 	}
 
-	public void unban(FPlayer player) {
+
+   public void unban(FPlayer player) {
 		Iterator<BanInfo> iter = bans.iterator();
 		while (iter.hasNext()) {
 			if (iter.next().getBanned().equalsIgnoreCase(player.getId())) {
@@ -1247,4 +1248,5 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public Set<FLocation> getAllClaims() {
 		return Board.getInstance().getAllClaims(this);
 	}
+
 }

@@ -1,7 +1,7 @@
-package com.massivecraft.factions.util.Particles;
+package com.massivecraft.factions.zcore.ffly;
 
 import com.massivecraft.factions.Conf;
-import com.massivecraft.factions.util.Particles.flyparticledata.FlyParticleData;
+import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 
 public enum FlyParticle {
 

@@ -1,6 +1,6 @@
-package com.massivecraft.factions.util.Particles.flyparticledata;
+package com.massivecraft.factions.zcore.ffly.flyparticledata;
 
-import com.massivecraft.factions.util.Particles.ParticleEffect;
+import com.massivecraft.factions.util.Particles.Particles;
 import com.massivecraft.factions.zcore.persist.serializable.Item;
 import org.bukkit.Location;
 
@@ -8,9 +8,9 @@ public abstract class FlyParticleData {
 
     private String name;
     private Item item;
-    private transient ParticleEffect particleEffect;
+   private transient Particles particleEffect;
 
-    public FlyParticleData(String name, Item item, ParticleEffect particleEffect) {
+   public FlyParticleData(String name, Item item, Particles particleEffect) {
         this.name = name;
         this.item = item;
         this.particleEffect = particleEffect;
@@ -26,7 +26,7 @@ public abstract class FlyParticleData {
         return item;
     }
 
-    public ParticleEffect getParticleEffect() {
+   public Particles getParticleEffect() {
         return particleEffect;
     }
 }

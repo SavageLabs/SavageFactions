@@ -347,4 +347,5 @@ public interface Faction extends EconomyParticipator {
 
     void paypalSet(String paypal);
 
+
 }

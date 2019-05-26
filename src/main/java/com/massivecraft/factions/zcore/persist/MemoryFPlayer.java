@@ -17,6 +17,7 @@ import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -80,6 +81,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 
 	boolean playerAlerts = false;
 	boolean inspectMode = false;
+	FlyParticle selectedParticle;
 
 	public MemoryFPlayer() {
 	}
@@ -127,6 +129,18 @@ public abstract class MemoryFPlayer implements FPlayer {
 		this.kills = other.kills;
 		this.deaths = other.deaths;
 		this.mapHeight = Conf.mapHeight;
+	}
+
+	public FlyParticle getSelectedParticle() {
+		return this.selectedParticle;
+	}
+
+	public void setSelectedParticle(FlyParticle particle) {
+		this.selectedParticle = particle;
+	}
+
+	public FlyParticle getParticle() {
+		return this.selectedParticle;
 	}
 
 	public boolean isStealthEnabled() {

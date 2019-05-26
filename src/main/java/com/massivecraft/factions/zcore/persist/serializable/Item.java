@@ -11,20 +11,18 @@ public class Item {
     private String name;
     private List<String> lore;
     private MultiversionMaterials material;
-    private boolean isGlowing;
     private int amount;
 
-    public Item(String name, List<String> lore, MultiversionMaterials material, boolean isGlowing, int amount) {
+   public Item(String name, List<String> lore, MultiversionMaterials material, int amount) {
         this.name = name;
         this.lore = lore;
         this.material = material;
-        this.isGlowing = isGlowing;
         this.amount = amount;
     }
 
 
-    public ItemStack getItem() {
-        return new ItemBuilder(material.parseMaterial()).name(name).lore(lore).glowing(isGlowing).amount(amount).build();
+   public ItemStack buildItemStack(boolean isSelected) {
+      return new ItemBuilder(material.parseItem()).name(name).lore(lore).glowing(isSelected).amount(amount).build();
     }
 
 

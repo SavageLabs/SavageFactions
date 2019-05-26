@@ -6,6 +6,7 @@ import com.massivecraft.factions.struct.ChatMode;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -374,6 +375,10 @@ public interface FPlayer extends EconomyParticipator {
     void stopWarmup();
 
     void clearWarmup();
+
+    FlyParticle getSelectedParticle();
+
+    void setSelectedParticle(FlyParticle selectedParticle);
 
 
 }
