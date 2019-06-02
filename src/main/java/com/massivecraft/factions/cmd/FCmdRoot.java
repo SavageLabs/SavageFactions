@@ -104,7 +104,7 @@ public class FCmdRoot extends FCommand {
 	public CmdTntFill cmdTntFill = new CmdTntFill();
 	public CmdChest cmdChest = new CmdChest();
 	public CmdSetBanner cmdSetBanner = new CmdSetBanner();
-
+	public CmdParticle cmdParticle = new CmdParticle();
 
 	public FCmdRoot() {
 		super();
@@ -216,6 +216,7 @@ public class FCmdRoot extends FCommand {
 		this.addSubCommand(this.cmdTntFill);
 		this.addSubCommand(this.cmdChest);
 		this.addSubCommand(this.cmdSetBanner);
+		this.addSubCommand(this.cmdParticle);
 
 
 		if (Bukkit.getServer().getPluginManager().getPlugin("CoreProtect") != null) {
@@ -228,7 +229,8 @@ public class FCmdRoot extends FCommand {
 			addSubCommand(this.cmdFocus);
 		}
 
-		if (SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight", false)) {
+		if (SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight", true)) {
+			SavageFactions.plugin.log("Enabling Faction Flight!");
 			this.addSubCommand(this.cmdFly);
 		}
 		if (Bukkit.getServer().getPluginManager().getPlugin("FactionsTop") != null) {

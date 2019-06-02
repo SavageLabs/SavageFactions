@@ -4,14 +4,12 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
-import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.WarmUpUtil;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -29,7 +27,9 @@ public class CmdFly extends FCommand {
 		super();
 		this.aliases.add("fly");
 
+
 		this.optionalArgs.put("on/off", "flip");
+
 
 
 		this.permission = Permission.FLY.node;
@@ -38,10 +38,6 @@ public class CmdFly extends FCommand {
 	}
 
 	public static void startParticles() {
-		// Just a secondary check.
-		if (!SavageFactions.plugin.getConfig().getBoolean("ffly.Particles.Enabled")) {
-			return;
-		}
 
 		id = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, () -> {
 			for (String name : flyMap.keySet()) {
@@ -58,22 +54,12 @@ public class CmdFly extends FCommand {
 					}
 				}
 
-				if (FPlayers.getInstance().getByPlayer(player).isVanished()) {
-					// Actually, vanished players (such as admins) should not display particles to prevent others from knowing their vanished assistance for moderation.
-					// But we can keep it as a config.
-					if (SavageFactions.plugin.getConfig().getBoolean("ffly.Particles.Enable-While-Vanished")) {
-						return;
-					}
+				FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+				if (fplayer.isVanished()) {
 					continue;
 				}
-				if (SavageFactions.plugin.useNonPacketParticles) {
-					// 1.9+ based servers will use the built in particleAPI instead of packet based.
-					// any particle amount higher than 0 made them go everywhere, and the offset at 0 was not working.
-					// So setting the amount to 0 spawns 1 in the precise location
-					player.getWorld().spawnParticle(Particle.CLOUD, player.getLocation().add(0, -0.35, 0), 0);
-				} else {
-					ParticleEffect.CLOUD.display((float) 0, (float) 0, (float) 0, (float) 0, 3, player.getLocation().add(0, -0.35, 0), 16);
-				}
+
+				fplayer.getSelectedParticle().getData().display(player.getLocation().add(0, -0.35, 0));
 
 			}
 			if (flyMap.keySet().size() == 0) {
@@ -176,6 +162,10 @@ public class CmdFly extends FCommand {
 			return;
 		}
 
+		if (fme.getSelectedParticle() == null) {
+			fme.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
+			return;
+		}
 		FLocation myfloc = new FLocation(me.getLocation());
 		Faction toFac = Board.getInstance().getFactionAt(myfloc);
 		if (!checkBypassPerms(fme, me, toFac)) return;
@@ -207,12 +197,13 @@ public class CmdFly extends FCommand {
 			return;
 		}
 
+
 		if (fme.canFlyAtLocation())
 			this.doWarmUp(WarmUpUtil.Warmup.FLIGHT, TL.WARMUPS_NOTIFY_FLIGHT, "Fly", () -> {
 				fme.setFlying(true);
 				flyMap.put(player.getName(), true);
 				if (id == -1) {
-					if (SavageFactions.plugin.getConfig().getBoolean("ffly.Particles.Enabled")) {
+					if (Conf.particlesEnabled) {
 						startParticles();
 					}
 				}

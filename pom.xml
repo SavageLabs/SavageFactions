@@ -4,7 +4,7 @@
 
     <groupId>com.massivecraft</groupId>
     <artifactId>Factions</artifactId>
-    <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.0-Release-1</version>
+	<version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.0-Release-2</version>
     <packaging>jar</packaging>
 
 
@@ -43,6 +43,10 @@
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<relocations>
 						<relocation>
+							<pattern>com.github.stefvanschie.inventoryframework</pattern>
+							<shadedPattern>.inventoryframework</shadedPattern>
+						</relocation>
+						<relocation>
 							<pattern>mkremins.fanciful</pattern>
 							<shadedPattern>com.massivecraft.factions.shade.mkremins.fanciful</shadedPattern>
 						</relocation>
@@ -70,7 +74,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<finalName>Factions-${maven.build.timestamp}</finalName>
+					<finalName>Factions-2.0</finalName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -96,6 +100,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.github.stefvanschie.inventoryframework</groupId>
+			<artifactId>IF</artifactId>
+			<version>0.5.5</version>
+		</dependency>
 		<dependency>
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-stdlib</artifactId>

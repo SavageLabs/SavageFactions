@@ -62,6 +62,7 @@ public enum Permission {
 	OPEN("open"),
 	OWNER("owner"),
 	OWNERLIST("ownerlist"),
+	factionToCheck("particle"),
 	SET_PEACEFUL("setpeaceful"),
 	SET_PERMANENT("setpermanent"),
 	SET_PERMANENTPOWER("setpermanentpower"),
