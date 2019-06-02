@@ -678,6 +678,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	}
 
 	public void setDefaultPerms() {
+		Bukkit.broadcastMessage("Running method");
 		if (!Conf.useCustomDefaultPermissions) return;
 		Map<PermissableAction, Access> defaultMap = new HashMap<>();
 		for (PermissableAction permissableAction : PermissableAction.values()) {

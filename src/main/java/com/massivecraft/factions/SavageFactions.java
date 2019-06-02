@@ -247,11 +247,12 @@ public class SavageFactions extends MPlugin {
 		getCommand(this.refCommand).setExecutor(this);
 		getCommand(this.refCommand).setTabCompleter(this);
 
-		if (getDescription().getFullName().contains("BETA") ||getDescription().getFullName().contains("ALPHA") ) {
+		if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {
 			divider();
 			System.out.println("You are using an unstable version of the plugin!");
 			System.out.println("This comes with risks of small bugs in newer features!");
 			System.out.println("For support head to: https://github.com/ProSavage/SavageFactions/issues");
+			System.out.println("Youre gay nigga" + getConfig().getBoolean("debug"));
 			divider();
 		}
 
@@ -260,6 +261,8 @@ public class SavageFactions extends MPlugin {
 		this.loadSuccessful = true;
 		// Set startup finished to true. to give plugins hooking in a greenlight
 		SavageFactions.startupFinished = true;
+
+
 	}
 
 	public SkriptAddon getSkriptAddon() {
@@ -268,7 +271,7 @@ public class SavageFactions extends MPlugin {
 
 	private void setupMultiversionMaterials() {
 		if (mc113 || mc114) {
-			BANNER = Material.valueOf("LEGACY_BANNER");
+			BANNER = MultiversionMaterials.BLACK_BANNER.parseMaterial();
 			CROPS = Material.valueOf("LEGACY_CROPS");
 			SUGAR_CANE_BLOCK = Material.valueOf("LEGACY_SUGAR_CANE_BLOCK");
 			REDSTONE_LAMP_ON = Material.valueOf("LEGACY_REDSTONE_LAMP_ON");
@@ -496,7 +499,7 @@ public class SavageFactions extends MPlugin {
 	}
 
 	public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
-       ItemStack item = new ItemStack(MultiversionMaterials.fromString(material.toString()).parseMaterial(), amount, datavalue);
+		ItemStack item = new ItemStack(MultiversionMaterials.fromString(material.toString()).parseItem().getType(), amount, datavalue);
 		ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(color(name));
 		meta.setLore(colorList(lore));
