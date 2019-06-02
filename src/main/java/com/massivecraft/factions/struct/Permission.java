@@ -108,6 +108,7 @@ public enum Permission {
 	COORD("coords"),
 	SHOWCLAIMS("showclaims"),
 	WARP("warp"),
+    PARTICLE("particle"),
 	CHEST("Chest");
 
 	public final String node;
