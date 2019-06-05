@@ -62,6 +62,7 @@ public enum Permission {
 	OPEN("open"),
 	OWNER("owner"),
 	OWNERLIST("ownerlist"),
+	factionToCheck("particle"),
 	SET_PEACEFUL("setpeaceful"),
 	SET_PERMANENT("setpermanent"),
 	SET_PERMANENTPOWER("setpermanentpower"),
@@ -107,6 +108,7 @@ public enum Permission {
 	COORD("coords"),
 	SHOWCLAIMS("showclaims"),
 	WARP("warp"),
+    PARTICLE("particle"),
 	CHEST("Chest");
 
 	public final String node;

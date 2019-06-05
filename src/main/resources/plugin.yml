@@ -339,3 +339,5 @@ permissions:
     description: Set/view your own faction's paypal.
   factions.showclaims:
     description: View all you faction claims.
+  factions.particle:
+    description: Set your player's particle in fly.

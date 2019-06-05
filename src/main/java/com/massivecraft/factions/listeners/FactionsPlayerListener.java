@@ -1,6 +1,5 @@
 package com.massivecraft.factions.listeners;
 
-import com.earth2me.essentials.User;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.cmd.CmdFly;
 import com.massivecraft.factions.cmd.CmdSeeChunk;
@@ -25,7 +24,6 @@ import com.massivecraft.factions.zcore.util.TextUtil;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -415,7 +413,7 @@ public class FactionsPlayerListener implements Listener {
             me.setFlying(true);
             CmdFly.flyMap.put(me.getName(), true);
             if (CmdFly.id == -1) {
-                if (SavageFactions.plugin.getConfig().getBoolean("ffly.Particles.Enabled")) {
+                if (SavageFactions.plugin.getConfig().getBoolean("ffly.ParticleEffect.Enabled")) {
                     CmdFly.startParticles();
                 }
             }

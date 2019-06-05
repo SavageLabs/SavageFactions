@@ -133,13 +133,6 @@ public enum TL {
 
 	COMMAND_ANNOUNCE_DESCRIPTION("Announce a message to players in faction."),
 
-	COMMAND_FREECAM_ENEMYINRADIUS("Freecam disabled, An enemy is closeby!"),
-	COMMAND_FREECAM_OUTSIDEFLIGHT("Please dont leave the flight radius!"),
-	COMMAND_FREECAM_ENABLED("Freecam is now enabled!"),
-	COMMAND_FREECAM_DISABLED("Freecam is now disabled"),
-	COMMAND_FREECAM_DESCRIPTION("Go into spectator mode"),
-
-
 	COMMAND_AUTOCLAIM_ENABLED("&c&l[!] &7Now &cauto-claiming&7 land for <h>%1$s<i>."),
 	COMMAND_AUTOCLAIM_DISABLED("&c&l[!] Auto-claiming&7 of land is now &cdisabled."),
 	COMMAND_AUTOCLAIM_REQUIREDRANK("&c&l[!] &7You must be &c%1$s&7 to claim land."),
@@ -298,6 +291,7 @@ public enum TL {
 	COMMAND_FLY_ENEMY_NEAR("&c&l[!]&7 Flight has been&c disabled&7 an enemy is nearby"),
 	COMMAND_FLY_CHECK_ENEMY("&c&l[!]&7 Cannot fly here, an enemy is &cnearby"),
 	COMMAND_FLY_NO_EPEARL("&c&l[!] &7You &ccannot&7 throw enderpearls while flying!"),
+
 
 	COMMAND_FOCUS_SAMEFACTION("&c[!] You may not focus players in your faction!"),
 	COMMAND_FOCUS_FOCUSING("&c&l[!] &7Your faction is now focusing &c%s"),
@@ -485,6 +479,10 @@ public enum TL {
 	COMMAND_OWNERLIST_NONE("&c&l[!]&7 No owners are set here; everyone in the faction has access."),
 	COMMAND_OWNERLIST_OWNERS("&c&l[!]&7 Current owner(s) of this land: %1$s"),
 	COMMAND_OWNERLIST_DESCRIPTION("List owner(s) of this claimed land"),
+
+	COMMAND_PARTICLE_NO_SELECTED_PARTICLE("&c&l[!] &7You need to select a particle using &c/f particle"),
+	COMMAND_PARTICLE_SELECTED_PARTICLE("&c&l[!] &7You have selected the {particle} particle type!"),
+	COMMAND_PARTICLE_DESCRIPTION("Select the particle for your player"),
 
 	COMMAND_PAYPALSET_DESCRIPTION("&c&l[!] &7Set the email of your faction to claim rewards."),
 	COMMAND_PAYPALSEE_DESCRIPTION("&c&l[!] &7View a specific factions paypal email with &b/f <seepaypal/getpaypal> <faction>&b."),

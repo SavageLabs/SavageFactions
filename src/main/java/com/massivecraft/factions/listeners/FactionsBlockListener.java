@@ -332,12 +332,7 @@ public class FactionsBlockListener implements Listener {
 					as.setCustomNameVisible(true); //This makes the text appear no matter if your looking at the entity or not
 					final ArmorStand armorStand = as;
 					final String tag = fme.getTag();
-					Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, new Runnable() {
-						@Override
-						public void run() {
-							bannerCooldownMap.remove(tag);
-						}
-					}, Long.parseLong(bannerCooldown + ""));
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> bannerCooldownMap.remove(tag), Long.parseLong(bannerCooldown + ""));
 					final Block banner = e.getBlockPlaced();
 					final Material bannerType = banner.getType();
 					final Faction bannerFaction = fme.getFaction();

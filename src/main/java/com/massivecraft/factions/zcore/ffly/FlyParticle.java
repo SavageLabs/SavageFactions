@@ -18,17 +18,7 @@ public enum FlyParticle {
     YELLOW_CLOUD,
     PURPLE_CLOUD,
     PINK_CLOUD,
-    RED_CLOUD,
-    WHITE_HALO,
-    ORANGE_HALO,
-    GREEN_HALO,
-    BLUE_HALO,
-    BLACK_HALO,
-    YELLOW_HALO,
-    PURPLE_HALO,
-    PINK_HALO,
-    RED_HALO;
-
+    RED_CLOUD;
 //    FLAME_RING,
 //    ROTATING_SPHERE,
 //    PENTAGON_RING,
