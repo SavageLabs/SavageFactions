@@ -374,7 +374,6 @@ public class Conf {
     // -------------------------------------------- //
     // Persistance
     // -------------------------------------------- //
-    public static Item particleGUIBackgroundItem = new Item("&c ", Collections.emptyList(), MultiversionMaterials.GRAY_STAINED_GLASS_PANE, 1);
 
     static {
         particleEffectSettings.put(FlyParticle.WHITE_CLOUD, new ColorableCloud("White Cloud",
