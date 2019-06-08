@@ -17,6 +17,7 @@ import com.massivecraft.factions.zcore.CommandVisibility;
 import com.massivecraft.factions.zcore.MCommand;
 import com.massivecraft.factions.zcore.MPlugin;
 import com.massivecraft.factions.zcore.ffly.UtilFly;
+import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -450,6 +451,7 @@ public class SavageFactions extends MPlugin {
 				  .registerTypeAdapter(mapFLocToStringSetType, new MapFLocToStringSetTypeAdapter())
 				  .registerTypeAdapter(Inventory.class, new InventoryTypeAdapter())
 				  .registerTypeAdapter(Location.class, new LocationTypeAdapter())
+                .registerTypeAdapter(FlyParticleData.class, new FlyParticleDataTypeAdapter())
 				  .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
 	}
 

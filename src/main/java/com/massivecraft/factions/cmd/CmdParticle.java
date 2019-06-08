@@ -34,6 +34,6 @@ public class CmdParticle extends FCommand {
 
    @Override
    public void perform() {
-      new ParticleGUI(SavageFactions.plugin, "&cChoose a Particle! &o(Patreon Feature)", 5).buildGUI(fme);
+       new ParticleGUI(SavageFactions.plugin, "&cChoose a Particle! &o(Patreon)", 5).buildGUI(fme);
    }
 }

@@ -8,10 +8,18 @@ import org.bukkit.Location;
 
 public class ColorableCloud extends FlyParticleData {
 
-    private transient ParticleEffect.OrdinaryColor color;
+    private ParticleEffect.OrdinaryColor color;
 
     public ColorableCloud(String name, Item item, Particles particleEffect, ParticleEffect.OrdinaryColor color) {
         super(name, item, particleEffect);
+        this.color = color;
+    }
+
+    public ParticleEffect.OrdinaryColor getColor() {
+        return color;
+    }
+
+    public void setColor(ParticleEffect.OrdinaryColor color) {
         this.color = color;
     }
 
