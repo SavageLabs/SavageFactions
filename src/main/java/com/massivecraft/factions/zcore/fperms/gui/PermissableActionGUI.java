@@ -131,6 +131,8 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 		}
 
 		PermissableAction action = actionSlots.get(slot);
+
+
 		Access access;
 		if (click == ClickType.LEFT) {
 			access = Access.ALLOW;

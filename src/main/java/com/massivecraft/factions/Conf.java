@@ -104,6 +104,7 @@ public class Conf {
     public static boolean logFactionJoin = true;
     public static boolean logFactionKick = true;
     public static boolean logFactionLeave = true;
+    public static boolean logFactionPermissionSet = true;
     public static boolean logLandClaims = true;
     public static boolean logLandUnclaims = true;
     public static boolean logMoneyTransactions = true;
