@@ -9,6 +9,7 @@ import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.DefaultPermissions;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.serializable.Item;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -354,12 +355,18 @@ public class Conf {
     public static boolean useCustomDefaultPermissions = false;
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
+    public static boolean lockPermissions = false;
+    public static Set<PermissableAction> lockedPermissions = new HashSet<>();
     private static transient Conf i = new Conf();
 
     public static boolean particlesEnabled = true;
 
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));
+    }
+
+    static {
+        lockedPermissions.add(PermissableAction.CHEST);
     }
     // Custom Ranks - Oof I forgot I was doing this _SvenjaReissaus_
     //public static boolean enableCustomRanks = false; // We will disable it by default to avoid any migration error
