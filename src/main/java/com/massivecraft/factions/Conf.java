@@ -216,9 +216,7 @@ public class Conf {
     public static boolean ownedMessageInsideTerritory = true;
     public static boolean ownedMessageByChunk = false;
     public static boolean pistonProtectionThroughDenyBuild = true;
-    public static Set<Material> territoryProtectedMaterials = EnumSet.noneOf(Material.class);
     public static Set<Material> territoryDenyUseageMaterials = EnumSet.noneOf(Material.class);
-    public static Set<Material> territoryProtectedMaterialsWhenOffline = EnumSet.noneOf(Material.class);
     public static Set<Material> territoryDenyUseageMaterialsWhenOffline = EnumSet.noneOf(Material.class);
     public static transient Set<EntityType> safeZoneNerfedCreatureTypes = EnumSet.noneOf(EntityType.class);
     /// <summary>
@@ -408,8 +406,7 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
 
-        /// TODO: Consider removing this in a future release, as permissions works just fine now
-        territoryProtectedMaterials.add(Material.BEACON);
+
 
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(Material.COOKIE);
@@ -424,7 +421,7 @@ public class Conf {
         }
 
 
-        territoryProtectedMaterialsWhenOffline.add(Material.BEACON);
+
 
         territoryDenyUseageMaterialsWhenOffline.add(SavageFactions.plugin.FIREBALL);
         territoryDenyUseageMaterialsWhenOffline.add(Material.FLINT_AND_STEEL);

@@ -53,7 +53,7 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
 		}
 
 		guiSize *= 9;
-		String guiName = ChatColor.translateAlternateColorCodes('&', section.getString("name", "FactionPermissions"));
+		String guiName = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(section.getString("name", "FactionPermissions")));
 		warpGUI = Bukkit.createInventory(this, guiSize, guiName);
 
 		maxWarps = SavageFactions.plugin.getConfig().getInt("max-warps", 5);

@@ -252,7 +252,6 @@ public class SavageFactions extends MPlugin {
 			System.out.println("You are using an unstable version of the plugin!");
 			System.out.println("This comes with risks of small bugs in newer features!");
 			System.out.println("For support head to: https://github.com/ProSavage/SavageFactions/issues");
-			System.out.println("Youre gay nigga" + getConfig().getBoolean("debug"));
 			divider();
 		}
 
