@@ -23,7 +23,7 @@ public class ColoredHalo extends FlyParticleData {
         int x, y, r2;
         r2 = radius * radius;
         for (x = -radius; x <= radius; x++) {
-            y = (int) (Math.sqrt(r2 - x*x) + 0.5);
+            y = (int) (Math.sqrt(r2 - x * x) + 0.5);
             Particles.CLOUD.displayAtLocation(center.add(x, 0, y), 1, color);
         }
 

@@ -353,9 +353,8 @@ public class Conf {
     public static boolean useCustomDefaultPermissions = false;
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
-    private static transient Conf i = new Conf();
-
     public static boolean particlesEnabled = true;
+    private static transient Conf i = new Conf();
 
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));
@@ -408,7 +407,6 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpa");
 
 
-
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(Material.COOKIE);
 
@@ -420,8 +418,6 @@ public class Conf {
         if (!SavageFactions.plugin.mc17) {
             territoryDenyUseageMaterials.add(Material.ARMOR_STAND);
         }
-
-
 
 
         territoryDenyUseageMaterialsWhenOffline.add(SavageFactions.plugin.FIREBALL);

@@ -2,17 +2,17 @@ package com.massivecraft.factions.zcore.fupgrades;
 
 public enum UpgradeType {
 
-	CHEST("Chest"), SPAWNER("Spawner"), EXP("Exp"), CROP("Crop");
+    CHEST("Chest"), SPAWNER("Spawner"), EXP("Exp"), CROP("Crop");
 
 
-	private String id;
+    private String id;
 
     UpgradeType(String id) {
-		this.id = id;
-	}
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return this.id;
-	}
+    @Override
+    public String toString() {
+        return this.id;
+    }
 }

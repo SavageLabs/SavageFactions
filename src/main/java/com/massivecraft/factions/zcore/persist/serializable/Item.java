@@ -13,7 +13,7 @@ public class Item {
     private MultiversionMaterials material;
     private int amount;
 
-   public Item(String name, List<String> lore, MultiversionMaterials material, int amount) {
+    public Item(String name, List<String> lore, MultiversionMaterials material, int amount) {
         this.name = name;
         this.lore = lore;
         this.material = material;
@@ -21,8 +21,8 @@ public class Item {
     }
 
 
-   public ItemStack buildItemStack(boolean isSelected) {
-      return new ItemBuilder(material.parseItem()).name(name).lore(lore).glowing(isSelected).amount(amount).build();
+    public ItemStack buildItemStack(boolean isSelected) {
+        return new ItemBuilder(material.parseItem()).name(name).lore(lore).glowing(isSelected).amount(amount).build();
     }
 
 
