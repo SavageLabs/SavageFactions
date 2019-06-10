@@ -392,7 +392,7 @@ public class Conf {
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
         particleEffectSettings.put(FlyParticle.RED_CLOUD, (new ColorableCloud("Red Cloud",
                 new Item("Red Cloud", Arrays.asList("&cClick me to show a Red cloud"), MultiversionMaterials.RED_WOOL,
-                        1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
+                        1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 0, 0))));
     }
 
 
