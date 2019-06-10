@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.ffly.ParticleGUI;
@@ -34,6 +35,6 @@ public class CmdParticle extends FCommand {
 
     @Override
     public void perform() {
-        new ParticleGUI(SavageFactions.plugin, "&cChoose a Particle! &o(Patreon)", 5).buildGUI(fme);
+        new ParticleGUI(SavageFactions.plugin, Conf.particleGUITitle, 5).buildGUI(fme);
     }
 }

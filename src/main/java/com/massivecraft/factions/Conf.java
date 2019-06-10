@@ -354,6 +354,7 @@ public class Conf {
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
     public static boolean particlesEnabled = true;
+    public static String particleGUITitle = "&cChoose a Particle! &o(Patreon)";
     private static transient Conf i = new Conf();
 
     static {
