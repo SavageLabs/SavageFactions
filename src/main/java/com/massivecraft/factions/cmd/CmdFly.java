@@ -5,6 +5,7 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -58,7 +59,12 @@ public class CmdFly extends FCommand {
                     continue;
                 }
 
-                fplayer.getSelectedParticle().getData().display(player.getLocation().add(0, -0.35, 0));
+                FlyParticle selectedParticle = fplayer.getSelectedParticle();
+                if (selectedParticle == null) {
+                    // This is so we can gracefully accept people flying through autoenable.
+                    selectedParticle = FlyParticle.WHITE_CLOUD;
+                }
+                selectedParticle.getData().display(player.getLocation().add(0, -0.35, 0));
 
             }
             if (flyMap.keySet().size() == 0) {
@@ -161,7 +167,7 @@ public class CmdFly extends FCommand {
             return;
         }
 
-        if (fme.getSelectedParticle() == null) {
+        if (Conf.enableFlyParticles && fme.getSelectedParticle() == null) {
             fme.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
             return;
         }

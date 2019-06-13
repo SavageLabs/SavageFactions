@@ -347,6 +347,7 @@ public class Conf {
 
 
     // Fly Settings.
+    public static boolean enableFlyParticles = true;
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();
     public static Map<FlyParticle, FlyParticleData> particleEffectSettings = new EnumMap<>(FlyParticle.class);
     // Default Options - Is this even shown on the Conf.json?

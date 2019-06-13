@@ -566,7 +566,7 @@ public class FactionsPlayerListener implements Listener {
             me.setFlying(true);
             CmdFly.flyMap.put(me.getName(), true);
             if (CmdFly.id == -1) {
-                if (SavageFactions.plugin.getConfig().getBoolean("ffly.ParticleEffect.Enabled")) {
+                if (Conf.enableFlyParticles) {
                     CmdFly.startParticles();
                 }
             }
