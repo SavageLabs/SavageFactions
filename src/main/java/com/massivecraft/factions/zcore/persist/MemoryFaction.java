@@ -678,30 +678,33 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
     }
 
     public void setDefaultPerms() {
-        Bukkit.broadcastMessage("Running method");
+
         if (!Conf.useCustomDefaultPermissions) return;
         Map<PermissableAction, Access> defaultMap = new HashMap<>();
         for (PermissableAction permissableAction : PermissableAction.values()) {
             defaultMap.put(permissableAction, Access.UNDEFINED);
         }
+
         // Put the map in there for each relation.
         for (Relation relation : Relation.values()) {
             if (relation != Relation.MEMBER) {
-                if (!Conf.defaultFactionPermissions.containsKey(relation.nicename))
+                if (!Conf.defaultFactionPermissions.containsKey(relation.nicename.toUpperCase())) {
                     permissions.put(relation, new HashMap<>(defaultMap));
-                else
-                    permissions.put(relation, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(relation.nicename)));
+                } else
+                    permissions.put(relation, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(relation.nicename.toUpperCase())));
             }
         }
 
         // And each role.
         for (Role role : Role.values()) {
             if (role != Role.LEADER) {
-                if (!Conf.defaultFactionPermissions.containsKey(role.nicename))
+                if (!Conf.defaultFactionPermissions.containsKey(role.nicename.toUpperCase()))
                     permissions.put(role, new HashMap<>(defaultMap));
-                else
-                    permissions.put(role, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(role.nicename)));
+                else {
+                    permissions.put(role, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(role.nicename.toUpperCase())));
+                }
             }
+
         }
     }
 

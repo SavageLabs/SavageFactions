@@ -107,7 +107,7 @@ public enum PermissableAction {
         }
         Material material = Material.matchMaterial(section.getString("materials." + name().toLowerCase().replace('_', '-')));
         if (material == null) {
-            material = MultiversionMaterials.fromString(SavageFactions.plugin.getConfig().getString("fperm-gui.action.materials")).parseMaterial();
+            material = MultiversionMaterials.valueOf(SavageFactions.plugin.getConfig().getString("fperm-gui.action.materials")).parseMaterial();
         }
 
         Access access = fme.getFaction().getAccess(permissable, this);
