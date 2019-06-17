@@ -9,6 +9,7 @@ import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.DefaultPermissions;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.serializable.Item;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -104,7 +105,6 @@ public class Conf {
     public static boolean logFactionJoin = true;
     public static boolean logFactionKick = true;
     public static boolean logFactionLeave = true;
-    public static boolean logFactionPermissionSet = true;
     public static boolean logLandClaims = true;
     public static boolean logLandUnclaims = true;
     public static boolean logMoneyTransactions = true;
@@ -347,16 +347,18 @@ public class Conf {
 
 
     // Fly Settings.
-    public static boolean enableFlyParticles = true;
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();
     public static Map<FlyParticle, FlyParticleData> particleEffectSettings = new EnumMap<>(FlyParticle.class);
     // Default Options - Is this even shown on the Conf.json?
     public static boolean useCustomDefaultPermissions = false;
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
-    public static boolean particlesEnabled = true;
-    public static String particleGUITitle = "&cChoose a Particle! &o(Patreon)";
     private static transient Conf i = new Conf();
+    public static boolean useLockedPermissions = false;
+
+    public static HashSet<PermissableAction> lockedPermissions = new HashSet<>();
+
+    public static boolean particlesEnabled = true;
 
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));
@@ -367,8 +369,12 @@ public class Conf {
     // -------------------------------------------- //
     // Persistance
     // -------------------------------------------- //
+    public static Item particleGUIBackgroundItem = new Item("&c ", Collections.emptyList(), MultiversionMaterials.GRAY_STAINED_GLASS_PANE, 1);
 
     static {
+
+        lockedPermissions.add(PermissableAction.CHEST);
+
         particleEffectSettings.put(FlyParticle.WHITE_CLOUD, new ColorableCloud("White Cloud",
                 new Item("White Cloud", Arrays.asList("&cClick me to show a white cloud"), MultiversionMaterials.WHITE_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 255, 255)));
@@ -394,7 +400,7 @@ public class Conf {
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
         particleEffectSettings.put(FlyParticle.RED_CLOUD, (new ColorableCloud("Red Cloud",
                 new Item("Red Cloud", Arrays.asList("&cClick me to show a Red cloud"), MultiversionMaterials.RED_WOOL,
-                        1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 0, 0))));
+                        1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
     }
 
 
@@ -409,6 +415,7 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpa");
 
 
+
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(Material.COOKIE);
 
@@ -420,6 +427,8 @@ public class Conf {
         if (!SavageFactions.plugin.mc17) {
             territoryDenyUseageMaterials.add(Material.ARMOR_STAND);
         }
+
+
 
 
         territoryDenyUseageMaterialsWhenOffline.add(SavageFactions.plugin.FIREBALL);
