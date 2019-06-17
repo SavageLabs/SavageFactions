@@ -208,7 +208,7 @@ public class CmdFly extends FCommand {
                 fme.setFlying(true);
                 flyMap.put(player.getName(), true);
                 if (id == -1) {
-                    if (Conf.particlesEnabled) {
+                    if (Conf.enableFlyParticles) {
                         startParticles();
                     }
                 }
