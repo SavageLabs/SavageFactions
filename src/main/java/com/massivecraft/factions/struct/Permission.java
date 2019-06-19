@@ -96,6 +96,7 @@ public enum Permission {
     TOP("top"),
     VAULT("vault"),
     GETVAULT("getvault"),
+    GRACE("grace"),
     SETMAXVAULTS("setmaxvaults"),
     RULES("rules"),
     CHECKPOINT("checkpoint"),

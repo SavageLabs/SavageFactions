@@ -346,6 +346,10 @@ public class Conf {
     public static transient char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
 
 
+    // Grace Period Settings
+    public static boolean graceEnabled = false;
+
+
     // Fly Settings.
     public static boolean enableFlyParticles = true;
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();

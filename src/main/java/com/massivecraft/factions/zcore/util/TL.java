@@ -619,6 +619,10 @@ public enum TL {
 	COMMAND_GETVAULT_NOMONEY("&cYou do not have enough money"),
 	COMMAND_GETVAULT_MONEYTAKE("&c{amount} has been taken from your account"),
 
+
+	COMMMAND_GRACE_TOGGLED("&c&lGrace has now been %1$s"),
+	COMMANd_GRACE_DESCRIPTION("Does grace toggling"),
+
 	COMMAND_SHOW_NOFACTION_SELF("You are not in a faction"),
 	COMMAND_SHOW_NOFACTION_OTHER("That's not a faction"),
 	COMMAND_SHOW_TOSHOW("to show faction information"),

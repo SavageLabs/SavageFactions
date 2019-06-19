@@ -243,16 +243,10 @@ public class FactionsEntityListener implements Listener {
         }
 
         // Loop the blocklist to run checks on each aimed block
-        Iterator<Block> blockList = event.blockList().iterator();
 
-        while (blockList.hasNext()) {
-            Block block = blockList.next();
+        // The block don't have to explode
+        event.blockList().removeIf(block -> !this.checkExplosionForBlock(boomer, block));
 
-            if (!this.checkExplosionForBlock(boomer, block)) {
-                // The block don't have to explode
-                blockList.remove();
-            }
-        }
 
         // Cancel the event if no block will explode
         if (!event.blockList().isEmpty() && (boomer instanceof TNTPrimed || boomer instanceof ExplosiveMinecart) && Conf.handleExploitTNTWaterlog) {
@@ -285,6 +279,10 @@ public class FactionsEntityListener implements Listener {
 
     private boolean checkExplosionForBlock(Entity boomer, Block block) {
         Faction faction = Board.getInstance().getFactionAt(new FLocation(block.getLocation()));
+
+        if (Conf.graceEnabled) {
+            return false;
+        }
 
         if (faction.noExplosionsInTerritory() || (faction.isPeaceful() && Conf.peacefulTerritoryDisableBoom)) {
             // faction is peaceful and has explosions set to disabled

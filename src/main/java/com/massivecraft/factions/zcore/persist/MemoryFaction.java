@@ -68,6 +68,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	Inventory chest;
 	Map<String, Object> bannerSerialized;
 	private long lastDeath;
+	private int strikes;
 
 	// -------------------------------------------- //
 	// Construct
@@ -570,6 +571,23 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return freezeSeconds != 0 && System.currentTimeMillis() - lastDeath < freezeSeconds * 1000;
 
 	}
+
+	public int getStrikes() {
+		return this.strikes;
+	}
+
+	public void setStrikes(int strikes) {
+		this.strikes = strikes;
+	}
+
+	public void giveStrike() {
+		this.strikes++;
+	}
+
+	public void takeStrike() {
+		this.strikes--;
+	}
+
 
 	public long getLastDeath() {
 		return this.lastDeath;
