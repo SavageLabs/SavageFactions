@@ -1,6 +1,6 @@
 package com.massivecraft.factions.zcore.persist.serializable;
 
-import com.massivecraft.factions.util.MultiversionMaterials;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.util.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 
@@ -10,10 +10,10 @@ public class Item {
 
     private String name;
     private List<String> lore;
-    private MultiversionMaterials material;
+    private XMaterial material;
     private int amount;
 
-    public Item(String name, List<String> lore, MultiversionMaterials material, int amount) {
+    public Item(String name, List<String> lore, XMaterial material, int amount) {
         this.name = name;
         this.lore = lore;
         this.material = material;

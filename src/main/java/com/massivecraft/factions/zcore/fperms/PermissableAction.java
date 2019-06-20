@@ -2,7 +2,7 @@ package com.massivecraft.factions.zcore.fperms;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.util.MultiversionMaterials;
+import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -107,7 +107,7 @@ public enum PermissableAction {
         }
         Material material = Material.matchMaterial(section.getString("materials." + name().toLowerCase().replace('_', '-')));
         if (material == null) {
-            material = MultiversionMaterials.valueOf(SavageFactions.plugin.getConfig().getString("fperm-gui.action.materials")).parseMaterial();
+            material = XMaterial.valueOf(SavageFactions.plugin.getConfig().getString("fperm-gui.action.materials")).parseMaterial();
         }
 
         Access access = fme.getFaction().getAccess(permissable, this);

@@ -271,7 +271,7 @@ public class SavageFactions extends MPlugin {
 
     private void setupMultiversionMaterials() {
         if (mc113 || mc114) {
-            BANNER = MultiversionMaterials.BLACK_BANNER.parseMaterial();
+            BANNER = XMaterial.BLACK_BANNER.parseMaterial();
             CROPS = Material.valueOf("LEGACY_CROPS");
             SUGAR_CANE_BLOCK = Material.valueOf("LEGACY_SUGAR_CANE_BLOCK");
             REDSTONE_LAMP_ON = Material.valueOf("LEGACY_REDSTONE_LAMP_ON");
@@ -500,7 +500,7 @@ public class SavageFactions extends MPlugin {
     }
 
     public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
-        ItemStack item = new ItemStack(MultiversionMaterials.fromString(material.toString()).parseItem().getType(), amount, datavalue);
+        ItemStack item = new ItemStack(XMaterial.matchXMaterial(material.toString()).parseItem().getType(), amount, datavalue);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(color(name));
         meta.setLore(colorList(lore));
