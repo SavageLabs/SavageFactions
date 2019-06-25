@@ -32,3 +32,6 @@
 *.ipr
 *.iws
 .idea/
+
+
+javadoc
