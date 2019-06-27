@@ -98,6 +98,7 @@ public class FCmdRoot extends FCommand {
     public CmdTpBanner cmdTpBanner = new CmdTpBanner();
     public CmdKillHolograms cmdKillHolograms = new CmdKillHolograms();
     public CmdInspect cmdInspect = new CmdInspect();
+    public CmdAlts cmdAlts = new CmdAlts();
     public CmdCoords cmdCoords = new CmdCoords();
     public CmdShowClaims cmdShowClaims = new CmdShowClaims();
     public CmdLowPower cmdLowPower = new CmdLowPower();
@@ -219,7 +220,9 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdParticle);
         this.addSubCommand(this.cmdGrace);
 
-
+        if(SavageFactions.plugin.getConfig().getBoolean("f-alts.Enabled")){
+            this.addSubCommand(cmdAlts);
+        }
         if (Bukkit.getServer().getPluginManager().getPlugin("CoreProtect") != null) {
             SavageFactions.plugin.log("Found CoreProtect, enabling Inspect");
             this.addSubCommand(this.cmdInspect);

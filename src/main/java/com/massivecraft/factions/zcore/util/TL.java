@@ -133,6 +133,16 @@ public enum TL {
 
 	COMMAND_ANNOUNCE_DESCRIPTION("Announce a message to players in faction."),
 
+	COMMAND_ALTS_LIST_FORMAT("%1$s Power: %2$s Last Seen: %3$s"),
+	COMMAND_ALTS_LIST_DESCRIPTION("List all alts in your faction"),
+	COMMAND_ALTS_DESCRIPTION("Faction Alts Commands"),
+	COMMAND_ALTINVITE_DESCRIPTION("Invite Alts to your faction."),
+	COMMAND_ALTKICK_DESCRIPTION("Kick alts from your faction"),
+	COMMAND_ALTKICK_NOTALT("&c&l[!] &7Player is not an alt."),
+	COMMAND_ALTKICK_NOTMEMBER("&c&l[!] &7This player is not a member of your faction."),
+	COMMAND_ALTINVITE_INVITED_ALT("&c&l[!]&7 &c%1$s&7 invited &c%2$s&7 to your faction as an alt."),
+
+
 	COMMAND_AUTOCLAIM_ENABLED("&c&l[!] &7Now &cauto-claiming&7 land for <h>%1$s<i>."),
 	COMMAND_AUTOCLAIM_DISABLED("&c&l[!] Auto-claiming&7 of land is now &cdisabled."),
 	COMMAND_AUTOCLAIM_REQUIREDRANK("&c&l[!] &7You must be &c%1$s&7 to claim land."),
