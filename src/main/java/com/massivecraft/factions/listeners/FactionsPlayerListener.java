@@ -313,7 +313,7 @@ public class FactionsPlayerListener implements Listener {
     /// <summary>
     private static PermissableAction GetPermissionFromUsableBlock(Material material) {
         // Check for doors that might have diff material name in old version.
-        if (material.name().contains("DOOR"))
+        if (material.name().contains("DOOR") || material.name().contains("FENCE_GATE"))
             return PermissableAction.DOOR;
         if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE"))
             return PermissableAction.BUTTON;
