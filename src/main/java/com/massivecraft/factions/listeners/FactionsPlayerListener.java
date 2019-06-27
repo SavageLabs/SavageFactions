@@ -405,6 +405,7 @@ public class FactionsPlayerListener implements Listener {
                 case SPRUCE_DOOR:
                 case ACACIA_FENCE_GATE:
                 case BIRCH_FENCE_GATE:
+                case OAK_FENCE_GATE:
                 case DARK_OAK_FENCE_GATE:
                 case JUNGLE_FENCE_GATE:
                 case SPRUCE_FENCE_GATE:
