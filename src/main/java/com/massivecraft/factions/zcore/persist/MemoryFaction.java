@@ -56,10 +56,12 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	protected Map<String, Relation> relationWish = new HashMap<>();
 	protected Map<FLocation, Set<String>> claimOwnership = new ConcurrentHashMap<>();
 	protected transient Set<FPlayer> fplayers = new HashSet<>();
+	protected transient Set<FPlayer> alts = new HashSet<>();
 	protected Set<String> invites = new HashSet<>();
 	protected HashMap<String, List<String>> announcements = new HashMap<>();
 	protected ConcurrentHashMap<String, LazyLocation> warps = new ConcurrentHashMap<>();
 	protected ConcurrentHashMap<String, String> warpPasswords = new ConcurrentHashMap<>();
+	protected Set<String> altinvites = new HashSet<>();
 	protected int maxVaults;
 	protected Role defaultRole;
 	protected Map<Permissable, Map<PermissableAction, Access>> permissions = new HashMap<>();
@@ -209,6 +211,11 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return invites;
 	}
 
+	public Set<String> getAltInvites() {
+		return altinvites;
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -223,10 +230,19 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public void deinvite(FPlayer fplayer) {
 		this.invites.remove(fplayer.getId());
+		this.altinvites.remove(fplayer.getId());
 	}
 
 	public boolean isInvited(FPlayer fplayer) {
-		return this.invites.contains(fplayer.getId());
+		return this.invites.contains(fplayer.getId()) || this.altinvites.contains(fplayer.getId());
+	}
+
+	public void altInvite(FPlayer fplayer) {
+		this.altinvites.add(fplayer.getId());
+	}
+
+	public boolean altInvited(FPlayer fplayer) {
+		return (this.altinvites.contains(fplayer.getId()));
 	}
 
 	public void ban(FPlayer target, FPlayer banner) {
@@ -845,6 +861,9 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		for (FPlayer fplayer : fplayers) {
 			ret += fplayer.getPower();
 		}
+		for (FPlayer fplayer : alts) {
+			ret += fplayer.getPower();
+		}
 		if (Conf.powerFactionMax > 0 && ret > Conf.powerFactionMax) {
 			ret = Conf.powerFactionMax;
 		}
@@ -858,6 +877,9 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 		double ret = 0;
 		for (FPlayer fplayer : fplayers) {
+			ret += fplayer.getPowerMax();
+		}
+		for (FPlayer fplayer : alts) {
 			ret += fplayer.getPowerMax();
 		}
 		if (Conf.powerFactionMax > 0 && ret > Conf.powerFactionMax) {
@@ -893,13 +915,18 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	// maintain the reference list of FPlayers in this faction
 	public void refreshFPlayers() {
 		fplayers.clear();
+		alts.clear();
 		if (this.isPlayerFreeType()) {
 			return;
 		}
 
 		for (FPlayer fplayer : FPlayers.getInstance().getAllFPlayers()) {
 			if (fplayer.getFactionId().equalsIgnoreCase(id)) {
-				fplayers.add(fplayer);
+				if (fplayer.isAlt()) {
+					alts.add(fplayer);
+				} else {
+					fplayers.add(fplayer);
+				}
 			}
 		}
 	}
@@ -912,8 +939,16 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return !this.isPlayerFreeType() && fplayers.remove(fplayer);
 	}
 
+	public boolean addAltPlayer(FPlayer fplayer) {
+		return !this.isPlayerFreeType() && alts.add(fplayer);
+	}
+
+	public boolean removeAltPlayer(FPlayer fplayer) {
+		return !this.isPlayerFreeType() && alts.remove(fplayer);
+	}
+
 	public int getSize() {
-		return fplayers.size();
+		return fplayers.size() + alts.size();
 	}
 
 	public Set<FPlayer> getFPlayers() {
@@ -921,6 +956,13 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		// concurrency issues
 		return new HashSet<>(fplayers);
 	}
+
+	public Set<FPlayer> getAltPlayers() {
+		// return a shallow copy of the FPlayer list, to prevent tampering and
+		// concurrency issues
+		return new HashSet<>(alts);
+	}
+
 
 	public Set<FPlayer> getFPlayersWhereOnline(boolean online) {
 		Set<FPlayer> ret = new HashSet<>();
@@ -1005,7 +1047,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 		for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
 			FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
-			if (fplayer.getFaction() == this) {
+			if (fplayer.getFaction() == this && !fplayer.isAlt()) {
 				ret.add(player);
 			}
 		}
@@ -1259,6 +1301,11 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		((MemoryBoard) Board.getInstance()).clean(id);
 
 		for (FPlayer fPlayer : fplayers) {
+			fPlayer.resetFactionData(false);
+		}
+
+
+		for (FPlayer fPlayer : alts) {
 			fPlayer.resetFactionData(false);
 		}
 	}

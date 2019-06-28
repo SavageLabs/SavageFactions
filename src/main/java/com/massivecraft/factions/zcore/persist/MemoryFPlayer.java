@@ -77,17 +77,27 @@ public abstract class MemoryFPlayer implements FPlayer {
     protected transient boolean loginPvpDisabled;
     protected transient long lastFrostwalkerMessage;
     protected transient boolean shouldTakeFallDamage = true;
+    protected boolean isAlt = false;
     protected boolean isStealthEnabled = false;
 
     boolean playerAlerts = false;
     boolean inspectMode = false;
     FlyParticle selectedParticle;
 
+    public void setAlt(boolean alt){
+        this.isAlt = alt;
+    }
+
+    public boolean isAlt() {
+        return isAlt;
+    }
+
     public MemoryFPlayer() {
     }
 
     public MemoryFPlayer(String id) {
         this.id = id;
+        this.isAlt = false;
         this.resetFactionData(false);
         this.power = Conf.powerPlayerStarting;
         this.lastPowerUpdateTime = System.currentTimeMillis();
@@ -111,6 +121,7 @@ public abstract class MemoryFPlayer implements FPlayer {
     public MemoryFPlayer(MemoryFPlayer other) {
         this.factionId = other.factionId;
         this.id = other.id;
+        this.isAlt = other.isAlt;
         this.power = other.power;
         this.lastLoginTime = other.lastLoginTime;
         this.mapAutoUpdating = other.mapAutoUpdating;
@@ -168,12 +179,20 @@ public abstract class MemoryFPlayer implements FPlayer {
         return Factions.getInstance().getFactionById(this.factionId);
     }
 
-    public void setFaction(Faction faction) {
+    public void setFaction(Faction faction, boolean alt) {
         Faction oldFaction = this.getFaction();
         if (oldFaction != null) {
+            if (this.isAlt()) {
+                oldFaction.removeAltPlayer(this);
+            }
+
             oldFaction.removeFPlayer(this);
         }
-        faction.addFPlayer(this);
+        if (alt) {
+            faction.addAltPlayer(this);
+        } else {
+            faction.addFPlayer(this);
+        }
         this.factionId = faction.getId();
     }
 
@@ -331,6 +350,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         this.role = Role.NORMAL;
         this.title = "";
         this.autoClaimFor = null;
+        this.isAlt = false;
     }
 
     public void resetFactionData() {
@@ -715,6 +735,12 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
 
         myFaction.removeAnnouncements(this);
+
+        if (this.isAlt()){
+            myFaction.removeAltPlayer(this);
+            this.msg(TL.LEAVE_LEFT, this.describeTo(this, true), myFaction.describeTo(this));
+        }
+
         this.resetFactionData();
 
         if (myFaction.isNormal() && !perm && myFaction.getFPlayers().isEmpty()) {
