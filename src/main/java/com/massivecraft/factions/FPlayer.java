@@ -67,7 +67,7 @@ public interface FPlayer extends EconomyParticipator {
      *
      * @param faction faction to set.
      */
-    void setFaction(Faction faction);
+    void setFaction(Faction faction, boolean alt);
 
     /**
      * Gets the faction ID of the player.
