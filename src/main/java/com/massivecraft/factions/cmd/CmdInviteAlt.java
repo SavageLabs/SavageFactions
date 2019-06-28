@@ -32,7 +32,7 @@ public class CmdInviteAlt extends FCommand {
 
     @Override
     public void perform() {
-        if(!SavageFactions.plugin.getConfig().getBoolean("f-alts.Enabled", false)){
+        if(!Conf.enableFactionAlts){
             fme.msg(TL.GENERIC_DISABLED);
             return;
         }
