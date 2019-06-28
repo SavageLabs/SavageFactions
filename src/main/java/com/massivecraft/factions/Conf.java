@@ -363,6 +363,8 @@ public class Conf {
     public static String particleGUITitle = "&cChoose a Particle! &o(Patreon)";
     public static HashSet<PermissableAction> lockedPermissions = new HashSet<>();
 
+    public static boolean enableFactionAlts = true;
+
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));
     }
