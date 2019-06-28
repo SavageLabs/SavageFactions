@@ -364,6 +364,7 @@ public class Conf {
     public static HashSet<PermissableAction> lockedPermissions = new HashSet<>();
 
     public static boolean enableFactionAlts = true;
+    public static boolean registerAltsCommand = true;
 
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));

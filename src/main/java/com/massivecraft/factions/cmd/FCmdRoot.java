@@ -220,9 +220,8 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdParticle);
         this.addSubCommand(this.cmdGrace);
 
-        if(SavageFactions.plugin.getConfig().getBoolean("f-alts.Enabled")){
-            this.addSubCommand(cmdAlts);
-        }
+        if (Conf.registerAltsCommand) this.addSubCommand(cmdAlts);
+
         if (Bukkit.getServer().getPluginManager().getPlugin("CoreProtect") != null) {
             SavageFactions.plugin.log("Found CoreProtect, enabling Inspect");
             this.addSubCommand(this.cmdInspect);
