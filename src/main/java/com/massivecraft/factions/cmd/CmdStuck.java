@@ -69,12 +69,11 @@ public class CmdStuck extends FCommand {
                     final Board board = Board.getInstance();
                     // spiral task to find nearest wilderness chunk
                     new SpiralTask(new FLocation(me), radius * 2) {
-
                         @Override
                         public boolean work() {
                             FLocation chunk = currentFLocation();
                             Faction faction = board.getFactionAt(chunk);
-                            int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0);
+                            int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
                             if (faction.isWilderness() && !chunk.isOutsideWorldBorder(buffer)) {
                                 int cx = FLocation.chunkToBlock((int) chunk.getX());
                                 int cz = FLocation.chunkToBlock((int) chunk.getZ());

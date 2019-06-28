@@ -747,12 +747,12 @@ public abstract class MemoryFPlayer implements FPlayer {
         Faction currentFaction = Board.getInstance().getFactionAt(flocation);
         int ownedLand = forFaction.getLandRounded();
         int factionBuffer = SavageFactions.plugin.getConfig().getInt("hcf.buffer-zone", 0);
-        int worldBuffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0);
+        int worldBuffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
 
         if (Conf.worldGuardChecking && Worldguard.checkForRegionsInChunk(flocation)) {
             // Checks for WorldGuard regions in the chunk attempting to be claimed
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_PROTECTED.toString());
-        } else if (flocation.isOutsideWorldBorder(SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0))) {
+        } else if (flocation.isOutsideWorldBorder(SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1)) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_OUTSIDEWORLDBORDER.toString());
         } else if (Conf.worldsNoClaiming.contains(flocation.getWorldName())) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_DISABLED.toString());
@@ -888,12 +888,7 @@ public abstract class MemoryFPlayer implements FPlayer {
             // Short task so we're just doing it in method. Not clean but eh.
             if (cooldown > 0) {
                 setTakeFallDamage(false);
-                Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        setTakeFallDamage(true);
-                    }
-                }, 20L * cooldown);
+                Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> setTakeFallDamage(true), 20L * cooldown);
             }
         }
 

@@ -201,7 +201,7 @@ public abstract class MemoryBoard extends Board {
         ArrayList<FancyMessage> ret = new ArrayList<>();
         Faction factionLoc = getFactionAt(flocation);
         ret.add(new FancyMessage(ChatColor.DARK_GRAY + SavageFactions.plugin.txt.titleize("(" + flocation.getCoordString() + ") " + factionLoc.getTag(fplayer))));
-        int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0);
+        int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
 
 
         // Get the compass
