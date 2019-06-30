@@ -114,8 +114,7 @@ tooltips:
 # Use &0-9a-f for colors and include messages in "quotes"
 scoreboard:
 
-  # send faction change message as well when scoreboard is up?
-  also-send-chat: true
+  # The also-send-chat configuration node has been moved to conf.json as showFactionTerrtioryChangeMessage.
   # How long do we want scoreboards to stay if set temporarily.
   expiration: 7
 

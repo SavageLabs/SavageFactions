@@ -349,6 +349,8 @@ public class Conf {
     // Grace Period Settings
     public static boolean graceEnabled = false;
 
+    public static boolean showFactionTerrtioryChangeMessage = true;
+
     //Strike settings.
     public static int maxStrikes = 10;
 

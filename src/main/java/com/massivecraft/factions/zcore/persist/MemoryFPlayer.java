@@ -645,14 +645,11 @@ public abstract class MemoryFPlayer implements FPlayer {
 
     public void sendFactionHereMessage(Faction from) {
         Faction toShow = Board.getInstance().getFactionAt(getLastStoodAt());
-        boolean showChat = true;
-        if (showInfoBoard(toShow)) {
+        if (showInfoBoard(toShow))
             FScoreboard.get(this).setTemporarySidebar(new FInfoSidebar(toShow));
-            showChat = SavageFactions.plugin.getConfig().getBoolean("scoreboard.also-send-chat", true);
-        }
-        if (showChat) {
+
+        if (Conf.showFactionTerrtioryChangeMessage)
             this.sendMessage(SavageFactions.plugin.txt.parse(TL.FACTION_LEAVE.format(from.getTag(this), toShow.getTag(this))));
-        }
     }
 
     // -------------------------------
