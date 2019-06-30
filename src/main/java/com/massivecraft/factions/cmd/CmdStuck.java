@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class CmdStuck extends FCommand {
 
@@ -49,7 +48,7 @@ public class CmdStuck extends FCommand {
                 return;
             }
 
-            final int id = Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new BukkitRunnable() {
+            final int id = Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {
 
                 @Override
                 public void run() {
