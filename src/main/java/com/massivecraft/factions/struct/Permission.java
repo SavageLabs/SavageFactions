@@ -112,7 +112,8 @@ public enum Permission {
     SHOWCLAIMS("showclaims"),
     WARP("warp"),
     PARTICLE("particle"),
-    CHEST("Chest");
+    CHEST("Chest"),
+    LOCKSPAWNERS("lockspawners");
 
     public final String node;
 

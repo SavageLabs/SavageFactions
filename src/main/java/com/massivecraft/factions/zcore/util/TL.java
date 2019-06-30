@@ -668,6 +668,10 @@ public enum TL {
 	COMMAND_SHOWINVITES_CLICKTOREVOKE("Click to revoke invite for %1$s"),
 	COMMAND_SHOWINVITES_DESCRIPTION("Show pending faction invites"),
 
+	COMMAND_SPAWNERTOGGLE_DESCRIPTION("Disables / Enabled factions being able to place spawners."),
+	COMMAND_SPAWNERTOGGLE_TOGGLE("&c[!] Spawner Placing has been toggled %1$s"),
+	COMMAND_SPAWNERTOGGLE_PLACE_DENIED("&c[!] Spawner placing is currently disabled!"),
+
 	COMMAND_STATUS_FORMAT("%1$s Power: %2$s Last Seen: %3$s"),
 	COMMAND_STATUS_ONLINE("Online"),
 	COMMAND_STATUS_AGOSUFFIX(" ago."),
