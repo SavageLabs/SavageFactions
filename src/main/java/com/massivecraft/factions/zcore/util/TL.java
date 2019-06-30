@@ -673,6 +673,16 @@ public enum TL {
 	COMMAND_STATUS_AGOSUFFIX(" ago."),
 	COMMAND_STATUS_DESCRIPTION("Show the status of a player"),
 
+	COMMAND_STRIKES_CHANGED("&c&l[!] &7You have set &c%1$s's &7strikes to &c%2$s"),
+	COMMAND_STRIKES_INFO("&c&l[!] &7%1$s has %2$s strikes"),
+	COMMAND_STRIKES_TARGET_INVALID("&c&l[!] &7The faction %1$s is invalid."),
+	COMMAND_STRIKES_STRUCK("&c&l[!] &7Your faction strikes have changed by &c%1$s &7strike(s)! Your faction now has &c%2$s/%3$s"),
+	COMMAND_STRIKES_DESCRIPTION("Set strikes on factions to warn them"),
+	COMMAND_STRIKESGIVE_DESCRIPTION("Give a faction 1 strike"),
+	COMMAND_STRIKETAKE_DESCRIPTION("Take a strike from a faction"),
+	COMMAND_STRIKESET_DESCRIPTION("Set a faction's strikes explicitly."),
+	COMMAND_STRIKESINFO_DESCRIPTION("Get a faction's strikes"),
+
 	COMMAND_STEALTH_DESCRIPTION("Enable and Disable Stealth Mode"),
 	COMMAND_STEALTH_ENABLE("&cStealth &7» &7You will no longer disable nearby players in /f fly."),
 	COMMAND_STEALTH_DISABLE("&cStealth &8» &7You will now disable other nearby players in /f fly."),

@@ -111,10 +111,18 @@ public class CmdJoin extends FCommand {
         if (!samePlayer) {
             fplayer.msg(TL.COMMAND_JOIN_MOVED, fme.describeTo(fplayer, true), faction.getTag(fplayer));
         }
+
         faction.msg(TL.COMMAND_JOIN_JOINED, fplayer.describeTo(faction, true));
 
         fplayer.resetFactionData();
-        fplayer.setFaction(faction, false);
+
+        if (faction.altInvited(fplayer)) {
+            fplayer.setAlt(true);
+            fplayer.setFaction(faction, true);
+        } else {
+            fplayer.setFaction(faction, false);
+        }
+
         faction.deinvite(fplayer);
         fme.setRole(faction.getDefaultRole());
 

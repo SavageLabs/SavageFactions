@@ -107,6 +107,7 @@ public class FCmdRoot extends FCommand {
     public CmdSetBanner cmdSetBanner = new CmdSetBanner();
     public CmdParticle cmdParticle = new CmdParticle();
     public CmdGrace cmdGrace = new CmdGrace();
+    public CmdStrikes cmdStrikes = new CmdStrikes();
 
     public FCmdRoot() {
         super();
@@ -219,6 +220,8 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdSetBanner);
         this.addSubCommand(this.cmdParticle);
         this.addSubCommand(this.cmdGrace);
+        this.addSubCommand(this.cmdStrikes);
+
 
         if (Conf.registerAltsCommand) this.addSubCommand(cmdAlts);
 

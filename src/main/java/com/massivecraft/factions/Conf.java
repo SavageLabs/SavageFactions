@@ -2,9 +2,9 @@ package com.massivecraft.factions;
 
 import com.google.common.collect.ImmutableMap;
 import com.massivecraft.factions.integration.dynmap.DynmapStyle;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
@@ -348,6 +348,9 @@ public class Conf {
 
     // Grace Period Settings
     public static boolean graceEnabled = false;
+
+    //Strike settings.
+    public static int maxStrikes = 10;
 
 
     // Fly Settings.

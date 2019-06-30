@@ -592,16 +592,20 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return this.strikes;
 	}
 
-	public void setStrikes(int strikes) {
+	public void setStrikes(int strikes, boolean notify) {
+		int difference = this.strikes - strikes;
 		this.strikes = strikes;
+		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, difference, strikes, Conf.maxStrikes);
 	}
 
-	public void giveStrike() {
+	public void giveStrike(boolean notify) {
 		this.strikes++;
+		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
 	}
 
-	public void takeStrike() {
+	public void takeStrike(boolean notify) {
 		this.strikes--;
+		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
 	}
 
 

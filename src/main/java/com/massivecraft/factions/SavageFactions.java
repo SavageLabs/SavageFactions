@@ -167,7 +167,6 @@ public class SavageFactions extends MPlugin {
         this.loadSuccessful = false;
 
         saveDefaultConfig();
-
         // Load Conf from disk
         Conf.load();
         com.massivecraft.factions.integration.Essentials.setup();
@@ -184,6 +183,9 @@ public class SavageFactions extends MPlugin {
             }
             faction.addFPlayer(fPlayer);
         }
+
+        Factions.getInstance().getAllFactions().forEach(Faction::refreshFPlayers);
+        
 
         UtilFly.run();
 

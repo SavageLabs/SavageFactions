@@ -204,6 +204,16 @@ public interface Faction extends EconomyParticipator {
 
     boolean isPowerFrozen();
 
+    int getStrikes();
+
+    void setStrikes(int strikes, boolean notify);
+
+    void giveStrike(boolean notify);
+
+    void takeStrike(boolean notify);
+
+    long getLastDeath();
+
     void setLastDeath(long time);
 
     int getKills();
