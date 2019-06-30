@@ -15,6 +15,23 @@ import java.util.UUID;
 
 public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements Relational {
 
+    private SavageFactions plugin;
+
+    public ClipPlaceholderAPIManager(SavageFactions instance) {
+        this.plugin = instance;
+    }
+
+
+    @Override
+    public boolean persist() {
+        return true;
+    }
+
+    @Override
+    public boolean canRegister() {
+        return true;
+    }
+
     // Identifier for this expansion
     @Override
     public String getIdentifier() {
@@ -24,12 +41,6 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
     @Override
     public String getAuthor() {
         return "drtshock";
-    }
-
-    // Since we are registering this expansion from the dependency, this can be null
-    @Override
-    public String getPlugin() {
-        return null;
     }
 
     // Return the plugin version since this expansion is bundled with the dependency
@@ -69,6 +80,7 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
         if (player == null || placeholder == null) {
             return "";
         }
+
 
         FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
         Faction faction = fPlayer.getFaction();

@@ -93,7 +93,7 @@ public class CmdCreate extends FCommand {
         fme.setRole(Role.LEADER);
         if (SavageFactions.plugin.getConfig().getBoolean("faction-creation-broadcast", true)) {
             for (FPlayer follower : FPlayers.getInstance().getOnlinePlayers()) {
-                follower.msg(TL.COMMAND_CREATE_CREATED, fme.describeTo(follower, true), faction.getTag(follower));
+                follower.msg(TL.COMMAND_CREATE_CREATED, fme.getName(), faction.getTag(follower));
             }
         }
         msg(TL.COMMAND_CREATE_YOUSHOULD, p.cmdBase.cmdDescription.getUseageTemplate());

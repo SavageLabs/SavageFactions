@@ -342,8 +342,8 @@ public class Conf {
 
     // Taller and wider for "bigger f map"
     public static int mapHeight = 17;
-    public static int mapWidth = 49;
-    public static transient char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
+    public static int mapWidth = 40;
+    public static transient List<String> mapKeyChrs = new ArrayList<>(Arrays.asList("\u2726", "\u2734", "\u2735", "\u2777", "\u2778", "\u2779", "\u277a", "\u277b", "\u277c", "\u277d", "\u277e", "\u277f"));
 
 
     // Grace Period Settings

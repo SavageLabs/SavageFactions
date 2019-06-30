@@ -331,7 +331,7 @@ public class SavageFactions extends MPlugin {
     private void setupPlaceholderAPI() {
         Plugin clip = getServer().getPluginManager().getPlugin("PlaceholderAPI");
         if (clip != null && clip.isEnabled()) {
-            this.clipPlaceholderAPIManager = new ClipPlaceholderAPIManager();
+            this.clipPlaceholderAPIManager = new ClipPlaceholderAPIManager(this);
             if (this.clipPlaceholderAPIManager.register()) {
                 PlaceholderApi = true;
                 log(Level.INFO, "Successfully registered placeholders with PlaceholderAPI.");

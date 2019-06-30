@@ -47,6 +47,7 @@ public class CmdMap extends FCommand {
                 // Turn off
                 fme.setMapAutoUpdating(false);
                 msg(TL.COMMAND_MAP_UPDATE_DISABLED);
+
             }
         } else {
             // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay

@@ -16,6 +16,7 @@ import org.bukkit.World;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public abstract class MemoryBoard extends Board {
@@ -218,60 +219,58 @@ public abstract class MemoryBoard extends Board {
             height--;
         }
 
-        Map<String, Character> fList = new HashMap<>();
+        Map<String, String> fList = new HashMap<>();
         int chrIdx = 0;
 
         // For each row
         for (int dz = 0; dz < height; dz++) {
             // Draw and add that row
             FancyMessage row = new FancyMessage("");
-
-            if (dz < 3) {
-                row.then(asciiCompass.get(dz));
-            }
-            for (int dx = (dz < 3 ? 6 : 3); dx < width; dx++) {
+            for (int dx = 6; dx < width; dx++) {
                 if (dx == halfWidth && dz == halfHeight) {
-                    row.then("+").color(ChatColor.AQUA).tooltip(TL.CLAIM_YOUAREHERE.toString());
+                    row.then("\u271c").color(ChatColor.AQUA).tooltip(TL.CLAIM_YOUAREHERE.toString());
                 } else {
                     FLocation flocationHere = topLeft.getRelative(dx, dz);
                     Faction factionHere = getFactionAt(flocationHere);
                     Relation relation = fplayer.getRelationTo(factionHere);
                     if (flocationHere.isOutsideWorldBorder(buffer)) {
-                        row.then("-").color(ChatColor.BLACK).tooltip(TL.CLAIM_MAP_OUTSIDEBORDER.toString());
+                        row.then("\u2589").color(ChatColor.BLACK).tooltip(TL.CLAIM_MAP_OUTSIDEBORDER.toString());
                     } else if (factionHere.isWilderness()) {
-                        row.then("-").color(Conf.colorWilderness);
+                        row.then("\u2589").color(Conf.colorWilderness);
                         // Lol someone didnt add the x and z making it claim the wrong position Can i copyright this xD
                         if (fplayer.getPlayer().hasPermission(Permission.CLAIMAT.node)) {
                             row.tooltip(TL.CLAIM_CLICK_TO_CLAIM.format(dx + topLeft.getX(), dz + topLeft.getZ()))
                                     .command(String.format("/f claimat %s %d %d", flocation.getWorldName(), dx + topLeft.getX(), dz + topLeft.getZ()));
                         }
                     } else if (factionHere.isSafeZone()) {
-                        row.then("+").color(Conf.colorSafezone).tooltip(oneLineToolTip(factionHere, fplayer));
+                        row.then("\u2589").color(Conf.colorSafezone).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else if (factionHere.isWarZone()) {
-                        row.then("+").color(Conf.colorWar).tooltip(oneLineToolTip(factionHere, fplayer));
+                        row.then("\u2589").color(Conf.colorWar).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else if (factionHere == faction || factionHere == factionLoc || relation.isAtLeast(Relation.ALLY) ||
                             (Conf.showNeutralFactionsOnMap && relation.equals(Relation.NEUTRAL)) ||
                             (Conf.showEnemyFactionsOnMap && relation.equals(Relation.ENEMY)) ||
                             (Conf.showTrucesFactionsOnMap && relation.equals(Relation.TRUCE))) {
                         if (!fList.containsKey(factionHere.getTag())) {
-                            fList.put(factionHere.getTag(), Conf.mapKeyChrs[Math.min(chrIdx++, Conf.mapKeyChrs.length - 1)]);
+                            fList.put(factionHere.getTag(), Conf.mapKeyChrs.get(ThreadLocalRandom.current().nextInt(0, Conf.mapKeyChrs.size())));
                         }
-                        char tag = fList.get(factionHere.getTag());
+                        String tag = fList.get(factionHere.getTag());
 
                         //row.then(String.valueOf(tag)).color(factionHere.getColorTo(faction)).tooltip(getToolTip(factionHere, fplayer));
                         //changed out with a performance friendly one line tooltip :D
                         row.then(String.valueOf(tag)).color(factionHere.getColorTo(faction)).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else {
-                        row.then("-").color(ChatColor.GRAY);
+                        row.then("\u2589").color(ChatColor.GRAY);
                     }
                 }
             }
             ret.add(row);
         }
 
+
         // Add the faction key
         if (Conf.showMapFactionKey) {
             FancyMessage fRow = new FancyMessage("");
+            int count = 0;
             for (String key : fList.keySet()) {
                 fRow.then(String.format("%s: %s ", fList.get(key), key)).color(ChatColor.GRAY);
             }

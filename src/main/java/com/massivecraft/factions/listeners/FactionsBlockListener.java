@@ -486,7 +486,7 @@ public class FactionsBlockListener implements Listener {
             return;
         }
         FPlayer fme = FPlayers.getInstance().getByPlayer(event.getPlayer());
-        if (!fme.hasFaction()) {
+        if (fme == null || !fme.hasFaction()) {
             return;
         }
         if (event.getBlock().getType() == SavageFactions.plugin.MOB_SPANWER) {
