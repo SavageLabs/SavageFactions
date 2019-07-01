@@ -6,6 +6,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -162,6 +163,13 @@ public class FactionsBlockListener implements Listener {
 
         if (!playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), "build", false)) {
             event.setCancelled(true);
+        }
+
+        if (event.getBlock().getType().equals(XMaterial.SPAWNER.parseMaterial())) {
+            if (!SavageFactions.plugin.spawnersPlacing) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(SavageFactions.plugin.color(TL.COMMAND_SPAWNERTOGGLE_PLACE_DENIED.toString()));
+            }
         }
     }
 

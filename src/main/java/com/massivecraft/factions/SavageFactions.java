@@ -73,6 +73,7 @@ public class SavageFactions extends MPlugin {
     public boolean mc114 = false;
     public boolean useNonPacketParticles = false;
     public boolean factionsFlight = false;
+    public boolean spawnersPlacing = true;
     //multiversion material fields
     public Material SUGAR_CANE_BLOCK, BANNER, CROPS, REDSTONE_LAMP_ON,
             STAINED_GLASS, STATIONARY_WATER, STAINED_CLAY, WOOD_BUTTON,
