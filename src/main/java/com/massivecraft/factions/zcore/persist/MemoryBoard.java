@@ -228,24 +228,24 @@ public abstract class MemoryBoard extends Board {
             FancyMessage row = new FancyMessage("");
             for (int dx = 6; dx < width; dx++) {
                 if (dx == halfWidth && dz == halfHeight) {
-                    row.then("\u271c").color(ChatColor.AQUA).tooltip(TL.CLAIM_YOUAREHERE.toString());
+                    row.then(Conf.mapYouAreHereIcon).color(ChatColor.AQUA).tooltip(TL.CLAIM_YOUAREHERE.toString());
                 } else {
                     FLocation flocationHere = topLeft.getRelative(dx, dz);
                     Faction factionHere = getFactionAt(flocationHere);
                     Relation relation = fplayer.getRelationTo(factionHere);
                     if (flocationHere.isOutsideWorldBorder(buffer)) {
-                        row.then("\u2589").color(ChatColor.BLACK).tooltip(TL.CLAIM_MAP_OUTSIDEBORDER.toString());
+                        row.then(Conf.mapFlatIcon).color(ChatColor.BLACK).tooltip(TL.CLAIM_MAP_OUTSIDEBORDER.toString());
                     } else if (factionHere.isWilderness()) {
-                        row.then("\u2589").color(Conf.colorWilderness);
+                        row.then(Conf.mapFlatIcon).color(Conf.colorWilderness);
                         // Lol someone didnt add the x and z making it claim the wrong position Can i copyright this xD
                         if (fplayer.getPlayer().hasPermission(Permission.CLAIMAT.node)) {
                             row.tooltip(TL.CLAIM_CLICK_TO_CLAIM.format(dx + topLeft.getX(), dz + topLeft.getZ()))
                                     .command(String.format("/f claimat %s %d %d", flocation.getWorldName(), dx + topLeft.getX(), dz + topLeft.getZ()));
                         }
                     } else if (factionHere.isSafeZone()) {
-                        row.then("\u2589").color(Conf.colorSafezone).tooltip(oneLineToolTip(factionHere, fplayer));
+                        row.then(Conf.mapFlatIcon).color(Conf.colorSafezone).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else if (factionHere.isWarZone()) {
-                        row.then("\u2589").color(Conf.colorWar).tooltip(oneLineToolTip(factionHere, fplayer));
+                        row.then(Conf.mapFlatIcon).color(Conf.colorWar).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else if (factionHere == faction || factionHere == factionLoc || relation.isAtLeast(Relation.ALLY) ||
                             (Conf.showNeutralFactionsOnMap && relation.equals(Relation.NEUTRAL)) ||
                             (Conf.showEnemyFactionsOnMap && relation.equals(Relation.ENEMY)) ||
@@ -259,7 +259,7 @@ public abstract class MemoryBoard extends Board {
                         //changed out with a performance friendly one line tooltip :D
                         row.then(String.valueOf(tag)).color(factionHere.getColorTo(faction)).tooltip(oneLineToolTip(factionHere, fplayer));
                     } else {
-                        row.then("\u2589").color(ChatColor.GRAY);
+                        row.then(Conf.mapFlatIcon).color(ChatColor.GRAY);
                     }
                 }
             }
