@@ -21,10 +21,7 @@ import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.fupgrades.CropUpgrades;
-import com.massivecraft.factions.zcore.fupgrades.EXPUpgrade;
-import com.massivecraft.factions.zcore.fupgrades.FUpgradesGUI;
-import com.massivecraft.factions.zcore.fupgrades.SpawnerUpgrades;
+import com.massivecraft.factions.zcore.fupgrades.UpgradeListener;
 import com.massivecraft.factions.zcore.util.TextUtil;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -238,10 +235,7 @@ public class SavageFactions extends MPlugin {
                 new FactionsEntityListener(),
                 new FactionsExploitListener(),
                 new FactionsBlockListener(),
-                new FUpgradesGUI(),
-                new EXPUpgrade(),
-                new CropUpgrades(),
-                new SpawnerUpgrades(),
+                new UpgradeListener(),
         };
 
         for (Listener eventListener : eventsListener)

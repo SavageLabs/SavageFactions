@@ -805,9 +805,8 @@ fupgrades:
       Name: '&f'
       Type: STAINED_GLASS_PANE
       Amount: 1
-      Damage: 7
       Lore:
-        - ''
+      - ''
       rows: 3
       slots:
         - 0
@@ -846,11 +845,9 @@ fupgrades:
         level-1: 250000
         level-2: 500000
         level-3: 750000
-      CropItem:
+      DisplayItem:
         Name: '&e&lUpgrade Growth Speed'
         Type: WHEAT
-        Amount: 1
-        Damage: 0
         Lore:
           - '&7Increase growth speed of crops in claims.'
           - '&7&o(Chance to Grow Two Levels)'
@@ -867,8 +864,7 @@ fupgrades:
           - '&7  - Cost: $750,000'
           - ''
           - '&e&lClick to &nUnlock'
-        slots:
-          - 10
+        Slot: 10
     EXP:
       EXP-Boost:
         level-1: 1.5
@@ -878,11 +874,9 @@ fupgrades:
         level-1: 2000000
         level-2: 4000000
         level-3: 6000000
-      EXPItem:
+      DisplayItem:
         Name: '&e&lUpgrade EXP Drop Rate'
         Type: EXP_BOTTLE
-        Amount: 1
-        Damage: 0
         Lore:
           - '&7Increased Vanilla XP gained from monsters.'
           - ''
@@ -898,8 +892,7 @@ fupgrades:
           - '&7  - Cost: $6,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        slots:
-          - 13
+        Slot: 13
     Spawners:
       Spawner-Boost:
         # This is a Percentage so .10 means 10% lowered spawner delay!
@@ -910,11 +903,9 @@ fupgrades:
         level-1: 1000000
         level-2: 2000000
         level-3: 3000000
-      SpawnerItem:
+      DisplayItem:
         Name: '&e&lUpgrade Spawn Rate'
         Type: MOB_SPAWNER
-        Amount: 1
-        Damage: 0
         Lore:
           - '&7Decreased mob spawner delay in claims.'
           - ''
@@ -930,8 +921,7 @@ fupgrades:
           - '&7  - Cost: $3,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        slots:
-          - 16
+        Slot: 16
     Chest:
       Chest-Size:
         # This is rows
@@ -942,11 +932,9 @@ fupgrades:
         level-1: 1000000
         level-2: 2000000
         level-3: 3000000
-      ChestItem:
+      DisplayItem:
         Name: '&e&lUpgrade Faction Chest Size'
         Type: CHEST
-        Amount: 1
-        Damage: 0
         Lore:
           - '&7Increased Faction Chest Size.'
           - ''
@@ -962,9 +950,7 @@ fupgrades:
           - '&7  - Cost: $3,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        slots:
-          - 22
-
+        Slot: 22
 ############################################################
 # +------------------------------------------------------+ #
 # |                  Faction Banners                     | #

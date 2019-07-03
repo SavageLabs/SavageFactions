@@ -21,7 +21,6 @@ public class ParticleGUI {
         gui = new Gui(instance, rows, ChatColor.translateAlternateColorCodes('&', title));
     }
 
-
     public void buildGUI(FPlayer fplayer) {
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> particleEffectItems = new ArrayList<>();

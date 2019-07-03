@@ -2,7 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.zcore.fupgrades.FUpgradesGUI;
+import com.massivecraft.factions.zcore.fupgrades.FUpgradesMenu;
 import com.massivecraft.factions.zcore.util.TL;
 
 public class CmdUpgrades extends FCommand {
@@ -30,7 +30,7 @@ public class CmdUpgrades extends FCommand {
             fme.sendMessage("This command is disabled!");
             return;
         }
-        new FUpgradesGUI().openMainMenu(fme);
+        new FUpgradesMenu(fme.getFaction()).buildGUI(fme);
     }
 
     @Override
