@@ -64,22 +64,10 @@ public class UpgradeListener implements Listener {
     public void onSpawn(SpawnerSpawnEvent e) {
         FLocation floc = new FLocation(e.getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
-
         if (!factionAtLoc.isWilderness()) {
             int level = factionAtLoc.getUpgrade(UpgradeType.SPAWNER);
-            if (level != 0) {
-                switch (level) {
-                    case 1:
-                        lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-1"));
-                        break;
-                    case 2:
-                        lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-2"));
-                        break;
-                    case 3:
-                        lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-3"));
-                        break;
-                }
-            }
+            if (level == 0) return;
+            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
         }
     }
 
@@ -92,30 +80,12 @@ public class UpgradeListener implements Listener {
     public void onCropGrow(BlockGrowEvent e) {
         FLocation floc = new FLocation(e.getBlock().getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
-
         if (!factionAtLoc.isWilderness()) {
             int level = factionAtLoc.getUpgrade(UpgradeType.CROP);
-            if (level != 0) {
-                int chance = -1;
-
-                switch (level) {
-                    case 1:
-                        chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-1");
-                        break;
-                    case 2:
-                        chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-2");
-                        break;
-                    case 3:
-                        chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-3");
-                        break;
-                }
-
-                if (chance >= 0) {
-                    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
-                    if (randomNum <= chance)
-                        growCrop(e);
-                }
-            }
+            int chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-" + level);
+            if (level == 0 || chance == 0) return;
+            int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+            if (randomNum <= chance) growCrop(e);
         }
     }
 
