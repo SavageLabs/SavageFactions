@@ -24,34 +24,13 @@ public class UpgradeListener implements Listener {
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
         Entity killer = e.getEntity().getKiller();
-
-        if (killer == null || !(killer instanceof Player))
-            return;
-
+        if (killer == null || !(killer instanceof Player)) return;
         FLocation floc = new FLocation(e.getEntity().getLocation());
         Faction faction = Board.getInstance().getFactionAt(floc);
-
         if (!faction.isWilderness()) {
             int level = faction.getUpgrade(UpgradeType.EXP);
-            if (level != 0) {
-
-                double multiplier = -1;
-
-                switch (level) {
-                    case 1:
-                        multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-1");
-                        break;
-                    case 2:
-                        multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-2");
-                        break;
-                    case 3:
-                        multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-3");
-                        break;
-                }
-
-                if (multiplier >= 0)
-                    spawnMoreExp(e, multiplier);
-            }
+            double multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-" + level);
+            if (level != 0 && multiplier > 0.0) spawnMoreExp(e, multiplier);
         }
     }
 
@@ -67,7 +46,7 @@ public class UpgradeListener implements Listener {
         if (!factionAtLoc.isWilderness()) {
             int level = factionAtLoc.getUpgrade(UpgradeType.SPAWNER);
             if (level == 0) return;
-            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
+            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
         }
     }
 
