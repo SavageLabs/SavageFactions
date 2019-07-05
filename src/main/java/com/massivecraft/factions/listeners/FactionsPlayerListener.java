@@ -45,9 +45,8 @@ import java.util.logging.Level;
 
 public class FactionsPlayerListener implements Listener {
 
-
+    // Map of saving falling players from fall damage after F-Fly leaves.
     HashMap<Player, Boolean> fallMap = new HashMap<>();
-
     // Holds the next time a player can have a map shown.
     private HashMap<UUID, Long> showTimes = new HashMap<>();
     // for handling people who repeatedly spam attempts to open a door (or similar) in another faction's territory
@@ -59,23 +58,17 @@ public class FactionsPlayerListener implements Listener {
         }
     }
 
-    public static Boolean isSystemFaction(Faction faction) {
+    private static Boolean isSystemFaction(Faction faction) {
         return faction.isSafeZone() ||
                 faction.isWarZone() ||
                 faction.isWilderness();
     }
 
     public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck) {
-        String name = player.getName();
-        if (Conf.playersWhoBypassAllProtection.contains(name)) {
-            return true;
-        }
-
+        if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
 
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
-        if (me.isAdminBypassing()) {
-            return true;
-        }
+        if (me.isAdminBypassing()) return true;
 
         FLocation loc = new FLocation(location);
         Faction otherFaction = Board.getInstance().getFactionAt(loc);
@@ -90,9 +83,7 @@ public class FactionsPlayerListener implements Listener {
             return false;
         }
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) {
-            return true;
-        }
+        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
 
         if (otherFaction.hasPlayersOnline()) {
             if (!Conf.territoryDenyUseageMaterials.contains(material)) {
@@ -105,34 +96,16 @@ public class FactionsPlayerListener implements Listener {
         }
 
         if (otherFaction.isWilderness()) {
-            if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) {
-                return true; // This is not faction territory. Use whatever you like here.
-            }
-
-            if (!justCheck) {
-                me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
-            }
-
+            if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
+            if (!justCheck) me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isSafeZone()) {
-            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player)) {
-                return true;
-            }
-
-            if (!justCheck) {
-                me.msg(TL.PLAYER_USE_SAFEZONE, TextUtil.getMaterialName(material));
-            }
-
+            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player)) return true;
+            if (!justCheck) me.msg(TL.PLAYER_USE_SAFEZONE, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isWarZone()) {
-            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player)) {
-                return true;
-            }
-
-            if (!justCheck) {
-                me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
-            }
-
+            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player)) return true;
+            if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
 
@@ -263,19 +236,6 @@ public class FactionsPlayerListener implements Listener {
         return false;
     }
 
-    /// <summary>
-    ///	This checks if the current player can execute an action based on it's factions access and surroundings
-    /// It will grant access in the following priorities:
-    /// - If Faction Land is Owned and the Owner is the current player, or player is faction leader.
-    /// - If Faction Land is not Owned and my access value is not set to DENY
-    /// - If none of the filters above matches, then we consider access is set to ALLOW|UNDEFINED
-    /// This check does not performs any kind of bypass check (i.e.: me.isAdminBypassing())
-    /// </summary>
-    /// <param name="player">The player entity which the check will be made upon</param>
-    /// <param name="me">The Faction player object related to the player</param>
-    /// <param name="loc">The World location where the action is being executed</param>
-    /// <param name="myFaction">The faction of the player being checked</param>
-    /// <param name="access">The current's faction access permission for the action</param>
     private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck, Access access, PermissableAction action, boolean pain) {
         boolean doPain = pain && Conf.handleExploitInteractionSpam;
         if (access != null && access != Access.UNDEFINED) {
@@ -301,16 +261,10 @@ public class FactionsPlayerListener implements Listener {
         return false;
     }
 
-    /// <summary>
-    /// This will try to resolve a permission action based on the item material, if it's not usable, will return null
-    /// </summary>
     private static PermissableAction GetPermissionFromUsableBlock(Block block) {
         return GetPermissionFromUsableBlock(block.getType());
     }
 
-    /// <summary>
-    /// This will try to resolve a permission action based on the item material, if it's not usable, will return null
-    /// <summary>
     private static PermissableAction GetPermissionFromUsableBlock(Material material) {
         // Check for doors that might have diff material name in old version.
         if (material.name().contains("DOOR") || material.name().contains("FENCE_GATE"))
@@ -887,17 +841,13 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerMoveGUI(InventoryDragEvent event) {
-        if (event.getInventory().getHolder() instanceof FactionGUI) {
-            event.setCancelled(true);
-        }
+        if (event.getInventory().getHolder() instanceof FactionGUI) event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerKick(PlayerKickEvent event) {
         FPlayer badGuy = FPlayers.getInstance().getByPlayer(event.getPlayer());
-        if (badGuy == null) {
-            return;
-        }
+        if (badGuy == null) return;
 
         // if player was banned (not just kicked), get rid of their stored info
         if (Conf.removePlayerDataWhenBanned && event.getReason().equals("Banned by admin.")) {
