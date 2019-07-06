@@ -732,15 +732,9 @@ public class FactionsEntityListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
         Entity entity = event.getRightClicked();
-
         // only need to check for armor stand and item frames
-        if (entity.getType() != EntityType.ARMOR_STAND) {
-            return;
-        }
-
-        if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), entity.getLocation(), "use armor stands", false)) {
-            event.setCancelled(true);
-        }
+        if (entity == null || entity.getType() != EntityType.ARMOR_STAND ) return;
+        if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), entity.getLocation(), "use armor stands", false)) event.setCancelled(true);
     }
 
     private boolean stopEndermanBlockManipulation(Location loc) {

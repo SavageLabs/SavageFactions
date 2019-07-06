@@ -18,7 +18,8 @@ public enum UpgradeType {
     SPAWNER("Spawners", 3),
     EXP("EXP", 3),
     CROP("Crops", 3),
-    MEMBER("Members", 3);
+    MEMBER("Members", 3),
+    POWER("Power", 3);
 
     private String id;
     private int maxLevel;
