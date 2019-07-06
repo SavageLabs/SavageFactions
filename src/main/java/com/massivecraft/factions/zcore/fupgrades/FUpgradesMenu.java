@@ -31,7 +31,7 @@ public class FUpgradesMenu {
     public void buildGUI(FPlayer fplayer) {
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> GUIItems = new ArrayList<>();
-        ItemStack dumby = buildDumbyItem();
+        ItemStack dumby = buildDummyItem();
         // Fill background of GUI with dumbyitem & replace GUI assets after
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
         Arrays.asList(UpgradeType.values()).forEach(value -> {
@@ -74,24 +74,12 @@ public class FUpgradesMenu {
         }
 
         int level = faction.getUpgrade(UpgradeType.CHEST);
-        int size = 1;
-
-        switch (level) {
-            case 1:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1");
-                break;
-            case 2:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2");
-                break;
-            case 3:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3");
-                break;
-        }
+        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + level);
         faction.setChestSize(size * 9);
     }
 
 
-    private ItemStack buildDumbyItem() {
+    private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();

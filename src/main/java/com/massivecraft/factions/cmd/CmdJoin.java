@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.FPlayerJoinEvent;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
@@ -52,8 +53,8 @@ public class CmdJoin extends FCommand {
             return;
         }
 
-        if (Conf.factionMemberLimit > 0 && faction.getFPlayers().size() >= Conf.factionMemberLimit) {
-            msg(TL.COMMAND_JOIN_ATLIMIT, faction.getTag(fme), Conf.factionMemberLimit, fplayer.describeTo(fme, false));
+        if (Conf.factionMemberLimit > 0 && faction.getFPlayers().size() >= getFactionMemberLimit(faction)) {
+            msg(TL.COMMAND_JOIN_ATLIMIT, faction.getTag(fme), getFactionMemberLimit(faction), fplayer.describeTo(fme, false));
             return;
         }
 
@@ -133,6 +134,11 @@ public class CmdJoin extends FCommand {
                 SavageFactions.plugin.log(TL.COMMAND_JOIN_MOVEDLOG.toString(), fme.getName(), fplayer.getName(), faction.getTag());
             }
         }
+    }
+
+    private int getFactionMemberLimit(Faction f) {
+        if (f.getUpgrade(UpgradeType.MEMBER) == 0) return Conf.factionMemberLimit;
+        return Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Members.Member-Boost.level-" + f.getUpgrade(UpgradeType.MEMBER));
     }
 
     @Override
