@@ -43,6 +43,7 @@ public class FUpgradesMenu {
                 if (hasMoney(fme, cost)) {
                     takeMoney(fme, cost);
                     if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
+                    if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
                     fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
                     fme.getPlayer().closeInventory();
                     buildGUI(fme);
@@ -74,10 +75,15 @@ public class FUpgradesMenu {
         }
 
         int level = faction.getUpgrade(UpgradeType.CHEST);
-        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + level);
+        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + (level + 1));
         faction.setChestSize(size * 9);
     }
 
+    private void updateFactionPowerBoost(Faction f) {
+        double boost = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Power.Power-Boost.level-" + (f.getUpgrade(UpgradeType.POWER) + 1));
+        if (boost < 0) return;
+        f.setPowerBoost(f.getPowerBoost() + boost);
+    }
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");

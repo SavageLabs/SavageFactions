@@ -800,14 +800,14 @@ fchest:
 fupgrades:
   Enabled: true
   MainMenu:
-    Title: '{faction}''s UpgradeType Menu'
+    Title: '&c&l{faction} Upgrade Menu'
     DummyItem:
       Name: '&f'
       Type: STAINED_GLASS_PANE
       Amount: 1
       Lore:
       - ''
-      rows: 3
+      rows: 4
       slots:
         - 0
         - 1
@@ -864,7 +864,7 @@ fupgrades:
           - '&7  - Cost: $750,000'
           - ''
           - '&e&lClick to &nUnlock'
-        Slot: 10
+        Slot: 9
     EXP:
       EXP-Boost:
         level-1: 1.5
@@ -892,7 +892,7 @@ fupgrades:
           - '&7  - Cost: $6,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        Slot: 13
+        Slot: 11
     Spawners:
       Spawner-Boost:
         # This is a Percentage so .10 means 10% lowered spawner delay!
@@ -921,7 +921,7 @@ fupgrades:
           - '&7  - Cost: $3,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        Slot: 16
+        Slot: 13
     Chest:
       Chest-Size:
         # This is rows
@@ -964,7 +964,7 @@ fupgrades:
         level-3: 6000000
       DisplayItem:
         Name: '&e&lFaction Member Limit'
-        Type: EXP_BOTTLE
+        Type: PLAYER_HEAD
         Lore:
           - '&7Increase the max amount of faction members'
           - '&7your faction can have!'
@@ -981,7 +981,35 @@ fupgrades:
           - '&7  - Cost: $6,000,000'
           - ''
           - '&e&lClick to &nUnlock'
-        Slot: 14
+        Slot: 15
+    Power:
+      Power-Boost:
+        level-1: 20
+        level-2: 20
+        level-3: 20
+      Cost:
+        level-1: 2000000
+        level-2: 4000000
+        level-3: 6000000
+      DisplayItem:
+        Name: '&e&lFaction Power Boost'
+        Type: NETHER_STAR
+        Lore:
+          - '&7Gain a permanent power boost for each level.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &a+20 Power'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 2 - &a+20 Power'
+          - '&7  - Cost: $4,000,000'
+          - '&f&l* &7Level 3 - &a+20 Power'
+          - '&7  - Cost: $6,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+        Slot: 17
 ############################################################
 # +------------------------------------------------------+ #
 # |                  Faction Banners                     | #
