@@ -108,6 +108,7 @@ public class FCmdRoot extends FCommand {
     public CmdParticle cmdParticle = new CmdParticle();
     public CmdGrace cmdGrace = new CmdGrace();
     public CmdStrikes cmdStrikes = new CmdStrikes();
+    public CmdLockSpawners cmdLockSpawners = new CmdLockSpawners();
 
     public FCmdRoot() {
         super();
@@ -221,7 +222,7 @@ public class FCmdRoot extends FCommand {
         this.addSubCommand(this.cmdParticle);
         this.addSubCommand(this.cmdGrace);
         this.addSubCommand(this.cmdStrikes);
-
+        this.addSubCommand(this.cmdLockSpawners);
 
         if (Conf.registerAltsCommand) this.addSubCommand(cmdAlts);
 
