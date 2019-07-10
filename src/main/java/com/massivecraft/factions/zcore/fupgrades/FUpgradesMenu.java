@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FUpgradesMenu {
@@ -34,7 +33,7 @@ public class FUpgradesMenu {
         ItemStack dumby = buildDummyItem();
         // Fill background of GUI with dumbyitem & replace GUI assets after
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
-        Arrays.asList(UpgradeType.values()).forEach(value -> {
+        for (UpgradeType value : UpgradeType.values()) {
             GUIItems.set(value.getSlot(), new GuiItem(value.buildAsset(fplayer.getFaction()), e -> {
                 e.setCancelled(true);
                 FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
@@ -55,7 +54,7 @@ public class FUpgradesMenu {
             gui.addPane(pane);
             gui.update();
             gui.show(fplayer.getPlayer());
-        });
+        }
     }
 
     private boolean hasMoney(FPlayer fme, int amt) {
