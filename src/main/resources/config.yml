@@ -800,7 +800,7 @@ fchest:
 fupgrades:
   Enabled: true
   MainMenu:
-    Title: '&c&l{faction} Upgrade Menu'
+    Title: '&c&l{faction}''s Upgrade Menu'
     DummyItem:
       Name: '&f'
       Type: STAINED_GLASS_PANE
