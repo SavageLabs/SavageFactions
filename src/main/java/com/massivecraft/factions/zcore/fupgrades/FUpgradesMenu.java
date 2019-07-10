@@ -8,7 +8,6 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -46,8 +45,6 @@ public class FUpgradesMenu {
                     fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
                     fme.getPlayer().closeInventory();
                     buildGUI(fme);
-                } else {
-                    fme.msg(TL.GENERIC_NOTENOUGHMONEY);
                 }
             }));
             pane.populateWithGuiItems(GUIItems);
