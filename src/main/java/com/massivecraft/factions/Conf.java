@@ -433,7 +433,7 @@ public class Conf {
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(Material.COOKIE);
 
-        territoryDenyUseageMaterials.add(SavageFactions.plugin.FIREBALL);
+        territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
         territoryDenyUseageMaterials.add(Material.FLINT_AND_STEEL);
         territoryDenyUseageMaterials.add(Material.BUCKET);
         territoryDenyUseageMaterials.add(Material.WATER_BUCKET);
@@ -445,7 +445,7 @@ public class Conf {
 
 
 
-        territoryDenyUseageMaterialsWhenOffline.add(SavageFactions.plugin.FIREBALL);
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.FIRE_CHARGE.parseMaterial());
         territoryDenyUseageMaterialsWhenOffline.add(Material.FLINT_AND_STEEL);
         territoryDenyUseageMaterialsWhenOffline.add(Material.BUCKET);
         territoryDenyUseageMaterialsWhenOffline.add(Material.WATER_BUCKET);

@@ -292,7 +292,7 @@ public class FactionsBlockListener implements Listener {
             return;
         }
 
-        if (e.getItemInHand().getType() == SavageFactions.plugin.BANNER) {
+        if (e.getItemInHand().getType() == XMaterial.BLACK_BANNER.parseMaterial()) {
             ItemStack bannerInHand = e.getItemInHand();
             FPlayer fme = FPlayers.getInstance().getByPlayer(e.getPlayer());
             ItemStack warBanner = fme.getFaction().getBanner();
@@ -302,7 +302,7 @@ public class FactionsBlockListener implements Listener {
                 warmeta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore")));
                 warBanner.setItemMeta(warmeta);
             } else {
-                warBanner = SavageFactions.plugin.createItem(SavageFactions.plugin.BANNER, 1, (short) 1, SavageFactions.plugin.getConfig().getString("fbanners.Item.Name"), SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore"));
+                warBanner = SavageFactions.plugin.createItem(XMaterial.BLACK_BANNER.parseMaterial(), 1, (short) 1, SavageFactions.plugin.getConfig().getString("fbanners.Item.Name"), SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore"));
             }
             if (warBanner.isSimilar(bannerInHand)) {
 
@@ -428,7 +428,7 @@ public class FactionsBlockListener implements Listener {
         if (fme == null || !fme.hasFaction()) {
             return;
         }
-        if (event.getBlock().getType() == SavageFactions.plugin.MOB_SPANWER) {
+        if (event.getBlock().getType() == XMaterial.SPAWNER.parseMaterial()) {
             if (!fme.isAdminBypassing()) {
                 Access access = fme.getFaction().getAccess(fme, PermissableAction.SPAWNER);
                 if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {

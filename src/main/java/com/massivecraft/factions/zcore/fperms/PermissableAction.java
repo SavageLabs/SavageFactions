@@ -105,10 +105,7 @@ public enum PermissableAction {
         if (section.getString("materials." + name().toLowerCase().replace('_', '-')) == null) {
             return null;
         }
-        Material material = Material.matchMaterial(section.getString("materials." + name().toLowerCase().replace('_', '-')));
-        if (material == null) {
-            material = XMaterial.valueOf(SavageFactions.plugin.getConfig().getString("fperm-gui.action.materials")).parseMaterial();
-        }
+        Material material = XMaterial.matchXMaterial(section.getString("materials." + name().toLowerCase().replace('_', '-'))).parseMaterial();
 
         Access access = fme.getFaction().getAccess(permissable, this);
         if (access == null) {
@@ -124,7 +121,6 @@ public enum PermissableAction {
                 accessValue = "allow";
                 break;
             case DENY:
-                accessValue = "deny";
                 break;
             case UNDEFINED:
                 accessValue = "undefined";
@@ -139,13 +135,14 @@ public enum PermissableAction {
                 dyeColor = DyeColor.valueOf(section.getString("access." + access.name().toLowerCase()));
             } catch (Exception exception) {
             }
+            accessValue = "deny";
 
             if (dyeColor != null) {
                 item.setDurability(dyeColor.getWoolData());
             }
         } else {
             // so this is in 1.13 mode, our config will automatically be updated to a material instead of color because of it being removed in the new api
-            item.setType(Material.valueOf(SavageFactions.plugin.getConfig().getString("fperm-gui.action.access." + accessValue)));
+            item.setType(XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString("fperm-gui.action.access.") + accessValue).parseMaterial());
         }
 
         for (String loreLine : section.getStringList("placeholder-item.lore")) {

@@ -3,6 +3,7 @@ package com.massivecraft.factions.zcore.fperms.gui;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.FactionGUI;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -53,7 +54,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 		}
 
 		guiSize *= 9;
-		String guiName = ChatColor.translateAlternateColorCodes('&', section.getString("name", "FactionPerms"));
+		String guiName = SavageFactions.plugin.color(section.getString("name", "FactionPerms"));
 		actionGUI = Bukkit.createInventory(this, guiSize, guiName);
 		boolean disabled = false;
 		for (String key : section.getConfigurationSection("slots").getKeys(false)) {
@@ -189,7 +190,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 			case BACK:
 				ConfigurationSection backButtonConfig = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.back-item");
 
-				ItemStack backButton = new ItemStack(Material.matchMaterial(backButtonConfig.getString("material")));
+				ItemStack backButton = new ItemStack(XMaterial.matchXMaterial(backButtonConfig.getString("material")).parseItem());
 				ItemMeta backButtonMeta = backButton.getItemMeta();
 
 				backButtonMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', backButtonConfig.getString("name")));
@@ -260,7 +261,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 			return new ItemStack(Material.AIR);
 		}
 
-		Material material = Material.matchMaterial(dummySection.getString("material", ""));
+		Material material = XMaterial.matchXMaterial(dummySection.getString("material", "")).parseMaterial();
 		if (material == null) {
 			SavageFactions.plugin.log(Level.WARNING, "Invalid material for dummy item: " + id);
 			return null;

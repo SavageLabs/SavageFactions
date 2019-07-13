@@ -5,6 +5,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.FactionGUI;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -168,13 +169,13 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
             return new ItemStack(Material.AIR);
         }
 
-        Material material = Material.matchMaterial(dummySection.getString("material", ""));
+        Material material = XMaterial.matchXMaterial(dummySection.getString("material", "")).parseMaterial();
         if (material == null) {
             SavageFactions.plugin.log(Level.WARNING, "Invalid material for dummy item: " + id);
             return null;
         }
 
-        ItemStack itemStack = new ItemStack(material);
+        ItemStack itemStack = XMaterial.matchXMaterial(material).parseItem();
 
         DyeColor color;
         try {

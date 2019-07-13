@@ -28,7 +28,6 @@ public class CmdReload extends FCommand {
         Conf.load();
         Conf.save();
         SavageFactions.plugin.reloadConfig();
-        SavageFactions.plugin.changeItemIDSInConfig();
         SavageFactions.plugin.loadLang();
 
 
