@@ -28,7 +28,6 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -460,7 +459,7 @@ public class SavageFactions extends MPlugin {
         MCommand<?> commandEx = cmdBase;
         List<MCommand<?>> commandsList = cmdBase.subCommands;
 
-        if (Board.getInstance().getFactionAt(new FLocation(fPlayer.getPlayer().getLocation())) == Factions.getInstance().getWarZone()) {
+        if (Board.getInstance().getFactionAt(new FLocation(fPlayer.getPlayer().getLocation())).isWarZone()) {
             return new ArrayList<>();
         }
 
