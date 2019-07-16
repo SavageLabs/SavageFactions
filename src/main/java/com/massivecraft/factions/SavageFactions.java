@@ -488,15 +488,14 @@ public class SavageFactions extends MPlugin {
 
         String lastArg = args[args.length - 1].toLowerCase();
 
+        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            completions.add(player.getName());
+        }
+
         completions = completions.stream()
                 .filter(m -> m.toLowerCase().startsWith(lastArg))
                 .collect(Collectors.toList());
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            completions.add(player.getName());
-        }
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            completions.add(player.getName());
-        }
+
         return completions;
     }
 
