@@ -33,6 +33,7 @@ public class FUpgradesMenu {
         // Fill background of GUI with dumbyitem & replace GUI assets after
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
         for (UpgradeType value : UpgradeType.values()) {
+            if (value.getSlot() == -1) continue;
             GUIItems.set(value.getSlot(), new GuiItem(value.buildAsset(fplayer.getFaction()), e -> {
                 e.setCancelled(true);
                 FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
