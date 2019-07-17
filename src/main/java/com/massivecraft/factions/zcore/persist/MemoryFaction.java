@@ -372,32 +372,27 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	}
 
     public int getUpgrade(UpgradeType upgrade) {
-		if (upgrades.keySet().contains(upgrade.toString())) {
-			return upgrades.get(upgrade.toString());
-		}
+		if (upgrades.keySet().contains(upgrade.toString())) return upgrades.get(upgrade.toString());
 		return 0;
 	}
 
 	@Override
 	public Inventory getChestInventory() {
-		if (chest != null) {
-			return chest;
-		} else {
-            int level = getUpgrade(UpgradeType.CHEST);
+		if (chest != null) return chest;
 			int size = 9;
-			if (level == 1) {
-				size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
-			} else if (level == 2) {
-				size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
-			} else if (level == 3) {
-				size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
+			switch (getUpgrade(UpgradeType.CHEST)) {
+				case 1:
+					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
+					break;
+				case 2:
+					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
+					break;
+				case 3:
+					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
+					break;
 			}
-
 			chest = Bukkit.createInventory(null, size, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title")));
 			return chest;
-
-		}
-
 	}
 
 	@Override
@@ -795,6 +790,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public boolean isWarZone() {
 		return this.getId().equals("-2");
 	}
+
 	public boolean isSystemFaction() { return this.isSafeZone() || this.isWarZone() || this.isWilderness(); }
 
 	public boolean isPlayerFreeType() {
@@ -859,17 +855,12 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	// Power
 	// ----------------------------------------------//
 	public double getPower() {
-		if (this.hasPermanentPower()) {
-			return this.getPermanentPower();
-		}
+		if (this.hasPermanentPower()) return this.getPermanentPower();
 
 		double ret = 0;
-		for (FPlayer fplayer : fplayers) {
-			ret += fplayer.getPower();
-		}
-		for (FPlayer fplayer : alts) {
-			ret += fplayer.getPower();
-		}
+		for (FPlayer fplayer : fplayers) ret += fplayer.getPower();
+		for (FPlayer fplayer : alts) ret += fplayer.getPower();
+
 		if (Conf.powerFactionMax > 0 && ret > Conf.powerFactionMax) {
 			ret = Conf.powerFactionMax;
 		}
@@ -987,9 +978,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public Set<FPlayer> getFPlayersWhereOnline(boolean online, FPlayer viewer) {
 		Set<FPlayer> ret = new HashSet<>();
-		if (!this.isNormal()) {
-			return ret;
-		}
+		if (!this.isNormal()) return ret;
 
 		for (FPlayer viewed : fplayers) {
 			// Add if their online status is what we want
@@ -1245,9 +1234,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public void removePlayerAsOwner(FPlayer player, FLocation loc) {
 		Set<String> ownerData = claimOwnership.get(loc);
-		if (ownerData == null) {
-			return;
-		}
+		if (ownerData == null) return;
+
 		ownerData.remove(player.getId());
 		claimOwnership.put(loc, ownerData);
 	}
@@ -1278,14 +1266,11 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public boolean playerHasOwnershipRights(FPlayer fplayer, FLocation loc) {
 		// in own faction, with sufficient role or permission to bypass
 		// ownership?
-		if (fplayer.getFaction() == this && (fplayer.getRole().isAtLeast(Conf.ownedAreaModeratorsBypass ? Role.MODERATOR : Role.LEADER) || Permission.OWNERSHIP_BYPASS.has(fplayer.getPlayer()))) {
-			return true;
-		}
+		if (fplayer.getFaction() == this && (fplayer.getRole().isAtLeast(Conf.ownedAreaModeratorsBypass ? Role.MODERATOR : Role.LEADER) || Permission.OWNERSHIP_BYPASS.has(fplayer.getPlayer()))) return true;
 
 		// make sure claimOwnership is initialized
-		if (claimOwnership.isEmpty()) {
-			return true;
-		}
+		if (claimOwnership.isEmpty()) return true;
+
 
 		// need to check the ownership list, then
 		Set<String> ownerData = claimOwnership.get(loc);
@@ -1316,8 +1301,6 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		}
 	}
 
-	public Set<FLocation> getAllClaims() {
-		return Board.getInstance().getAllClaims(this);
-	}
+	public Set<FLocation> getAllClaims() { return Board.getInstance().getAllClaims(this); }
 
 }
