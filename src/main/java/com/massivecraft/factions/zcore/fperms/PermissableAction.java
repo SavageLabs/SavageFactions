@@ -119,6 +119,7 @@ public enum PermissableAction {
                 accessValue = "allow";
                 break;
             case DENY:
+                accessValue = "deny";
                 break;
             case UNDEFINED:
                 accessValue = "undefined";
@@ -126,7 +127,8 @@ public enum PermissableAction {
         }
 
         // If under the 1.13 version we will use the colorable option.
-        if (!SavageFactions.plugin.mc113 && !SavageFactions.plugin.mc114) { //TODO see if it's working in other version than 1.13 and 1.14
+        if (!SavageFactions.plugin.mc113 && !SavageFactions.plugin.mc114) {
+            //TODO see if it's working in other version than 1.13 and 1.14
             DyeColor dyeColor = null;
 
             try {
