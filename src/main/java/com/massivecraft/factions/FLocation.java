@@ -132,7 +132,7 @@ public class FLocation implements Serializable {
     }
 
     public long getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -140,7 +140,7 @@ public class FLocation implements Serializable {
     }
 
     public long getZ() {
-        return z;
+        return this.z;
     }
 
     public void setZ(int z) {
@@ -181,7 +181,7 @@ public class FLocation implements Serializable {
             return false;
         }
         Chunk chunk = loc.getChunk();
-        return loc.getWorld().getName().equalsIgnoreCase(getWorldName()) && chunk.getX() == x && chunk.getZ() == z;
+        return loc.getWorld().getName().equalsIgnoreCase(getWorldName()) && chunk.getX() == this.x && chunk.getZ() == this.z;
     }
 
     /**
@@ -191,16 +191,14 @@ public class FLocation implements Serializable {
      * @return whether this location is outside of the border
      */
     public boolean isOutsideWorldBorder(int buffer) {
-        if (!worldBorderSupport) {
-            return false;
-        }
+        if (!worldBorderSupport) return false;
 
         WorldBorder border = getWorld().getWorldBorder();
         Chunk chunk = border.getCenter().getChunk();
 
-        int lim = FLocation.chunkToRegion((int) border.getSize()) - buffer;
-        int diffX = chunk.getX() - x;
-        int diffZ = chunk.getZ() - z;
+        int lim = chunkToRegion((int) border.getSize()) - buffer;
+        int diffX = chunk.getX() - this.x;
+        int diffZ = chunk.getZ() - this.z;
         return diffX > lim || diffZ > lim || -diffX > lim - 1 || -diffZ > lim - 1;
     }
 

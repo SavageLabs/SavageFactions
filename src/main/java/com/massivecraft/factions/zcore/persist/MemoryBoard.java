@@ -204,10 +204,6 @@ public abstract class MemoryBoard extends Board {
         ret.add(new FancyMessage(ChatColor.DARK_GRAY + SavageFactions.plugin.txt.titleize("(" + flocation.getCoordString() + ") " + factionLoc.getTag(fplayer))));
         int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
 
-
-        // Get the compass
-        ArrayList<String> asciiCompass = AsciiCompass.getAsciiCompass(inDegrees, ChatColor.DARK_GREEN, SavageFactions.plugin.txt.parse("<gray>"));
-
         int halfWidth = Conf.mapWidth / 2;
         // Use player's value for height
         int halfHeight = fplayer.getMapHeight() / 2;
