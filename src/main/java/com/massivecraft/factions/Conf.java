@@ -363,10 +363,12 @@ public class Conf {
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();
     public static Map<FlyParticle, FlyParticleData> particleEffectSettings = new EnumMap<>(FlyParticle.class);
     public static boolean disableFlightOnFactionClaimChange = true;
-    // Default Options - Is this even shown on the Conf.json?
-    public static boolean useCustomDefaultPermissions = false;
+
+    // Default Faction Permission Settings.
+    public static boolean useCustomDefaultPermissions = true;
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
+
     private static transient Conf i = new Conf();
     public static boolean useLockedPermissions = false;
     public static String particleGUITitle = "&cChoose a Particle! &o(Patreon)";

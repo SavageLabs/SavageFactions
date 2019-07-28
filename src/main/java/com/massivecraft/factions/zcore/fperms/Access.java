@@ -35,6 +35,10 @@ public enum Access {
         return name();
     }
 
-    public String getColor() { return SavageFactions.plugin.getConfig().getString("fperm-gui.action.Access-Colors." + this.name);
+    public String getColor() { return SavageFactions.plugin.getConfig().getString("fperm-gui.action.Access-Colors." + this.name); }
+
+    public static Access booleanToAccess(boolean access) {
+        if (access) return Access.ALLOW;
+        else return Access.DENY;
     }
 }
