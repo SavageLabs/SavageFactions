@@ -155,6 +155,11 @@ public class CmdFly extends FCommand {
         }
     }
 
+    public static void disableFlight(final FPlayer fme) {
+        fme.setFlying(false);
+        flyMap.remove(fme.getPlayer().getName());
+    }
+
     public boolean isInFlightChecker(Player player) {
         return flyMap.containsKey(player.getName());
     }
@@ -169,8 +174,8 @@ public class CmdFly extends FCommand {
 
         if (Conf.enableFlyParticles && fme.getSelectedParticle() == null) {
             fme.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
-            return;
         }
+
         FLocation myfloc = new FLocation(me.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
         if (!checkBypassPerms(fme, me, toFac)) return;

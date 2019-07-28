@@ -496,7 +496,7 @@ public enum TL {
 	COMMAND_OWNERLIST_OWNERS("&c&l[!]&7 Current owner(s) of this land: %1$s"),
 	COMMAND_OWNERLIST_DESCRIPTION("List owner(s) of this claimed land"),
 
-	COMMAND_PARTICLE_NO_SELECTED_PARTICLE("&c&l[!] &7You need to select a particle using &c/f particle"),
+	COMMAND_PARTICLE_NO_SELECTED_PARTICLE("&c&l[!] &7You can select a particle using &c/f particle"),
 	COMMAND_PARTICLE_SELECTED_PARTICLE("&c&l[!] &7You have selected the {particle} particle type!"),
 	COMMAND_PARTICLE_DESCRIPTION("Select the particle for your player"),
 

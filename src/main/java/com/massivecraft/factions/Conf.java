@@ -362,6 +362,7 @@ public class Conf {
     public static boolean enableFlyParticles = true;
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();
     public static Map<FlyParticle, FlyParticleData> particleEffectSettings = new EnumMap<>(FlyParticle.class);
+    public static boolean disableFlightOnFactionClaimChange = true;
     // Default Options - Is this even shown on the Conf.json?
     public static boolean useCustomDefaultPermissions = false;
     public static boolean usePermissionHints = false;
