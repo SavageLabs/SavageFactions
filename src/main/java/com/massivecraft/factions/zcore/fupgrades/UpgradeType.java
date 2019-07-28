@@ -10,8 +10,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
-
 public enum UpgradeType {
 
     CHEST("Chest", 3),
@@ -45,17 +43,10 @@ public enum UpgradeType {
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         int level = f.getUpgrade(this);
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(replacePlaceholders(config.getStringList("Lore"), new Placeholder("{level}", level + ""))));
+        meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{level}", level + ""))));
         meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
         item.setItemMeta(meta);
         return updateLevelStatus(item, level);
-    }
-
-    private List<String> replacePlaceholders(List<String> lore, Placeholder... placeholders) {
-        for (Placeholder placeholder : placeholders) {
-            for (int x = 0; x <= lore.size() - 1; x++) lore.set(x, lore.get(x).replace(placeholder.getTag(), placeholder.getReplace()));
-        }
-        return lore;
     }
 
     private ItemStack updateLevelStatus(ItemStack item, int level) {

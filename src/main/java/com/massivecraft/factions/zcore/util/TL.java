@@ -882,7 +882,9 @@ public enum TL {
 	GENERIC_NOTENOUGHMONEY("&cYou dont have enough money!"),
 	GENERIC_MONEYTAKE("&c{amount} has been taken from your account."),
 
-
+	/**
+	 * Faction WarBanners
+	 */
 	WARBANNER_NOFACTION("&cYou need a faction to use a warbanner!"),
 	WARBANNER_COOLDOWN("&cThe warbanner is on cooldown for your faction!"),
 	WARBANNER_INVALIDLOC("&cYou can only use warbanners in enemy land or the warzone"),

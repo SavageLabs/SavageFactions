@@ -56,7 +56,7 @@ public abstract class SpiralTask implements Runnable {
         this.readyToGo = true;
 
         // get this party started
-        this.setTaskID(Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, this, 2, 2));
+        this.setTaskID(Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(SavageFactions.plugin, this, 2, 2));
     }
 
     private static long now() {

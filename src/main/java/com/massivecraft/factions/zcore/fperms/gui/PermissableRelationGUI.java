@@ -9,7 +9,6 @@ import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.inventory.ClickType;
@@ -90,10 +89,7 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
             return;
         }
 
-        PermissableActionGUI actionGUI = new PermissableActionGUI(fme, relationSlots.get(slot));
-        actionGUI.build();
-
-        fme.getPlayer().openInventory(actionGUI.getInventory());
+        new PermissableActionFrame(fme.getFaction()).buildGUI(fme, relationSlots.get(slot));
     }
 
     private Permissable getPermissable(String name) {
@@ -176,16 +172,6 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
         }
 
         ItemStack itemStack = XMaterial.matchXMaterial(material).parseItem();
-
-        DyeColor color;
-        try {
-            color = DyeColor.valueOf(dummySection.getString("color", ""));
-        } catch (Exception exception) {
-            color = null;
-        }
-        if (color != null) {
-            itemStack.setDurability(color.getWoolData());
-        }
 
         ItemMeta itemMeta = itemStack.getItemMeta();
 

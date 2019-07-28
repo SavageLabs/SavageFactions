@@ -6,7 +6,7 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.fperms.gui.PermissableActionGUI;
+import com.massivecraft.factions.zcore.fperms.gui.PermissableActionFrame;
 import com.massivecraft.factions.zcore.fperms.gui.PermissableRelationGUI;
 import com.massivecraft.factions.zcore.util.TL;
 
@@ -40,17 +40,15 @@ public class CmdPerm extends FCommand {
 
 	@Override
 	public void perform() {
+
 		if (args.size() == 0) {
+			//TODO: Convert PermissableRelationGUI to IFrame
 			PermissableRelationGUI gui = new PermissableRelationGUI(fme);
 			gui.build();
-
 			me.openInventory(gui.getInventory());
 			return;
 		} else if (args.size() == 1 && getPermissable(argAsString(0)) != null) {
-			PermissableActionGUI gui = new PermissableActionGUI(fme, getPermissable(argAsString(0)));
-			gui.build();
-
-			me.openInventory(gui.getInventory());
+			new PermissableActionFrame(fme.getFaction()).buildGUI(fme, getPermissable(argAsString(0)));
 			return;
 		}
 
@@ -98,18 +96,13 @@ public class CmdPerm extends FCommand {
 			return;
 		}
 
-		boolean success = false;
-
 		for (Permissable permissable : permissables) {
 			for (PermissableAction permissableAction : permissableActions) {
-				success = fme.getFaction().setPermission(permissable, permissableAction, access);
+				fme.getFaction().setPermission(permissable, permissableAction, access);
 			}
 		}
 
-		if (success)
-			fme.msg(TL.COMMAND_PERM_SET, argAsString(1), access.name(), argAsString(0));
-		else
-			fme.msg(TL.COMMAND_PERM_LOCKED);
+		fme.msg(TL.COMMAND_PERM_SET, argAsString(1), access.name(), argAsString(0));
 		SavageFactions.plugin.log(String.format(TL.COMMAND_PERM_SET.toString(), argAsString(1), access.name(), argAsString(0)) + " for faction " + fme.getTag());
 	}
 
