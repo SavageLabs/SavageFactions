@@ -35,8 +35,7 @@ public class PermissableActionFrame {
         List<GuiItem> GUIItems = new ArrayList<>();
         ItemStack dumby = buildDummyItem();
         // Fill background of GUI with dumbyitem & replace GUI assets after
-        for (int x = 0; x <= (gui.getRows() * 9) - 1; x++)
-            GUIItems.add(new GuiItem(dumby, e -> e.setCancelled(true)));
+        for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e -> e.setCancelled(true)));
         for (PermissableAction action : PermissableAction.values()) {
             GUIItems.set(action.getSlot(), new GuiItem(action.buildAsset(fplayer, perm), e -> {
                 e.setCancelled(true);
@@ -62,11 +61,16 @@ public class PermissableActionFrame {
                     if (success) fplayer.msg(TL.COMMAND_PERM_SET, action.name(), access.name(), perm.name());
                     else fplayer.msg(TL.COMMAND_PERM_LOCKED);
                     SavageFactions.plugin.log(String.format(TL.COMMAND_PERM_SET.toString(), action.name(), access.name(), perm.name()) + " for faction " + fplayer.getTag());
-                    e.getWhoClicked().closeInventory();
+                    fplayer.getPlayer().closeInventory();
                     buildGUI(fplayer, perm);
                 }
             }));
         }
+        GUIItems.set(SavageFactions.plugin.getConfig().getInt("fperm-gui.action.slots.back"), new GuiItem(buildBackItem(), event -> {
+            event.setCancelled(true);
+            fplayer.getPlayer().closeInventory();
+            new PermissableRelationFrame(fplayer.getFaction()).buildGUI(fplayer);
+        }));
         pane.populateWithGuiItems(GUIItems);
         gui.addPane(pane);
         gui.update();
@@ -75,7 +79,17 @@ public class PermissableActionFrame {
 
 
     private ItemStack buildDummyItem() {
-        ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
+        ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-item");
+        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    private ItemStack buildBackItem() {
+        ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.back-item");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
         meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
