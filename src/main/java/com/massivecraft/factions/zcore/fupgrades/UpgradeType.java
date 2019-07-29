@@ -2,7 +2,7 @@ package com.massivecraft.factions.zcore.fupgrades;
 
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.struct.Placeholder;
+import com.massivecraft.factions.util.Placeholder;
 import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;

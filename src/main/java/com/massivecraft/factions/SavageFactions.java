@@ -11,7 +11,7 @@ import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.integration.dynmap.EngineDynmap;
 import com.massivecraft.factions.listeners.*;
 import com.massivecraft.factions.struct.ChatMode;
-import com.massivecraft.factions.struct.Placeholder;
+import com.massivecraft.factions.util.Placeholder;
 import com.massivecraft.factions.util.*;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
 import com.massivecraft.factions.zcore.CommandVisibility;

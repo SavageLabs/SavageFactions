@@ -365,14 +365,14 @@ public class Conf {
     public static boolean disableFlightOnFactionClaimChange = true;
 
     // Default Faction Permission Settings.
+    public static boolean useLockedPermissions = false;
     public static boolean useCustomDefaultPermissions = true;
     public static boolean usePermissionHints = false;
     public static HashMap<String, DefaultPermissions> defaultFactionPermissions = new HashMap<>();
+    public static HashSet<PermissableAction> lockedPermissions = new HashSet<>();
 
     private static transient Conf i = new Conf();
-    public static boolean useLockedPermissions = false;
     public static String particleGUITitle = "&cChoose a Particle! &o(Patreon)";
-    public static HashSet<PermissableAction> lockedPermissions = new HashSet<>();
 
     public static boolean enableFactionAlts = true;
     public static boolean registerAltsCommand = true;

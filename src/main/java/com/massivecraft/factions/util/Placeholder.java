@@ -1,4 +1,4 @@
-package com.massivecraft.factions.struct;
+package com.massivecraft.factions.util;
 
 public class Placeholder {
 
