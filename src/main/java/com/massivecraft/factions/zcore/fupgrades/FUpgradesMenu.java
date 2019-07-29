@@ -44,7 +44,6 @@ public class FUpgradesMenu {
                     if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
                     if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
                     fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
-                    fme.getPlayer().closeInventory();
                     buildGUI(fme);
                 }
             }));
