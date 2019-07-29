@@ -147,7 +147,7 @@ public class CmdUnclaim extends FCommand {
 
 
         LandUnclaimEvent unclaimEvent = new LandUnclaimEvent(target, targetFaction, fme);
-        Bukkit.getServer().getPluginManager().callEvent(unclaimEvent);
+        Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(unclaimEvent));
         if (unclaimEvent.isCancelled()) {
             return false;
         }
