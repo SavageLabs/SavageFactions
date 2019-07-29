@@ -143,16 +143,6 @@ public class FactionsBlockListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onSpawnerPlace(BlockPlaceEvent e) {
-        if (e.getBlock().getType() == XMaterial.SPAWNER.parseMaterial()) {
-            FLocation floc = new FLocation(e.getBlock().getLocation());
-            if (Board.getInstance().getFactionAt(floc).isWilderness()) {
-
-            }
-        }
-    }
-
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onBlockFromTo(BlockFromToEvent event) {
         if (!Conf.handleExploitLiquidFlow) return;
