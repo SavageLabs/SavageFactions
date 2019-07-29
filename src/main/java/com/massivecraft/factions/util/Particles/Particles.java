@@ -43,7 +43,11 @@ public enum Particles {
 
             // Gotta do this so colorable ones have their data :P
             if (this == Particles.REDSTONE || this == Particles.CLOUD || this == Particles.NOTE) {
-                location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0, new Particle.DustOptions(Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()), 1));
+                if (SavageFactions.plugin.mc113) {
+                    location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0, new Particle.DustOptions(Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()), 1));
+                } else {
+                    location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0);
+                }
             } else {
                 location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0);
             }
