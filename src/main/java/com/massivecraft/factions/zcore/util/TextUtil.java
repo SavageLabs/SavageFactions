@@ -1,5 +1,6 @@
 package com.massivecraft.factions.zcore.util;
 
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -92,6 +93,14 @@ public class TextUtil {
         string = parseColorAcc(string);
         string = parseColorTags(string);
         return ChatColor.translateAlternateColorCodes('&', string);
+    }
+
+    public static String getPrefix() {
+        return getPrefix("");
+    }
+
+    public static String getPrefix(String string) {
+        return parseColor(Files.LANG.getFile().getString("Messages.root.prefix") + string);
     }
 
     public static String parseColorAmp(String string) {
