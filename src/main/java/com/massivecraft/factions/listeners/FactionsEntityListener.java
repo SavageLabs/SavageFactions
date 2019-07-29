@@ -13,6 +13,7 @@ import org.bukkit.entity.minecart.ExplosiveMinecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
@@ -25,6 +26,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
+import javax.annotation.processing.SupportedSourceVersion;
 import java.util.*;
 
 
@@ -602,6 +604,11 @@ public class FactionsEntityListener implements Listener {
             event.setCancelled(true);
         }
     }
+
+        //TODO: Fix ItemFrame Claim protection
+        // ItemFramePlace HangingPlaceEvent
+        // ItemFrameBreak HangingBreakByEntityEvent
+        // PlayerInteractItemFrame PlayerInteractEntityEvent
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPaintingPlace(HangingPlaceEvent event) {
