@@ -39,8 +39,8 @@ public class FUpgradesMenu {
                 FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
                 if (fme.getFaction().getUpgrade(value) == value.getMaxLevel()) return;
                 int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
-                if (hasMoney(fme, cost)) {
-                    takeMoney(fme, cost);
+                if (fme.hasMoney(cost)) {
+                    fme.takeMoney(cost);
                     if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
                     if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
                     fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
@@ -52,14 +52,6 @@ public class FUpgradesMenu {
             gui.update();
             gui.show(fplayer.getPlayer());
         }
-    }
-
-    private boolean hasMoney(FPlayer fme, int amt) {
-        return fme.hasMoney(amt);
-    }
-
-    private void takeMoney(FPlayer fme, int amt) {
-        fme.takeMoney(amt);
     }
 
     private void updateChests(Faction faction) {
