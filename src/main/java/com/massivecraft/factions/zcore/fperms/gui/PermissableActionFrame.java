@@ -61,14 +61,14 @@ public class PermissableActionFrame {
                     if (success) fplayer.msg(TL.COMMAND_PERM_SET, action.name(), access.name(), perm.name());
                     else fplayer.msg(TL.COMMAND_PERM_LOCKED);
                     SavageFactions.plugin.log(String.format(TL.COMMAND_PERM_SET.toString(), action.name(), access.name(), perm.name()) + " for faction " + fplayer.getTag());
-                    fplayer.getPlayer().closeInventory();
+                    // fplayer.getPlayer().closeInventory();
                     buildGUI(fplayer, perm);
                 }
             }));
         }
         GUIItems.set(SavageFactions.plugin.getConfig().getInt("fperm-gui.action.slots.back"), new GuiItem(buildBackItem(), event -> {
             event.setCancelled(true);
-            fplayer.getPlayer().closeInventory();
+            // fplayer.getPlayer().closeInventory();
             new PermissableRelationFrame(fplayer.getFaction()).buildGUI(fplayer);
         }));
         pane.populateWithGuiItems(GUIItems);
