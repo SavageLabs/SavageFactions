@@ -39,6 +39,7 @@ public class PermissableRelationFrame {
         for (String key : sec.getConfigurationSection("slots").getKeys(false)) {
             GUIItems.set(sec.getInt("slots." + key), new GuiItem(buildAsset("fperm-gui.relation.materials." + key, key), e -> {
                 e.setCancelled(true);
+                // Closing and opening resets the cursor.
                 // e.getWhoClicked().closeInventory();
                 new PermissableActionFrame(fplayer.getFaction()).buildGUI(fplayer, getPermissable(key));
             }));

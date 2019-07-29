@@ -61,6 +61,7 @@ public class PermissableActionFrame {
                     if (success) fplayer.msg(TL.COMMAND_PERM_SET, action.name(), access.name(), perm.name());
                     else fplayer.msg(TL.COMMAND_PERM_LOCKED);
                     SavageFactions.plugin.log(String.format(TL.COMMAND_PERM_SET.toString(), action.name(), access.name(), perm.name()) + " for faction " + fplayer.getTag());
+                    // Closing and opening resets the cursor.
                     // fplayer.getPlayer().closeInventory();
                     buildGUI(fplayer, perm);
                 }
@@ -68,6 +69,7 @@ public class PermissableActionFrame {
         }
         GUIItems.set(SavageFactions.plugin.getConfig().getInt("fperm-gui.action.slots.back"), new GuiItem(buildBackItem(), event -> {
             event.setCancelled(true);
+            // Closing and opening resets the cursor.
             // fplayer.getPlayer().closeInventory();
             new PermissableRelationFrame(fplayer.getFaction()).buildGUI(fplayer);
         }));
