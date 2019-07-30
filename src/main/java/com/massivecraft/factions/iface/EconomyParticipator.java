@@ -1,7 +1,5 @@
 package com.massivecraft.factions.iface;
 
-import com.massivecraft.factions.zcore.util.TL;
-
 public interface EconomyParticipator extends RelationParticipator {
 
     String getAccountId();

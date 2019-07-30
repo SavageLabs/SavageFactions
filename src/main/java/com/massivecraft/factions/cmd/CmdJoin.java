@@ -4,7 +4,6 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.FPlayerJoinEvent;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
 public class CmdJoin extends FCommand {

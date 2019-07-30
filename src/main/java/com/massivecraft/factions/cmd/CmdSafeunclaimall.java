@@ -5,7 +5,6 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 

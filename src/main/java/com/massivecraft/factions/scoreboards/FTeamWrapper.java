@@ -1,7 +1,6 @@
 package com.massivecraft.factions.scoreboards;
 
 import com.massivecraft.factions.*;
-import com.massivecraft.factions.zcore.util.TL;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

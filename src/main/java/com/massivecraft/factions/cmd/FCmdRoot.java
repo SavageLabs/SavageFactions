@@ -2,7 +2,6 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
 import java.util.Collections;

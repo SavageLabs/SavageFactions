@@ -7,7 +7,6 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.factions.util.XMaterial;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 

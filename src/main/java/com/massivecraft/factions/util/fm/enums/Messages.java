@@ -7,8 +7,31 @@ import java.util.HashMap;
 import java.util.List;
 
 public enum Messages {
-    CONFIG_RELOAD("config-reload", "&cYou have reloaded the plugin, It took %ms% to complete this task.");
-    
+    // Root Actions
+    CONFIG_RELOAD("config-reload", "&cYou have reloaded the plugin, It took %ms% to complete this task."),
+    CONSOLE_ONLY("", ""),
+    PLAYER_ONLY("", ""),
+    NO_COMMAND_PERMS("", ""),
+    NO_PLAYER_MATCH("", ""),
+    NO_PLAYER_FOUND("", ""),
+    ENABLED("", ""),
+    DISABLED("", ""),
+    ASK_LEADER("", ""),
+    YOU_SHOULD("", ""),
+    YOU_MAY_WANT("", ""),
+    TOO_FEW_ARGS("", ""),
+    TOO_MANY_ARGS("", ""),
+    // Actions Section
+    NO_FACTION_PERMS("", ""),
+    NO_FACTION_PERMS_PAIN("", ""),
+    FACTION_PERMS_NO_PERMISSION("", ""),
+    NO_FACTION("", ""),
+    NO_SAME_ROLE("", ""),
+    MUST_BE_ROLE("", ""),
+    NO_PAGES("", ""),
+    INVALID_PAGE("", "");
+    // Commands Section
+
     private String path;
     private String defaultMessage;
     private List<String> defaultListMessage;

@@ -8,7 +8,6 @@ import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.fperms.gui.PermissableActionGUI;
 import com.massivecraft.factions.zcore.fperms.gui.PermissableRelationGUI;
-import com.massivecraft.factions.zcore.util.TL;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -3,7 +3,6 @@ package com.massivecraft.factions.zcore.persist;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.util.MiscUtil;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

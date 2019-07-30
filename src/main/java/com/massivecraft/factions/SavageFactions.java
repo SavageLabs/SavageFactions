@@ -13,6 +13,8 @@ import com.massivecraft.factions.listeners.*;
 import com.massivecraft.factions.struct.ChatMode;
 import com.massivecraft.factions.util.*;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
+import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager;
 import com.massivecraft.factions.zcore.CommandVisibility;
 import com.massivecraft.factions.zcore.MCommand;
 import com.massivecraft.factions.zcore.MPlugin;
@@ -54,6 +56,7 @@ public class SavageFactions extends MPlugin {
     // Single 4 life.
     public static SavageFactions plugin;
     public static Permission perms = null;
+    private FileManager fm = FileManager.getInstance();
     // This plugin sets the boolean true when fully enabled.
     // Plugins can check this boolean while hooking in have
     // a green light to use the api.
@@ -155,7 +158,8 @@ public class SavageFactions extends MPlugin {
         }
         this.loadSuccessful = false;
 
-        saveDefaultConfig();
+        fm.logInfo(true).setup(this);
+        // saveDefaultConfig();
         // Load Conf from disk
         Conf.load();
         com.massivecraft.factions.integration.Essentials.setup();
@@ -203,9 +207,9 @@ public class SavageFactions extends MPlugin {
             log("Minecraft Version 1.9 or higher found, using non packet based particle API");
         }
 
-        if (getConfig().getBoolean("enable-faction-flight")) {
-            factionsFlight = true;
-        }
+        // if (getConfig().getBoolean("enable-faction-flight")) {
+        //    factionsFlight = true;
+        // }
 
         if (getServer().getPluginManager().getPlugin("Skript") != null) {
             log("Skript was found! Registering SavageFactions Addon...");

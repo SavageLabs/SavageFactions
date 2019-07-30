@@ -6,7 +6,6 @@ import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;

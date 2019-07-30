@@ -5,7 +5,6 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
 public class UtilFly {

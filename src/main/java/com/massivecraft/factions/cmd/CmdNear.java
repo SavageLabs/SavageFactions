@@ -3,7 +3,6 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 

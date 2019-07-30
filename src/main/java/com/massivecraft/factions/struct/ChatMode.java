@@ -1,7 +1,5 @@
 package com.massivecraft.factions.struct;
 
-import com.massivecraft.factions.zcore.util.TL;
-
 public enum ChatMode {
     MOD(4, TL.CHAT_MOD),
     FACTION(3, TL.CHAT_FACTION),
