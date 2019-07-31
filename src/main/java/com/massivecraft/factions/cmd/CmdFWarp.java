@@ -4,8 +4,8 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.FactionWarpsFrame;
 import com.massivecraft.factions.util.WarmUpUtil;
-import com.massivecraft.factions.util.WarpGUI;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -42,10 +42,7 @@ public class CmdFWarp extends FCommand {
 
 
         if (args.size() == 0) {
-            WarpGUI warpGUI = new WarpGUI(fme);
-            warpGUI.build();
-
-            me.openInventory(warpGUI.getInventory());
+            new FactionWarpsFrame(fme.getFaction()).buildGUI(fme);
         } else if (args.size() > 2) {
             fme.msg(TL.COMMAND_FWARP_COMMANDFORMAT);
         } else {
