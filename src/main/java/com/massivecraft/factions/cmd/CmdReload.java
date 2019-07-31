@@ -3,6 +3,8 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdReload extends FCommand {
 
@@ -22,17 +24,17 @@ public class CmdReload extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         long timeInitStart = System.currentTimeMillis();
         Conf.load();
         Conf.save();
-        SavageFactions.plugin.reloadConfig();
-        SavageFactions.plugin.loadLang();
+        Files.CONFIG.reloadFile();
+        Files.LANG.reloadFile();
 
-
-
-        if (SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight")) {
+        if (config.getBoolean("enable-faction-flight")) {
             SavageFactions.plugin.factionsFlight = true;
         }
+
         long timeReload = (System.currentTimeMillis() - timeInitStart);
 
         msg(TL.COMMAND_RELOAD_TIME, timeReload);
