@@ -58,9 +58,8 @@ public class CmdFWarp extends FCommand {
                 }
 
                 // Check transaction AFTER password check.
-                if (!transact(fme)) {
-                    return;
-                }
+                if (!transact(fme)) return;
+
                 final FPlayer fPlayer = fme;
                 final UUID uuid = fme.getPlayer().getUniqueId();
                 this.doWarmUp(WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warpName, new Runnable() {
@@ -73,9 +72,7 @@ public class CmdFWarp extends FCommand {
                         }
                     }
                 }, this.p.getConfig().getLong("warmups.f-warp", 0));
-            } else {
-                fme.msg(TL.COMMAND_FWARP_INVALID_WARP, warpName);
-            }
+            } else { fme.msg(TL.COMMAND_FWARP_INVALID_WARP, warpName); }
         }
     }
 

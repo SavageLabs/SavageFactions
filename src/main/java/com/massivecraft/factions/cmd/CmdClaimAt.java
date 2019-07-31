@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
@@ -30,8 +31,12 @@ public class CmdClaimAt extends FCommand {
         int x = argAsInt(1);
         int z = argAsInt(2);
         FLocation location = new FLocation(argAsString(0), x, z);
-        fme.attemptClaim(myFaction, location, true);
+        if (!((fme.getPlayer().getLocation().getX() + (x * 16)) > (fme.getPlayer().getLocation().getX() + (Conf.mapWidth * 16))) &&
+                        !((fme.getPlayer().getLocation().getZ() + (z * 16)) > (fme.getPlayer().getLocation().getZ() + (Conf.mapHeight * 16)))) {
+            fme.attemptClaim(myFaction, location, true);
+        } else fme.msg(TL.COMMAND_CLAIM_DENIED);
     }
+
 
     @Override
     public TL getUsageTranslation() {

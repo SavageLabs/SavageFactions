@@ -21,6 +21,7 @@ public class CmdMoneyDeposit extends FCommand {
 
         this.permission = Permission.MONEY_DEPOSIT.node;
 
+        this.isMoneyCommand = true;
 
         senderMustBePlayer = true;
         senderMustBeMember = false;
