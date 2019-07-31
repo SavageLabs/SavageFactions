@@ -223,7 +223,8 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
             return new ItemStack(Material.AIR);
         }
 
-        Material material = XMaterial.matchXMaterial("material").parseMaterial();
+        // TODO: FIX THIS TO USE CONFIG, IT WAS INVALID BEFORE.
+        Material material = XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial();
         if (material == null) {
             SavageFactions.plugin.log(Level.WARNING, "Invalid material for dummy item: " + id);
             return null;
