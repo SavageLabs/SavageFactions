@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.Methods;
 import org.bukkit.ChatColor;
 
 public class CmdSetMaxVaults extends FCommand {
@@ -29,12 +30,12 @@ public class CmdSetMaxVaults extends FCommand {
         Faction targetFaction = argAsFaction(0);
         int value = argAsInt(1, -1);
         if (value < 0) {
-            sender.sendMessage(ChatColor.RED + "Number must be greater than 0.");
+            sender.sendMessage(Methods.pl("&cNumber must be greater than 0."));
             return;
         }
 
         if (targetFaction == null) {
-            sender.sendMessage(ChatColor.RED + "Couldn't find Faction: " + ChatColor.YELLOW + argAsString(0));
+            sender.sendMessage(Methods.pl("Couldn't find Faction: " + Methods.pl("&e ") + argAsString(0)));
             return;
         }
 
