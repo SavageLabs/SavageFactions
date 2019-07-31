@@ -15,6 +15,7 @@ import com.massivecraft.factions.util.*;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.Methods;
 import com.massivecraft.factions.zcore.CommandVisibility;
 import com.massivecraft.factions.zcore.MCommand;
 import com.massivecraft.factions.zcore.MPlugin;
@@ -30,6 +31,7 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -409,17 +411,18 @@ public class SavageFactions extends MPlugin {
     public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
         ItemStack item = new ItemStack(XMaterial.matchXMaterial(material.toString()).parseMaterial(), amount, datavalue);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(color(name));
-        meta.setLore(colorList(lore));
+        meta.setDisplayName(Methods.pl(name));
+        meta.setLore(Methods.plList(lore));
         item.setItemMeta(meta);
         return item;
     }
 
     public ItemStack createLazyItem(Material material, int amount, short datavalue, String name, String lore) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
         ItemStack item = new ItemStack(material, amount, datavalue);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(color(SavageFactions.plugin.getConfig().getString(name)));
-        meta.setLore(colorList(SavageFactions.plugin.getConfig().getStringList(lore)));
+        meta.setDisplayName(Methods.pl(config.getString(name)));
+        meta.setLore(Methods.plList(config.getStringList(lore)));
         item.setItemMeta(meta);
         return item;
     }
@@ -504,7 +507,7 @@ public class SavageFactions extends MPlugin {
         as.setVisible(false); //Makes the ArmorStand invisible
         as.setGravity(false); //Make sure it doesn't fall
         as.setCanPickupItems(false); //I'm not sure what happens if you leave this as it is, but you might as well disable it
-        as.setCustomName(SavageFactions.plugin.color(text)); //Set this to the text you want
+        as.setCustomName(Methods.pl(text)); //Set this to the text you want
         as.setCustomNameVisible(true); //This makes the text appear no matter if your looking at the entity or not
         final ArmorStand armorStand = as;
 
@@ -608,19 +611,6 @@ public class SavageFactions extends MPlugin {
         return me.getTitle().trim();
     }
 
-    public String color(String line) {
-        line = ChatColor.translateAlternateColorCodes('&', line);
-        return line;
-    }
-
-    //colors a string list
-    public List<String> colorList(List<String> lore) {
-        for (int i = 0; i <= lore.size() - 1; i++) {
-            lore.set(i, color(lore.get(i)));
-        }
-        return lore;
-    }
-
     // Get a list of all faction tags (names)
     public Set<String> getFactionTags() {
         return Factions.getInstance().getFactionTags();
@@ -665,7 +655,8 @@ public class SavageFactions extends MPlugin {
     }
 
     public void debug(Level level, String s) {
-        if (getConfig().getBoolean("debug", false)) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
+        if (config.getBoolean("debug", false)) {
             getLogger().log(level, s);
         }
     }
