@@ -23,7 +23,7 @@ public class CmdStatus extends FCommand {
 
     }
 
-    @Override
+   /* @Override
     public void perform() {
         ArrayList<String> ret = new ArrayList<>();
         for (FPlayer fp : myFaction.getFPlayers()) {
@@ -34,7 +34,7 @@ public class CmdStatus extends FCommand {
         }
         fme.sendMessage(ret);
     }
-
+   */
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_STATUS_DESCRIPTION;

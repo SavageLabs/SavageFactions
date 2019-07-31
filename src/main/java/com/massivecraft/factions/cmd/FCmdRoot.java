@@ -2,7 +2,9 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.FileManager;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Collections;
 import java.util.logging.Level;
@@ -231,11 +233,12 @@ public class FCmdRoot extends FCommand {
         } else {
             SavageFactions.plugin.log("CoreProtect not found, disabling Inspect");
         }
-        if (SavageFactions.plugin.getConfig().getBoolean("ffocus.Enabled")) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
+        if (config.getBoolean("ffocus.Enabled")) {
             addSubCommand(this.cmdFocus);
         }
 
-        if (SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight", true)) {
+        if (config.getBoolean("enable-faction-flight", true)) {
             SavageFactions.plugin.log("Enabling Faction Flight!");
             this.addSubCommand(this.cmdFly);
         }
@@ -245,7 +248,7 @@ public class FCmdRoot extends FCommand {
             SavageFactions.plugin.log(Level.INFO, "Enabling FactionsTop command, this is a very basic /f top please get a dedicated /f top resource if you want land calculation etc.");
             this.addSubCommand(this.cmdTop);
         }
-        if (SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) {
+        if (config.getBoolean("fpaypal.Enabled")) {
             this.addSubCommand(this.cmdPaypalSet);
             this.addSubCommand(this.cmdPaypalSee);
         }

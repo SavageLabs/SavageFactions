@@ -3,6 +3,8 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdCheckpoint extends FCommand {
     public CmdCheckpoint() {
@@ -25,7 +27,8 @@ public class CmdCheckpoint extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("checkpoints.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("checkpoints.Enabled")) {
             fme.msg(TL.COMMAND_CHECKPOINT_DISABLED);
             return;
         }

@@ -1,9 +1,9 @@
 package com.massivecraft.factions.scoreboards.sidebar;
 
 import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.scoreboards.FSidebarProvider;
-
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,21 +12,24 @@ public class FDefaultSidebar extends FSidebarProvider {
 
     @Override
     public String getTitle(FPlayer fplayer) {
-        return replaceTags(fplayer, SavageFactions.plugin.getConfig().getString("scoreboard.default-title", "{name}"));
+        FileConfiguration config = Files.CONFIG.getFile();
+        return replaceTags(fplayer, config.getString("scoreboard.default-title", "{name}"));
     }
 
     @Override
     public List<String> getLines(FPlayer fplayer) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (fplayer.hasFaction()) {
             return getOutput(fplayer, "scoreboard.default");
-        } else if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.factionless-enabled", false)) {
+        } else if (config.getBoolean("scoreboard.factionless-enabled", false)) {
             return getOutput(fplayer, "scoreboard.factionless");
         }
         return getOutput(fplayer, "scoreboard.default"); // no faction, factionless-board disabled
     }
 
     public List<String> getOutput(FPlayer fplayer, String list) {
-        List<String> lines = SavageFactions.plugin.getConfig().getStringList(list);
+        FileConfiguration config = Files.CONFIG.getFile();
+        List<String> lines = config.getStringList(list);
 
         if (lines == null || lines.isEmpty()) {
             return new ArrayList<>();

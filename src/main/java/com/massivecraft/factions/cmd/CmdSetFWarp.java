@@ -6,8 +6,10 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.LazyLocation;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdSetFWarp extends FCommand {
 
@@ -30,6 +32,7 @@ public class CmdSetFWarp extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (!(fme.getRelationToLocation() == Relation.MEMBER)) {
             fme.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
             return;
@@ -50,7 +53,7 @@ public class CmdSetFWarp extends FCommand {
         // Checks if warp with same name already exists and ignores maxWarp check if it does.
         boolean warpExists = myFaction.isWarp(warp);
 
-        int maxWarps = SavageFactions.plugin.getConfig().getInt("max-warps", 5);
+        int maxWarps = config.getInt("max-warps", 5);
         boolean tooManyWarps = maxWarps <= myFaction.getWarps().size();
         if (tooManyWarps && !warpExists) {
             fme.msg(TL.COMMAND_SETFWARP_LIMIT, maxWarps);
@@ -72,7 +75,8 @@ public class CmdSetFWarp extends FCommand {
     }
 
     private boolean transact(FPlayer player) {
-        return !SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) || player.isAdminBypassing() || payForCommand(SavageFactions.plugin.getConfig().getDouble("warp-cost.setwarp", 5), TL.COMMAND_SETFWARP_TOSET.toString(), TL.COMMAND_SETFWARP_FORSET.toString());
+        FileConfiguration config = Files.CONFIG.getFile();
+        return !config.getBoolean("warp-cost.enabled", false) || player.isAdminBypassing() || payForCommand(config.getDouble("warp-cost.setwarp", 5), TL.COMMAND_SETFWARP_TOSET.toString(), TL.COMMAND_SETFWARP_FORSET.toString());
     }
 
     @Override

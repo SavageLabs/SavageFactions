@@ -7,7 +7,9 @@ import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.MiscUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class CmdCreate extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         String tag = this.argAsString(0);
 
         if (fme.hasFaction()) {
@@ -90,7 +93,7 @@ public class CmdCreate extends FCommand {
         // That way we don't have to mess up deleting more stuff.
         // And prevent the user from being returned to NORMAL after deleting his old faction.
         fme.setRole(Role.LEADER);
-        if (SavageFactions.plugin.getConfig().getBoolean("faction-creation-broadcast", true)) {
+        if (config.getBoolean("faction-creation-broadcast", true)) {
             for (FPlayer follower : FPlayers.getInstance().getOnlinePlayers()) {
                 follower.msg(TL.COMMAND_CREATE_CREATED, fme.getName(), faction.getTag(follower));
             }
@@ -99,7 +102,7 @@ public class CmdCreate extends FCommand {
         if (Conf.econEnabled) Econ.setBalance(faction.getAccountId(), Conf.econFactionStartingBalance);
         if (Conf.logFactionCreate)
             SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CREATE_CREATEDLOG.toString() + tag);
-        if (SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) this.fme.msg(TL.COMMAND_PAYPALSET_CREATED);
+        if (config.getBoolean("fpaypal.Enabled")) this.fme.msg(TL.COMMAND_PAYPALSET_CREATED);
         if (Conf.useCustomDefaultPermissions) faction.setDefaultPerms();
         if (Conf.usePermissionHints) this.fme.msg(TL.COMMAND_HINT_PERMISSION);
     }

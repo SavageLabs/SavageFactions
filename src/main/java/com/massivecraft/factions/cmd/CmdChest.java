@@ -1,10 +1,11 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdChest extends FCommand {
 
@@ -27,9 +28,9 @@ public class CmdChest extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
 
-
-        if (!SavageFactions.plugin.getConfig().getBoolean("fchest.Enabled")) {
+        if (!config.getBoolean("fchest.Enabled")) {
             fme.sendMessage("This command is disabled!");
             return;
         }
@@ -43,7 +44,6 @@ public class CmdChest extends FCommand {
         }
 
         me.openInventory(fme.getFaction().getChestInventory());
-
 
     }
 

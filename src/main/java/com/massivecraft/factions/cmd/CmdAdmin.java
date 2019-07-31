@@ -95,5 +95,4 @@ public class CmdAdmin extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_ADMIN_DESCRIPTION;
     }
-
 }

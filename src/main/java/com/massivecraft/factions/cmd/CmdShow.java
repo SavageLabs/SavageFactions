@@ -4,9 +4,11 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.util.TagReplacer;
 import com.massivecraft.factions.zcore.util.TagUtil;
 import mkremins.fanciful.FancyMessage;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ public class CmdShow extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         Faction faction = myFaction;
         if (this.argIsSet(0))
             faction = this.argAsFaction(0);
@@ -53,7 +56,7 @@ public class CmdShow extends FCommand {
             return;
 
         if (fme != null && !fme.getPlayer().hasPermission("factions.show.bypassexempt")
-                && SavageFactions.plugin.getConfig().getStringList("show-exempt").contains(faction.getTag())) {
+                && config.getStringList("show-exempt").contains(faction.getTag())) {
             msg(TL.COMMAND_SHOW_EXEMPT);
             return;
         }
@@ -63,7 +66,7 @@ public class CmdShow extends FCommand {
             return;
         }
 
-        List<String> show = SavageFactions.plugin.getConfig().getStringList("show");
+        List<String> show = config.getStringList("show");
         if (show == null || show.isEmpty())
             show = defaults;
 

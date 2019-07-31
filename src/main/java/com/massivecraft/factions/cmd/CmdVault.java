@@ -4,11 +4,13 @@ import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
 
 public class CmdVault extends FCommand {
@@ -31,8 +33,8 @@ public class CmdVault extends FCommand {
 
     @Override
     public void perform() {
-
-        if (!SavageFactions.plugin.getConfig().getBoolean("fvault.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("fvault.Enabled")) {
             fme.sendMessage("This command is disabled!");
             return;
         }

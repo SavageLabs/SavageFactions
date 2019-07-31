@@ -7,9 +7,11 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdKickAlt extends FCommand{
 
@@ -31,7 +33,8 @@ public class CmdKickAlt extends FCommand{
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("f-alts.Enabled", false)) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("f-alts.Enabled", false)) {
             fme.msg(TL.GENERIC_DISABLED);
             return;
         }

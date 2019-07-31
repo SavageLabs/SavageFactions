@@ -15,6 +15,8 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.VisualizeUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.Methods;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.MemoryFPlayer;
@@ -26,6 +28,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -64,6 +67,7 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
 
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
@@ -82,7 +86,7 @@ public class FactionsPlayerListener implements Listener {
             return false;
         }
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
+        if (config.getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
 
         if (otherFaction.hasPlayersOnline()) {
             if (!Conf.territoryDenyUseageMaterials.contains(material)) {
@@ -122,6 +126,7 @@ public class FactionsPlayerListener implements Listener {
 
     @SuppressWarnings("deprecation")
     public static boolean canPlayerUseBlock(Player player, Block block, boolean justCheck) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (Conf.playersWhoBypassAllProtection.contains(player.getName()))
             return true;
 
@@ -144,7 +149,7 @@ public class FactionsPlayerListener implements Listener {
             return false;
         }
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
+        if (config.getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
             return true;
 
         if (otherFaction.getId().equals(myFaction.getId()) && me.getRole() == Role.LEADER) return true;
@@ -388,6 +393,7 @@ public class FactionsPlayerListener implements Listener {
     }
 
     private void initPlayer(Player player) {
+        FileConfiguration config = Files.CONFIG.getFile();
         // Make sure that all online players do have a fplayer.
         final FPlayer me = FPlayers.getInstance().getByPlayer(player);
         ((MemoryFPlayer) me).setName(player.getName());
@@ -410,9 +416,9 @@ public class FactionsPlayerListener implements Listener {
             }
         }, 33L); // Don't ask me why.
 
-        if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false)) {
+        if (config.getBoolean("scoreboard.default-enabled", false)) {
             FScoreboard.init(me);
-            FScoreboard.get(me).setDefaultSidebar(new FDefaultSidebar(), SavageFactions.plugin.getConfig().getInt("scoreboard.default-update-interval", 20));
+            FScoreboard.get(me).setDefaultSidebar(new FDefaultSidebar(), config.getInt("scoreboard.default-update-interval", 20));
             FScoreboard.get(me).setSidebarVisibility(me.showScoreboard());
         }
 
@@ -515,7 +521,8 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public void enableFly(FPlayer me) {
-        if (SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (config.getBoolean("ffly.AutoEnable")) {
 
             me.setFlying(true);
             CmdFly.flyMap.put(me.getName(), true);
@@ -596,6 +603,7 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
+        FileConfiguration config = Files.CONFIG.getFile();
         Player player = event.getPlayer();
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
 
@@ -634,19 +642,19 @@ public class FactionsPlayerListener implements Listener {
 
         if (changedFaction) {
             Bukkit.getServer().getPluginManager().callEvent(new FPlayerEnteredFactionEvent(factionTo, factionFrom, me));
-            if (SavageFactions.plugin.getConfig().getBoolean("Title.Show-Title")) {
-                String title = SavageFactions.plugin.getConfig().getString("Title.Format.Title");
+            if (config.getBoolean("Title.Show-Title")) {
+                String title = config.getString("Title.Format.Title");
                 title = title.replace("{Faction}", factionTo.getColorTo(me) + factionTo.getTag());
                 title = parseAllPlaceholders(title, factionTo, player);
-                String subTitle = SavageFactions.plugin.getConfig().getString("Title.Format.Subtitle").replace("{Description}", factionTo.getDescription()).replace("{Faction}", factionTo.getColorTo(me) + factionTo.getTag());
+                String subTitle = config.getString("Title.Format.Subtitle").replace("{Description}", factionTo.getDescription()).replace("{Faction}", factionTo.getColorTo(me) + factionTo.getTag());
                 subTitle = parseAllPlaceholders(subTitle, factionTo, player);
                 if (!SavageFactions.plugin.mc17) {
                     if (!SavageFactions.plugin.mc18) {
-                        me.getPlayer().sendTitle(SavageFactions.plugin.color(title), SavageFactions.plugin.color(subTitle), SavageFactions.plugin.getConfig().getInt("Title.Options.FadeInTime"),
-                                SavageFactions.plugin.getConfig().getInt("Title.Options.ShowTime"),
-                                SavageFactions.plugin.getConfig().getInt("Title.Options.FadeOutTime"));
+                        me.getPlayer().sendTitle(Methods.pl(title), Methods.pl(subTitle), config.getInt("Title.Options.FadeInTime"),
+                                config.getInt("Title.Options.ShowTime"),
+                                config.getInt("Title.Options.FadeOutTime"));
                     } else {
-                        me.getPlayer().sendTitle(SavageFactions.plugin.color(title), SavageFactions.plugin.color(subTitle));
+                        me.getPlayer().sendTitle(Methods.pl(title), Methods.pl(subTitle));
                     }
 
 
@@ -682,12 +690,12 @@ public class FactionsPlayerListener implements Listener {
 
         if (me.isMapAutoUpdating()) {
             if (showTimes.containsKey(player.getUniqueId()) && (showTimes.get(player.getUniqueId()) > System.currentTimeMillis())) {
-                if (SavageFactions.plugin.getConfig().getBoolean("findfactionsexploit.log", false)) {
+                if (config.getBoolean("findfactionsexploit.log", false)) {
                     SavageFactions.plugin.log(Level.WARNING, "%s tried to show a faction map too soon and triggered exploit blocker.", player.getName());
                 }
             } else {
                 me.sendFancyMessage(Board.getInstance().getMap(me, to, player.getLocation().getYaw()));
-                showTimes.put(player.getUniqueId(), System.currentTimeMillis() + SavageFactions.plugin.getConfig().getLong("findfactionsexploit.cooldown", 2000));
+                showTimes.put(player.getUniqueId(), System.currentTimeMillis() + config.getLong("findfactionsexploit.cooldown", 2000));
             }
         } else {
             Faction myFaction = me.getFaction();

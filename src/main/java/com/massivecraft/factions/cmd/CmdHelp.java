@@ -4,7 +4,9 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,8 @@ public class CmdHelp extends FCommand {
 
     @Override
     public void perform() {
-        if (SavageFactions.plugin.getConfig().getBoolean("use-old-help", true)) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
+        if (config.getBoolean("use-old-help", true)) {
             if (helpPages == null) {
                 updateHelp();
             }
@@ -56,9 +59,9 @@ public class CmdHelp extends FCommand {
             sendMessage(helpPages.get(page));
             return;
         }
-        ConfigurationSection help = SavageFactions.plugin.getConfig().getConfigurationSection("help");
+        ConfigurationSection help = config.getConfigurationSection("help");
         if (help == null) {
-            help = SavageFactions.plugin.getConfig().createSection("help"); // create new help section
+            help = config.createSection("help"); // create new help section
             List<String> error = new ArrayList<>();
             error.add("&cUpdate help messages in config.yml!");
             error.add("&cSet use-old-help for legacy help messages");

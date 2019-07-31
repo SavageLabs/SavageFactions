@@ -6,12 +6,14 @@ import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -32,11 +34,13 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
     private FPlayer fme;
     private int guiSize;
     private HashMap<Integer, Permissable> relationSlots = new HashMap<>();
+    FileConfiguration config = FileManager.Files.CONFIG.getFile();
 
 
     public PermissableRelationGUI(FPlayer fme) {
+
         this.fme = fme;
-        this.section = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.relation");
+        this.section = config.getConfigurationSection("fperm-gui.relation");
     }
 
     public void build() {
@@ -161,7 +165,8 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
     }
 
     private ItemStack buildDummyItem(int id) {
-        final ConfigurationSection dummySection = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-items." + id);
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
+        final ConfigurationSection dummySection = config.getConfigurationSection("fperm-gui.dummy-items." + id);
 
         if (dummySection == null) {
             SavageFactions.plugin.log(Level.WARNING, "Attempted to build f perm GUI but config section not present.");

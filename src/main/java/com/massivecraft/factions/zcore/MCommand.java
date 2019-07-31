@@ -5,12 +5,14 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
+import com.massivecraft.factions.util.fm.FileManager;
 import com.massivecraft.factions.zcore.util.TextUtil;
 import mkremins.fanciful.FancyMessage;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -280,6 +282,7 @@ public abstract class MCommand<T extends MPlugin> {
     }
 
     public List<String> getToolTips(FPlayer player) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
         List<String> lines = new ArrayList<>();
         for (String s : p.getConfig().getStringList("tooltips.show")) {
             lines.add(ChatColor.translateAlternateColorCodes('&', replaceFPlayerTags(s, player)));

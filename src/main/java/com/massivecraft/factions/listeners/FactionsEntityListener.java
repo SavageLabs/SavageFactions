@@ -4,9 +4,11 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.PowerLossEvent;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.MiscUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.entity.minecart.ExplosiveMinecart;
 import org.bukkit.event.EventHandler;
@@ -640,7 +642,8 @@ public class FactionsEntityListener implements Listener {
 
     @EventHandler
     public void onTravel(PlayerPortalEvent event) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("portals.limit", false)) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("portals.limit", false)) {
             return; // Don't do anything if they don't want us to.
         }
 

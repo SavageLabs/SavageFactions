@@ -3,9 +3,11 @@ package com.massivecraft.factions.zcore.util;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,28 +120,29 @@ public enum TagReplacer {
      * @return value for this generic server related variable<br>
      */
     protected String getValue() {
+        FileConfiguration config = Files.CONFIG.getFile();
         switch (this) {
             case TOTAL_ONLINE:
                 return String.valueOf(Bukkit.getOnlinePlayers().size());
             case FACTIONLESS:
                 return String.valueOf(Factions.getInstance().getWilderness().getFPlayersWhereOnline(true).size());
             case MAX_ALLIES:
-                if (SavageFactions.plugin.getConfig().getBoolean("max-relations.enabled", true)) {
-                    return String.valueOf(SavageFactions.plugin.getConfig().getInt("max-relations.ally", 10));
+                if (config.getBoolean("max-relations.enabled", true)) {
+                    return String.valueOf(config.getInt("max-relations.ally", 10));
                 }
                 return TL.GENERIC_INFINITY.toString();
             case MAX_ENEMIES:
-                if (SavageFactions.plugin.getConfig().getBoolean("max-relations.enabled", true)) {
-                    return String.valueOf(SavageFactions.plugin.getConfig().getInt("max-relations.enemy", 10));
+                if (config.getBoolean("max-relations.enabled", true)) {
+                    return String.valueOf(config.getInt("max-relations.enemy", 10));
                 }
                 return TL.GENERIC_INFINITY.toString();
             case MAX_TRUCES:
-                if (SavageFactions.plugin.getConfig().getBoolean("max-relations.enabled", true)) {
-                    return String.valueOf(SavageFactions.plugin.getConfig().getInt("max-relations.truce", 10));
+                if (config.getBoolean("max-relations.enabled", true)) {
+                    return String.valueOf(config.getInt("max-relations.truce", 10));
                 }
                 return TL.GENERIC_INFINITY.toString();
             case MAX_WARPS:
-                return String.valueOf(SavageFactions.plugin.getConfig().getInt("max-warps", 5));
+                return String.valueOf(config.getInt("max-warps", 5));
             default:
         }
         return null;
@@ -153,11 +156,12 @@ public enum TagReplacer {
      * @return the value for this enum!
      */
     protected String getValue(Faction fac, FPlayer fp) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (this.type == TagType.GENERAL) {
             return getValue();
         }
 
-        boolean minimal = SavageFactions.plugin.getConfig().getBoolean("minimal-show", false);
+        boolean minimal = config.getBoolean("minimal-show", false);
 
         if (fp != null) {
             switch (this) {
@@ -214,7 +218,7 @@ public enum TagReplacer {
             case CREATE_DATE:
                 return TL.sdf.format(fac.getFoundedDate());
             case RAIDABLE:
-                boolean raid = SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && fac.getLandRounded() >= fac.getPowerRounded();
+                boolean raid = config.getBoolean("hcf.raidable", false) && fac.getLandRounded() >= fac.getPowerRounded();
                 return raid ? TL.RAIDABLE_TRUE.toString() : TL.RAIDABLE_FALSE.toString();
             case HOME_WORLD:
                 return fac.hasHome() ? fac.getHome().getWorld().getName() : minimal ? null : "{ig}";

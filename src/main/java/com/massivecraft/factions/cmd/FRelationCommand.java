@@ -2,14 +2,15 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.FactionRelationEvent;
 import com.massivecraft.factions.event.FactionRelationWishEvent;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public abstract class FRelationCommand extends FCommand {
 
@@ -102,8 +103,9 @@ public abstract class FRelationCommand extends FCommand {
     }
 
     private boolean hasMaxRelations(Faction them, Relation targetRelation) {
-        int max = SavageFactions.plugin.getConfig().getInt("max-relations." + targetRelation.toString(), -1);
-        if (SavageFactions.plugin.getConfig().getBoolean("max-relations.enabled", false)) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        int max = config.getInt("max-relations." + targetRelation.toString(), -1);
+        if (config.getBoolean("max-relations.enabled", false)) {
             if (max != -1) {
                 if (myFaction.getRelationCount(targetRelation) >= max) {
                     msg(TL.COMMAND_RELATIONS_EXCEEDS_ME, max, targetRelation.getPluralTranslation());

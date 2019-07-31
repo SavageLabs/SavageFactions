@@ -2,6 +2,9 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.Methods;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,19 +31,20 @@ public class CmdRules extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("frules.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("frules.Enabled")) {
             fme.msg(TL.COMMAND_RULES_DISABLED_MSG);
             return;
         }
         if (this.args.size() == 0) {
             HashMap<Integer, String> rules = fme.getFaction().getRulesMap();
             if (rules.size() == 0) {
-                List<String> ruleList = SavageFactions.plugin.getConfig().getStringList("frules.default-rules");
-                fme.sendMessage(SavageFactions.plugin.colorList(ruleList));
+                List<String> ruleList = config.getStringList("frules.default-rules");
+                fme.sendMessage(Methods.plList(ruleList));
 
             } else {
                 for (int i = 0; i <= rules.size() - 1; i++) {
-                    fme.sendMessage(SavageFactions.plugin.color(rules.get(i)));
+                    fme.sendMessage(Methods.pl(rules.get(i)));
                 }
             }
 

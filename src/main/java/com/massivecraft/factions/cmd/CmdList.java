@@ -5,7 +5,9 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.util.TagUtil;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.*;
 
@@ -39,6 +41,7 @@ public class CmdList extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
         if (!payForCommand(Conf.econCostList, "to list the factions", "for listing the factions"))
             return;
@@ -50,7 +53,7 @@ public class CmdList extends FCommand {
 
         // remove exempt factions
         if (fme != null && fme.getPlayer() != null && !fme.getPlayer().hasPermission("factions.show.bypassexempt")) {
-            List<String> exemptFactions = SavageFactions.plugin.getConfig().getStringList("show-exempt");
+            List<String> exemptFactions = config.getStringList("show-exempt");
             Iterator<Faction> factionIterator = factionList.iterator();
 
             while (factionIterator.hasNext()) {

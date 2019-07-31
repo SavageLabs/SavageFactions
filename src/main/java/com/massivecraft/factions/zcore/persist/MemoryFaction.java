@@ -15,6 +15,8 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.LazyLocation;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.RelationUtil;
+import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.Methods;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -23,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -377,27 +380,29 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	@Override
 	public Inventory getChestInventory() {
+		FileConfiguration config = FileManager.Files.CONFIG.getFile();
 		if (chest != null) return chest;
 			int size = 9;
 			switch (getUpgrade(UpgradeType.CHEST)) {
 				case 1:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
+					size = config.getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
 					break;
 				case 2:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
+					size = config.getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
 					break;
 				case 3:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
+					size = config.getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
 					break;
 			}
-			chest = Bukkit.createInventory(null, size, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title")));
+			chest = Bukkit.createInventory(null, size, Methods.pl(config.getString("fchest.Inventory-Title")));
 			return chest;
 	}
 
 	@Override
 	public void setChestSize(int chestSize) {
+		FileConfiguration config = FileManager.Files.CONFIG.getFile();
 		ItemStack[] contents = this.getChestInventory().getContents();
-		chest = Bukkit.createInventory(null, chestSize, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title")));
+		chest = Bukkit.createInventory(null, chestSize, Methods.pl(config.getString("fchest.Inventory-Title")));
 		chest.setContents(contents);
 	}
 

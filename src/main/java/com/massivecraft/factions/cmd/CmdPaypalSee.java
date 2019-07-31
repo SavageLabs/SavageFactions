@@ -3,6 +3,8 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdPaypalSee extends FCommand {
     public CmdPaypalSee() {
@@ -23,7 +25,8 @@ public class CmdPaypalSee extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("fpaypal.Enabled")) {
             fme.msg(TL.GENERIC_DISABLED);
             return;
         }

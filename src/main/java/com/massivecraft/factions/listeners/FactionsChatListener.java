@@ -5,8 +5,10 @@ import com.massivecraft.factions.struct.ChatMode;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -195,6 +197,7 @@ public class FactionsChatListener implements Listener {
     }
 
     private void doWarmup(final String warp, final FPlayer fme) {
+        FileConfiguration config = Files.CONFIG.getFile();
         WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, new Runnable() {
             @Override
             public void run() {
@@ -204,7 +207,7 @@ public class FactionsChatListener implements Listener {
                     fme.msg(TL.COMMAND_FWARP_WARPED, warp);
                 }
             }
-        }, SavageFactions.plugin.getConfig().getLong("warmups.f-warp", 0));
+        }, config.getLong("warmups.f-warp", 0));
     }
 
 }

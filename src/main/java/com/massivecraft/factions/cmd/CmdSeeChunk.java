@@ -7,7 +7,9 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.*;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -28,6 +30,7 @@ public class CmdSeeChunk extends FCommand {
 
 
     public CmdSeeChunk() {
+        FileConfiguration config = Files.CONFIG.getFile();
         super();
         aliases.add("seechunk");
         aliases.add("sc");
@@ -41,7 +44,7 @@ public class CmdSeeChunk extends FCommand {
 
 
         this.useParticles = p.getConfig().getBoolean("see-chunk.particles", true);
-        interval = SavageFactions.plugin.getConfig().getLong("see-chunk.interval", 10L);
+        interval = config.getLong("see-chunk.interval", 10L);
         if (effect == null) {
             effect = ParticleEffect.REDSTONE;
         }

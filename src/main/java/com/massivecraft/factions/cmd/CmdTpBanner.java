@@ -5,6 +5,8 @@ import com.massivecraft.factions.listeners.FactionsBlockListener;
 import com.massivecraft.factions.listeners.FactionsPlayerListener;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdTpBanner extends FCommand {
     public CmdTpBanner() {
@@ -25,7 +27,8 @@ public class CmdTpBanner extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("fbanners.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("fbanners.Enabled")) {
             return;
         }
 

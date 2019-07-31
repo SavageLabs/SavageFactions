@@ -4,6 +4,8 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.Methods;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -12,6 +14,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -34,9 +37,10 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 	private ArrayList<Integer> usedDummySlots = new ArrayList<>();
 
 	public PermissableActionGUI(FPlayer fme, Permissable permissable) {
+		FileConfiguration config = Files.CONFIG.getFile();
 		this.fme = fme;
 		this.permissable = permissable;
-		this.section = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.action");
+		this.section = config.getConfigurationSection("fperm-gui.action");
 	}
 
 	public void build() {
@@ -53,7 +57,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 		}
 
 		guiSize *= 9;
-		String guiName = SavageFactions.plugin.color(section.getString("name", "FactionPerms"));
+		String guiName = Methods.pl(section.getString("name", "FactionPerms"));
 		actionGUI = Bukkit.createInventory(this, guiSize, guiName);
 		boolean disabled = false;
 		for (String key : section.getConfigurationSection("slots").getKeys(false)) {
@@ -177,6 +181,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 	}
 
 	private ItemStack getSpecialItem(SpecialItem specialItem) {
+		FileConfiguration config = Files.CONFIG.getFile();
 		if (section == null) {
 			SavageFactions.plugin.log(Level.WARNING, "Attempted to build f perm GUI but config section not present.");
 			SavageFactions.plugin.log(Level.WARNING, "Copy your config, allow the section to generate, then copy it back to your old config.");
@@ -187,7 +192,7 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 			case RELATION:
 				return permissable.buildItem();
 			case BACK:
-				ConfigurationSection backButtonConfig = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.back-item");
+				ConfigurationSection backButtonConfig = config.getConfigurationSection("fperm-gui.back-item");
 
 				ItemStack backButton = new ItemStack(XMaterial.matchXMaterial(backButtonConfig.getString("material")).parseItem());
 				ItemMeta backButtonMeta = backButton.getItemMeta();
@@ -252,7 +257,8 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 	}
 
 	private ItemStack buildDummyItem(int id) {
-		final ConfigurationSection dummySection = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-items." + id);
+		FileConfiguration config = Files.CONFIG.getFile();
+		final ConfigurationSection dummySection = config.getConfigurationSection("fperm-gui.dummy-items." + id);
 
 		if (dummySection == null) {
 			SavageFactions.plugin.log(Level.WARNING, "Attempted to build dummy items for F PERM GUI but config section not present.");

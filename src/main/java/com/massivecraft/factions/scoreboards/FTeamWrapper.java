@@ -1,10 +1,12 @@
 package com.massivecraft.factions.scoreboards;
 
 import com.massivecraft.factions.*;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
@@ -30,6 +32,7 @@ public class FTeamWrapper {
     }
 
     public static void applyUpdatesLater(final Faction faction) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (!FScoreboard.isSupportedByServer()) {
             return;
         }
@@ -38,7 +41,7 @@ public class FTeamWrapper {
             return;
         }
 
-        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false) || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) {
+        if (!config.getBoolean("scoreboard.default-prefixes", false) || config.getBoolean("See-Invisible-Faction-Members")) {
             return;
         }
 
@@ -55,6 +58,7 @@ public class FTeamWrapper {
     }
 
     public static void applyUpdates(Faction faction) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (!FScoreboard.isSupportedByServer()) {
             return;
         }
@@ -63,7 +67,7 @@ public class FTeamWrapper {
             return;
         }
 
-        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false) || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) {
+        if (!config.getBoolean("scoreboard.default-prefixes", false) || config.getBoolean("See-Invisible-Faction-Members")) {
             return;
         }
 
@@ -155,7 +159,8 @@ public class FTeamWrapper {
     }
 
     private void updatePrefixes() {
-        if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false)) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (config.getBoolean("scoreboard.default-prefixes", false)) {
             for (FScoreboard fboard : teams.keySet()) {
                 updatePrefix(fboard);
             }
@@ -163,19 +168,20 @@ public class FTeamWrapper {
     }
 
     private void updatePrefix(FScoreboard fboard) {
-        if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false)) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (config.getBoolean("scoreboard.default-prefixes", false)) {
             FPlayer fplayer = fboard.getFPlayer();
             Team team = teams.get(fboard);
             boolean focused = false;
 
-            if (SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members", false)) {
+            if (config.getBoolean("See-Invisible-Faction-Members", false)) {
                 team.setCanSeeFriendlyInvisibles(true);
             }
 
-            if ((SavageFactions.plugin.getConfig().getBoolean("ffocus.Enabled")) && (fplayer.getFaction() != null) && (fplayer.getFaction().getFocused() != null)) {
+            if ((config.getBoolean("ffocus.Enabled")) && (fplayer.getFaction() != null) && (fplayer.getFaction().getFocused() != null)) {
                 for (FPlayer fp : faction.getFPlayersWhereOnline(true)) {
                     if (fplayer.getFaction().getFocused().equalsIgnoreCase(fp.getName())) {
-                        team.setPrefix(ChatColor.translateAlternateColorCodes('&', SavageFactions.plugin.getConfig().getString("ffocus.Prefix", "&7»&b")));
+                        team.setPrefix(ChatColor.translateAlternateColorCodes('&', config.getString("ffocus.Prefix", "&7»&b")));
                         focused = true;
                     }
                 }

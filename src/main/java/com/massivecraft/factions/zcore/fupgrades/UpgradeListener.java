@@ -5,10 +5,12 @@ import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.CropState;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,13 +26,14 @@ public class UpgradeListener implements Listener {
 
     @EventHandler
     public void onDeath(EntityDeathEvent e) {
+        FileConfiguration config = Files.CONFIG.getFile();
         Entity killer = e.getEntity().getKiller();
         if (killer == null || !(killer instanceof Player)) return;
         FLocation floc = new FLocation(e.getEntity().getLocation());
         Faction faction = Board.getInstance().getFactionAt(floc);
         if (!faction.isWilderness()) {
             int level = faction.getUpgrade(UpgradeType.EXP);
-            double multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-" + level);
+            double multiplier = config.getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-" + level);
             if (level != 0 && multiplier > 0.0) spawnMoreExp(e, multiplier);
         }
     }
@@ -42,12 +45,13 @@ public class UpgradeListener implements Listener {
 
     @EventHandler
     public void onSpawn(SpawnerSpawnEvent e) {
+        FileConfiguration config = Files.CONFIG.getFile();
         FLocation floc = new FLocation(e.getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
         if (!factionAtLoc.isWilderness()) {
             int level = factionAtLoc.getUpgrade(UpgradeType.SPAWNER);
             if (level == 0) return;
-            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
+            lowerSpawnerDelay(e, config.getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
         }
     }
 
@@ -58,11 +62,12 @@ public class UpgradeListener implements Listener {
 
     @EventHandler
     public void onCropGrow(BlockGrowEvent e) {
+        FileConfiguration config = Files.CONFIG.getFile();
         FLocation floc = new FLocation(e.getBlock().getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
         if (!factionAtLoc.isWilderness()) {
             int level = factionAtLoc.getUpgrade(UpgradeType.CROP);
-            int chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-" + level);
+            int chance = config.getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-" + level);
             if (level == 0 || chance == 0) return;
             int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
             if (randomNum <= chance) growCrop(e);

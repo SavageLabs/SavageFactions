@@ -1,9 +1,10 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdFocus
         extends FCommand {
@@ -23,7 +24,8 @@ public class CmdFocus
     }
 
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("ffocus.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("ffocus.Enabled")) {
             fme.msg(TL.GENERIC_DISABLED);
             return;
         }

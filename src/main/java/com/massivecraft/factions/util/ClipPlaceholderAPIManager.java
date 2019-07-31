@@ -3,11 +3,13 @@ package com.massivecraft.factions.util;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.util.fm.FileManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Relational;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -76,6 +78,7 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
 
     @Override
     public String onPlaceholderRequest(Player player, String placeholder) {
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
         if (player == null || placeholder == null) {
             return "";
         }
@@ -132,7 +135,7 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_warps":
                 return String.valueOf(faction.getWarps().size());
             case "faction_raidable":
-                boolean raid = SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && faction.getLandRounded() >= faction.getPowerRounded();
+                boolean raid = config.getBoolean("hcf.raidable", false) && faction.getLandRounded() >= faction.getPowerRounded();
                 return raid ? TL.RAIDABLE_TRUE.toString() : TL.RAIDABLE_FALSE.toString();
             case "faction_home_world":
                 return faction.hasHome() ? faction.getHome().getWorld().getName() : "";

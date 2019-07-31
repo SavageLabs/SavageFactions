@@ -3,7 +3,9 @@ package com.massivecraft.factions.scoreboards;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -113,6 +115,7 @@ public class FScoreboard {
     }
 
     public void setTemporarySidebar(final FSidebarProvider provider) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (!isSupportedByServer()) {
             return;
         }
@@ -132,7 +135,7 @@ public class FScoreboard {
                     updateObjective();
                 }
             }
-        }.runTaskLater(SavageFactions.plugin, SavageFactions.plugin.getConfig().getInt("scoreboard.expiration", 7) * 20);
+        }.runTaskLater(SavageFactions.plugin, config.getInt("scoreboard.expiration", 7) * 20);
     }
 
     private void updateObjective() {

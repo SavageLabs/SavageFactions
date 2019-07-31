@@ -24,7 +24,6 @@ public class CmdKillHolograms extends FCommand {
     public void perform() {
         me.sendMessage("Killing Invisible Armor Stands..");
         me.chat("/minecraft:kill @e[type=ArmorStand,r=" + argAsInt(0) + "]");
-
     }
 
     @Override

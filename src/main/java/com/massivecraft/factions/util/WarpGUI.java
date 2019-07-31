@@ -5,11 +5,13 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
@@ -30,10 +32,11 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
     private HashMap<Integer, String> warpSlots = new HashMap<>();
     private int maxWarps;
     private List<Integer> dummySlots = new ArrayList<>();
+    FileConfiguration config = Files.CONFIG.getFile();
 
     public WarpGUI(FPlayer fme) {
         this.fme = fme;
-        this.section = SavageFactions.plugin.getConfig().getConfigurationSection("fwarp-gui");
+        this.section = config.getConfigurationSection("fwarp-gui");
     }
 
     @Override
@@ -89,6 +92,7 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
 
     @Override
     public void onClick(int slot, ClickType action) {
+        FileConfiguration config = Files.CONFIG.getFile();
         if (warpSlots.containsKey(slot)) {
             fme.getPlayer().closeInventory();
 
@@ -109,12 +113,13 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
                             fme.setEnteringPassword(false, "");
                         }
                     }
-                }, SavageFactions.plugin.getConfig().getInt("fwarp-gui.password-timeout", 5) * 20);
+                }, config.getInt("fwarp-gui.password-timeout", 5) * 20);
             }
         }
     }
 
     private void doWarmup(final String warp) {
+        FileConfiguration config = Files.CONFIG.getFile();
         WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, new Runnable() {
             @Override
             public void run() {
@@ -124,15 +129,16 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
                     fme.msg(TL.COMMAND_FWARP_WARPED, warp);
                 }
             }
-        }, SavageFactions.plugin.getConfig().getLong("warmups.f-warp", 0));
+        }, config.getLong("warmups.f-warp", 0));
     }
 
     private boolean transact(FPlayer player) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) || player.isAdminBypassing()) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("warp-cost.enabled", false) || player.isAdminBypassing()) {
             return true;
         }
 
-        double cost = SavageFactions.plugin.getConfig().getDouble("warp-cost.warp", 5);
+        double cost = config.getDouble("warp-cost.warp", 5);
 
         if (!Econ.shouldBeUsed() || this.fme == null || cost == 0.0 || fme.isAdminBypassing()) {
             return true;
@@ -179,10 +185,11 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
     }
 
     private String replacePlaceholers(String string, String warp, Faction faction) {
+        FileConfiguration config = Files.CONFIG.getFile();
         string = ChatColor.translateAlternateColorCodes('&', string);
         string = string.replace("{warp}", warp);
         string = string.replace("{warp-protected}", faction.hasWarpPassword(warp) ? "Enabled" : "Disabled");
-        string = string.replace("{warp-cost}", !SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) ? "Disabled" : Integer.toString(SavageFactions.plugin.getConfig().getInt("warp-cost.warp", 5)));
+        string = string.replace("{warp-cost}", !config.getBoolean("warp-cost.enabled", false) ? "Disabled" : Integer.toString(config.getInt("warp-cost.warp", 5)));
         return string;
     }
 
@@ -245,7 +252,6 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
         if (!SavageFactions.plugin.mc17) {
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
         }
-
 
         itemMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', dummySection.getString("name", " ")));
 

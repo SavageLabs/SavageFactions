@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.Methods;
 
 public class CmdLockSpawners extends FCommand {
 
@@ -26,7 +27,7 @@ public class CmdLockSpawners extends FCommand {
     @Override
     public void perform() {
         SavageFactions.plugin.spawnersPlacing = !SavageFactions.plugin.spawnersPlacing;
-        msg(TL.COMMAND_SPAWNERTOGGLE_TOGGLE, SavageFactions.plugin.spawnersPlacing ? SavageFactions.plugin.color("&aEnabled") : SavageFactions.plugin.color("&4Disabled"));
+        msg(TL.COMMAND_SPAWNERTOGGLE_TOGGLE, SavageFactions.plugin.spawnersPlacing ? Methods.pl("&aEnabled") : Methods.pl("&4Disabled"));
     }
 
     @Override

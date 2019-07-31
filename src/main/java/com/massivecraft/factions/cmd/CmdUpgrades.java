@@ -2,9 +2,12 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.fupgrades.FUpgradesMenu;
+import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdUpgrades extends FCommand {
+    FileConfiguration config = Files.CONFIG.getFile();
     public CmdUpgrades() {
         super();
         this.aliases.add("upgrades");
@@ -25,7 +28,7 @@ public class CmdUpgrades extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("fupgrades.Enabled")) {
+        if (!config.getBoolean("fupgrades.Enabled")) {
             fme.sendMessage("This command is disabled!");
             return;
         }

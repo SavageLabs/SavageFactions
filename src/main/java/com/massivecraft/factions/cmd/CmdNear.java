@@ -3,6 +3,8 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -25,12 +27,13 @@ public class CmdNear extends FCommand {
 
     @Override
     public void perform() {
-        if (!SavageFactions.plugin.getConfig().getBoolean("fnear.Enabled")) {
+        FileConfiguration config = Files.CONFIG.getFile();
+        if (!config.getBoolean("fnear.Enabled")) {
             fme.msg(TL.COMMAND_NEAR_DISABLED_MSG);
             return;
         }
 
-        double range = SavageFactions.plugin.getConfig().getInt("fnear.Radius");
+        double range = config.getInt("fnear.Radius");
         String format = TL.COMMAND_NEAR_FORMAT.toString();
         fme.msg(TL.COMMAND_NEAR_USE_MSG);
         for (Entity e : me.getNearbyEntities(range, 255, range)) {

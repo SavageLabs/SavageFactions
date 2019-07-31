@@ -3,10 +3,12 @@ package com.massivecraft.factions.struct;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -112,7 +114,8 @@ public enum Role implements Permissable {
     // Utility method to build items for F Perm GUI
     @Override
     public ItemStack buildItem() {
-        final ConfigurationSection RELATION_CONFIG = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.relation");
+        FileConfiguration config = FileManager.Files.CONFIG.getFile();
+        final ConfigurationSection RELATION_CONFIG = config.getConfigurationSection("fperm-gui.relation");
 
         String displayName = replacePlaceholders(RELATION_CONFIG.getString("placeholder-item.name", ""));
         List<String> lore = new ArrayList<>();

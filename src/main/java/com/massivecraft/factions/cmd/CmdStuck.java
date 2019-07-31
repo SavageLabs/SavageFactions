@@ -4,10 +4,12 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Essentials;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.SpiralTask;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class CmdStuck extends FCommand {
@@ -30,11 +32,12 @@ public class CmdStuck extends FCommand {
 
     @Override
     public void perform() {
+        FileConfiguration config = Files.CONFIG.getFile();
         final Player player = fme.getPlayer();
         final Location sentAt = player.getLocation();
         final FLocation chunk = fme.getLastStoodAt();
-        final long delay = SavageFactions.plugin.getConfig().getLong("hcf.stuck.delay", 30);
-        final int radius = SavageFactions.plugin.getConfig().getInt("hcf.stuck.radius", 10);
+        final long delay = config.getLong("hcf.stuck.delay", 30);
+        final int radius = config.getInt("hcf.stuck.radius", 10);
 
         if (SavageFactions.plugin.getStuckMap().containsKey(player.getUniqueId())) {
             long wait = SavageFactions.plugin.getTimers().get(player.getUniqueId()) - System.currentTimeMillis();
@@ -71,7 +74,7 @@ public class CmdStuck extends FCommand {
                         public boolean work() {
                             FLocation chunk = currentFLocation();
                             Faction faction = board.getFactionAt(chunk);
-                            int buffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
+                            int buffer = config.getInt("world-border.buffer", 0) - 1;
                             if (faction.isWilderness() && !chunk.isOutsideWorldBorder(buffer)) {
                                 int cx = FLocation.chunkToBlock((int) chunk.getX());
                                 int cz = FLocation.chunkToBlock((int) chunk.getZ());

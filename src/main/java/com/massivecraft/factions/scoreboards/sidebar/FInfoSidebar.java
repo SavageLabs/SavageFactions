@@ -2,8 +2,9 @@ package com.massivecraft.factions.scoreboards.sidebar;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.scoreboards.FSidebarProvider;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -22,7 +23,8 @@ public class FInfoSidebar extends FSidebarProvider {
 
     @Override
     public List<String> getLines(FPlayer fplayer) {
-        List<String> lines = SavageFactions.plugin.getConfig().getStringList("scoreboard.finfo");
+        FileConfiguration config = Files.CONFIG.getFile();
+        List<String> lines = config.getStringList("scoreboard.finfo");
 
         ListIterator<String> it = lines.listIterator();
         while (it.hasNext()) {

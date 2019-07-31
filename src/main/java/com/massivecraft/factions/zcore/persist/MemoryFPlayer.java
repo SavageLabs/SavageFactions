@@ -17,6 +17,7 @@ import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -24,6 +25,7 @@ import mkremins.fanciful.FancyMessage;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -95,6 +97,7 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public MemoryFPlayer(String id) {
+        FileConfiguration config = Files.CONFIG.getFile();
         this.id = id;
         this.isAlt = false;
         this.resetFactionData(false);
@@ -107,7 +110,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         this.autoWarZoneEnabled = false;
         this.loginPvpDisabled = Conf.noPVPDamageToOthersForXSecondsAfterLogin > 0;
         this.powerBoost = 0.0;
-        this.showScoreboard = SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false);
+        this.showScoreboard = config.getBoolean("scoreboard.default-enabled", false);
         this.kills = 0;
         this.deaths = 0;
         this.mapHeight = Conf.mapHeight;
@@ -118,6 +121,7 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public MemoryFPlayer(MemoryFPlayer other) {
+        FileConfiguration config = Files.CONFIG.getFile();
         this.factionId = other.factionId;
         this.id = other.id;
         this.isAlt = other.isAlt;
@@ -135,7 +139,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         this.spyingChat = other.spyingChat;
         this.lastStoodAt = other.lastStoodAt;
         this.isAdminBypassing = other.isAdminBypassing;
-        this.showScoreboard = SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", true);
+        this.showScoreboard = config.getBoolean("scoreboard.default-enabled", true);
         this.kills = other.kills;
         this.deaths = other.deaths;
         this.mapHeight = Conf.mapHeight;
@@ -662,7 +666,8 @@ public abstract class MemoryFPlayer implements FPlayer {
      * @return true if should show, otherwise false.
      */
     public boolean showInfoBoard(Faction toShow) {
-        return showScoreboard && !toShow.isWarZone() && !toShow.isWilderness() && !toShow.isSafeZone() && SavageFactions.plugin.getConfig().contains("scoreboard.finfo") && SavageFactions.plugin.getConfig().getBoolean("scoreboard.finfo-enabled", false) && FScoreboard.get(this) != null;
+        FileConfiguration config = Files.CONFIG.getFile();
+        return showScoreboard && !toShow.isWarZone() && !toShow.isWilderness() && !toShow.isSafeZone() && config.contains("scoreboard.finfo") && config.getBoolean("scoreboard.finfo-enabled", false) && FScoreboard.get(this) != null;
     }
 
     @Override
@@ -764,17 +769,18 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public boolean canClaimForFactionAtLocation(Faction forFaction, FLocation flocation, boolean notifyFailure) {
+        FileConfiguration config = Files.CONFIG.getFile();
         String error = null;
         Faction myFaction = getFaction();
         Faction currentFaction = Board.getInstance().getFactionAt(flocation);
         int ownedLand = forFaction.getLandRounded();
-        int factionBuffer = SavageFactions.plugin.getConfig().getInt("hcf.buffer-zone", 0);
-        int worldBuffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
+        int factionBuffer = config.getInt("hcf.buffer-zone", 0);
+        int worldBuffer = config.getInt("world-border.buffer", 0) - 1;
 
         if (Conf.worldGuardChecking && Worldguard.checkForRegionsInChunk(flocation)) {
             // Checks for WorldGuard regions in the chunk attempting to be claimed
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_PROTECTED.toString());
-        } else if (flocation.isOutsideWorldBorder(SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1)) {
+        } else if (flocation.isOutsideWorldBorder(config.getInt("world-border.buffer", 0) - 1)) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_OUTSIDEWORLDBORDER.toString());
         } else if (Conf.worldsNoClaiming.contains(flocation.getWorldName())) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_DISABLED.toString());
@@ -798,7 +804,7 @@ public abstract class MemoryFPlayer implements FPlayer {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_SAFEZONE.toString());
         } else if (currentFaction.isWarZone()) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_WARZONE.toString());
-        } else if (SavageFactions.plugin.getConfig().getBoolean("hcf.allow-overclaim", true) && ownedLand >= forFaction.getPowerRounded()) {
+        } else if (config.getBoolean("hcf.allow-overclaim", true) && ownedLand >= forFaction.getPowerRounded()) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_POWER.toString());
         } else if (Conf.claimedLandsMax != 0 && ownedLand >= Conf.claimedLandsMax && forFaction.isNormal()) {
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_LIMIT.toString());
@@ -826,7 +832,7 @@ public abstract class MemoryFPlayer implements FPlayer {
             } else if (!currentFaction.hasLandInflation()) {
                 // TODO more messages WARN current faction most importantly
                 error = SavageFactions.plugin.txt.parse(TL.CLAIM_THISISSPARTA.toString(), currentFaction.getTag(this));
-            } else if (currentFaction.hasLandInflation() && !SavageFactions.plugin.getConfig().getBoolean("hcf.allow-overclaim", true)) {
+            } else if (currentFaction.hasLandInflation() && !config.getBoolean("hcf.allow-overclaim", true)) {
                 // deny over claim when it normally would be allowed.
                 error = SavageFactions.plugin.txt.parse(TL.CLAIM_OVERCLAIM_DISABLED.toString());
             } else if (!Board.getInstance().isBorderLocation(flocation)) {
@@ -884,6 +890,7 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public void setFFlying(boolean fly, boolean damage) {
+        FileConfiguration config = Files.CONFIG.getFile();
         Player player = getPlayer();
         if (player != null) {
             player.setAllowFlight(fly);
@@ -893,7 +900,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         if (!damage) {
             msg(TL.COMMAND_FLY_CHANGE, fly ? "enabled" : "disabled");
             if (!fly) {
-                sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3) + ""));
+                sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", config.getInt("fly-falldamage-cooldown", 3) + ""));
             }
 
         } else {
@@ -902,7 +909,7 @@ public abstract class MemoryFPlayer implements FPlayer {
 
         // If leaving fly mode, don't let them take fall damage for x seconds.
         if (!fly) {
-            int cooldown = SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3);
+            int cooldown = config.getInt("fly-falldamage-cooldown", 3);
             CmdFly.flyMap.remove(player.getName());
 
             // If the value is 0 or lower, make them take fall damage.

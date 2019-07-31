@@ -4,10 +4,12 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.zcore.ffly.UtilFly;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
 
@@ -39,6 +41,7 @@ public class CmdDisband extends FCommand {
 
 	@Override
 	public void perform() {
+		FileConfiguration config = Files.CONFIG.getFile();
 		// The faction, default to your own.. but null if console sender.
 		Faction faction = this.argAsFaction(0, fme == null ? null : myFaction);
 		if (faction == null) {
@@ -87,7 +90,7 @@ public class CmdDisband extends FCommand {
 			disbandMap.put(me.getUniqueId().toString(), faction.getId());
 			Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> disbandMap.remove(me.getUniqueId().toString()), 200L);
 		} else if (faction.getId().equals(disbandMap.get(me.getUniqueId().toString())) || faction.getTnt() == 0) {
-			if (SavageFactions.plugin.getConfig().getBoolean("faction-disband-broadcast", true)) {
+			if (config.getBoolean("faction-disband-broadcast", true)) {
 				for (FPlayer follower : FPlayers.getInstance().getOnlinePlayers()) {
 					String amountString = senderIsConsole ? TL.GENERIC_SERVERADMIN.toString() : fme.describeTo(follower);
 					UtilFly.checkFly(this.fme, Board.getInstance().getFactionAt(new FLocation(follower)));

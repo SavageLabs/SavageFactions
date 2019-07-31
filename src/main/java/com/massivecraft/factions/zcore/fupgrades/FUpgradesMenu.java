@@ -8,7 +8,10 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.Methods;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,12 +24,14 @@ public class FUpgradesMenu {
     private Gui gui;
 
     public FUpgradesMenu(Faction f) {
+        FileConfiguration config = Files.CONFIG.getFile();
         gui = new Gui(SavageFactions.plugin,
                 3,
-                SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.MainMenu.Title").replace("{faction}", f.getTag())));
+                Methods.pl(config.getString("fupgrades.MainMenu.Title").replace("{faction}", f.getTag())));
     }
 
     public void buildGUI(FPlayer fplayer) {
+        FileConfiguration config = Files.CONFIG.getFile();
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> GUIItems = new ArrayList<>();
         ItemStack dumby = buildDummyItem();
@@ -38,7 +43,8 @@ public class FUpgradesMenu {
                 e.setCancelled(true);
                 FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
                 if (fme.getFaction().getUpgrade(value) == value.getMaxLevel()) return;
-                int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
+                int cost = config.getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
+                // int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
                 if (hasMoney(fme, cost)) {
                     takeMoney(fme, cost);
                     if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
@@ -64,30 +70,32 @@ public class FUpgradesMenu {
     }
 
     private void updateChests(Faction faction) {
-        String invName = SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title"));
-
+        FileConfiguration config = Files.CONFIG.getFile();
+        String invName = Methods.pl(config.getString("fchest-Inventory-Title"));
         for (Player player : faction.getOnlinePlayers()) {
             if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
                 player.closeInventory();
         }
 
         int level = faction.getUpgrade(UpgradeType.CHEST);
-        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + (level + 1));
+        int size = config.getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + (level + 1));
         faction.setChestSize(size * 9);
     }
 
     private void updateFactionPowerBoost(Faction f) {
-        double boost = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Power.Power-Boost.level-" + (f.getUpgrade(UpgradeType.POWER) + 1));
+        FileConfiguration config = Files.CONFIG.getFile();
+        double boost = config.getDouble("fupgrades.MainMenu.Power.Power-Boost.level-" + (f.getUpgrade(UpgradeType.POWER) + 1));
         if (boost < 0) return;
         f.setPowerBoost(f.getPowerBoost() + boost);
     }
 
     private ItemStack buildDummyItem() {
-        ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
+        // ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
+        ConfigurationSection config = Files.CONFIG.getFile().getConfigurationSection("fupgrades.MainMenu.DummyItem");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+        meta.setLore(Methods.plList(config.getStringList("Lore")));
+        meta.setDisplayName(Methods.pl(config.getString("Name")));
         item.setItemMeta(meta);
         return item;
     }

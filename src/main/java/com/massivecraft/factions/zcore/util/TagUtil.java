@@ -7,9 +7,11 @@ import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.MiscUtil;
+import com.massivecraft.factions.util.fm.FileManager.Files;
 import me.clip.placeholderapi.PlaceholderAPI;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -133,8 +135,9 @@ public class TagUtil {
      * @return list of fancy messages to send
      */
     protected static List<FancyMessage> getFancy(Faction target, FPlayer fme, TagReplacer type, String prefix) {
+        FileConfiguration config = Files.CONFIG.getFile();
         List<FancyMessage> fancyMessages = new ArrayList<>();
-        boolean minimal = SavageFactions.plugin.getConfig().getBoolean("minimal-show", false);
+        boolean minimal = config.getBoolean("minimal-show", false);
 
         switch (type) {
             case ALLIES_LIST:
@@ -270,8 +273,9 @@ public class TagUtil {
      * @return list of tooltips for a fancy message
      */
     private static List<String> tipFaction(Faction faction) {
+        FileConfiguration config = Files.CONFIG.getFile();
         List<String> lines = new ArrayList<>();
-        for (String line : SavageFactions.plugin.getConfig().getStringList("tooltips.list")) {
+        for (String line : config.getStringList("tooltips.list")) {
             lines.add(ChatColor.translateAlternateColorCodes('&', TagUtil.parsePlain(faction, line)));
         }
         return lines;
@@ -284,8 +288,9 @@ public class TagUtil {
      * @return list of tooltips for a fancy message
      */
     private static List<String> tipPlayer(FPlayer fplayer) {
+        FileConfiguration config = Files.CONFIG.getFile();
         List<String> lines = new ArrayList<>();
-        for (String line : SavageFactions.plugin.getConfig().getStringList("tooltips.show")) {
+        for (String line : config.getStringList("tooltips.show")) {
             lines.add(ChatColor.translateAlternateColorCodes('&', TagUtil.parsePlain(fplayer, line)));
         }
         return lines;
