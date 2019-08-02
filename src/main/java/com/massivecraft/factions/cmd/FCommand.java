@@ -4,6 +4,7 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.MCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public abstract class FCommand extends MCommand<SavageFactions> {
 
-    public static final SimpleDateFormat sdf = new SimpleDateFormat(TL.DATE_FORMAT.toString());
+    public static final SimpleDateFormat sdf = new SimpleDateFormat(TL.COMMANDS_DATE_FORMAT.toString());
 
     public boolean disableOnLock;
 
@@ -24,7 +25,6 @@ public abstract class FCommand extends MCommand<SavageFactions> {
     public boolean senderMustBeModerator;
     public boolean senderMustBeAdmin;
     public boolean senderMustBeColeader;
-
 
     public boolean isMoneyCommand;
 
@@ -77,7 +77,6 @@ public abstract class FCommand extends MCommand<SavageFactions> {
             msg("<b>The faction bank system is disabled on this server.");
             return false;
         }
-
         return true;
     }
 
@@ -98,7 +97,7 @@ public abstract class FCommand extends MCommand<SavageFactions> {
 
         if (!fme.hasFaction()) {
             if (informSenderIfNot) {
-                sender.sendMessage(p.txt.parse(TL.ACTIONS_NOFACTION.toString()));
+                sender.sendMessage(p.txt.parse(TL.CMD_NO_FACTION.toString()));
             }
             return false;
         }
@@ -106,26 +105,24 @@ public abstract class FCommand extends MCommand<SavageFactions> {
 
         if (this.senderMustBeModerator && !fme.getRole().isAtLeast(Role.MODERATOR)) {
             if (informSenderIfNot) {
-                sender.sendMessage(p.txt.parse(TL.ACTIONS_MUSTBE.toString().replace("{role}", "moderator").replace("{action}", this.getHelpShort())));
+                sender.sendMessage(p.txt.parse(TL.CMD_MUST_BE.toString().replace("{role}", "moderator").replace("{action}", this.getHelpShort())));
             }
             return false;
         }
 
         if (this.senderMustBeColeader && !fme.getRole().isAtLeast(Role.COLEADER)) {
             if (informSenderIfNot) {
-                sender.sendMessage(p.txt.parse(TL.ACTIONS_MUSTBE.toString().replace("{role}", "coleader").replace("{action}", this.getHelpShort())));
+                sender.sendMessage(p.txt.parse(TL.CMD_MUST_BE.toString().replace("{role}", "coleader").replace("{action}", this.getHelpShort())));
             }
             return false;
         }
 
         if (this.senderMustBeAdmin && !fme.getRole().isAtLeast(Role.LEADER)) {
             if (informSenderIfNot) {
-                sender.sendMessage(p.txt.parse(TL.ACTIONS_MUSTBE.toString().replace("{role}", "admin").replace("{action}", this.getHelpShort())));
+                sender.sendMessage(p.txt.parse(TL.CMD_MUST_BE.toString().replace("{role}", "admin").replace("{action}", this.getHelpShort())));
             }
             return false;
         }
-
-
         return true;
     }
 
@@ -139,7 +136,7 @@ public abstract class FCommand extends MCommand<SavageFactions> {
         }
 
         if (!fme.hasFaction()) {
-            msg(TL.ACTIONS_NOFACTION);
+            msg(TL.CMD_NO_FACTION);
             return false;
         }
         return true;
@@ -151,7 +148,7 @@ public abstract class FCommand extends MCommand<SavageFactions> {
         }
 
         if (fme.getRole().value < role.value) {
-            msg(TL.ACTIONS_MUSTBE.toString().replace("{role}", role.nicename).replace("{action}", this.getHelpShort()));
+            msg(TL.CMD_MUST_BE.toString().replace("{role}", role.nicename).replace("{action}", this.getHelpShort()));
             return false;
         }
         return true;
@@ -173,11 +170,9 @@ public abstract class FCommand extends MCommand<SavageFactions> {
                 }
             }
         }
-
         if (msg && ret == null) {
             this.msg("<b>No player \"<plugin>%s<b>\" could be found.", name);
         }
-
         return ret;
     }
 
@@ -250,7 +245,6 @@ public abstract class FCommand extends MCommand<SavageFactions> {
         if (msg && ret == null) {
             this.msg("<b>The faction or player \"<plugin>%s<b>\" could not be found.", name);
         }
-
         return ret;
     }
 
@@ -281,25 +275,24 @@ public abstract class FCommand extends MCommand<SavageFactions> {
         }
 
         if (you.getRole().equals(Role.LEADER)) {
-            i.sendMessage(p.txt.parse(TL.ACTIONS_MUSTBE.toString().replace("{role}", "leader").replace("{action}", "do that")));
+            i.sendMessage(p.txt.parse(TL.CMD_MUST_BE.toString().replace("{role}", "leader").replace("{action}", "do that")));
 
         } else if ((you.getRole().equals(Role.COLEADER))) {
             if (i == you) {
                 return true;
             } else {
-                i.sendMessage(p.txt.parse(TL.ACTIONS_NOSAMEROLE.toString().replace("{role}", i.getRole().nicename)));
+                i.sendMessage(p.txt.parse(TL.COMMANDS_NO_SAME_ROLE.toString().replace("{role}", i.getRole().nicename)));
             }
 
         } else if (i.getRole().equals(Role.MODERATOR)) {
             if (i == you) {
                 return true; //Moderators can control themselves
             } else {
-                i.sendMessage(p.txt.parse(TL.ACTIONS_NOSAMEROLE.toString().replace("{role}", i.getRole().nicename)));
+                i.sendMessage(p.txt.parse(TL.COMMANDS_NO_SAME_ROLE.toString().replace("{role}", i.getRole().nicename)));
             }
         } else {
-            i.sendMessage(p.txt.parse(TL.ACTIONS_MUSTBE.toString().replace("{role}", "moderator").replace("{action}", "do that")));
+            i.sendMessage(p.txt.parse(TL.CMD_MUST_BE.toString().replace("{role}", "moderator").replace("{action}", "do that")));
         }
-
         return false;
     }
 
