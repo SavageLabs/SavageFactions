@@ -221,6 +221,7 @@ public class Conf {
     public static Set<Material> territoryDenyUseageMaterials = EnumSet.noneOf(Material.class);
     public static Set<Material> territoryDenyUseageMaterialsWhenOffline = EnumSet.noneOf(Material.class);
     public static transient Set<EntityType> safeZoneNerfedCreatureTypes = EnumSet.noneOf(EntityType.class);
+    public static boolean sendFactionChangeMessage = true;
     /// <summary>
     /// This defines a set of materials which should always be allowed to use, regardless of factions permissions.
     /// Useful for HCF features.

@@ -706,7 +706,7 @@ public class FactionsPlayerListener implements Listener {
             Faction myFaction = me.getFaction();
             String ownersTo = myFaction.getOwnerListString(to);
             if (changedFaction) {
-                me.sendFactionHereMessage(factionFrom);
+                if (Conf.sendFactionChangeMessage) me.sendFactionHereMessage(factionFrom);
                 if (Conf.ownedAreasEnabled && Conf.ownedMessageOnBorder && myFaction == factionTo && !ownersTo.isEmpty()) {
                     me.sendMessage(TL.GENERIC_OWNERS.format(ownersTo));
                 }
