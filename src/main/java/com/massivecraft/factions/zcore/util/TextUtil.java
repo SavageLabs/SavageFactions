@@ -1,6 +1,6 @@
 package com.massivecraft.factions.zcore.util;
 
-import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -93,14 +93,6 @@ public class TextUtil {
         string = parseColorAcc(string);
         string = parseColorTags(string);
         return ChatColor.translateAlternateColorCodes('&', string);
-    }
-
-    public static String getPrefix() {
-        return getPrefix("");
-    }
-
-    public static String getPrefix(String string) {
-        return parseColor(Files.LANG.getFile().getString("Messages.root.prefix") + string);
     }
 
     public static String parseColorAmp(String string) {
@@ -221,10 +213,10 @@ public class TextUtil {
         ret.add(this.titleize(title + " " + pageHumanBased + "/" + pagecount));
 
         if (pagecount == 0) {
-            ret.add(this.parseTags(TL.NOPAGES.toString()));
+            ret.add(this.parseTags(TL.COMMANDS_NO_PAGES.toString()));
             return ret;
         } else if (pageZeroBased < 0 || pageHumanBased > pagecount) {
-            ret.add(this.parseTags(TL.INVALIDPAGE.format(pagecount)));
+            ret.add(this.parseTags(TL.COMMANDS_INVALID_PAGE.format(pagecount)));
             return ret;
         }
 
