@@ -113,7 +113,9 @@ public enum Permission {
     WARP("warp"),
     PARTICLE("particle"),
     CHEST("Chest"),
-    LOCKSPAWNERS("lockspawners");
+    LOCKSPAWNERS("lockspawners"),
+    MANAGE_PERMISSIONS("managerperms"),
+    NEAR("near");
 
     public final String node;
 

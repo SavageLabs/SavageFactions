@@ -15,36 +15,31 @@ public class CmdStuck extends FCommand {
 
     public CmdStuck() {
         super();
-
         this.aliases.add("stuck");
         this.aliases.add("halp!"); // halp!c:
 
-        this.permission = Permission.STUCK.node;
-        this.disableOnLock = true;
 
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.STUCK)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        final Player player = fme.getPlayer();
+    public void perform(CommandContext context) {
+        final Player player = context.player;
         final Location sentAt = player.getLocation();
-        final FLocation chunk = fme.getLastStoodAt();
+        final FLocation chunk = context.fPlayer.getLastStoodAt();
         final long delay = SavageFactions.plugin.getConfig().getLong("hcf.stuck.delay", 30);
         final int radius = SavageFactions.plugin.getConfig().getInt("hcf.stuck.radius", 10);
 
         if (SavageFactions.plugin.getStuckMap().containsKey(player.getUniqueId())) {
             long wait = SavageFactions.plugin.getTimers().get(player.getUniqueId()) - System.currentTimeMillis();
             String time = DurationFormatUtils.formatDuration(wait, TL.COMMAND_STUCK_TIMEFORMAT.toString(), true);
-            msg(TL.COMMAND_STUCK_EXISTS, time);
+            context.msg(TL.COMMAND_STUCK_EXISTS, time);
         } else {
 
             // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
-            if (!payForCommand(Conf.econCostStuck, TL.COMMAND_STUCK_TOSTUCK.format(fme.getName()), TL.COMMAND_STUCK_FORSTUCK.format(fme.getName()))) {
+            if (!context.payForCommand(Conf.econCostStuck, TL.COMMAND_STUCK_TOSTUCK.format(context.fPlayer.getName()), TL.COMMAND_STUCK_FORSTUCK.format(context.fPlayer.getName()))) {
                 return;
             }
 
@@ -59,7 +54,7 @@ public class CmdStuck extends FCommand {
                     // check for world difference or radius exceeding
                     final World world = chunk.getWorld();
                     if (world.getUID() != player.getWorld().getUID() || sentAt.distance(player.getLocation()) > radius) {
-                        msg(TL.COMMAND_STUCK_OUTSIDE.format(radius));
+                        context.msg(TL.COMMAND_STUCK_OUTSIDE.format(radius));
                         SavageFactions.plugin.getTimers().remove(player.getUniqueId());
                         SavageFactions.plugin.getStuckMap().remove(player.getUniqueId());
                         return;
@@ -67,7 +62,7 @@ public class CmdStuck extends FCommand {
 
                     final Board board = Board.getInstance();
                     // spiral task to find nearest wilderness chunk
-                    new SpiralTask(new FLocation(me), radius * 2) {
+                    new SpiralTask(new FLocation(context.player), radius * 2) {
                         @Override
                         public boolean work() {
                             FLocation chunk = currentFLocation();
@@ -78,7 +73,7 @@ public class CmdStuck extends FCommand {
                                 int cz = FLocation.chunkToBlock((int) chunk.getZ());
                                 int y = world.getHighestBlockYAt(cx, cz);
                                 Location tp = new Location(world, cx, y, cz);
-                                msg(TL.COMMAND_STUCK_TELEPORT, tp.getBlockX(), tp.getBlockY(), tp.getBlockZ());
+                                context.msg(TL.COMMAND_STUCK_TELEPORT, tp.getBlockX(), tp.getBlockY(), tp.getBlockZ());
                                 SavageFactions.plugin.getTimers().remove(player.getUniqueId());
                                 SavageFactions.plugin.getStuckMap().remove(player.getUniqueId());
                                 if (!Essentials.handleTeleport(player, tp)) {
@@ -97,7 +92,7 @@ public class CmdStuck extends FCommand {
             SavageFactions.plugin.getTimers().put(player.getUniqueId(), System.currentTimeMillis() + (delay * 1000));
             long wait = SavageFactions.plugin.getTimers().get(player.getUniqueId()) - System.currentTimeMillis();
             String time = DurationFormatUtils.formatDuration(wait, TL.COMMAND_STUCK_TIMEFORMAT.toString(), true);
-            msg(TL.COMMAND_STUCK_START, time);
+            context.msg(TL.COMMAND_STUCK_START, time);
             SavageFactions.plugin.getStuckMap().put(player.getUniqueId(), id);
         }
     }

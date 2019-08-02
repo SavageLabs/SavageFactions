@@ -20,32 +20,27 @@ public class CmdBanner extends FCommand {
         this.aliases.add("banner");
         this.aliases.add("warbanner");
 
-        this.permission = Permission.BANNER.node;
-        this.disableOnLock = false;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = true;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.BANNER)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("fbanners.Enabled")) {
-            msg(TL.COMMAND_BANNER_DISABLED);
+            context.msg(TL.COMMAND_BANNER_DISABLED);
             return;
         }
-        if (!fme.hasMoney(SavageFactions.plugin.getConfig().getInt("fbanners.Banner-Cost", 5000))) {
-            msg(TL.COMMAND_BANNER_NOTENOUGHMONEY);
+        if (!context.fPlayer.hasMoney(SavageFactions.plugin.getConfig().getInt("fbanners.Banner-Cost", 5000))) {
+            context.msg(TL.COMMAND_BANNER_NOTENOUGHMONEY);
             return;
         }
-        takeMoney(fme, SavageFactions.plugin.getConfig().getInt("fbanners.Banner-Cost", 5000));
+        takeMoney(context.fPlayer, SavageFactions.plugin.getConfig().getInt("fbanners.Banner-Cost", 5000));
 
         //ItemStack warBanner = SavageFactions.plugin.createItem(Material.BANNER, 1, (short) 1, SavageFactions.plugin.getConfig().getString("fbanners.Item.Name"), SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore"));
         //BannerMeta bannerMeta = (BannerMeta) warBanner.getItemMeta();
-        ItemStack warBanner = fme.getFaction().getBanner();
+        ItemStack warBanner = context.fPlayer.getFaction().getBanner();
         if (warBanner != null) {
             ItemMeta warmeta = warBanner.getItemMeta();
             warmeta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fbanners.Item.Name")));
@@ -58,9 +53,9 @@ public class CmdBanner extends FCommand {
 
             warBanner = SavageFactions.plugin.createItem(XMaterial.BLACK_BANNER.parseMaterial(), 1, (short) 1, SavageFactions.plugin.getConfig().getString("fbanners.Item.Name"), SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore"));
         }
-        fme.msg(TL.COMMAND_BANNER_SUCCESS);
+        context.msg(TL.COMMAND_BANNER_SUCCESS);
         warBanner.setAmount(1);
-        me.getInventory().addItem(warBanner);
+        context.player.getInventory().addItem(warBanner);
     }
 
 

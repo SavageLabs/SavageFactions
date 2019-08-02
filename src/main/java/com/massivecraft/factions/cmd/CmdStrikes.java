@@ -17,25 +17,20 @@ public class CmdStrikes extends FCommand {
 
         this.aliases.add("strikes");
 
-        this.permission = Permission.STRIKES.node;
-        this.disableOnLock = false;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
-
         this.addSubCommand(cmdStrikesGive);
         this.addSubCommand(cmdStrikesInfo);
         this.addSubCommand(cmdStrikesSet);
         this.addSubCommand(cmdStrikesTake);
+
+        this.requirements = new CommandRequirements.Builder(Permission.STRIKES)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        commandChain.add(this);
-        SavageFactions.plugin.cmdAutoHelp.execute(sender, args, commandChain);
+    public void perform(CommandContext context) {
+        context.commandChain.add(this);
+        SavageFactions.plugin.cmdAutoHelp.execute(context);
     }
 
     @Override

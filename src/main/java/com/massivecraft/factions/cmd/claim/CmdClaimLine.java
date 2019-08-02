@@ -1,11 +1,15 @@
-package com.massivecraft.factions.cmd;
+package com.massivecraft.factions.cmd.claim;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Faction;
+import com.massivecraft.factions.cmd.CommandContext;
+import com.massivecraft.factions.cmd.CommandRequirements;
+import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
+import org.bukkit.command.Command;
 
 public class CmdClaimLine extends FCommand {
 
@@ -22,32 +26,27 @@ public class CmdClaimLine extends FCommand {
         this.optionalArgs.put("direction", "facing");
         this.optionalArgs.put("faction", "you");
 
-        this.permission = Permission.CLAIM_LINE.node;
-        this.disableOnLock = true;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.CLAIM_LINE)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         // Args
-        Integer amount = this.argAsInt(0, 1); // Default to 1
+        Integer amount = context.argAsInt(0, 1); // Default to 1
 
         if (amount > Conf.lineClaimLimit) {
-            fme.msg(TL.COMMAND_CLAIMLINE_ABOVEMAX, Conf.lineClaimLimit);
+            context.fPlayer.msg(TL.COMMAND_CLAIMLINE_ABOVEMAX, Conf.lineClaimLimit);
             return;
         }
 
-        String direction = this.argAsString(1);
+        String direction = context.argAsString(1);
         BlockFace blockFace;
 
         if (direction == null) {
-            blockFace = axis[Math.round(me.getLocation().getYaw() / 90f) & 0x3];
+            blockFace = axis[Math.round(context.player.getLocation().getYaw() / 90f) & 0x3];
         } else if (direction.equalsIgnoreCase("north")) {
             blockFace = BlockFace.NORTH;
         } else if (direction.equalsIgnoreCase("east")) {
@@ -57,16 +56,16 @@ public class CmdClaimLine extends FCommand {
         } else if (direction.equalsIgnoreCase("west")) {
             blockFace = BlockFace.WEST;
         } else {
-            fme.msg(TL.COMMAND_CLAIMLINE_NOTVALID, direction);
+            context.msg(TL.COMMAND_CLAIMLINE_NOTVALID, direction);
             return;
         }
 
-        final Faction forFaction = this.argAsFaction(2, myFaction);
-        Location location = me.getLocation();
+        final Faction forFaction = context.argAsFaction(2, context.faction);
+        Location location = context.player.getLocation();
 
         // TODO: make this a task like claiming a radius?
         for (int i = 0; i < amount; i++) {
-            fme.attemptClaim(forFaction, location, true);
+            context.fPlayer.attemptClaim(forFaction, location, true);
             location = location.add(blockFace.getModX() * 16, 0, blockFace.getModZ() * 16);
         }
     }

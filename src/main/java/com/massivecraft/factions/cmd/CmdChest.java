@@ -13,37 +13,30 @@ public class CmdChest extends FCommand {
         this.aliases.add("chest");
         this.aliases.add("pv");
 
-        //this.requiredArgs.add("");
-
-
-        this.permission = Permission.CHEST.node;
-        this.disableOnLock = false;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.CHEST)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
 
 
         if (!SavageFactions.plugin.getConfig().getBoolean("fchest.Enabled")) {
-            fme.sendMessage("This command is disabled!");
+            context.fPlayer.sendMessage("This command is disabled!");
             return;
         }
         // This permission check is way too explicit but it's clean
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.CHEST);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "access chest");
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.CHEST);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
+                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "access chest");
                 return;
             }
         }
 
-        me.openInventory(fme.getFaction().getChestInventory());
+        context.player.openInventory(context.faction.getChestInventory());
 
 
     }

@@ -14,25 +14,15 @@ public class CmdSafeunclaimall extends FCommand {
     public CmdSafeunclaimall() {
         this.aliases.add("safeunclaimall");
         this.aliases.add("safedeclaimall");
-
-        //this.requiredArgs.add("");
         this.optionalArgs.put("world", "all");
 
-        this.permission = Permission.MANAGE_SAFE_ZONE.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
-
-
+        this.requirements = new CommandRequirements.Builder(Permission.MANAGE_SAFE_ZONE)
+                .build();
     }
 
     @Override
-    public void perform() {
-        String worldName = argAsString(0);
+    public void perform(CommandContext context) {
+        String worldName = context.argAsString(0);
         World world = null;
 
         if (worldName != null) {
@@ -47,10 +37,10 @@ public class CmdSafeunclaimall extends FCommand {
             Board.getInstance().unclaimAllInWorld(id, world);
         }
 
-        msg(TL.COMMAND_SAFEUNCLAIMALL_UNCLAIMED);
+        context.msg(TL.COMMAND_SAFEUNCLAIMALL_UNCLAIMED);
 
         if (Conf.logLandUnclaims) {
-            SavageFactions.plugin.log(TL.COMMAND_SAFEUNCLAIMALL_UNCLAIMEDLOG.format(sender.getName()));
+            SavageFactions.plugin.log(TL.COMMAND_SAFEUNCLAIMALL_UNCLAIMEDLOG.format(context.sender.getName()));
         }
     }
 

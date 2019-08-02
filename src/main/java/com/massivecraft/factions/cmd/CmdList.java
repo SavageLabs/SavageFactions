@@ -28,20 +28,15 @@ public class CmdList extends FCommand {
         //this.requiredArgs.add("");
         this.optionalArgs.put("page", "1");
 
-        this.permission = Permission.LIST.node;
-        this.disableOnLock = false;
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.LIST)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
-        if (!payForCommand(Conf.econCostList, "to list the factions", "for listing the factions"))
+        if (!context.payForCommand(Conf.econCostList, "to list the factions", "for listing the factions"))
             return;
 
         ArrayList<Faction> factionList = Factions.getInstance().getAllFactions();
@@ -50,7 +45,7 @@ public class CmdList extends FCommand {
         factionList.remove(Factions.getInstance().getWarZone());
 
         // remove exempt factions
-        if (fme != null && fme.getPlayer() != null && !fme.getPlayer().hasPermission("factions.show.bypassexempt")) {
+        if (context.fPlayer != null && context.fPlayer.getPlayer() != null && !context.fPlayer.getPlayer().hasPermission("factions.show.bypassexempt")) {
             List<String> exemptFactions = SavageFactions.plugin.getConfig().getStringList("show-exempt");
             Iterator<Faction> factionIterator = factionList.iterator();
 
@@ -96,7 +91,7 @@ public class CmdList extends FCommand {
         factionList.add(0, Factions.getInstance().getWilderness());
 
         final int pageheight = 9;
-        int pagenumber = this.argAsInt(0, 1);
+        int pagenumber = context.argAsInt(0, 1);
         int pagecount = (factionList.size() / pageheight) + 1;
         if (pagenumber > pagecount) {
             pagenumber = pagecount;
@@ -110,18 +105,18 @@ public class CmdList extends FCommand {
         }
 
 
-        String header = p.getConfig().getString("list.header", defaults[0]);
+        String header = SavageFactions.plugin.getConfig().getString("list.header", defaults[0]);
         header = header.replace("{pagenumber}", String.valueOf(pagenumber)).replace("{pagecount}", String.valueOf(pagecount));
-        lines.add(p.txt.parse(header));
+        lines.add(SavageFactions.plugin.txt.parse(header));
 
         for (Faction faction : factionList.subList(start, end)) {
             if (faction.isWilderness()) {
-                lines.add(p.txt.parse(TagUtil.parsePlain(faction, p.getConfig().getString("list.factionless", defaults[1]))));
+                lines.add(SavageFactions.plugin.txt.parse(TagUtil.parsePlain(faction, SavageFactions.plugin.getConfig().getString("list.factionless", defaults[1]))));
                 continue;
             }
-            lines.add(p.txt.parse(TagUtil.parsePlain(faction, fme, p.getConfig().getString("list.entry", defaults[2]))));
+            lines.add(SavageFactions.plugin.txt.parse(TagUtil.parsePlain(faction, context.fPlayer, SavageFactions.plugin.getConfig().getString("list.entry", defaults[2]))));
         }
-        sendMessage(lines);
+        context.sendMessage(lines);
     }
 
     @Override

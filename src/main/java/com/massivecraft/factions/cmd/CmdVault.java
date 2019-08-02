@@ -17,57 +17,50 @@ public class CmdVault extends FCommand {
     public CmdVault() {
         this.aliases.add("vault");
 
-        //this.requiredArgs.add("");
-
-
-        this.permission = Permission.VAULT.node;
-        this.disableOnLock = false;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.VAULT)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
 
         if (!SavageFactions.plugin.getConfig().getBoolean("fvault.Enabled")) {
-            fme.sendMessage("This command is disabled!");
+            context.fPlayer.sendMessage("This command is disabled!");
             return;
         }
-        Access access = fme.getFaction().getAccess(fme, PermissableAction.VAULT);
+        Access access = context.faction.getAccess(context.fPlayer, PermissableAction.VAULT);
         if (access.equals(Access.DENY)) {
-            fme.msg(TL.GENERIC_NOPERMISSION, "vault");
+            context.msg(TL.GENERIC_NOPERMISSION, "vault");
             return;
         }
 
-        if (fme.isInVault()) {
-            me.closeInventory();
+        if (context.fPlayer.isInVault()) {
+            context.player.closeInventory();
             return;
         }
-        fme.setInVault(true);
-        Location vaultLocation = fme.getFaction().getVault();
+        context.fPlayer.setInVault(true);
+        Location vaultLocation = context.faction.getVault();
         if (vaultLocation == null) {
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+            context.msg(TL.COMMAND_VAULT_INVALID);
             return;
         }
         FLocation vaultFLocation = new FLocation(vaultLocation);
-        if (Board.getInstance().getFactionAt(vaultFLocation) != fme.getFaction()) {
-            fme.getFaction().setVault(null);
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+        if (Board.getInstance().getFactionAt(vaultFLocation) != context.faction) {
+            context.faction.setVault(null);
+            context.msg(TL.COMMAND_VAULT_INVALID);
             return;
         }
         if (vaultLocation.getBlock().getType() != Material.CHEST) {
-            fme.getFaction().setVault(null);
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+            context.faction.setVault(null);
+            context.msg(TL.COMMAND_VAULT_INVALID);
             return;
         }
         Chest chest = (Chest) vaultLocation.getBlock().getState();
         Inventory chestInv = chest.getBlockInventory();
-        fme.msg(TL.COMMAND_VAULT_OPENING);
-        me.openInventory(chestInv);
+        context.msg(TL.COMMAND_VAULT_OPENING);
+        context.player.openInventory(chestInv);
 
 
     }

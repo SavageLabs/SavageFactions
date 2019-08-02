@@ -19,99 +19,95 @@ public abstract class FRelationCommand extends FCommand {
     public FRelationCommand() {
         super();
         this.requiredArgs.add("faction tag");
-        //this.optionalArgs.put("player name", "you");
 
-        this.permission = Permission.RELATION.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = true;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.RELATION)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        Faction them = this.argAsFaction(0);
+    public void perform(CommandContext context) {
+        Faction them = context.argAsFaction(0);
         if (them == null) {
             return;
         }
 
         if (!them.isNormal()) {
-            msg(TL.COMMAND_RELATIONS_ALLTHENOPE);
+            context.msg(TL.COMMAND_RELATIONS_ALLTHENOPE);
             return;
         }
 
-        if (them == myFaction) {
-            msg(TL.COMMAND_RELATIONS_MORENOPE);
+        if (them == context.faction) {
+            context.msg(TL.COMMAND_RELATIONS_MORENOPE);
             return;
         }
 
-        if (myFaction.getRelationWish(them) == targetRelation) {
-            msg(TL.COMMAND_RELATIONS_ALREADYINRELATIONSHIP, them.getTag());
+        if (context.faction.getRelationWish(them) == targetRelation) {
+            context.msg(TL.COMMAND_RELATIONS_ALREADYINRELATIONSHIP, them.getTag());
             return;
         }
 
-        if (hasMaxRelations(them, targetRelation)) {
+        if (hasMaxRelations(context.faction, them, targetRelation)) {
             // We message them down there with the count.
             return;
         }
-        Relation oldRelation = myFaction.getRelationTo(them, true);
-        FactionRelationWishEvent wishEvent = new FactionRelationWishEvent(fme, myFaction, them, oldRelation, targetRelation);
+        Relation oldRelation = context.faction.getRelationTo(them, true);
+        FactionRelationWishEvent wishEvent = new FactionRelationWishEvent(context.fPlayer, context.faction, them, oldRelation, targetRelation);
         Bukkit.getPluginManager().callEvent(wishEvent);
         if (wishEvent.isCancelled()) {
             return;
         }
 
         // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
-        if (!payForCommand(targetRelation.getRelationCost(), TL.COMMAND_RELATIONS_TOMARRY, TL.COMMAND_RELATIONS_FORMARRY)) {
+        if (!context.payForCommand(targetRelation.getRelationCost(), TL.COMMAND_RELATIONS_TOMARRY, TL.COMMAND_RELATIONS_FORMARRY)) {
             return;
         }
 
         // try to set the new relation
-        myFaction.setRelationWish(them, targetRelation);
-        Relation currentRelation = myFaction.getRelationTo(them, true);
+        context.faction.setRelationWish(them, targetRelation);
+        Relation currentRelation = context.faction.getRelationTo(them, true);
         ChatColor currentRelationColor = currentRelation.getColor();
 
         // if the relation change was successful
         if (targetRelation.value == currentRelation.value) {
             // trigger the faction relation event
-            FactionRelationEvent relationEvent = new FactionRelationEvent(myFaction, them, oldRelation, currentRelation);
+            FactionRelationEvent relationEvent = new FactionRelationEvent(context.faction, them, oldRelation, currentRelation);
             Bukkit.getServer().getPluginManager().callEvent(relationEvent);
 
-            them.msg(TL.COMMAND_RELATIONS_MUTUAL, currentRelationColor + targetRelation.getTranslation(), currentRelationColor + myFaction.getTag());
-            myFaction.msg(TL.COMMAND_RELATIONS_MUTUAL, currentRelationColor + targetRelation.getTranslation(), currentRelationColor + them.getTag());
+            them.msg(TL.COMMAND_RELATIONS_MUTUAL, currentRelationColor + targetRelation.getTranslation(), currentRelationColor + context.faction.getTag());
+            context.faction.msg(TL.COMMAND_RELATIONS_MUTUAL, currentRelationColor + targetRelation.getTranslation(), currentRelationColor + them.getTag());
         } else {
             // inform the other faction of your request
-            them.msg(TL.COMMAND_RELATIONS_PROPOSAL_1, currentRelationColor + myFaction.getTag(), targetRelation.getColor() + targetRelation.getTranslation());
-            them.msg(TL.COMMAND_RELATIONS_PROPOSAL_2, Conf.baseCommandAliases.get(0), targetRelation, myFaction.getTag());
-            myFaction.msg(TL.COMMAND_RELATIONS_PROPOSAL_SENT, currentRelationColor + them.getTag(), "" + targetRelation.getColor() + targetRelation);
+            them.msg(TL.COMMAND_RELATIONS_PROPOSAL_1, currentRelationColor + context.faction.getTag(), targetRelation.getColor() + targetRelation.getTranslation());
+            them.msg(TL.COMMAND_RELATIONS_PROPOSAL_2, Conf.baseCommandAliases.get(0), targetRelation, context.faction.getTag());
+            context.faction.msg(TL.COMMAND_RELATIONS_PROPOSAL_SENT, currentRelationColor + them.getTag(), "" + targetRelation.getColor() + targetRelation);
         }
 
         if (!targetRelation.isNeutral() && them.isPeaceful()) {
             them.msg(TL.COMMAND_RELATIONS_PEACEFUL);
-            myFaction.msg(TL.COMMAND_RELATIONS_PEACEFULOTHER);
+            context.faction.msg(TL.COMMAND_RELATIONS_PEACEFULOTHER);
         }
 
-        if (!targetRelation.isNeutral() && myFaction.isPeaceful()) {
+        if (!targetRelation.isNeutral() && context.faction.isPeaceful()) {
             them.msg(TL.COMMAND_RELATIONS_PEACEFULOTHER);
-            myFaction.msg(TL.COMMAND_RELATIONS_PEACEFUL);
+            context.faction.msg(TL.COMMAND_RELATIONS_PEACEFUL);
         }
 
-        FTeamWrapper.updatePrefixes(myFaction);
+        FTeamWrapper.updatePrefixes(context.faction);
         FTeamWrapper.updatePrefixes(them);
     }
 
-    private boolean hasMaxRelations(Faction them, Relation targetRelation) {
+    private boolean hasMaxRelations(Faction us, Faction them, Relation targetRelation) {
         int max = SavageFactions.plugin.getConfig().getInt("max-relations." + targetRelation.toString(), -1);
         if (SavageFactions.plugin.getConfig().getBoolean("max-relations.enabled", false)) {
             if (max != -1) {
-                if (myFaction.getRelationCount(targetRelation) >= max) {
-                    msg(TL.COMMAND_RELATIONS_EXCEEDS_ME, max, targetRelation.getPluralTranslation());
+                if (us.getRelationCount(targetRelation) >= max) {
+                    us.msg(TL.COMMAND_RELATIONS_EXCEEDS_ME, max, targetRelation.getPluralTranslation());
                     return true;
                 }
                 if (them.getRelationCount(targetRelation) >= max) {
-                    msg(TL.COMMAND_RELATIONS_EXCEEDS_THEY, max, targetRelation.getPluralTranslation());
+                    them.msg(TL.COMMAND_RELATIONS_EXCEEDS_THEY, max, targetRelation.getPluralTranslation());
                     return true;
                 }
             }

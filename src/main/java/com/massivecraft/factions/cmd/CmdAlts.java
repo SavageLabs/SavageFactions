@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
@@ -19,29 +20,25 @@ public class CmdAlts extends FCommand {
         this.aliases.add("alts");
         this.aliases.add("alt");
 
-        this.permission = Permission.ALTS.node;
-        this.disableOnLock = false;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
-
         this.addSubCommand(this.cmdInviteAlt);
         this.addSubCommand(this.cmdKickAlt);
         this.addSubCommand(this.cmdAltsList);
+
+        this.requirements = new CommandRequirements.Builder(Permission.ALTS)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!Conf.enableFactionAlts) {
-            fme.msg(TL.GENERIC_DISABLED);
+            context.msg(TL.GENERIC_DISABLED);
             return;
         }
 
-        this.commandChain.add(this);
-        SavageFactions.plugin.cmdAutoHelp.execute(this.sender, this.args, this.commandChain);
+        context.commandChain.add(this);
+        SavageFactions.plugin.cmdAutoHelp.execute(context);
     }
 
     @Override

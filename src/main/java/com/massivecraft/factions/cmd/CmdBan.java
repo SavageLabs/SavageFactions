@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.earth2me.essentials.IConf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
@@ -21,61 +22,56 @@ public class CmdBan extends FCommand {
 
         this.requiredArgs.add("target");
 
-        this.permission = Permission.BAN.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.BAN)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
 
         // Adds bypass to admins and clean permission check
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.BAN);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "ban");
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.BAN);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
+                context.fPlayer.msg(TL.GENERIC_FPERM_NOPERMISSION, "ban");
                 return;
             }
         }
 
 
         // Good on permission checks. Now lets just ban the player.
-        FPlayer target = argAsFPlayer(0);
+        FPlayer target = context.argAsFPlayer(0);
         if (target == null) {
             return; // the above method sends a message if fails to find someone.
         }
 
-        if (fme == target) {
+        if (context.fPlayer == target) {
             // You may not ban yourself
-            fme.msg(TL.COMMAND_BAN_SELF);
+            context.msg(TL.COMMAND_BAN_SELF);
             return;
-        } else if (target.getFaction() == myFaction && target.getRole().value >= fme.getRole().value) {
+        } else if (target.getFaction() == context.faction && target.getRole().value >= context.fPlayer.getRole().value) {
             // You may not ban someone that has same or higher faction rank
-            fme.msg(TL.COMMAND_BAN_INSUFFICIENTRANK, target.getName());
+            context.msg(TL.COMMAND_BAN_INSUFFICIENTRANK, target.getName());
             return;
         }
 
-        for (BanInfo banInfo : myFaction.getBannedPlayers()) {
+        for (BanInfo banInfo : context.faction.getBannedPlayers()) {
             if (banInfo.getBanned().equals(target.getId())) {
-                msg(TL.COMMAND_BAN_ALREADYBANNED);
+                context.msg(TL.COMMAND_BAN_ALREADYBANNED);
                 return;
             }
         }
 
 
         // Ban the user.
-        myFaction.ban(target, fme);
-        myFaction.deinvite(target); // can't hurt
+        context.faction.ban(target, context.fPlayer);
+        context.faction.deinvite(target); // can't hurt
 
         // If in same Faction, lets make sure to kick them and throw an event.
-        if (target.getFaction() == myFaction) {
+        if (target.getFaction() == context.faction) {
 
-            FPlayerLeaveEvent event = new FPlayerLeaveEvent(target, myFaction, FPlayerLeaveEvent.PlayerLeaveReason.BANNED);
+            FPlayerLeaveEvent event = new FPlayerLeaveEvent(target, context.faction, FPlayerLeaveEvent.PlayerLeaveReason.BANNED);
             Bukkit.getServer().getPluginManager().callEvent(event);
 
             if (event.isCancelled()) {
@@ -85,13 +81,13 @@ public class CmdBan extends FCommand {
             }
 
             // Didn't get cancelled so remove them and reset their invite.
-            myFaction.removeFPlayer(target);
+            context.faction.removeFPlayer(target);
             target.resetFactionData();
         }
 
         // Lets inform the people!
-        target.msg(TL.COMMAND_BAN_TARGET, myFaction.getTag(target.getFaction()));
-        myFaction.msg(TL.COMMAND_BAN_BANNED, fme.getName(), target.getName());
+        target.msg(TL.COMMAND_BAN_TARGET, context.faction.getTag(target.getFaction()));
+        context.faction.msg(TL.COMMAND_BAN_BANNED, context.fPlayer.getName(), target.getName());
     }
 
     @Override

@@ -9,8 +9,10 @@ import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
+import com.sun.xml.internal.xsom.impl.scd.SCDParserTokenManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -27,14 +29,12 @@ public class CmdFly extends FCommand {
     public CmdFly() {
         super();
         this.aliases.add("fly");
-
-
         this.optionalArgs.put("on/off", "flip");
 
-
-        this.permission = Permission.FLY.node;
-        this.senderMustBeMember = true;
-        this.senderMustBeModerator = false;
+        this.requirements = new CommandRequirements.Builder(Permission.FLY)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     public static void startParticles() {
@@ -165,53 +165,53 @@ public class CmdFly extends FCommand {
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         // Disabled by default.
         if (!SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight", false)) {
-            fme.msg(TL.COMMAND_FLY_DISABLED);
+            context.fPlayer.msg(TL.COMMAND_FLY_DISABLED);
             return;
         }
 
-        if (Conf.enableFlyParticles && fme.getSelectedParticle() == null) {
-            fme.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
+        if (Conf.enableFlyParticles && context.fPlayer.getSelectedParticle() == null) {
+            context.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
         }
 
-        FLocation myfloc = new FLocation(me.getLocation());
+        FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
-        if (!checkBypassPerms(fme, me, toFac)) return;
-        List<Entity> entities = this.me.getNearbyEntities(16.0D, 256.0D, 16.0D);
+        if (!checkBypassPerms(context.fPlayer, context.player, toFac)) return;
+        List<Entity> entities = context.player.getNearbyEntities(16.0D, 256.0D, 16.0D);
 
         for (int i = 0; i <= entities.size() - 1; ++i) {
             if (entities.get(i) instanceof Player) {
                 Player eplayer = (Player) entities.get(i);
                 FPlayer efplayer = FPlayers.getInstance().getByPlayer(eplayer);
-                if (efplayer.getRelationTo(this.fme) == Relation.ENEMY && !efplayer.isStealthEnabled()) {
-                    this.fme.msg(TL.COMMAND_FLY_CHECK_ENEMY);
+                if (efplayer.getRelationTo(context.fPlayer) == Relation.ENEMY && !efplayer.isStealthEnabled()) {
+                    context.msg(TL.COMMAND_FLY_CHECK_ENEMY);
                     return;
                 }
             }
         }
 
 
-        if (args.size() == 0) {
-            toggleFlight(fme.isFlying(), me);
-        } else if (args.size() == 1) {
-            toggleFlight(argAsBool(0), me);
+        if (context.args.size() == 0) {
+            toggleFlight(context.fPlayer.isFlying(), context.fPlayer, context);
+        } else if (context.args.size() == 1) {
+            toggleFlight(context.argAsBool(0), context.fPlayer, context);
         }
     }
 
-    private void toggleFlight(final boolean toggle, final Player player) {
+    private void toggleFlight(final boolean toggle, final FPlayer fme, CommandContext context) {
         if (toggle) {
             fme.setFlying(false);
-            flyMap.remove(player.getName());
+            flyMap.remove(fme.getPlayer().getName());
             return;
         }
 
 
         if (fme.canFlyAtLocation())
-            this.doWarmUp(WarmUpUtil.Warmup.FLIGHT, TL.WARMUPS_NOTIFY_FLIGHT, "Fly", () -> {
+            context.doWarmUp(WarmUpUtil.Warmup.FLIGHT, TL.WARMUPS_NOTIFY_FLIGHT, "Fly", () -> {
                 fme.setFlying(true);
-                flyMap.put(player.getName(), true);
+                flyMap.put(fme.getPlayer().getName(), true);
                 if (id == -1) {
                     if (Conf.enableFlyParticles) {
                         startParticles();
@@ -220,7 +220,7 @@ public class CmdFly extends FCommand {
                 if (flyid == -1) {
                     startFlyCheck();
                 }
-            }, this.p.getConfig().getLong("warmups.f-fly", 0));
+            }, SavageFactions.plugin.getConfig().getLong("warmups.f-fly", 0));
     }
 
     @Override

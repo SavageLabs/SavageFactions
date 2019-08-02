@@ -11,26 +11,19 @@ public class CmdUpgrades extends FCommand {
         this.aliases.add("upgrades");
         this.aliases.add("upgrade");
 
-        //this.requiredArgs.add("");
-        this.optionalArgs.put("mobs/crops/exp", "");
-
-        this.permission = Permission.UPGRADES.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.UPGRADES)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("fupgrades.Enabled")) {
-            fme.sendMessage("This command is disabled!");
+            context.fPlayer.sendMessage("This command is disabled!");
             return;
         }
-        new FUpgradesMenu(fme.getFaction()).buildGUI(fme);
+        new FUpgradesMenu(context.faction).buildGUI(context.fPlayer);
     }
 
     @Override

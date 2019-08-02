@@ -1,8 +1,11 @@
-package com.massivecraft.factions.cmd;
+package com.massivecraft.factions.cmd.claim;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
+import com.massivecraft.factions.cmd.CommandContext;
+import com.massivecraft.factions.cmd.CommandRequirements;
+import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.SpiralTask;
@@ -21,53 +24,48 @@ public class CmdClaim extends FCommand {
         this.optionalArgs.put("radius", "1");
         this.optionalArgs.put("faction", "your");
 
-        this.permission = Permission.CLAIM.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.CLAIM)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         // Read and validate input
-        int radius = this.argAsInt(0, 1); // Default to 1
-        final Faction forFaction = this.argAsFaction(1, myFaction); // Default to own
+        int radius = context.argAsInt(0, 1); // Default to 1
+        final Faction forFaction = context.argAsFaction(1, context.faction); // Default to own
 
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.TERRITORY);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_NOPERMISSION, "change faction territory");
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.TERRITORY);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
+                context.fPlayer.msg(TL.GENERIC_NOPERMISSION, "change faction territory");
                 return;
             }
         }
 
 
         if (radius < 1) {
-            msg(TL.COMMAND_CLAIM_INVALIDRADIUS);
+            context.msg(TL.COMMAND_CLAIM_INVALIDRADIUS);
             return;
         }
 
         if (radius < 2) {
             // single chunk
-            fme.attemptClaim(forFaction, me.getLocation(), true);
+            context.fPlayer.attemptClaim(forFaction, context.player.getLocation(), true);
         } else {
             // radius claim
-            if (!Permission.CLAIM_RADIUS.has(sender, false)) {
-                msg(TL.COMMAND_CLAIM_DENIED);
+            if (!Permission.CLAIM_RADIUS.has(context.sender, false)) {
+                context.msg(TL.COMMAND_CLAIM_DENIED);
                 return;
             }
 
-            new SpiralTask(new FLocation(me), radius) {
+            new SpiralTask(new FLocation(context.player), radius) {
                 private final int limit = Conf.radiusClaimFailureLimit - 1;
                 private int failCount = 0;
 
                 @Override
                 public boolean work() {
-                    boolean success = fme.attemptClaim(forFaction, this.currentLocation(), true);
+                    boolean success = context.fPlayer.attemptClaim(forFaction, this.currentLocation(), true);
                     if (success) {
                         failCount = 0;
                     } else if (failCount++ >= limit) {

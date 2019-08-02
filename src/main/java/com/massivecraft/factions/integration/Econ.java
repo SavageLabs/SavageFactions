@@ -13,6 +13,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.text.DecimalFormat;
@@ -51,7 +52,7 @@ public class Econ {
             SavageFactions.plugin.log("NOTE: Economy is disabled. You can enable it with the command: f config econEnabled true");
         }
 
-        SavageFactions.plugin.cmdBase.cmdHelp.updateHelp();
+        //SavageFactions.plugin.cmdBase.cmdHelp.updateHelp();
     }
 
     public static boolean shouldBeUsed() {
@@ -86,6 +87,14 @@ public class Econ {
             return;
         }
         to.msg("<a>%s's<i> balance is <h>%s<i>.", about.describeTo(to, true), Econ.moneyString(econ.getBalance(about.getAccountId())));
+    }
+
+    public static void sendBalanceInfo(CommandSender to, Faction about) {
+        if (!shouldBeUsed()) {
+            SavageFactions.plugin.log(Level.WARNING, "Vault does not appear to be hooked into an economy plugin.");
+            return;
+        }
+        to.sendMessage(String.format("%s's balance is %s.", about.getTag(), Econ.moneyString(econ.getBalance(about.getAccountId()))));
     }
 
     public static boolean canIControllYou(EconomyParticipator i, EconomyParticipator you) {

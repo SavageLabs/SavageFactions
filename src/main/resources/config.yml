@@ -15,7 +15,7 @@
 # This will spam your console with information that is useful if you know how to read the source.
 # It's suggested that you only turn this on at the direction of a developer.
 debug: false
-
+Config-Verion: 1
 
 
 # Prevent find factions exploit

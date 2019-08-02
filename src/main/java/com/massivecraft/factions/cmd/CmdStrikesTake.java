@@ -10,28 +10,22 @@ public class CmdStrikesTake extends FCommand {
     public CmdStrikesTake() {
         super();
         this.aliases.add("take");
-        this.permission = Permission.STRIKES.node;
-
         this.requiredArgs.add(0, "faction");
 
-        this.disableOnLock = true;
-
-        this.senderMustBePlayer = true;
-        this.senderMustBeMember = false;
-        this.senderMustBeModerator = false;
-        this.senderMustBeColeader = false;
-        this.senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.STRIKES)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        Faction target = argAsFaction(0);
+    public void perform(CommandContext context) {
+        Faction target = context.argAsFaction(0);
         if (target == null || target.isSystemFaction()) {
-            fme.msg(TL.COMMAND_STRIKES_TARGET_INVALID, argAsString(0));
+            context.msg(TL.COMMAND_STRIKES_TARGET_INVALID, context.argAsString(0));
             return;
         }
         target.takeStrike(true);
-        fme.msg(TL.COMMAND_STRIKES_CHANGED, target.getTag(), target.getStrikes());
+        context.msg(TL.COMMAND_STRIKES_CHANGED, target.getTag(), target.getStrikes());
     }
 
 

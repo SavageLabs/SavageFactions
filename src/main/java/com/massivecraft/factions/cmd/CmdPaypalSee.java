@@ -8,40 +8,32 @@ import com.massivecraft.factions.zcore.util.TL;
 public class CmdPaypalSee extends FCommand {
     public CmdPaypalSee() {
         aliases.add("seepaypal");
-
         requiredArgs.add("faction");
 
-        permission = Permission.ADMIN.node;
-
-        disableOnLock = false;
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.ADMIN)
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) {
-            fme.msg(TL.GENERIC_DISABLED);
+            context.msg(TL.GENERIC_DISABLED);
             return;
         }
-        Faction faction = argAsFaction(0);
+        Faction faction = context.argAsFaction(0);
 
         if (faction == null)
             return;
 
         if (!faction.isWilderness() && !faction.isSafeZone() && !faction.isWarZone()) {
-            fme.msg(TL.COMMAND_PAYPALSEE_FACTION_NOFACTION.toString(), me.getName());
+            context.msg(TL.COMMAND_PAYPALSEE_FACTION_NOFACTION.toString(), context.player.getName());
             return;
         }
 
         if (faction.getPaypal() != null) {
-            fme.msg(TL.COMMAND_PAYPALSEE_FACTION_PAYPAL.toString(), faction.getTag(), faction.getPaypal());
+            context.msg(TL.COMMAND_PAYPALSEE_FACTION_PAYPAL.toString(), faction.getTag(), faction.getPaypal());
         } else {
-            fme.msg(TL.COMMAND_PAYPALSEE_FACTION_NOTSET.toString(), faction.getTag(), faction.getPaypal());
+            context.msg(TL.COMMAND_PAYPALSEE_FACTION_NOTSET.toString(), faction.getTag(), faction.getPaypal());
         }
     }
 

@@ -881,7 +881,9 @@ public enum TL {
 	GENERIC_PLACEHOLDER("<This is a placeholder for a message you should not see>"),
 	GENERIC_NOTENOUGHMONEY("&cYou dont have enough money!"),
 	GENERIC_MONEYTAKE("&c{amount} has been taken from your account."),
-
+	GENERIC_NOFACTION_FOUND("&cCouldn't find a faction with that name!"),
+	GENERIC_YOUMUSTBE("&cYour must be atleast %1$s to do this!"),
+	GENERIC_MEMBERONLY("&cYou must be in a faction to do this!"),
 	/**
 	 * Faction WarBanners
 	 */

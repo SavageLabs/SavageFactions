@@ -8,23 +8,17 @@ public class CmdGrace extends FCommand {
 
     public CmdGrace() {
         super();
-
         this.aliases.add("grace");
 
-        this.permission = Permission.GRACE.node;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.GRACE)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         Conf.graceEnabled = !Conf.graceEnabled;
-        fme.msg(TL.COMMMAND_GRACE_TOGGLED, Conf.graceEnabled ? "Enabled" : "Disabled");
+        context.msg(TL.COMMMAND_GRACE_TOGGLED, Conf.graceEnabled ? "Enabled" : "Disabled");
     }
 
 

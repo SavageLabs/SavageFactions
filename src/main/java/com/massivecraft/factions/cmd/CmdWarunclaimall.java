@@ -14,43 +14,26 @@ public class CmdWarunclaimall extends FCommand {
     public CmdWarunclaimall() {
         this.aliases.add("warunclaimall");
         this.aliases.add("wardeclaimall");
-
-        //this.requiredArgs.add("");
         this.optionalArgs.put("world", "all");
 
-        this.permission = Permission.MANAGE_WAR_ZONE.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.MANAGE_WAR_ZONE)
+                .build();
     }
 
     @Override
-    public void perform() {
-        String worldName = argAsString(0);
+    public void perform(CommandContext context) {
+        String worldName = context.argAsString(0);
         World world = null;
 
-        if (worldName != null) {
-            world = Bukkit.getWorld(worldName);
-        }
+        if (worldName != null) world = Bukkit.getWorld(worldName);
 
         String id = Factions.getInstance().getWarZone().getId();
 
-        if (world == null) {
-            Board.getInstance().unclaimAll(id);
-        } else {
-            Board.getInstance().unclaimAllInWorld(id, world);
-        }
+        if (world == null) { Board.getInstance().unclaimAll(id); }
+        else { Board.getInstance().unclaimAllInWorld(id, world); }
 
-        fme.msg(TL.COMMAND_WARUNCLAIMALL_SUCCESS);
-
-
-        if (Conf.logLandUnclaims) {
-            SavageFactions.plugin.log(TL.COMMAND_WARUNCLAIMALL_LOG.format(fme.getName()));
-        }
+        context.msg(TL.COMMAND_WARUNCLAIMALL_SUCCESS);
+        if (Conf.logLandUnclaims) SavageFactions.plugin.log(TL.COMMAND_WARUNCLAIMALL_LOG.format(context.fPlayer.getName()));
     }
 
     @Override

@@ -12,44 +12,39 @@ public class CmdUnban extends FCommand {
     public CmdUnban() {
         super();
         this.aliases.add("unban");
-
         this.requiredArgs.add("target");
 
-        this.permission = Permission.BAN.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.BAN)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.BAN);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER && !Permission.BAN.has(sender, true)) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage bans");
+    public void perform(CommandContext context) {
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.BAN);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER && !Permission.BAN.has(context.sender, true)) {
+                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage bans");
                 return;
             }
         }
 
         // Good on permission checks. Now lets just ban the player.
-        FPlayer target = argAsFPlayer(0);
+        FPlayer target = context.argAsFPlayer(0);
         if (target == null) {
             return; // the above method sends a message if fails to find someone.
         }
 
-        if (!myFaction.isBanned(target)) {
-            fme.msg(TL.COMMAND_UNBAN_NOTBANNED, target.getName());
+        if (!context.faction.isBanned(target)) {
+            context.msg(TL.COMMAND_UNBAN_NOTBANNED, target.getName());
             return;
         }
 
-        myFaction.unban(target);
+        context.faction.unban(target);
 
-        myFaction.msg(TL.COMMAND_UNBAN_UNBANNED, fme.getName(), target.getName());
-        target.msg(TL.COMMAND_UNBAN_TARGET, myFaction.getTag(target));
+        context.msg(TL.COMMAND_UNBAN_UNBANNED, context.fPlayer.getName(), target.getName());
+        target.msg(TL.COMMAND_UNBAN_TARGET, context.faction.getTag(target));
     }
 
     @Override

@@ -33,30 +33,26 @@ public class CmdSeeChunk extends FCommand {
         aliases.add("seechunk");
         aliases.add("sc");
 
-        permission = Permission.SEECHUNK.node;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
-
-        this.useParticles = p.getConfig().getBoolean("see-chunk.particles", true);
+        this.useParticles = SavageFactions.plugin.getConfig().getBoolean("see-chunk.particles", true);
         interval = SavageFactions.plugin.getConfig().getLong("see-chunk.interval", 10L);
         if (effect == null) {
             effect = ParticleEffect.REDSTONE;
         }
 
+        this.requirements = new CommandRequirements.Builder(Permission.SEECHUNK)
+                .playerOnly()
+                .build();
+
     }
 
     @Override
-    public void perform() {
-        if (seeChunkMap.containsKey(me.getName())) {
-            seeChunkMap.remove(me.getName());
-            msg(TL.COMMAND_SEECHUNK_DISABLED);
+    public void perform(CommandContext context) {
+        if (seeChunkMap.containsKey(context.player.getName())) {
+            seeChunkMap.remove(context.player.getName());
+            context.msg(TL.COMMAND_SEECHUNK_DISABLED);
         } else {
-            seeChunkMap.put(me.getName(), true);
-            msg(TL.COMMAND_SEECHUNK_ENABLED);
+            seeChunkMap.put(context.player.getName(), true);
+            context.msg(TL.COMMAND_SEECHUNK_ENABLED);
             manageTask();
         }
     }

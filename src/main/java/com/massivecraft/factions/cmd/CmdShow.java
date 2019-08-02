@@ -36,31 +36,27 @@ public class CmdShow extends FCommand {
         // this.requiredArgs.add("");
         this.optionalArgs.put("faction tag", "yours");
 
-        this.permission = Permission.SHOW.node;
-        this.disableOnLock = false;
-
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.SHOW)
+                .build();
     }
 
     @Override
-    public void perform() {
-        Faction faction = myFaction;
-        if (this.argIsSet(0))
-            faction = this.argAsFaction(0);
+    public void perform(CommandContext context) {
+        Faction faction = context.faction;
+        if (context.argIsSet(0))
+            faction = context.argAsFaction(0);
 
         if (faction == null)
             return;
 
-        if (fme != null && !fme.getPlayer().hasPermission("factions.show.bypassexempt")
+        if (context.fPlayer != null && !context.player.hasPermission("factions.show.bypassexempt")
                 && SavageFactions.plugin.getConfig().getStringList("show-exempt").contains(faction.getTag())) {
-            msg(TL.COMMAND_SHOW_EXEMPT);
+            context.msg(TL.COMMAND_SHOW_EXEMPT);
             return;
         }
 
         // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
-        if (!payForCommand(Conf.econCostShow, TL.COMMAND_SHOW_TOSHOW, TL.COMMAND_SHOW_FORSHOW)) {
+        if (!context.payForCommand(Conf.econCostShow, TL.COMMAND_SHOW_TOSHOW, TL.COMMAND_SHOW_FORSHOW)) {
             return;
         }
 
@@ -69,31 +65,31 @@ public class CmdShow extends FCommand {
             show = defaults;
 
         if (!faction.isNormal()) {
-            String tag = faction.getTag(fme);
+            String tag = faction.getTag(context.fPlayer);
             // send header and that's all
             String header = show.get(0);
             if (TagReplacer.HEADER.contains(header)) {
-                msg(p.txt.titleize(tag));
+                context.msg(SavageFactions.plugin.txt.titleize(tag));
             } else {
-                msg(p.txt.parse(TagReplacer.FACTION.replace(header, tag)));
+                context.msg(SavageFactions.plugin.txt.parse(TagReplacer.FACTION.replace(header, tag)));
             }
             return; // we only show header for non-normal factions
         }
 
         for (String raw : show) {
-            String parsed = TagUtil.parsePlain(faction, fme, raw); // use relations
+            String parsed = TagUtil.parsePlain(faction, context.fPlayer, raw); // use relations
             if (parsed == null) {
                 continue; // Due to minimal f show.
             }
 
-            if (fme != null) {
-                parsed = TagUtil.parsePlaceholders(fme.getPlayer(), parsed);
+            if (context.fPlayer != null) {
+                parsed = TagUtil.parsePlaceholders(context.player, parsed);
             }
 
             if (TagUtil.hasFancy(parsed)) {
-                List<FancyMessage> fancy = TagUtil.parseFancy(faction, fme, parsed);
+                List<FancyMessage> fancy = TagUtil.parseFancy(faction, context.fPlayer, parsed);
                 if (fancy != null)
-                    sendFancyMessage(fancy);
+                    context.sendFancyMessage(fancy);
 
                 continue;
             }
@@ -105,7 +101,7 @@ public class CmdShow extends FCommand {
                 if (parsed.contains("%")) {
                     parsed = parsed.replaceAll("%", ""); // Just in case it got in there before we disallowed it.
                 }
-                msg(p.txt.parse(parsed));
+                context.msg(SavageFactions.plugin.txt.parse(parsed));
             }
         }
     }

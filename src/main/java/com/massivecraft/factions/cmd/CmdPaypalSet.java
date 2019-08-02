@@ -9,28 +9,25 @@ public class CmdPaypalSet extends FCommand {
     public CmdPaypalSet() {
         this.aliases.add("setpaypal");
         this.requiredArgs.add("email");
-        this.permission = Permission.PAYPALSET.node;
-        this.disableOnLock = false;
-        this.senderMustBePlayer = true;
-        this.senderMustBeMember = false;
-        this.senderMustBeModerator = false;
-        this.senderMustBeColeader = false;
-        this.senderMustBeAdmin = true;
 
+        this.requirements = new CommandRequirements.Builder(Permission.PAYPALSET)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("fpaypal.Enabled")) {
-            fme.msg(TL.GENERIC_DISABLED);
+            context.msg(TL.GENERIC_DISABLED);
             return;
         }
 
-        String paypal = this.argAsString(0);
+        String paypal = context.argAsString(0);
         if (paypal == null)
             return;
-        myFaction.paypalSet(paypal);
-        fme.msg(TL.COMMAND_PAYPALSET_SUCCESSFUL, paypal);
+        context.faction.paypalSet(paypal);
+        context.msg(TL.COMMAND_PAYPALSET_SUCCESSFUL, paypal);
     }
 
     @Override

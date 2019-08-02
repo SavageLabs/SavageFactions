@@ -2,13 +2,26 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.cmd.claim.CmdAutoClaim;
+import com.massivecraft.factions.cmd.claim.CmdClaim;
+import com.massivecraft.factions.cmd.claim.CmdClaimAt;
+import com.massivecraft.factions.cmd.claim.CmdClaimLine;
+import com.massivecraft.factions.cmd.money.CmdMoney;
 import com.massivecraft.factions.zcore.util.TL;
+import me.lucko.commodore.CommodoreProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.Level;
 
-public class FCmdRoot extends FCommand {
+public class FCmdRoot extends FCommand implements CommandExecutor {
+
+    public BrigadierManager brigadierManager;
 
     public CmdAdmin cmdAdmin = new CmdAdmin();
     public CmdAutoClaim cmdAutoClaim = new CmdAutoClaim();
@@ -113,23 +126,10 @@ public class FCmdRoot extends FCommand {
     public FCmdRoot() {
         super();
         this.aliases.addAll(Conf.baseCommandAliases);
-        this.aliases.removeAll(Collections.<String>singletonList(null));  // remove any nulls from extra commas
-        this.allowNoSlashAccess = Conf.allowNoSlashCommand;
-
-        //this.requiredArgs.add("");
-        //this.optionalArgs.put("","")
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
-        this.disableOnLock = false;
+        this.aliases.removeAll(Collections.<String>singletonList(null));
 
         this.setHelpShort("The faction base command");
-        this.helpLong.add(p.txt.parseTags("<i>This command contains all faction stuff."));
-
-        //this.subCommands.add(plugin.cmdHelp);
+        this.helpLong.add(SavageFactions.plugin.txt.parseTags("<i>This command contains all faction stuff."));
 
         this.addSubCommand(this.cmdAdmin);
         this.addSubCommand(this.cmdAutoClaim);
@@ -251,12 +251,30 @@ public class FCmdRoot extends FCommand {
             this.addSubCommand(this.cmdPaypalSee);
         }
 
+        if (CommodoreProvider.isSupported()) {
+            brigadierManager.build();
+        }
+
     }
 
     @Override
-    public void perform() {
-        this.commandChain.add(this);
-        this.cmdHelp.execute(this.sender, this.args, this.commandChain);
+    public void perform(CommandContext context) {
+        context.commandChain.add(this);
+        this.cmdHelp.execute(context);
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        this.execute(new CommandContext(sender, new ArrayList<>(Arrays.asList(args)), label));
+        return true;
+    }
+
+    @Override
+    public void addSubCommand(FCommand subCommand) {
+        super.addSubCommand(subCommand);
+        if (CommodoreProvider.isSupported()) {
+            brigadierManager.addSubCommand(subCommand);
+        }
     }
 
     @Override

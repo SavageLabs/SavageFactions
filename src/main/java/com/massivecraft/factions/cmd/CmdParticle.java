@@ -13,28 +13,18 @@ public class CmdParticle extends FCommand {
         super();
         this.aliases.add("particle");
 
-        //this.requiredArgs.add("");
-        //this.optionalArgs.put("", "");
-
-        this.permission = Permission.PARTICLE.node;
-        this.disableOnLock = false;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.PARTICLE)
+                .playerOnly()
+                .build();
     }
 
+    @Override
+    public void perform(CommandContext context) {
+        new ParticleGUI(SavageFactions.plugin, Conf.particleGUITitle, 5).buildGUI(context.fPlayer);
+    }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE;
-    }
-
-    @Override
-    public void perform() {
-        new ParticleGUI(SavageFactions.plugin, Conf.particleGUITitle, 5).buildGUI(fme);
     }
 }

@@ -12,22 +12,15 @@ public class CmdLockSpawners extends FCommand {
         this.aliases.add("lockspawners");
         this.aliases.add("spawnerlock");
 
-
-        this.permission = Permission.LOCKSPAWNERS.node;
-        this.disableOnLock = false;
-
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.LOCKSPAWNERS)
+                .playerOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         SavageFactions.plugin.spawnersPlacing = !SavageFactions.plugin.spawnersPlacing;
-        msg(TL.COMMAND_SPAWNERTOGGLE_TOGGLE, SavageFactions.plugin.spawnersPlacing ? SavageFactions.plugin.color("&aEnabled") : SavageFactions.plugin.color("&4Disabled"));
+        context.msg(TL.COMMAND_SPAWNERTOGGLE_TOGGLE, SavageFactions.plugin.spawnersPlacing ? SavageFactions.plugin.color("&aEnabled") : SavageFactions.plugin.color("&4Disabled"));
     }
 
     @Override

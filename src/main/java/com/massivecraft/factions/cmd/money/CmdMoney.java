@@ -1,6 +1,7 @@
-package com.massivecraft.factions.cmd;
+package com.massivecraft.factions.cmd.money;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.cmd.*;
 import com.massivecraft.factions.zcore.util.TL;
 
 public class CmdMoney extends FCommand {
@@ -20,15 +21,7 @@ public class CmdMoney extends FCommand {
         //this.requiredArgs.add("");
         //this.optionalArgs.put("","")
 
-        this.isMoneyCommand = true;
-
-        senderMustBePlayer = false;
-        senderMustBeMember = false;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
-
-        this.helpLong.add(p.txt.parseTags(TL.COMMAND_MONEY_LONG.toString()));
+        this.helpLong.add(SavageFactions.plugin.txt.parseTags(TL.COMMAND_MONEY_LONG.toString()));
 
         this.addSubCommand(this.cmdMoneyBalance);
         this.addSubCommand(this.cmdMoneyDeposit);
@@ -36,13 +29,12 @@ public class CmdMoney extends FCommand {
         this.addSubCommand(this.cmdMoneyTransferFf);
         this.addSubCommand(this.cmdMoneyTransferFp);
         this.addSubCommand(this.cmdMoneyTransferPf);
-
     }
 
     @Override
-    public void perform() {
-        this.commandChain.add(this);
-        SavageFactions.plugin.cmdAutoHelp.execute(this.sender, this.args, this.commandChain);
+    public void perform(CommandContext context) {
+        context.commandChain.add(this);
+        SavageFactions.plugin.cmdAutoHelp.execute(context);
     }
 
     @Override

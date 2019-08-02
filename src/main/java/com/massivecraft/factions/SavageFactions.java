@@ -5,7 +5,9 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
+import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
+import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.integration.dynmap.EngineDynmap;
@@ -151,9 +153,10 @@ public class SavageFactions extends MPlugin {
         migrateFPlayerLeaders();
         log("==== End Setup ====");
 
-        if (!preEnable()) {
-            return;
-        }
+        if (!preEnable()) { return; }
+
+        new ConfigVersion(this.getConfig()).checkVersion();
+
         this.loadSuccessful = false;
 
         saveDefaultConfig();
@@ -185,7 +188,6 @@ public class SavageFactions extends MPlugin {
         // Add Base Commands
         this.cmdBase = new FCmdRoot();
         this.cmdAutoHelp = new CmdAutoHelp();
-        this.getBaseCommands().add(cmdBase);
 
         Econ.setup();
         setupPermissions();
@@ -234,8 +236,7 @@ public class SavageFactions extends MPlugin {
             getServer().getPluginManager().registerEvents(eventListener, this);
 
         // since some other plugins execute commands directly through this command interface, provide it
-        getCommand(this.refCommand).setExecutor(this);
-        getCommand(this.refCommand).setTabCompleter(this);
+        this.getCommand(refCommand).setExecutor(cmdBase);
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {
             divider();
@@ -445,53 +446,6 @@ public class SavageFactions extends MPlugin {
         // otherwise, needs to be handled; presumably another plugin directly ran the command
         String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
         return handleCommand(sender, cmd + " " + TextUtil.implode(Arrays.asList(split), " "), false);
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        FPlayer fPlayer = FPlayers.getInstance().getByPlayer((Player) sender);
-        List<String> completions = new ArrayList<>();
-        String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
-        List<String> argsList = new ArrayList<>(Arrays.asList(args));
-        argsList.remove(argsList.size() - 1);
-        String cmdValid = (cmd + " " + TextUtil.implode(argsList, " ")).trim();
-        MCommand<?> commandEx = cmdBase;
-        List<MCommand<?>> commandsList = cmdBase.subCommands;
-
-        for (; !commandsList.isEmpty() && !argsList.isEmpty(); argsList.remove(0)) {
-            String cmdName = argsList.get(0).toLowerCase();
-            MCommand<?> commandFounded = commandsList.stream()
-                    .filter(c -> c.aliases.contains(cmdName))
-                    .findFirst().orElse(null);
-
-            if (commandFounded != null) {
-                commandEx = commandFounded;
-                commandsList = commandFounded.subCommands;
-            } else break;
-        }
-
-        if (argsList.isEmpty()) {
-            for (MCommand<?> subCommand : commandEx.subCommands) {
-                subCommand.setCommandSender(sender);
-                if (handleCommand(sender, cmdValid + " " + subCommand.aliases.get(0), true)
-                        && subCommand.visibility != CommandVisibility.INVISIBLE
-                        && subCommand.validSenderType(sender, false)
-                        && subCommand.validSenderPermissions(sender, false))
-                    completions.addAll(subCommand.aliases);
-            }
-        }
-
-        String lastArg = args[args.length - 1].toLowerCase();
-
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            completions.add(player.getName());
-        }
-
-        completions = completions.stream()
-                .filter(m -> m.toLowerCase().startsWith(lastArg))
-                .collect(Collectors.toList());
-
-        return completions;
     }
 
     public void createTimedHologram(final Location location, String text, Long timeout) {

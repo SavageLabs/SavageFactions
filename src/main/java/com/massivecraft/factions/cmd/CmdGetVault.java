@@ -11,48 +11,42 @@ import org.bukkit.inventory.ItemStack;
 public class CmdGetVault extends FCommand {
     public CmdGetVault() {
         super();
-
         this.aliases.add("getvault");
 
-        this.permission = Permission.GETVAULT.node;
-        this.disableOnLock = true;
-
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeColeader = false;
-        senderMustBeAdmin = false;
+        this.requirements = new CommandRequirements.Builder(Permission.GETVAULT)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("fvault.Enabled")) {
-            fme.sendMessage("This command is disabled!");
+            context.fPlayer.sendMessage("This command is disabled!");
             return;
         }
-        Location vaultLocation = fme.getFaction().getVault();
+        Location vaultLocation = context.faction.getVault();
         ItemStack vault = SavageFactions.plugin.createItem(Material.CHEST, 1, (short) 0, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fvault.Item.Name")), SavageFactions.plugin.colorList(SavageFactions.plugin.getConfig().getStringList("fvault.Item.Lore")));
 
 
         //check if vault is set
         if (vaultLocation != null) {
-            fme.msg(TL.COMMAND_GETVAULT_ALREADYSET);
+            context.msg(TL.COMMAND_GETVAULT_ALREADYSET);
             return;
         }
 
 
         //has enough money?
         int amount = SavageFactions.plugin.getConfig().getInt("fvault.Price");
-        if (!fme.hasMoney(amount)) {
+        if (!context.fPlayer.hasMoney(amount)) {
             return;
         }
 
 
         //success :)
-        fme.takeMoney(amount);
-        me.getInventory().addItem(vault);
-        fme.msg(TL.COMMAND_GETVAULT_RECEIVE);
+        context.fPlayer.takeMoney(amount);
+        context.player.getInventory().addItem(vault);
+        context.fPlayer.msg(TL.COMMAND_GETVAULT_RECEIVE);
 
     }
 

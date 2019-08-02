@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
@@ -17,63 +18,60 @@ public class CmdSetFWarp extends FCommand {
 
         this.aliases.add("setwarp");
         this.aliases.add("sw");
-
         this.requiredArgs.add("warp name");
         this.optionalArgs.put("password", "password");
 
-        this.senderMustBeMember = true;
-        this.senderMustBeModerator = false;
-
-        this.senderMustBePlayer = true;
-
-        this.permission = Permission.SETWARP.node;
+        this.requirements = new CommandRequirements.Builder(Permission.SETWARP)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
-        if (!(fme.getRelationToLocation() == Relation.MEMBER)) {
-            fme.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
+    public void perform(CommandContext context) {
+        if (!(context.fPlayer.getRelationToLocation() == Relation.MEMBER)) {
+            context.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
             return;
         }
 
         // This statement allows us to check if they've specifically denied it, or default to
         // the old setting of allowing moderators to set warps.
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.SETWARP);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "set warps");
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.SETWARP);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
+                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "set warps");
                 return;
             }
         }
 
-        String warp = argAsString(0);
+        String warp = context.argAsString(0);
 
         // Checks if warp with same name already exists and ignores maxWarp check if it does.
-        boolean warpExists = myFaction.isWarp(warp);
+        boolean warpExists = context.faction.isWarp(warp);
 
         int maxWarps = SavageFactions.plugin.getConfig().getInt("max-warps", 5);
-        boolean tooManyWarps = maxWarps <= myFaction.getWarps().size();
+        boolean tooManyWarps = maxWarps <= context.faction.getWarps().size();
         if (tooManyWarps && !warpExists) {
-            fme.msg(TL.COMMAND_SETFWARP_LIMIT, maxWarps);
+            context.msg(TL.COMMAND_SETFWARP_LIMIT, maxWarps);
             return;
         }
 
-        if (!transact(fme)) {
+        if (!transact(context.fPlayer, context)) {
             return;
         }
 
-        String password = argAsString(1);
+        String password = context.argAsString(1);
 
-        LazyLocation loc = new LazyLocation(fme.getPlayer().getLocation());
-        myFaction.setWarp(warp, loc);
+        LazyLocation loc = new LazyLocation(context.player.getLocation());
+        context.faction.setWarp(warp, loc);
         if (password != null) {
-            myFaction.setWarpPassword(warp, password);
+            context.faction.setWarpPassword(warp, password);
         }
-        fme.msg(TL.COMMAND_SETFWARP_SET, warp, password != null ? password : "");
+        context.msg(TL.COMMAND_SETFWARP_SET, warp, password != null ? password : "");
     }
 
-    private boolean transact(FPlayer player) {
-        return !SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) || player.isAdminBypassing() || payForCommand(SavageFactions.plugin.getConfig().getDouble("warp-cost.setwarp", 5), TL.COMMAND_SETFWARP_TOSET.toString(), TL.COMMAND_SETFWARP_FORSET.toString());
+    private boolean transact(FPlayer player, CommandContext context) {
+        return !SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) || player.isAdminBypassing() || context.payForCommand(SavageFactions.plugin.getConfig().getDouble("warp-cost.setwarp", 5), TL.COMMAND_SETFWARP_TOSET.toString(), TL.COMMAND_SETFWARP_FORSET.toString());
     }
 
     @Override

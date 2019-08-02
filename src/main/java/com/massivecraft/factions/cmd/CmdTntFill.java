@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
@@ -9,6 +10,7 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Dispenser;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -23,55 +25,51 @@ public class CmdTntFill extends FCommand {
         this.requiredArgs.add("radius");
         this.requiredArgs.add("amount");
 
-        this.permission = Permission.TNTFILL.node;
-        this.disableOnLock = true;
-
-        senderMustBePlayer = true;
-        senderMustBeMember = true;
-        senderMustBeModerator = false;
-        senderMustBeAdmin = false;
-
+        this.requirements = new CommandRequirements.Builder(Permission.TNTFILL)
+                .playerOnly()
+                .memberOnly()
+                .build();
     }
 
     @Override
-    public void perform() {
+    public void perform(CommandContext context) {
         if (!SavageFactions.plugin.getConfig().getBoolean("Tntfill.enabled")) {
-            this.fme.msg(TL.GENERIC_DISABLED);
+            context.msg(TL.GENERIC_DISABLED);
             return;
         }
-        if (!fme.isAdminBypassing()) {
-            Access access = myFaction.getAccess(fme, PermissableAction.TNTFILL);
-            if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "use tnt fill");
+        if (!context.fPlayer.isAdminBypassing()) {
+            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.TNTFILL);
+            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
+                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "use tnt fill");
                 return;
             }
         }
 
 
-        msg(TL.COMMAND_TNTFILL_HEADER);
-        int radius = argAsInt(0, 16);
-        int amount = argAsInt(1, 16);
+        context.msg(TL.COMMAND_TNTFILL_HEADER);
+        int radius = context.argAsInt(0, 16);
+        int amount = context.argAsInt(1, 16);
         if (radius > SavageFactions.plugin.getConfig().getInt("Tntfill.max-radius")) {
-            fme.msg(TL.COMMAND_TNTFILL_RADIUSMAX.toString().replace("{max}", SavageFactions.plugin.getConfig().getInt("Tntfill.max-radius") + ""));
+            context.msg(TL.COMMAND_TNTFILL_RADIUSMAX.toString().replace("{max}", SavageFactions.plugin.getConfig().getInt("Tntfill.max-radius") + ""));
             return;
         }
         if (amount > SavageFactions.plugin.getConfig().getInt("Tntfill.max-amount")) {
-            fme.msg(TL.COMMAND_TNTFILL_AMOUNTMAX.toString().replace("{max}", SavageFactions.plugin.getConfig().getInt("Tntfill.max-amount") + ""));
+            context.msg(TL.COMMAND_TNTFILL_AMOUNTMAX.toString().replace("{max}", SavageFactions.plugin.getConfig().getInt("Tntfill.max-amount") + ""));
             return;
         }
 
         try {
-            Integer.parseInt(args.get(1));
+            Integer.parseInt(context.args.get(1));
         } catch (NumberFormatException e) {
-            fme.msg(TL.COMMAND_TNT_INVALID_NUM);
+            context.msg(TL.COMMAND_TNT_INVALID_NUM);
             return;
         }
         if (amount < 0) {
-            fme.msg(TL.COMMAND_TNT_POSITIVE);
+            context.msg(TL.COMMAND_TNT_POSITIVE);
             return;
         }
-        boolean bankMode = fme.getRole().isAtLeast(Role.MODERATOR);
-        Location start = me.getLocation();
+        boolean bankMode = context.fPlayer.getRole().isAtLeast(Role.MODERATOR);
+        Location start = context.player.getLocation();
         int counter = 0;
         for (double x = start.getX() - radius; x <= start.getX() + radius; x++) {
             for (double y = start.getY() - radius; y <= start.getY() + radius; y++) {
@@ -80,23 +78,23 @@ public class CmdTntFill extends FCommand {
                     if (blockLoc.getBlock().getState() instanceof Dispenser) {
                         Dispenser disp = (Dispenser) blockLoc.getBlock().getState();
                         Inventory dispenser = disp.getInventory();
-                        if (canHold(dispenser, amount)) {
+                        if (canHold(context.fPlayer, dispenser, amount)) {
                             int fullStacks = amount / 64;
                             int remainderAmt = amount % 64;
-                            if (!inventoryContains(me.getInventory(), new ItemStack(Material.TNT, amount))) {
-                                if (!fme.getRole().isAtLeast(Role.MODERATOR)) {
-                                    fme.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
-                                    sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-                                    me.updateInventory();
+                            if (!inventoryContains(context.player.getInventory(), new ItemStack(Material.TNT, amount))) {
+                                if (!context.fPlayer.getRole().isAtLeast(Role.MODERATOR)) {
+                                    context.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
+                                    context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
+                                    context.player.updateInventory();
                                     return;
                                 } else if (bankMode) {
                                     //msg(TL.COMMAND_TNTFILL_MOD.toString().replace("{role}",fme.getRole().nicename));
                                     bankMode = true;
-                                    removeFromBank(amount);
-                                    if (!inventoryContains(me.getInventory(), new ItemStack(Material.TNT, amount))) {
-                                        fme.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
-                                        sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-                                        me.updateInventory();
+                                    removeFromBank(context, amount);
+                                    if (!inventoryContains(context.player.getInventory(), new ItemStack(Material.TNT, amount))) {
+                                        context.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
+                                        context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
+                                        context.player.updateInventory();
                                         return;
                                     }
                                 }
@@ -104,12 +102,12 @@ public class CmdTntFill extends FCommand {
                             ItemStack tnt64 = new ItemStack(Material.TNT, 64);
                             for (int i = 0; i <= fullStacks - 1; i++) {
                                 dispenser.addItem(tnt64);
-                                takeTnt(64);
+                                takeTnt(context.fPlayer, 64);
                             }
                             if (remainderAmt != 0) {
                                 ItemStack tnt = new ItemStack(Material.TNT, remainderAmt);
                                 dispenser.addItem(tnt);
-                                takeTnt(remainderAmt);
+                                takeTnt(context.fPlayer, remainderAmt);
                             }
                             //sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}",amount + "").replace("{x}",(int) x + "").replace("{y}",(int) y + "").replace("{z}",(int) z + ""));
                             counter++;
@@ -120,53 +118,53 @@ public class CmdTntFill extends FCommand {
             }
         }
         if (bankMode) {
-            msg(TL.COMMAND_TNTFILL_MOD.toString().replace("{role}", fme.getRole().nicename));
+            context.msg(TL.COMMAND_TNTFILL_MOD.toString().replace("{role}", context.fPlayer.getRole().nicename));
         }
-        sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-        me.updateInventory();
+        context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
+        context.player.updateInventory();
 
 
     }
 
-    private void removeFromBank(int amount) {
+    private void removeFromBank(CommandContext context, int amount) {
         try {
-            Integer.parseInt(args.get(1));
+            Integer.parseInt(context.args.get(1));
         } catch (NumberFormatException e) {
-            fme.msg(TL.COMMAND_TNT_INVALID_NUM);
+            context.msg(TL.COMMAND_TNT_INVALID_NUM);
             return;
         }
         if (amount < 0) {
-            fme.msg(TL.COMMAND_TNT_POSITIVE);
+            context.msg(TL.COMMAND_TNT_POSITIVE);
             return;
         }
-        if (fme.getFaction().getTnt() < amount) {
-            fme.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+        if (context.faction.getTnt() < amount) {
+            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
             return;
         }
         int fullStacks = amount / 64;
         int remainderAmt = amount % 64;
-        if ((remainderAmt == 0 && getEmptySlots(me) <= fullStacks)) {
-            fme.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+        if ((remainderAmt == 0 && getEmptySlots(context.player) <= fullStacks)) {
+            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
             return;
         }
-        if (getEmptySlots(me) + 1 <= fullStacks) {
-            fme.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+        if (getEmptySlots(context.player) + 1 <= fullStacks) {
+            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
             return;
         }
         ItemStack tnt64 = new ItemStack(Material.TNT, 64);
         for (int i = 0; i <= fullStacks - 1; i++) {
-            me.getInventory().addItem(tnt64);
+            context.player.getInventory().addItem(tnt64);
         }
         if (remainderAmt != 0) {
             ItemStack tnt = new ItemStack(Material.TNT, remainderAmt);
-            me.getInventory().addItem(tnt);
+            context.player.getInventory().addItem(tnt);
         }
-        fme.getFaction().takeTnt(amount);
-        me.updateInventory();
+        context.faction.takeTnt(amount);
+        context.player.updateInventory();
     }
 
-    public void takeTnt(int amount) {
-        Inventory inv = me.getInventory();
+    public void takeTnt(FPlayer fme, int amount) {
+        Inventory inv = fme.getPlayer().getInventory();
         int invTnt = 0;
         for (int i = 0; i <= inv.getSize(); i++) {
             if (inv.getItem(i) == null) {
@@ -182,19 +180,19 @@ public class CmdTntFill extends FCommand {
         }
         ItemStack tnt = new ItemStack(Material.TNT, amount);
         if (fme.getFaction().getTnt() + amount > SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit")) {
-            msg(TL.COMMAND_TNT_EXCEEDLIMIT);
+            fme.msg(TL.COMMAND_TNT_EXCEEDLIMIT);
             return;
         }
-        removeFromInventory(me.getInventory(), tnt);
+        removeFromInventory(fme.getPlayer().getInventory(), tnt);
     }
 
-    public boolean canHold(Inventory inventory, int amount) {
+    public boolean canHold(FPlayer fme, Inventory inventory, int amount) {
         int fullStacks = amount / 64;
         int remainderAmt = amount % 64;
-        if ((remainderAmt == 0 && getEmptySlots(me) <= fullStacks)) {
+        if ((remainderAmt == 0 && getEmptySlots(fme.getPlayer()) <= fullStacks)) {
             return false;
         }
-        if (getEmptySlots(me) + 1 <= fullStacks) {
+        if (getEmptySlots(fme.getPlayer()) + 1 <= fullStacks) {
             fme.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
             return false;
         }
