@@ -36,17 +36,17 @@ public enum Particles {
 
     public void displayAtLocation(Location location, int amt, ParticleEffect.OrdinaryColor color) {
         if (SavageFactions.plugin.useNonPacketParticles) {
-            // 1.9+ based servers will use the built in particleAPI instead of packet based.
+            // 1.9-1.11 & 1.13+ based servers will use the built in particleAPI instead of packet based.
             // any particle amount higher than 0 made them go everywhere, and the offset at 0 was not working.
             // So setting the amount to 0 spawns 1 in the precise location
 
 
             // Gotta do this so colorable ones have their data :P
             if (this == Particles.REDSTONE || this == Particles.CLOUD || this == Particles.NOTE) {
-                if (SavageFactions.plugin.mc113) {
-                    location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0, new Particle.DustOptions(Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()), 1));
-                } else {
+                if (SavageFactions.plugin.mc112) {
                     location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0);
+                } else {
+                    location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0, new Particle.DustOptions(Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()), 1));
                 }
             } else {
                 location.getWorld().spawnParticle(Particle.valueOf(over19), location, 0);

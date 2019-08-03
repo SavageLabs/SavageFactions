@@ -5,19 +5,14 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
-import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
-import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.integration.dynmap.EngineDynmap;
 import com.massivecraft.factions.listeners.*;
 import com.massivecraft.factions.struct.ChatMode;
-import com.massivecraft.factions.util.Placeholder;
 import com.massivecraft.factions.util.*;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
-import com.massivecraft.factions.zcore.CommandVisibility;
-import com.massivecraft.factions.zcore.MCommand;
 import com.massivecraft.factions.zcore.MPlugin;
 import com.massivecraft.factions.zcore.ffly.UtilFly;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
@@ -48,7 +43,6 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 
 public class SavageFactions extends MPlugin {
@@ -69,6 +63,7 @@ public class SavageFactions extends MPlugin {
     public boolean mc17 = false;
     public boolean mc18 = false;
     public boolean mc113 = false;
+    public boolean mc112 = false;
     public boolean mc114 = false;
     public boolean useNonPacketParticles = false;
     public boolean factionsFlight = false;
@@ -144,6 +139,9 @@ public class SavageFactions extends MPlugin {
             case 13:
                 SavageFactions.plugin.log("Minecraft Version 1.13 found, New Items will be used.");
                 mc113 = true;
+                break;
+            case 12:
+                mc112 = true;
                 break;
             case 14:
                 SavageFactions.plugin.log("Minecraft Version 1.14 found.");
