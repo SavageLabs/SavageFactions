@@ -10,7 +10,6 @@ import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.fperms.gui.PermissableActionFrame;
 import com.massivecraft.factions.zcore.fperms.gui.PermissableRelationFrame;
 import com.massivecraft.factions.zcore.util.TL;
-import sun.tools.jconsole.inspector.IconManager;
 
 import java.util.Arrays;
 import java.util.HashSet;
