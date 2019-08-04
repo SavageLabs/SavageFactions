@@ -28,7 +28,7 @@ public class CmdKickAlt extends FCommand{
 
     @Override
     public void perform(CommandContext context) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("f-alts.Enabled", false)) {
+        if (!Conf.enableFactionAlts) {
             context.fPlayer.msg(TL.GENERIC_DISABLED);
             return;
         }
@@ -95,6 +95,7 @@ public class CmdKickAlt extends FCommand{
             return;
         }
 
+
         // if economy is enabled, they're not on the bypass list, and this
         // command has a cost set, make sure they can pay
         if (!context.canAffordCommand(Conf.econCostKick, TL.COMMAND_KICK_TOKICK.toString())) {
@@ -108,10 +109,12 @@ public class CmdKickAlt extends FCommand{
             return;
         }
 
+
         // then make 'em pay (if applicable)
-        if (context.payForCommand(Conf.econCostKick, TL.COMMAND_KICK_TOKICK.toString(), TL.COMMAND_KICK_FORKICK.toString())) {
+        if (!context.payForCommand(Conf.econCostKick, TL.COMMAND_KICK_TOKICK.toString(), TL.COMMAND_KICK_FORKICK.toString())) {
             return;
         }
+
 
         toKickFaction.msg(TL.COMMAND_KICK_FACTION, context.fPlayer.describeTo(toKickFaction, true), toKick.describeTo(toKickFaction, true));
 
@@ -129,6 +132,7 @@ public class CmdKickAlt extends FCommand{
         if (toKick.getRole() == Role.LEADER) {
             toKickFaction.promoteNewLeader();
         }
+
 
         toKickFaction.removeAltPlayer(toKick);
         toKickFaction.deinvite(toKick);
