@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 public class FCmdRoot extends FCommand implements CommandExecutor {
 
-    public BrigadierManager brigadierManager;
+    public BrigadierManager brigadierManager = new BrigadierManager();
 
     public CmdAdmin cmdAdmin = new CmdAdmin();
     public CmdAutoClaim cmdAutoClaim = new CmdAutoClaim();
