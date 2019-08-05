@@ -33,5 +33,4 @@ public class FactionEvent extends Event {
     public HandlerList getHandlers() {
         return handlers;
     }
-
 }

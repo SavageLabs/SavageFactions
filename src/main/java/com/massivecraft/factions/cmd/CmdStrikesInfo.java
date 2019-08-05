@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdStrikesInfo extends FCommand {
 
@@ -32,11 +33,8 @@ public class CmdStrikesInfo extends FCommand {
         fme.msg(TL.COMMAND_STRIKES_INFO, target.getTag(), target.getStrikes());
     }
 
-
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_STRIKESINFO_DESCRIPTION;
     }
-
-
 }

@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -26,13 +27,11 @@ public class ParticleGUI {
         Conf.particleEffectSettings.forEach((particle, data) -> particleEffectItems.add(new GuiItem(data.getItem().buildItemStack(fplayer.getSelectedParticle() == particle), inventoryClickEvent -> {
             inventoryClickEvent.setCancelled(true);
             fplayer.setSelectedParticle(particle);
-            fplayer.msg(TL.COMMAND_PARTICLE_SELECTED_PARTICLE.toString().replace("{particle}", particle.name()));
+            fplayer.msg(TL.CMD_SELECTED_PARTICLE.toString().replace("{particle}", particle.name()));
         })));
         pane.populateWithGuiItems(particleEffectItems);
         gui.addPane(pane);
         gui.update();
         gui.show(fplayer.getPlayer());
     }
-
-
 }

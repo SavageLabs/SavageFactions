@@ -6,6 +6,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -104,12 +105,12 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
                 }
             } else {
                 fme.setEnteringPassword(true, warp);
-                fme.msg(TL.COMMAND_FWARP_PASSWORD_REQUIRED);
+                fme.msg(TL.CMD_PASSWORD.toString());
                 Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {
                     @Override
                     public void run() {
                         if (fme.isEnteringPassword()) {
-                            fme.msg(TL.COMMAND_FWARP_PASSWORD_TIMEOUT);
+                            fme.msg(TL.CMD_TIME_OUT.toString());
                             fme.setEnteringPassword(false, "");
                         }
                     }
@@ -120,13 +121,13 @@ public class WarpGUI implements InventoryHolder, FactionGUI {
 
     private void doWarmup(final String warp) {
         FileConfiguration config = Files.CONFIG.getFile();
-        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, new Runnable() {
+        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUP_TELEPORT, warp, new Runnable() {
             @Override
             public void run() {
                 Player player = Bukkit.getPlayer(fme.getPlayer().getUniqueId());
                 if (player != null) {
                     player.teleport(fme.getFaction().getWarp(warp).getLocation());
-                    fme.msg(TL.COMMAND_FWARP_WARPED, warp);
+                    fme.msg(TL.CMD_SUCCESSFUL_WARP.toString(), warp);
                 }
             }
         }, config.getLong("warmups.f-warp", 0));

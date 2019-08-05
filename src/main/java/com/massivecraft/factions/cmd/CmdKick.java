@@ -7,6 +7,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import mkremins.fanciful.FancyMessage;
@@ -36,22 +37,22 @@ public class CmdKick extends FCommand {
     public void perform() {
         FPlayer toKick = this.argIsSet(0) ? this.argAsBestFPlayerMatch(0) : null;
         if (toKick == null) {
-            FancyMessage msg = new FancyMessage(TL.COMMAND_KICK_CANDIDATES.toString()).color(ChatColor.GOLD);
+            FancyMessage msg = new FancyMessage(TL.CMD_AVAILABLE_KICKS.toString()).color(ChatColor.GOLD);
             for (FPlayer player : myFaction.getFPlayersWhereRole(Role.NORMAL)) {
                 String s = player.getName();
-                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_KICK_CLICKTOKICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
+                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.CMD_CLICK_TO_KICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
             }
             if (fme.getRole().isAtLeast(Role.COLEADER)) {
                 // For both coleader and admin, add mods.
                 for (FPlayer player : myFaction.getFPlayersWhereRole(Role.MODERATOR)) {
                     String s = player.getName();
-                    msg.then(s + " ").color(ChatColor.GRAY).tooltip(TL.COMMAND_KICK_CLICKTOKICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
+                    msg.then(s + " ").color(ChatColor.GRAY).tooltip(TL.CMD_CLICK_TO_KICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
                 }
                 if (fme.getRole() == Role.LEADER) {
                     // Only add coleader to this for the leader.
                     for (FPlayer player : myFaction.getFPlayersWhereRole(Role.COLEADER)) {
                         String s = player.getName();
-                        msg.then(s + " ").color(ChatColor.RED).tooltip(TL.COMMAND_KICK_CLICKTOKICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
+                        msg.then(s + " ").color(ChatColor.RED).tooltip(TL.CMD_CLICK_TO_KICK.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " kick " + s);
                     }
                 }
             }
@@ -61,15 +62,15 @@ public class CmdKick extends FCommand {
         }
 
         if (fme == toKick) {
-            msg(TL.COMMAND_KICK_SELF);
-            msg(TL.GENERIC_YOUMAYWANT.toString() + p.cmdBase.cmdLeave.getUseageTemplate(false));
+            msg(TL.CMD_CANNOT_KICK_SELF);
+            msg(TL.GENERIC_YOU_MAY_WANT.toString() + p.cmdBase.cmdLeave.getUseageTemplate(false));
             return;
         }
 
         Faction toKickFaction = toKick.getFaction();
 
         if (toKickFaction.isWilderness()) {
-            sender.sendMessage(TL.COMMAND_KICK_NONE.toString());
+            sender.sendMessage(TL.CMD_KICK_FACTIONLESS_PLAYER.toString());
             return;
         }
 
@@ -81,19 +82,19 @@ public class CmdKick extends FCommand {
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.KICK);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_NOPERMISSION, "kick");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION, "kick");
                 return;
             }
             if (toKickFaction != myFaction) {
-                msg(TL.COMMAND_KICK_NOTMEMBER, toKick.describeTo(fme, true), myFaction.describeTo(fme));
+                msg(TL.CMD_NOT_A_MEMBER_F_KICK, toKick.describeTo(fme, true), myFaction.describeTo(fme));
                 return;
             }
             if (toKick.getRole().value >= fme.getRole().value) {
-                msg(TL.COMMAND_KICK_INSUFFICIENTRANK);
+                msg(TL.CMD_INSUFFICIENT_RANK_F_KICK);
                 return;
             }
             if (!Conf.canLeaveWithNegativePower && toKick.getPower() < 0) {
-                msg(TL.COMMAND_KICK_NEGATIVEPOWER);
+                msg(TL.CMD_NEGATIVE_POWER_KICK);
                 return;
             }
         }
@@ -115,11 +116,11 @@ public class CmdKick extends FCommand {
             return;
         }
 
-        toKickFaction.msg(TL.COMMAND_KICK_FACTION, fme.describeTo(toKickFaction, true), toKick.describeTo(toKickFaction, true));
+        toKickFaction.msg(TL.CMD_FACTION_SUCCESS_KICK, fme.describeTo(toKickFaction, true), toKick.describeTo(toKickFaction, true));
 
-        toKick.msg(TL.COMMAND_KICK_KICKED, fme.describeTo(toKick, true), toKickFaction.describeTo(toKick));
+        toKick.msg(TL.CMD_FACTION_YOU_ARE_KICKED, fme.describeTo(toKick, true), toKickFaction.describeTo(toKick));
         if (toKickFaction != myFaction) {
-            fme.msg(TL.COMMAND_KICK_KICKS, toKick.describeTo(fme), toKickFaction.describeTo(fme));
+            fme.msg(TL.CMD_FACTION_KICK_KICKS, toKick.describeTo(fme), toKickFaction.describeTo(fme));
         }
         if (Conf.logFactionKick) {
             SavageFactions.plugin.log((senderIsConsole ? "A console command" : fme.getName()) + " kicked " + toKick.getName() + " from the faction: " + toKickFaction.getTag());
@@ -135,5 +136,4 @@ public class CmdKick extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_KICK_DESCRIPTION;
     }
-
 }

@@ -3,6 +3,7 @@ package com.massivecraft.factions.scoreboards;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TagUtil;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public abstract class FSidebarProvider {
         }
         if (line.contains("{ig}")) {
             // since you can't really fit a whole "Faction Home: world, x, y, z" on one line
-            // we assume it's broken up into two lines, so returning our tl will suffice.
-            return TL.COMMAND_SHOW_NOHOME.toString();
+            // we assume it's broken up into two lines, so returning our tl will suffice
+            return TL.CMD_NO_HOME_F_HOME_2.toString();
         }
         return SavageFactions.plugin.txt.parse(line); // finally add color :)
     }

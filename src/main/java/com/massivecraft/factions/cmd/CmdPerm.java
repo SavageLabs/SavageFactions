@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -25,7 +26,6 @@ public class CmdPerm extends FCommand {
 		this.optionalArgs.put("relation", "relation");
 		this.optionalArgs.put("action", "action");
 		this.optionalArgs.put("access", "access");
-
 
 		this.disableOnLock = true;
 
@@ -126,5 +126,4 @@ public class CmdPerm extends FCommand {
 	public TL getUsageTranslation() {
 		return TL.COMMAND_PERM_DESCRIPTION;
 	}
-
 }

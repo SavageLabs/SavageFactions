@@ -5,6 +5,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.ChatColor;
 
 
@@ -46,5 +47,4 @@ public class CmdMoneyDeposit extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_MONEYDEPOSIT_DESCRIPTION;
     }
-
 }

@@ -17,6 +17,4 @@ public class Placeholder {
     public String getTag() {
         return tag;
     }
-
-
 }

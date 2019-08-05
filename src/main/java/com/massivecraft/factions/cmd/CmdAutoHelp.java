@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.CommandVisibility;
 import com.massivecraft.factions.zcore.MCommand;
 
@@ -42,6 +43,6 @@ public class CmdAutoHelp extends MCommand<SavageFactions> {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_HELP_DESCRIPTION;
+        return TL.CMD_ADMIN_DESCRIPTION;
     }
 }

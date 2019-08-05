@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.ffly.ParticleGUI;
 
 public class CmdParticle extends FCommand {
@@ -17,7 +18,6 @@ public class CmdParticle extends FCommand {
 
         this.permission = Permission.PARTICLE.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;

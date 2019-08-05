@@ -6,6 +6,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TextUtil;
 import mkremins.fanciful.FancyMessage;
 import org.apache.commons.lang.time.DurationFormatUtils;
@@ -159,7 +160,7 @@ public abstract class MCommand<T extends MPlugin> {
     public boolean validSenderType(CommandSender sender, boolean informSenderIfNot) {
         if (this.senderMustBePlayer && !(sender instanceof Player)) {
             if (informSenderIfNot) {
-                msg(TL.GENERIC_PLAYERONLY);
+                msg(TL.GENERIC_PLAYER_ONLY);
             }
             return false;
 
@@ -174,7 +175,8 @@ public abstract class MCommand<T extends MPlugin> {
     public boolean validArgs(List<String> args, CommandSender sender) {
         if (args.size() < this.requiredArgs.size()) {
             if (sender != null) {
-                msg(TL.GENERIC_ARGS_TOOFEW);
+                // Come Back To This One
+                msg("");
                 sender.sendMessage(this.getUseageTemplate());
             }
             return false;
@@ -184,7 +186,8 @@ public abstract class MCommand<T extends MPlugin> {
             if (sender != null) {
                 // Get the to many string slice
                 List<String> theToMany = args.subList(this.requiredArgs.size() + this.optionalArgs.size(), args.size());
-                msg(TL.GENERIC_ARGS_TOOMANY, TextUtil.implode(theToMany, " "));
+                // Come Back To This One
+                msg("", TextUtil.implode(theToMany, " "));
                 sender.sendMessage(this.getUseageTemplate());
             }
             return false;
@@ -437,7 +440,7 @@ public abstract class MCommand<T extends MPlugin> {
         }
 
         if (msg && ret == null) {
-            this.msg(TL.GENERIC_NOPLAYERFOUND, name);
+            this.msg(TL.GENERIC_NO_PLAYER_FOUND, name);
         }
 
         return ret;
@@ -467,7 +470,7 @@ public abstract class MCommand<T extends MPlugin> {
         }
 
         if (msg && ret == null) {
-            this.msg(TL.GENERIC_NOPLAYERMATCH, name);
+            this.msg(TL.GENERIC_NO_PLAYER_MATCH, name);
         }
 
         return ret;

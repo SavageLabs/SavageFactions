@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdSetBanner extends FCommand {
 
@@ -15,7 +16,6 @@ public class CmdSetBanner extends FCommand {
         senderMustBeModerator = false;
         senderMustBeAdmin = true;
 
-
     }
 
     public void perform() {
@@ -26,13 +26,10 @@ public class CmdSetBanner extends FCommand {
 
         fme.getFaction().setBannerPattern(me.getItemInHand());
         fme.msg(TL.COMMAND_SETBANNER_SUCCESS);
-
-
     }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_SETBANNER_DESCRIPTION;
     }
-
 }

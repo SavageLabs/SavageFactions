@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import mkremins.fanciful.FancyMessage;
@@ -38,8 +39,8 @@ public class CmdInvite extends FCommand {
         }
 
         if (target.getFaction() == myFaction) {
-            msg(TL.COMMAND_INVITE_ALREADYMEMBER, target.getName(), myFaction.getTag());
-            msg(TL.GENERIC_YOUMAYWANT.toString() + p.cmdBase.cmdKick.getUseageTemplate(false));
+            msg(TL.CMD_ALREADY_MEMBER, target.getName(), myFaction.getTag());
+            msg(TL.GENERIC_YOU_MAY_WANT.toString() + p.cmdBase.cmdKick.getUseageTemplate(false));
             return;
         }
 
@@ -51,17 +52,17 @@ public class CmdInvite extends FCommand {
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.INVITE);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage invites");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION, "manage invites");
                 return;
             }
         }
 
         if (myFaction.isInvited(target)) {
-            fme.msg(TL.COMMAND_INVITE_ALREADYINVITED, target.getName());
+            fme.msg(TL.CMD_ALREADY_INVITED, target.getName());
             return;
         }
         if (myFaction.isBanned(target)) {
-            fme.msg(TL.COMMAND_INVITE_BANNED, target.getName());
+            fme.msg(TL.CMD_BANNED_MEMBER, target.getName());
             return;
         }
 
@@ -72,7 +73,7 @@ public class CmdInvite extends FCommand {
             FancyMessage message = new FancyMessage(fme.describeTo(target, true))
                     .tooltip(TL.COMMAND_INVITE_CLICKTOJOIN.toString())
                     .command("/" + Conf.baseCommandAliases.get(0) + " join " + myFaction.getTag())
-                    .then(TL.COMMAND_INVITE_INVITEDYOU.toString())
+                    .then(TL.CMD_INVITED_YOU.toString())
                     .color(ChatColor.YELLOW)
                     .tooltip(TL.COMMAND_INVITE_CLICKTOJOIN.toString())
                     .command("/" + Conf.baseCommandAliases.get(0) + " join " + myFaction.getTag())
@@ -82,12 +83,11 @@ public class CmdInvite extends FCommand {
             message.send(target.getPlayer());
         }
 
-        myFaction.msg(TL.COMMAND_INVITE_INVITED, fme.describeTo(myFaction, true), target.describeTo(myFaction));
+        myFaction.msg(TL.CMD_INVITE_SENT, fme.describeTo(myFaction, true), target.describeTo(myFaction));
     }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_INVITE_DESCRIPTION;
     }
-
 }

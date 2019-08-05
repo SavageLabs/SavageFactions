@@ -17,7 +17,7 @@ public class BufferedObjective {
     static {
         // Check for long line support.
         // We require use of Spigot's `addEntry(String)` method on
-        // Teams, as adding OfflinePlayers to a team is far too slow.
+        // Teams, as adding OfflinePlayers to a team is far too slow
 
         Method addEntryMethodLookup = null;
         try {

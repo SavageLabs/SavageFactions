@@ -1,5 +1,6 @@
 package com.massivecraft.factions.util;
 
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -91,16 +92,16 @@ public class AsciiCompass {
 
         public String getTranslation() {
             if (this == N) {
-                return TL.COMPASS_SHORT_NORTH.toString();
+                return TL.NORTH.toString();
             }
             if (this == E) {
-                return TL.COMPASS_SHORT_EAST.toString();
+                return TL.EAST.toString();
             }
             if (this == S) {
-                return TL.COMPASS_SHORT_SOUTH.toString();
+                return TL.SOUTH.toString();
             }
             if (this == W) {
-                return TL.COMPASS_SHORT_WEST.toString();
+                return TL.WEST.toString();
             }
             return toString();
         }

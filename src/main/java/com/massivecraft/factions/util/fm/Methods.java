@@ -10,7 +10,6 @@ public class Methods {
         line = ChatColor.translateAlternateColorCodes('&', line);
         return line;
     }
-
     //colors a string list
     public static List<String> plList(List<String> lore) {
         for (int i = 0; i <= lore.size() - 1; i++) {

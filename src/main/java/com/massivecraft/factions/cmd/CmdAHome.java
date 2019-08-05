@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class CmdAHome extends FCommand {
@@ -26,7 +27,7 @@ public class CmdAHome extends FCommand {
     public void perform() {
         FPlayer target = argAsBestFPlayerMatch(0);
         if (target == null) {
-            msg(TL.GENERIC_NOPLAYERMATCH, argAsString(0));
+            msg(TL.GENERIC_NO_PLAYER_MATCH.toString(), argAsString(0));
             return;
         }
 
@@ -34,13 +35,13 @@ public class CmdAHome extends FCommand {
             Faction faction = target.getFaction();
             if (faction.hasHome()) {
                 target.getPlayer().teleport(faction.getHome(), PlayerTeleportEvent.TeleportCause.PLUGIN);
-                msg(TL.COMMAND_AHOME_SUCCESS, target.getName());
-                target.msg(TL.COMMAND_AHOME_TARGET);
+                msg(TL.CMD_AHOME_SUCCESS, target.getName());
+                target.msg(TL.CMD_TARGET_AHOME_MSG.toString());
             } else {
-                msg(TL.COMMAND_AHOME_NOHOME, target.getName());
+                msg(TL.CMD_NO_AHOME, target.getName());
             }
         } else {
-            msg(TL.COMMAND_AHOME_OFFLINE, target.getName());
+            msg(TL.CMD_AHOME_OFFLINE, target.getName());
         }
     }
 

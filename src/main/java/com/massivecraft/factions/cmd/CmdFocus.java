@@ -4,6 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdFocus
@@ -34,16 +35,16 @@ public class CmdFocus
             return;
         }
         if (target.getFaction().getId().equalsIgnoreCase(myFaction.getId())) {
-            fme.msg(TL.COMMAND_FOCUS_SAMEFACTION);
+            fme.msg(TL.CMD_FOCUS_SAME_FACTION);
             return;
         }
         if ((myFaction.getFocused() != null) && (myFaction.getFocused().equalsIgnoreCase(target.getName()))) {
             myFaction.setFocused(null);
-            myFaction.msg(TL.COMMAND_FOCUS_NO_LONGER, target.getName());
+            myFaction.msg(TL.CMD_NO_LONGER_FOCUSING, target.getName());
             FTeamWrapper.updatePrefixes(target.getFaction());
             return;
         }
-        myFaction.msg(TL.COMMAND_FOCUS_FOCUSING, target.getName());
+        myFaction.msg(TL.CMD_CURRENTLY_FOCUSING, target.getName());
         myFaction.setFocused(target.getName());
         FTeamWrapper.updatePrefixes(target.getFaction());
     }

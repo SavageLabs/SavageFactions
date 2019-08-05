@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdSetDefaultRole extends FCommand {
 
@@ -18,7 +19,6 @@ public class CmdSetDefaultRole extends FCommand {
         this.senderMustBePlayer = true;
         senderMustBeColeader = false;
 
-
         this.permission = Permission.DEFAULTRANK.node;
     }
 
@@ -34,7 +34,6 @@ public class CmdSetDefaultRole extends FCommand {
             msg(TL.COMMAND_SETDEFAULTROLE_NOTTHATROLE, argAsString(0));
             return;
         }
-
 
         myFaction.setDefaultRole(target);
         msg(TL.COMMAND_SETDEFAULTROLE_SUCCESS, target.nicename);

@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -237,7 +238,6 @@ public class FCmdRoot extends FCommand {
         if (config.getBoolean("ffocus.Enabled")) {
             addSubCommand(this.cmdFocus);
         }
-
         if (config.getBoolean("enable-faction-flight", true)) {
             SavageFactions.plugin.log("Enabling Faction Flight!");
             this.addSubCommand(this.cmdFly);
@@ -252,7 +252,6 @@ public class FCmdRoot extends FCommand {
             this.addSubCommand(this.cmdPaypalSet);
             this.addSubCommand(this.cmdPaypalSee);
         }
-
     }
 
     @Override
@@ -265,5 +264,4 @@ public class FCmdRoot extends FCommand {
     public TL getUsageTranslation() {
         return TL.GENERIC_PLACEHOLDER;
     }
-
 }

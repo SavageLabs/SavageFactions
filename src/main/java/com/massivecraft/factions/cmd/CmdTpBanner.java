@@ -6,6 +6,7 @@ import com.massivecraft.factions.listeners.FactionsPlayerListener;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.WarmUpUtil;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdTpBanner extends FCommand {
@@ -45,7 +46,6 @@ public class CmdTpBanner extends FCommand {
         } else {
             fme.msg(TL.COMMAND_TPBANNER_NOTSET);
         }
-
     }
 
     @Override

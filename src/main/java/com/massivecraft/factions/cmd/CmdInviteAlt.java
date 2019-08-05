@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import mkremins.fanciful.FancyMessage;
@@ -90,4 +91,3 @@ public class CmdInviteAlt extends FCommand {
         return TL.COMMAND_ALTINVITE_DESCRIPTION;
     }
 }
-

@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdStrikes extends FCommand {
 
@@ -24,7 +25,6 @@ public class CmdStrikes extends FCommand {
         senderMustBeModerator = false;
         senderMustBeAdmin = false;
 
-
         this.addSubCommand(cmdStrikesGive);
         this.addSubCommand(cmdStrikesInfo);
         this.addSubCommand(cmdStrikesSet);
@@ -41,5 +41,4 @@ public class CmdStrikes extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_STRIKES_DESCRIPTION;
     }
-
 }

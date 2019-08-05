@@ -8,6 +8,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -39,12 +40,12 @@ public class CmdCreate extends FCommand {
         String tag = this.argAsString(0);
 
         if (fme.hasFaction()) {
-            msg(TL.COMMAND_CREATE_MUSTLEAVE);
+            msg(TL.CMD_FACTION_MUST_LEAVE);
             return;
         }
 
         if (Factions.getInstance().isTagTaken(tag)) {
-            msg(TL.COMMAND_CREATE_INUSE);
+            msg(TL.CMD_FACTION_NAME_IN_USE);
             return;
         }
 
@@ -75,7 +76,7 @@ public class CmdCreate extends FCommand {
 
         // TODO: Why would this even happen??? Auto increment clash??
         if (faction == null) {
-            msg(TL.COMMAND_CREATE_ERROR);
+            msg(TL.CMD_FACTION_CREATE_ERROR);
             return;
         }
 
@@ -95,21 +96,20 @@ public class CmdCreate extends FCommand {
         fme.setRole(Role.LEADER);
         if (config.getBoolean("faction-creation-broadcast", true)) {
             for (FPlayer follower : FPlayers.getInstance().getOnlinePlayers()) {
-                follower.msg(TL.COMMAND_CREATE_CREATED, fme.getName(), faction.getTag(follower));
+                follower.msg(TL.CMD_FACTION_CREATED.toString(), fme.getName(), faction.getTag(follower));
             }
         }
-        msg(TL.COMMAND_CREATE_YOUSHOULD, p.cmdBase.cmdDescription.getUseageTemplate());
+        msg(TL.CMD_FACTION_YOU_SHOULD, p.cmdBase.cmdDescription.getUseageTemplate());
         if (Conf.econEnabled) Econ.setBalance(faction.getAccountId(), Conf.econFactionStartingBalance);
         if (Conf.logFactionCreate)
-            SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CREATE_CREATEDLOG.toString() + tag);
-        if (config.getBoolean("fpaypal.Enabled")) this.fme.msg(TL.COMMAND_PAYPALSET_CREATED);
+            SavageFactions.plugin.log(fme.getName() + TL.CMD_FACTION_CREATE_LOG.toString() + tag);
+        if (config.getBoolean("fpaypal.Enabled")) this.fme.msg(TL.CMD_PAYPAL_CREATED.toString());
         if (Conf.useCustomDefaultPermissions) faction.setDefaultPerms();
-        if (Conf.usePermissionHints) this.fme.msg(TL.COMMAND_HINT_PERMISSION);
+        if (Conf.usePermissionHints) this.fme.msg(TL.COMMAND_HINT_PERMISSION.toString());
     }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_CREATE_DESCRIPTION;
     }
-
 }

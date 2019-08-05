@@ -5,6 +5,7 @@ import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.ffly.UtilFly;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -64,17 +65,17 @@ public class CmdDisband extends FCommand {
 		if (fme != null && !fme.isAdminBypassing()) {
 			Access access = faction.getAccess(fme, PermissableAction.DISBAND);
 			if (fme.getRole() != Role.LEADER && faction.getFPlayerLeader() != fme && access != Access.ALLOW) {
-				fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "disband " + faction.getTag());
+				fme.msg(TL.CMD_FPERMS_DENY_ACTION, "disband " + faction.getTag());
 				return;
 			}
 		}
 
 		if (!faction.isNormal()) {
-			msg(TL.COMMAND_DISBAND_IMMUTABLE.toString());
+			msg(TL.CMD_SYSTEM_FACTION.toString());
 			return;
 		}
 		if (faction.isPermanent()) {
-			msg(TL.COMMAND_DISBAND_MARKEDPERMANENT.toString());
+			msg(TL.CMD_PERM_FACTION.toString());
 			return;
 		}
 
@@ -86,24 +87,24 @@ public class CmdDisband extends FCommand {
 
 		// check for tnt before disbanding.
 		if (!disbandMap.containsKey(me.getUniqueId().toString()) && faction.getTnt() > 0) {
-			msg(TL.COMMAND_DISBAND_CONFIRM.toString().replace("{tnt}", faction.getTnt() + ""));
+			msg(TL.CMD_TNTFILL_DISBAND_CONFIRM.toString().replace("{tnt}", faction.getTnt() + ""));
 			disbandMap.put(me.getUniqueId().toString(), faction.getId());
 			Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> disbandMap.remove(me.getUniqueId().toString()), 200L);
 		} else if (faction.getId().equals(disbandMap.get(me.getUniqueId().toString())) || faction.getTnt() == 0) {
 			if (config.getBoolean("faction-disband-broadcast", true)) {
 				for (FPlayer follower : FPlayers.getInstance().getOnlinePlayers()) {
-					String amountString = senderIsConsole ? TL.GENERIC_SERVERADMIN.toString() : fme.describeTo(follower);
+					String amountString = senderIsConsole ? TL.GENERIC_SERVER_ADMIN.toString() : fme.describeTo(follower);
 					UtilFly.checkFly(this.fme, Board.getInstance().getFactionAt(new FLocation(follower)));
 					if (follower.getFaction() == faction) {
-						follower.msg(TL.COMMAND_DISBAND_BROADCAST_YOURS, amountString);
+						follower.msg(TL.CMD_YOUR_FACTION, amountString);
 					} else {
-						follower.msg(TL.COMMAND_DISBAND_BROADCAST_NOTYOURS, amountString, faction.getTag(follower));
+						follower.msg(TL.CMD_NOT_YOUR_FACTION, amountString, faction.getTag(follower));
 					}
 				}
 				faction.disband(me, PlayerDisbandReason.COMMAND);
 			} else {
 				faction.disband(me, PlayerDisbandReason.COMMAND);
-				me.sendMessage(String.valueOf(TL.COMMAND_DISBAND_PLAYER));
+				me.sendMessage(String.valueOf(TL.CMD_PLAYER_DISBAND));
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -16,7 +17,6 @@ public class CmdNear extends FCommand {
         this.aliases.add("nearby");
 
         this.disableOnLock = true;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = true;
@@ -45,7 +45,6 @@ public class CmdNear extends FCommand {
                     fme.sendMessage(format.replace("{playername}", player.getDisplayName()).replace("{distance}", (int) distance + ""));
                 }
             }
-
         }
     }
 

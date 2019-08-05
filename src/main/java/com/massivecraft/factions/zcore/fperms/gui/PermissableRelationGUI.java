@@ -211,5 +211,4 @@ public class PermissableRelationGUI implements InventoryHolder, FactionGUI {
 
         return itemStack;
     }
-
 }

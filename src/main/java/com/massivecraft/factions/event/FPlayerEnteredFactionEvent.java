@@ -38,5 +38,4 @@ public class FPlayerEnteredFactionEvent extends FactionPlayerEvent {
     public Faction getFactionFrom() {
         return factionFrom;
     }
-
 }

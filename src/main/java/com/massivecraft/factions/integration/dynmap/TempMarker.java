@@ -70,5 +70,4 @@ public class TempMarker {
             marker.setDescription(this.description);
         }
     }
-
 }

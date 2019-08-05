@@ -4,6 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdPeaceful extends FCommand {
 
@@ -34,28 +35,26 @@ public class CmdPeaceful extends FCommand {
 
         String change;
         if (faction.isPeaceful()) {
-            change = TL.COMMAND_PEACEFUL_REVOKE.toString();
+            change = TL.CMD_FPEACEFUL_REVOKE.toString();
             faction.setPeaceful(false);
         } else {
-            change = TL.COMMAND_PEACEFUL_GRANT.toString();
+            change = TL.CMD_FPEACEFUL_GRANT.toString();
             faction.setPeaceful(true);
         }
 
         // Inform all players
         for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
-            String blame = (fme == null ? TL.GENERIC_SERVERADMIN.toString() : fme.describeTo(fplayer, true));
+            String blame = (fme == null ? TL.GENERIC_SERVER_ADMIN.toString() : fme.describeTo(fplayer, true));
             if (fplayer.getFaction() == faction) {
-                fplayer.msg(TL.COMMAND_PEACEFUL_YOURS, blame, change);
+                fplayer.msg(TL.CMD_FPEACEFUL_YOURS, blame, change);
             } else {
-                fplayer.msg(TL.COMMAND_PEACEFUL_OTHER, blame, change, faction.getTag(fplayer));
+                fplayer.msg(TL.CMD_FPEACEFUL_OTHER, blame, change, faction.getTag(fplayer));
             }
         }
-
     }
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_PEACEFUL_DESCRIPTION;
+        return TL.CMD_FPEACEFUL_DESCRIPTION;
     }
-
 }

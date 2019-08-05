@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TextUtil;
 
 public class CmdDescription extends FCommand {
@@ -19,7 +20,6 @@ public class CmdDescription extends FCommand {
 
         this.permission = Permission.DESCRIPTION.node;
         this.disableOnLock = true;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;
@@ -40,14 +40,14 @@ public class CmdDescription extends FCommand {
         myFaction.setDescription(TextUtil.implode(args, " ").replaceAll("%", "").replaceAll("(&([a-f0-9klmnor]))", "& $2"));
 
         if (!Conf.broadcastDescriptionChanges) {
-            fme.msg(TL.COMMAND_DESCRIPTION_CHANGED, myFaction.describeTo(fme));
+            fme.msg(TL.CMD_DESCRIPTION_CHANGED, myFaction.describeTo(fme));
             fme.sendMessage(myFaction.getDescription());
             return;
         }
 
         // Broadcast the description to everyone
         for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
-            fplayer.msg(TL.COMMAND_DESCRIPTION_CHANGES, myFaction.describeTo(fplayer));
+            fplayer.msg(TL.CMD_DESCRIPTION_CHANGES, myFaction.describeTo(fplayer));
             fplayer.sendMessage(myFaction.getDescription());  // players can inject "&" or "`" or "<i>" or whatever in their description; &k is particularly interesting looking
         }
     }
@@ -56,5 +56,4 @@ public class CmdDescription extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_DESCRIPTION_DESCRIPTION;
     }
-
 }

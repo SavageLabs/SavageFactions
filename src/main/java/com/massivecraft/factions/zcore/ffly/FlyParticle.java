@@ -5,11 +5,6 @@ import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 
 public enum FlyParticle {
 
-    /*
-     * All clouds are free.
-     * Maybe write a backend & minishop, to let people get purchase some particle effects or something ( Optifine Cape like concept )
-     */
-
     WHITE_CLOUD,
     ORANGE_CLOUD,
     GREEN_CLOUD,
@@ -27,5 +22,4 @@ public enum FlyParticle {
     public FlyParticleData getData() {
         return Conf.particleEffectSettings.get(this);
     }
-
 }

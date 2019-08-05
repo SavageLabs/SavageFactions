@@ -2,6 +2,7 @@ package com.massivecraft.factions.util;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class WarmUpUtil {
 
@@ -17,7 +18,7 @@ public class WarmUpUtil {
     public static void process(final FPlayer player, Warmup warmup, TL translationKey, String action, final Runnable runnable, long delay) {
         if (delay > 0) {
             if (player.isWarmingUp()) {
-                player.msg(TL.WARMUPS_ALREADY);
+                player.msg(TL.WARMUP_ALREADY.toString());
             } else {
                 player.msg(translationKey.format(action, delay));
                 int id = SavageFactions.plugin.getServer().getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {

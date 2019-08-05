@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdChatSpy extends FCommand {
 
@@ -26,11 +27,11 @@ public class CmdChatSpy extends FCommand {
         fme.setSpyingChat(this.argAsBool(0, !fme.isSpyingChat()));
 
         if (fme.isSpyingChat()) {
-            fme.msg(TL.COMMAND_CHATSPY_ENABLE);
-            SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CHATSPY_ENABLELOG.toString());
+            fme.msg(TL.CMD_CHATSPY_ENABLE.toString());
+            SavageFactions.plugin.log(fme.getName() + TL.CMD_ENABLE_LOG_F_CHATSPY.toString());
         } else {
-            fme.msg(TL.COMMAND_CHATSPY_DISABLE);
-            SavageFactions.plugin.log(fme.getName() + TL.COMMAND_CHATSPY_DISABLELOG.toString());
+            fme.msg(TL.CMD_CHATSPY_DISABLE.toString());
+            SavageFactions.plugin.log(fme.getName() + TL.CMD_DISABLE_LOG_F_CHATSPY.toString());
         }
     }
 

@@ -1,9 +1,9 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashMap;
@@ -26,7 +26,6 @@ public class CmdRules extends FCommand {
         senderMustBeModerator = false;
         senderMustBeColeader = true;
         senderMustBeAdmin = false;
-
     }
 
     @Override

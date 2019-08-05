@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 
@@ -22,8 +23,7 @@ public class CmdStatus extends FCommand {
         senderMustBeAdmin = false;
 
     }
-
-   /* @Override
+    @Override
     public void perform() {
         ArrayList<String> ret = new ArrayList<>();
         for (FPlayer fp : myFaction.getFPlayers()) {
@@ -34,10 +34,8 @@ public class CmdStatus extends FCommand {
         }
         fme.sendMessage(ret);
     }
-   */
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_STATUS_DESCRIPTION;
     }
-
 }

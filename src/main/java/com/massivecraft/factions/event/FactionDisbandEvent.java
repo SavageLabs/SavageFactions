@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 
 /**
- * Event called when a faction is disbanded.
+ * Event called when a faction is disbanded
  */
 public class FactionDisbandEvent extends FactionEvent implements Cancellable {
 

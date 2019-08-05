@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,11 +18,11 @@ import java.util.List;
 
 
 public enum Relation implements Permissable {
-    MEMBER(4, TL.RELATION_MEMBER_SINGULAR.toString()),
-    ALLY(3, TL.RELATION_ALLY_SINGULAR.toString()),
-    TRUCE(2, TL.RELATION_TRUCE_SINGULAR.toString()),
-    NEUTRAL(1, TL.RELATION_NEUTRAL_SINGULAR.toString()),
-    ENEMY(0, TL.RELATION_ENEMY_SINGULAR.toString());
+    MEMBER(4, TL.M_SINGULAR.toString()),
+    ALLY(3, TL.A_SINGULAR.toString()),
+    TRUCE(2, TL.T_SINGULAR.toString()),
+    NEUTRAL(1, TL.N_SINGULAR.toString()),
+    ENEMY(0, TL.E_SINGULAR.toString());
 
     public final int value;
     public final String nicename;

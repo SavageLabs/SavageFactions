@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdPaypalSet extends FCommand {
@@ -39,4 +40,3 @@ public class CmdPaypalSet extends FCommand {
         return TL.COMMAND_PAYPALSET_DESCRIPTION;
     }
 }
-

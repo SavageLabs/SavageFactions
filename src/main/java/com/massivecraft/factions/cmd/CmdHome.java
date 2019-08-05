@@ -6,6 +6,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.WarmUpUtil;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.SmokeUtil;
@@ -41,36 +42,36 @@ public class CmdHome extends FCommand {
     public void perform() {
         // TODO: Hide this command on help also.
         if (!Conf.homesEnabled) {
-            fme.msg(TL.COMMAND_HOME_DISABLED);
+            fme.msg(TL.CMD_FHOME_DISABLED);
             return;
         }
 
         if (!Conf.homesTeleportCommandEnabled) {
-            fme.msg(TL.COMMAND_HOME_TELEPORTDISABLED);
+            fme.msg(TL.CMD_TELEPORT_DISABLED);
             return;
         }
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.HOME);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "teleport home");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION, "teleport home");
                 return;
             }
         }
 
 
         if (!myFaction.hasHome()) {
-            fme.msg(TL.COMMAND_HOME_NOHOME.toString() + (fme.getRole().value < Role.MODERATOR.value ? TL.GENERIC_ASKYOURLEADER.toString() : TL.GENERIC_YOUSHOULD.toString()));
+            fme.msg(TL.CMD_NO_HOME_F_HOME.toString() + (fme.getRole().value < Role.MODERATOR.value ? TL.GENERIC_ASK_LEADER.toString() : TL.GENERIC_YOU_SHOULD.toString()));
             fme.sendMessage(p.cmdBase.cmdSethome.getUseageTemplate());
             return;
         }
 
         if (!Conf.homesTeleportAllowedFromEnemyTerritory && fme.isInEnemyTerritory()) {
-            fme.msg(TL.COMMAND_HOME_INENEMY);
+            fme.msg(TL.CMD_ENEMY_NEAR_F_HOME);
             return;
         }
 
         if (!Conf.homesTeleportAllowedFromDifferentWorld && me.getWorld().getUID() != myFaction.getHome().getWorld().getUID()) {
-            fme.msg(TL.COMMAND_HOME_WRONGWORLD);
+            fme.msg(TL.CMD_WRONG_WORLD);
             return;
         }
 
@@ -107,7 +108,7 @@ public class CmdHome extends FCommand {
                     continue;
                 }
 
-                fme.msg(TL.COMMAND_HOME_ENEMYNEAR, String.valueOf(Conf.homesTeleportAllowedEnemyDistance));
+                fme.msg(TL.CMD_ENEMY_NEAR_F_HOME, String.valueOf(Conf.homesTeleportAllowedEnemyDistance));
                 return;
             }
         }
@@ -122,7 +123,7 @@ public class CmdHome extends FCommand {
             return;
         }
 
-        this.doWarmUp(WarmUpUtil.Warmup.HOME, TL.WARMUPS_NOTIFY_TELEPORT, "Home", new Runnable() {
+        this.doWarmUp(WarmUpUtil.Warmup.HOME, TL.WARMUP_TELEPORT, "Home", new Runnable() {
             @Override
             public void run() {
                 // Create a smoke effect
@@ -144,5 +145,4 @@ public class CmdHome extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_HOME_DESCRIPTION;
     }
-
 }

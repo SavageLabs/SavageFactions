@@ -2,13 +2,13 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdLowPower extends FCommand {
 
     public CmdLowPower() {
         super();
         this.aliases.add("lowpower");
-
 
         this.disableOnLock = false;
 
@@ -19,7 +19,6 @@ public class CmdLowPower extends FCommand {
         senderMustBeColeader = true;
         senderMustBeAdmin = false;
     }
-
 
     @Override
     public void perform() {
@@ -37,6 +36,4 @@ public class CmdLowPower extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_LOWPOWER_DESCRIPTION;
     }
-
-
 }

@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TextUtil;
 
 public class CmdTitle extends FCommand {
@@ -30,7 +31,6 @@ public class CmdTitle extends FCommand {
             return;
         }
 
-
         args.remove(0);
         String title = TextUtil.implode(args, " ");
 
@@ -44,7 +44,6 @@ public class CmdTitle extends FCommand {
         }
 
         you.setTitle(sender, title);
-
         // Inform
         myFaction.msg(TL.COMMAND_TITLE_CHANGED, fme.describeTo(myFaction, true), you.describeTo(myFaction, true));
     }
@@ -53,5 +52,4 @@ public class CmdTitle extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_TITLE_DESCRIPTION;
     }
-
 }

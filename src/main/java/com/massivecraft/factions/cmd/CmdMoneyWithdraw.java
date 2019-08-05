@@ -5,6 +5,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.ChatColor;
@@ -20,7 +21,6 @@ public class CmdMoneyWithdraw extends FCommand {
         this.optionalArgs.put("faction", "yours");
 
         this.permission = Permission.MONEY_WITHDRAW.node;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;

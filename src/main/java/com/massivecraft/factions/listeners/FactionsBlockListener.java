@@ -9,6 +9,7 @@ import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Bukkit;
@@ -64,17 +65,17 @@ public class FactionsBlockListener implements Listener {
         if (otherFaction.isWilderness()) {
             if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
             if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
-            if (!justCheck) me.msg(TL.ACTION_DENIED_WILDERNESS, action);
+            if (!justCheck) me.msg(TL.CMD_PLAYER_DENY_USE_WILDERNESS.toString(), action);
             return false;
         } else if (otherFaction.isSafeZone()) {
             if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
             if (!Conf.safeZoneDenyBuild || Permission.MANAGE_SAFE_ZONE.has(player)) return true;
-            if (!justCheck) me.msg(TL.ACTION_DENIED_SAFEZONE, action);
+            if (!justCheck) me.msg(TL.CMD_PLAYER_DENY_USE_SAFEZONE.toString(), action);
             return false;
         } else if (otherFaction.isWarZone()) {
             if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
             if (!Conf.warZoneDenyBuild || Permission.MANAGE_WAR_ZONE.has(player)) return true;
-            if (!justCheck) me.msg(TL.ACTION_DENIED_WARZONE, action);
+            if (!justCheck) me.msg(TL.CMD_PLAYER_DENY_USE_WARZONE.toString(), action);
             return false;
         } else if (!otherFaction.getId().equals(myFaction.getId())) { // If the faction target is not my own
             if (config.getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
@@ -95,21 +96,21 @@ public class FactionsBlockListener implements Listener {
         if ((landOwned && myFaction.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(myFaction.getId())))
             return true;
         else if (landOwned && !myFaction.getOwnerListString(loc).contains(player.getName())) {
-            me.msg(TL.ACTIONS_OWNEDTERRITORYDENY.toString().replace("{owners}", myFaction.getOwnerListString(loc)));
+            me.msg(TL.CMD_PLAYER_DENY_USE_OWNED.toString().replace("{owners}", myFaction.getOwnerListString(loc)));
             if (shouldHurt) {
                 player.damage(Conf.actionDeniedPainAmount);
-                me.msg(TL.ACTIONS_NOPERMISSIONPAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
+                me.msg(TL.COMMANDS_NO_FACTION_PERMS_PAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
             }
             return false;
         } else if (!landOwned && access == Access.DENY) { // If land is not owned but access is set to DENY anyway
             if (shouldHurt) {
                 player.damage(Conf.actionDeniedPainAmount);
-                me.msg(TL.ACTIONS_NOPERMISSIONPAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
+                me.msg(TL.COMMANDS_NO_FACTION_PERMS_PAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
             }
-            me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
+            me.msg(TL.COMMANDS_NO_FACTION_PERMS.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
             return false;
         } else if (access == Access.ALLOW) return true;
-        me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
+        me.msg(TL.COMMANDS_NO_FACTION_PERMS.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
         return false;
     }
 
@@ -117,10 +118,10 @@ public class FactionsBlockListener implements Listener {
         if (Conf.ownedAreasEnabled && target.doesLocationHaveOwnersSet(location) && !target.playerHasOwnershipRights(me, location)) {
             // If pain should be applied
             if (pain && Conf.ownedAreaPainBuild)
-                me.msg(TL.ACTIONS_OWNEDTERRITORYPAINDENY.toString().replace("{action}", action.toString()).replace("{faction}", target.getOwnerListString(location)));
+                me.msg(TL.COMMANDS_NO_FACTION_PERMS_PAIN.toString().replace("{action}", action.toString()).replace("{faction}", target.getOwnerListString(location)));
             if (Conf.ownedAreaDenyBuild && pain) return false;
             else if (Conf.ownedAreaDenyBuild) {
-                me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", target.getTag(me.getFaction())).replace("{action}", action.toString()));
+                me.msg(TL.COMMANDS_NO_FACTION_PERMS.toString().replace("{faction}", target.getTag(me.getFaction())).replace("{action}", action.toString()));
                 return false;
             }
         }
@@ -141,7 +142,7 @@ public class FactionsBlockListener implements Listener {
         if (event.getBlock().getType().equals(XMaterial.SPAWNER.parseMaterial())) {
             if (!SavageFactions.plugin.spawnersPlacing) {
                 event.setCancelled(true);
-                event.getPlayer().sendMessage(Methods.pl(TL.COMMAND_SPAWNERTOGGLE_PLACE_DENIED.toString()));
+                event.getPlayer().sendMessage(Methods.pl(TL.CMD_SPAWNER_PLACE_DENY.toString()));
             }
         }
     }
@@ -198,13 +199,13 @@ public class FactionsBlockListener implements Listener {
             if (e.getItemInHand().isSimilar(vault)) {
                 FPlayer fme = FPlayers.getInstance().getByPlayer(e.getPlayer());
                 if (fme.getFaction().getVault() != null) {
-                    fme.msg(TL.COMMAND_GETVAULT_ALREADYSET);
+                    fme.msg(TL.CMD_VAULT_ALREADY_SET.toString());
                     e.setCancelled(true);
                     return;
                 }
                 FLocation flocation = new FLocation(e.getBlockPlaced().getLocation());
                 if (Board.getInstance().getFactionAt(flocation) != fme.getFaction()) {
-                    fme.msg(TL.COMMAND_GETVAULT_INVALIDLOCATION);
+                    fme.msg(TL.CMD_VAULT_INVALID_LOCATION.toString());
                     e.setCancelled(true);
                     return;
                 }
@@ -222,14 +223,14 @@ public class FactionsBlockListener implements Listener {
 
                             if (blockMaterial == Material.CHEST || (config.getBoolean("fvault.No-Hoppers-near-vault") && blockMaterial == Material.HOPPER)) {
                                 e.setCancelled(true);
-                                fme.msg(TL.COMMAND_GETVAULT_CHESTNEAR);
+                                fme.msg(TL.CMD_VAULT_CHEST_NEAR.toString());
                                 return;
                             }
                         }
                     }
                 }
 
-                fme.msg(TL.COMMAND_GETVAULT_SUCCESS);
+                fme.msg(TL.CMD_VAULT_SUCCESS.toString());
                 fme.getFaction().setVault(e.getBlockPlaced().getLocation());
 
             }
@@ -258,7 +259,7 @@ public class FactionsBlockListener implements Listener {
                     if (blockLoc.getBlock().getType() == Material.CHEST) {
                         if (factionAt.getVault().equals(blockLoc)) {
                             e.setCancelled(true);
-                            fme.msg(TL.COMMAND_VAULT_NO_HOPPER);
+                            fme.msg(TL.CMD_NO_HOPPER_NEAR_VAULT.toString());
                             return;
                         }
                     }
@@ -314,7 +315,7 @@ public class FactionsBlockListener implements Listener {
             if (warBanner.isSimilar(bannerInHand)) {
 
                 if (fme.getFaction().isWilderness()) {
-                    fme.msg(TL.WARBANNER_NOFACTION);
+                    fme.msg(TL.CMD_WARBANNER_NO_FACTION.toString());
                     e.setCancelled(true);
                     return;
                 }
@@ -325,7 +326,7 @@ public class FactionsBlockListener implements Listener {
                 if ((Board.getInstance().getFactionAt(fplacedLoc).isWarZone() && config.getBoolean("fbanners.Placeable.Warzone"))
                         || (fme.getFaction().getRelationTo(Board.getInstance().getFactionAt(fplacedLoc)) == Relation.ENEMY) && config.getBoolean("fbanners.Placeable.Enemy")) {
                     if (bannerCooldownMap.containsKey(fme.getTag())) {
-                        fme.msg(TL.WARBANNER_COOLDOWN);
+                        fme.msg(TL.CMD_WARBANNER_COOLDOWN.toString());
                         e.setCancelled(true);
                         return;
                     }
@@ -388,7 +389,7 @@ public class FactionsBlockListener implements Listener {
                         }
                     }, Long.parseLong(bannerTime + ""));
                 } else {
-                    fme.msg(TL.WARBANNER_INVALIDLOC);
+                    fme.msg(TL.CMD_WARBANNER_INVALID_LOC.toString());
                     e.setCancelled(true);
                 }
             }
@@ -439,7 +440,7 @@ public class FactionsBlockListener implements Listener {
             if (!fme.isAdminBypassing()) {
                 Access access = fme.getFaction().getAccess(fme, PermissableAction.SPAWNER);
                 if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                    fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "mine spawners");
+                    fme.msg(TL.CMD_FPERMS_DENY_ACTION.toString(), "mine spawners");
                     return;
                 }
             }
@@ -453,7 +454,7 @@ public class FactionsBlockListener implements Listener {
             if (!playerCanBuildDestroyBlock(player, event.getBlock().getLocation(), PermissableAction.DESTROY.name(), true)) {
                 FPlayer me = FPlayers.getInstance().getByPlayer(player);
                 Faction otherFaction = Board.getInstance().getFactionAt(new FLocation(event.getBlock().getLocation()));
-                me.msg(TL.ACTION_DENIED_OTHER, otherFaction.getTag(), "trample crops");
+                me.msg(TL.COMMANDS_NO_FACTION_PERMS.toString(), otherFaction.getTag(), "trample crops");
                 event.setCancelled(true);
             }
         }

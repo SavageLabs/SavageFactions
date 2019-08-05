@@ -5,6 +5,7 @@ import com.massivecraft.factions.event.FactionRenameEvent;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.MiscUtil;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -77,7 +78,6 @@ public class CmdTag extends FCommand {
                 fplayer.msg(TL.COMMAND_TAG_CHANGED, fme.getColorTo(faction) + oldtag, myFaction.getTag(faction));
             }
         }
-
         FTeamWrapper.updatePrefixes(myFaction);
     }
 
@@ -85,5 +85,4 @@ public class CmdTag extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_TAG_DESCRIPTION;
     }
-
 }

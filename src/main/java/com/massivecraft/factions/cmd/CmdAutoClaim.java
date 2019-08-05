@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdAutoClaim extends FCommand {
 
@@ -27,15 +28,15 @@ public class CmdAutoClaim extends FCommand {
         Faction forFaction = this.argAsFaction(0, myFaction);
         if (forFaction == null || forFaction == fme.getAutoClaimFor()) {
             fme.setAutoClaimFor(null);
-            msg(TL.COMMAND_AUTOCLAIM_DISABLED);
+            msg(TL.AUTOCLAIM_DISABLED);
             return;
         }
 
         if (!fme.canClaimForFaction(forFaction)) {
             if (myFaction == forFaction) {
-                msg(TL.COMMAND_AUTOCLAIM_REQUIREDRANK, Role.MODERATOR.getTranslation());
+                msg(TL.AUTOCLAIM_REQUIRED_RANK, Role.MODERATOR.getTranslation());
             } else {
-                msg(TL.COMMAND_AUTOCLAIM_OTHERFACTION, forFaction.describeTo(fme));
+                msg(TL.AUTOCLAIM_DENY_OTHER_FACTION, forFaction.describeTo(fme));
             }
 
             return;
@@ -43,13 +44,12 @@ public class CmdAutoClaim extends FCommand {
 
         fme.setAutoClaimFor(forFaction);
 
-        msg(TL.COMMAND_AUTOCLAIM_ENABLED, forFaction.describeTo(fme));
+        msg(TL.AUTOCLAIM_ENABLE, forFaction.describeTo(fme));
         fme.attemptClaim(forFaction, me.getLocation(), true);
     }
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_AUTOCLAIM_DESCRIPTION;
+        return TL.CMD_ADMIN_DESCRIPTION;
     }
-
 }

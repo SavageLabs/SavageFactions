@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdLock extends FCommand {
 
@@ -21,7 +22,6 @@ public class CmdLock extends FCommand {
         this.permission = Permission.LOCK.node;
         this.disableOnLock = false;
 
-
         senderMustBePlayer = false;
         senderMustBeMember = false;
         senderMustBeModerator = false;
@@ -32,12 +32,11 @@ public class CmdLock extends FCommand {
     @Override
     public void perform() {
         p.setLocked(this.argAsBool(0, !p.getLocked()));
-        msg(p.getLocked() ? TL.COMMAND_LOCK_LOCKED : TL.COMMAND_LOCK_UNLOCKED);
+        msg(p.getLocked() ? TL.CMD_FAC_LOCKED : TL.CMD_FAC_UNLOCKED);
     }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_LOCK_DESCRIPTION;
     }
-
 }

@@ -1,5 +1,6 @@
 package com.massivecraft.factions.zcore.util;
 
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.MPlugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
@@ -20,7 +21,7 @@ public class PermUtil {
     }
 
     public String getForbiddenMessage(String perm) {
-        return p.txt.parse(TL.GENERIC_NOPERMISSION.toString(), getPermissionDescription(perm));
+        return p.txt.parse(TL.GENERIC_NO_CMD_PERMS.toString(), getPermissionDescription(perm));
     }
 
     /**
@@ -67,8 +68,6 @@ public class PermUtil {
                 break;
             }
         }
-
         return ret;
     }
-
 }

@@ -6,6 +6,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.struct.BanInfo;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,17 +38,17 @@ public class CmdBanlist extends FCommand {
         }
 
         if (target == Factions.getInstance().getWilderness()) {
-            sender.sendMessage(TL.COMMAND_BANLIST_NOFACTION.toString());
+            sender.sendMessage(TL.CMD_BANLIST_NOFACTION.toString());
             return;
         }
 
         if (target == null) {
-            sender.sendMessage(TL.COMMAND_BANLIST_INVALID.format(argAsString(0)));
+            sender.sendMessage(TL.CMD_BANLIST_INVALID.format(argAsString(0)));
             return;
         }
 
         List<String> lines = new ArrayList<>();
-        lines.add(TL.COMMAND_BANLIST_HEADER.format(target.getBannedPlayers().size(), target.getTag(myFaction)));
+        lines.add(TL.CMD_BAN_HEADER.format(target.getBannedPlayers().size(), target.getTag(myFaction)));
         int i = 1;
 
         for (BanInfo info : target.getBannedPlayers()) {
@@ -55,7 +56,7 @@ public class CmdBanlist extends FCommand {
             FPlayer banner = FPlayers.getInstance().getById(info.getBanner());
             String timestamp = TL.sdf.format(info.getTime());
 
-            lines.add(TL.COMMAND_BANLIST_ENTRY.format(i, banned.getName(), banner.getName(), timestamp));
+            lines.add(TL.CMD_BAN_ENTRY.format(i, banned.getName(), banner.getName(), timestamp));
             i++;
         }
 

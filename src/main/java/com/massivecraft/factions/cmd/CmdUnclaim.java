@@ -6,6 +6,7 @@ import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.SpiralTask;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Bukkit;
@@ -35,13 +36,13 @@ public class CmdUnclaim extends FCommand {
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.TERRITORY);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage faction territory");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION.toString(), "manage faction territory");
                 return;
             }
         }
 
         if (radius < 1) {
-            msg(TL.COMMAND_CLAIM_INVALIDRADIUS);
+            msg(TL.CMD_INVALID_CLAIM_RADIUS);
             return;
         }
 
@@ -51,7 +52,7 @@ public class CmdUnclaim extends FCommand {
         } else {
             // radius claim
             if (!Permission.CLAIM_RADIUS.has(sender, false)) {
-                msg(TL.COMMAND_CLAIM_DENIED);
+                msg(TL.CMD_CLAIM_DENY);
                 return;
             }
 
@@ -68,7 +69,6 @@ public class CmdUnclaim extends FCommand {
                         this.stop();
                         return false;
                     }
-
                     return true;
                 }
             };
@@ -80,27 +80,27 @@ public class CmdUnclaim extends FCommand {
         if (targetFaction.isSafeZone()) {
             if (Permission.MANAGE_SAFE_ZONE.has(sender)) {
                 Board.getInstance().removeAt(target);
-                msg(TL.COMMAND_UNCLAIM_SAFEZONE_SUCCESS);
+                msg(TL.CMD_SAFEZONE_UNCLAIM_SUCCESS);
 
                 if (Conf.logLandUnclaims) {
-                    SavageFactions.plugin.log(TL.COMMAND_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
+                    SavageFactions.plugin.log(TL.CMD_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
                 }
                 return true;
             } else {
-                msg(TL.COMMAND_UNCLAIM_SAFEZONE_NOPERM);
+                msg(TL.CMD_SAFEZONE_UNCLAIM_NO_PERMS);
                 return false;
             }
         } else if (targetFaction.isWarZone()) {
             if (Permission.MANAGE_WAR_ZONE.has(sender)) {
                 Board.getInstance().removeAt(target);
-                msg(TL.COMMAND_UNCLAIM_WARZONE_SUCCESS);
+                msg(TL.CMD1_WARZONE_UNCLAIM_SUCCESS);
 
                 if (Conf.logLandUnclaims) {
-                    SavageFactions.plugin.log(TL.COMMAND_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
+                    SavageFactions.plugin.log(TL.CMD_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
                 }
                 return true;
             } else {
-                msg(TL.COMMAND_UNCLAIM_WARZONE_NOPERM);
+                msg(TL.CMD1_WARZONE_UNCLAIM_NO_PERM);
                 return false;
             }
         }
@@ -114,21 +114,18 @@ public class CmdUnclaim extends FCommand {
 
             Board.getInstance().removeAt(target);
 
-            targetFaction.msg(TL.COMMAND_UNCLAIM_UNCLAIMED, fme.describeTo(targetFaction, true));
-            msg(TL.COMMAND_UNCLAIM_UNCLAIMS);
+            targetFaction.msg(TL.CMD_F_UNCLAIMED.toString(), fme.describeTo(targetFaction, true));
+            msg(TL.CMD_F_UNCLAIMS);
 
             if (Conf.logLandUnclaims) {
-                SavageFactions.plugin.log(TL.COMMAND_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
+                SavageFactions.plugin.log(TL.CMD_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
             }
-
             return true;
         }
-
 
         if (targetFaction.getAccess(fme, PermissableAction.TERRITORY) == Access.DENY) {
             return false;
         }
-
 
         if (!assertHasFaction()) {
             return false;
@@ -138,12 +135,10 @@ public class CmdUnclaim extends FCommand {
             return false;
         }
 
-
         if (myFaction != targetFaction) {
-            msg(TL.COMMAND_UNCLAIM_WRONGFACTION);
+            msg(TL.CMD_UNCLAIM_WRONG_FACTION);
             return false;
         }
-
 
         LandUnclaimEvent unclaimEvent = new LandUnclaimEvent(target, targetFaction, fme);
         Bukkit.getServer().getPluginManager().callEvent(unclaimEvent);
@@ -166,12 +161,11 @@ public class CmdUnclaim extends FCommand {
         }
 
         Board.getInstance().removeAt(target);
-        myFaction.msg(TL.COMMAND_UNCLAIM_FACTIONUNCLAIMED, fme.describeTo(myFaction, true));
+        myFaction.msg(TL.CMD_UNCLAIM_FACTIONUNCLAIMED.toString(), fme.describeTo(myFaction, true));
 
         if (Conf.logLandUnclaims) {
-            SavageFactions.plugin.log(TL.COMMAND_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
+            SavageFactions.plugin.log(TL.CMD_UNCLAIM_LOG.format(fme.getName(), target.getCoordString(), targetFaction.getTag()));
         }
-
         return true;
     }
 
@@ -179,5 +173,4 @@ public class CmdUnclaim extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_UNCLAIM_DESCRIPTION;
     }
-
 }

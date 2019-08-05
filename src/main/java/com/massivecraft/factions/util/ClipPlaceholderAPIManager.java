@@ -4,6 +4,7 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Relational;
 import org.apache.commons.lang.time.DurationFormatUtils;
@@ -91,8 +92,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "player_name":
                 return fPlayer.getName();
             case "player_lastseen":
-                String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fPlayer.getLastLoginTime(), true, true) + TL.COMMAND_STATUS_AGOSUFFIX;
-                return fPlayer.isOnline() ? ChatColor.GREEN + TL.COMMAND_STATUS_ONLINE.toString() : (System.currentTimeMillis() - fPlayer.getLastLoginTime() < 432000000 ? ChatColor.YELLOW + humanized : ChatColor.RED + humanized);
+                String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fPlayer.getLastLoginTime(), true, true) + TL.CMD_AGO_SUFFIX;
+                return fPlayer.isOnline() ? ChatColor.GREEN + TL.CMD_ONLINE_FACTIONLESS.toString() : (System.currentTimeMillis() - fPlayer.getLastLoginTime() < 432000000 ? ChatColor.YELLOW + humanized : ChatColor.RED + humanized);
             case "player_group":
                 return SavageFactions.plugin.getPrimaryGroup(Bukkit.getOfflinePlayer(UUID.fromString(fPlayer.getId())));
             case "player_balance":
@@ -123,12 +124,12 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_founded":
                 return TL.sdf.format(faction.getFoundedDate());
             case "faction_joining":
-                return (faction.getOpen() ? TL.COMMAND_SHOW_UNINVITED.toString() : TL.COMMAND_SHOW_INVITATION.toString());
+                return (faction.getOpen() ? TL.CMD_UNINVITED.toString() : TL.CMD_INVITATION.toString());
             case "faction_peaceful":
-                return faction.isPeaceful() ? Conf.colorNeutral + TL.COMMAND_SHOW_PEACEFUL.toString() : "";
+                return faction.isPeaceful() ? Conf.colorNeutral + TL.CMD_PEACEFULF_SHOW.toString() : "";
             case "faction_powerboost":
                 double powerBoost = faction.getPowerBoost();
-                return (powerBoost == 0.0) ? "" : (powerBoost > 0.0 ? TL.COMMAND_SHOW_BONUS.toString() : TL.COMMAND_SHOW_PENALTY.toString() + powerBoost + ")");
+                return (powerBoost == 0.0) ? "" : (powerBoost > 0.0 ? TL.CMD_BONUS_F_SHOW.toString() : TL.CMD_PENALTY_F_SHOW.toString() + powerBoost + ")");
             case "faction_leader":
                 FPlayer fAdmin = faction.getFPlayerAdmin();
                 return fAdmin == null ? "Server" : fAdmin.getName().substring(0, fAdmin.getName().length() > 14 ? 13 : fAdmin.getName().length());
@@ -136,7 +137,7 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
                 return String.valueOf(faction.getWarps().size());
             case "faction_raidable":
                 boolean raid = config.getBoolean("hcf.raidable", false) && faction.getLandRounded() >= faction.getPowerRounded();
-                return raid ? TL.RAIDABLE_TRUE.toString() : TL.RAIDABLE_FALSE.toString();
+                return raid ? TL.COMMANDS_RAIDABLE_TRUE.toString() : TL.COMMANDS_RAIDABLE_FALSE.toString();
             case "faction_home_world":
                 return faction.hasHome() ? faction.getHome().getWorld().getName() : "";
             case "faction_home_x":
@@ -175,7 +176,6 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
                 Faction factionAtLocation = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
                 return factionAtLocation != null ? factionAtLocation.getTag() : Factions.getInstance().getWilderness().getTag();
         }
-
         return null;
     }
 }

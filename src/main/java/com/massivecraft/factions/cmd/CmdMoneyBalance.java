@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdMoneyBalance extends FCommand {
 
@@ -47,5 +48,4 @@ public class CmdMoneyBalance extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_MONEYBALANCE_DESCRIPTION;
     }
-
 }

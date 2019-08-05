@@ -6,6 +6,7 @@ import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -152,11 +153,11 @@ public class PermissableActionGUI implements InventoryHolder, FactionGUI {
 
 		actionGUI.setItem(slot, action.buildItem(fme, permissable));
 		if (success)
-			fme.msg(TL.COMMAND_PERM_SET, action.name(), access.name(), permissable.name());
+			fme.msg(TL.CMD_FPERM_SET.toString(), action.name(), access.name(), permissable.name());
 		else
-			fme.msg(TL.COMMAND_PERM_LOCKED);
+			fme.msg(TL.CMD_FPERM_LOCKED.toString());
 
-		SavageFactions.plugin.log(String.format(TL.COMMAND_PERM_SET.toString(), action.name(), access.name(), permissable.name()) + " for faction " + fme.getTag());
+		SavageFactions.plugin.log(String.format(TL.CMD_FPERM_SET.toString(), action.name(), access.name(), permissable.name()) + " for faction " + fme.getTag());
 	}
 
 	private void buildItems() {

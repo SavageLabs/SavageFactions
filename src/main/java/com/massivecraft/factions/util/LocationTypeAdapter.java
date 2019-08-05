@@ -26,7 +26,6 @@ public class LocationTypeAdapter implements JsonSerializer<Location>, JsonDeseri
         }
     }
 
-
     @Override
     public Location deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject object = jsonElement.getAsJsonObject();
@@ -42,9 +41,5 @@ public class LocationTypeAdapter implements JsonSerializer<Location>, JsonDeseri
                     " deserializing a Location.");
             return null;
         }
-
-
     }
-
-
 }

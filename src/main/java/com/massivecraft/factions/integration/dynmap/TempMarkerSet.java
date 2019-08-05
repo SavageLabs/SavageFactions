@@ -51,5 +51,4 @@ public class TempMarkerSet {
             markerset.setHideByDefault(this.hideByDefault);
         }
     }
-
 }

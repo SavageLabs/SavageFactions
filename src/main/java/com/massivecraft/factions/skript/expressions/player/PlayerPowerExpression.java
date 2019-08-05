@@ -87,9 +87,5 @@ public class PlayerPowerExpression extends SimpleExpression<Number> {
                 break;
             default:
         }
-
-
     }
-
-
 }

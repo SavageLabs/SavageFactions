@@ -4,6 +4,7 @@ import com.massivecraft.factions.Board;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 
 public class CmdMap extends FCommand {
@@ -12,12 +13,10 @@ public class CmdMap extends FCommand {
         super();
         this.aliases.add("map");
 
-        //this.requiredArgs.add("");
         this.optionalArgs.put("on/off", "once");
 
         this.permission = Permission.MAP.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;
@@ -31,21 +30,19 @@ public class CmdMap extends FCommand {
         if (this.argIsSet(0)) {
             if (this.argAsBool(0, !fme.isMapAutoUpdating())) {
                 // Turn on
-
                 // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
                 if (!payForCommand(Conf.econCostMap, "to show the map", "for showing the map")) {
                     return;
                 }
 
                 fme.setMapAutoUpdating(true);
-                msg(TL.COMMAND_MAP_UPDATE_ENABLED);
-
+                msg(TL.CMD_UPDATE_ENABLED);
                 // And show the map once
                 showMap();
             } else {
                 // Turn off
                 fme.setMapAutoUpdating(false);
-                msg(TL.COMMAND_MAP_UPDATE_DISABLED);
+                msg(TL.CMD_UPDATE_DISABLED);
 
             }
         } else {
@@ -66,5 +63,4 @@ public class CmdMap extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_MAP_DESCRIPTION;
     }
-
 }

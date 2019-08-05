@@ -5,6 +5,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -25,7 +26,6 @@ public class CmdSafeunclaimall extends FCommand {
         senderMustBeModerator = false;
         senderMustBeColeader = false;
         senderMustBeAdmin = false;
-
 
     }
 
@@ -57,5 +57,4 @@ public class CmdSafeunclaimall extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_SAFEUNCLAIMALL_DESCRIPTION;
     }
-
 }

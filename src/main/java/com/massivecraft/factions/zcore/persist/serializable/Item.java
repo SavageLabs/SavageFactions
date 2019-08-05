@@ -24,6 +24,4 @@ public class Item {
     public ItemStack buildItemStack(boolean isSelected) {
         return new ItemBuilder(material.parseItem()).name(name).lore(lore).glowing(isSelected).amount(amount).build();
     }
-
-
 }

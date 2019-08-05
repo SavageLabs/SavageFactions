@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdBypass extends FCommand {
 
@@ -28,11 +29,11 @@ public class CmdBypass extends FCommand {
 
         // TODO: Move this to a transient field in the model??
         if (fme.isAdminBypassing()) {
-            fme.msg(TL.COMMAND_BYPASS_ENABLE.toString());
-            SavageFactions.plugin.log(fme.getName() + TL.COMMAND_BYPASS_ENABLELOG.toString());
+            fme.msg(TL.CMD_BYPASS_ENABLE.toString());
+            SavageFactions.plugin.log(fme.getName() + TL.CMD_BYPASS_ENABLE_LOG.toString());
         } else {
-            fme.msg(TL.COMMAND_BYPASS_DISABLE.toString());
-            SavageFactions.plugin.log(fme.getName() + TL.COMMAND_BYPASS_DISABLELOG.toString());
+            fme.msg(TL.CMD_BYPASS_DISABLE.toString());
+            SavageFactions.plugin.log(fme.getName() + TL.CMD_BYPASS_DISABLE_LOG.toString());
         }
     }
 

@@ -5,6 +5,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
@@ -44,11 +45,10 @@ public class CmdWarunclaimall extends FCommand {
             Board.getInstance().unclaimAllInWorld(id, world);
         }
 
-        fme.msg(TL.COMMAND_WARUNCLAIMALL_SUCCESS);
-
+        fme.msg(TL.CMD1_UNCLAIMALL_WARZONE.toString());
 
         if (Conf.logLandUnclaims) {
-            SavageFactions.plugin.log(TL.COMMAND_WARUNCLAIMALL_LOG.format(fme.getName()));
+            SavageFactions.plugin.log(TL.CMD1_UNCLAIMALL_WARZONE_LOG.format(fme.getName()));
         }
     }
 
@@ -56,5 +56,4 @@ public class CmdWarunclaimall extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_WARUNCLAIMALL_DESCRIPTION;
     }
-
 }

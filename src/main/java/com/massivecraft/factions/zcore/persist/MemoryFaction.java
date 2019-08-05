@@ -17,6 +17,7 @@ import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.factions.util.fm.FileManager;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -84,7 +85,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		this.id = id;
 		this.open = Conf.newFactionsDefaultOpen;
 		this.tag = "???";
-		this.description = TL.GENERIC_DEFAULTDESCRIPTION.toString();
+		this.description = TL.GENERIC_DEFAULT_DESCRIPTION.toString();
 		this.lastPlayerLoggedOffTime = 0;
 		this.peaceful = false;
 		this.peacefulExplosionsEnabled = false;
@@ -136,11 +137,11 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		if (!announcements.containsKey(fPlayer.getId())) {
 			return;
 		}
-		fPlayer.msg(TL.FACTIONS_ANNOUNCEMENT_TOP);
+		fPlayer.msg(TL.COMMANDS_FACTION_ANNOUNCEMENT_TOP.toString());
 		for (String s : announcements.get(fPlayer.getPlayer().getUniqueId().toString())) {
 			fPlayer.sendMessage(s);
 		}
-		fPlayer.msg(TL.FACTIONS_ANNOUNCEMENT_BOTTOM);
+		fPlayer.msg(TL.COMMANDS_FACTION_ANNOUNCEMENT_BOTTOM.toString());
 		announcements.remove(fPlayer.getId());
 	}
 
@@ -300,7 +301,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 				if (amount > 0.0) {
 					String amountString = Econ.moneyString(amount);
-					msg(TL.COMMAND_DISBAND_HOLDINGS, amountString);
+					msg(TL.CMD_BANK_TRANSFER, amountString);
 					//TODO: Format this correctly and translate
 					SavageFactions.plugin.log(fdisbander.getName() + " has been given bank holdings of " + amountString + " from disbanding " + this.getTag() + ".");
 				}
@@ -594,17 +595,17 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public void setStrikes(int strikes, boolean notify) {
 		int difference = this.strikes - strikes;
 		this.strikes = strikes;
-		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, difference, strikes, Conf.maxStrikes);
+		if (notify) this.msg(TL.CMD_STRIKES_STRUCK, difference, strikes, Conf.maxStrikes);
 	}
 
 	public void giveStrike(boolean notify) {
 		this.strikes++;
-		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
+		if (notify) this.msg(TL.CMD_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
 	}
 
 	public void takeStrike(boolean notify) {
 		this.strikes--;
-		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
+		if (notify) this.msg(TL.CMD_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
 	}
 
 

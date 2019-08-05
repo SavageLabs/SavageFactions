@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdBoom extends FCommand {
 
@@ -27,7 +28,7 @@ public class CmdBoom extends FCommand {
     @Override
     public void perform() {
         if (!myFaction.isPeaceful()) {
-            fme.msg(TL.COMMAND_BOOM_PEACEFULONLY);
+            fme.msg(TL.CMD_PEACEFUL_ONLY.toString());
             return;
         }
 
@@ -41,7 +42,7 @@ public class CmdBoom extends FCommand {
         String enabled = myFaction.noExplosionsInTerritory() ? TL.GENERIC_DISABLED.toString() : TL.GENERIC_ENABLED.toString();
 
         // Inform
-        myFaction.msg(TL.COMMAND_BOOM_ENABLED, fme.describeTo(myFaction), enabled);
+        myFaction.msg(TL.CMD_BOOM_ENABLED.toString(), fme.describeTo(myFaction), enabled);
     }
 
     @Override

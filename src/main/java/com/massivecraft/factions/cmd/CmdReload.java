@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdReload extends FCommand {
@@ -37,7 +38,7 @@ public class CmdReload extends FCommand {
 
         long timeReload = (System.currentTimeMillis() - timeInitStart);
 
-        msg(TL.COMMAND_RELOAD_TIME, timeReload);
+        msg(TL.GENERIC_CONFIG_RELOAD, timeReload);
     }
 
     @Override

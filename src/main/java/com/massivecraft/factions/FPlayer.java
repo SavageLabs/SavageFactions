@@ -383,6 +383,4 @@ public interface FPlayer extends EconomyParticipator {
     FlyParticle getSelectedParticle();
 
     void setSelectedParticle(FlyParticle selectedParticle);
-
-
 }

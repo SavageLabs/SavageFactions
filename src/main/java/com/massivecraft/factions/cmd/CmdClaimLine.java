@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 
@@ -24,7 +25,6 @@ public class CmdClaimLine extends FCommand {
         this.permission = Permission.CLAIM_LINE.node;
         this.disableOnLock = true;
 
-
         senderMustBePlayer = true;
         senderMustBeMember = false;
         senderMustBeModerator = false;
@@ -38,7 +38,7 @@ public class CmdClaimLine extends FCommand {
         Integer amount = this.argAsInt(0, 1); // Default to 1
 
         if (amount > Conf.lineClaimLimit) {
-            fme.msg(TL.COMMAND_CLAIMLINE_ABOVEMAX, Conf.lineClaimLimit);
+            fme.msg(TL.CMD_CLAIM_LIMIT.toString(), Conf.lineClaimLimit);
             return;
         }
 
@@ -56,7 +56,7 @@ public class CmdClaimLine extends FCommand {
         } else if (direction.equalsIgnoreCase("west")) {
             blockFace = BlockFace.WEST;
         } else {
-            fme.msg(TL.COMMAND_CLAIMLINE_NOTVALID, direction);
+            fme.msg(TL.CMD_INVALID_LINECLAIM_RADIUS.toString(), direction);
             return;
         }
 

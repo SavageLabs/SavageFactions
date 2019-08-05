@@ -7,6 +7,7 @@ import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.LazyLocation;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,7 +38,6 @@ public class CmdSetFWarp extends FCommand {
             fme.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
             return;
         }
-
         // This statement allows us to check if they've specifically denied it, or default to
         // the old setting of allowing moderators to set warps.
         if (!fme.isAdminBypassing()) {

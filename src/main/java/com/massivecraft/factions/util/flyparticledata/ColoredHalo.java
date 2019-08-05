@@ -1,7 +1,8 @@
-package com.massivecraft.factions.zcore.ffly.flyparticledata;
+package com.massivecraft.factions.util.flyparticledata;
 
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
+import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.persist.serializable.Item;
 import org.bukkit.Location;
 
@@ -26,8 +27,5 @@ public class ColoredHalo extends FlyParticleData {
             y = (int) (Math.sqrt(r2 - x * x) + 0.5);
             Particles.CLOUD.displayAtLocation(center.add(x, 0, y), 1, color);
         }
-
     }
-
-
 }

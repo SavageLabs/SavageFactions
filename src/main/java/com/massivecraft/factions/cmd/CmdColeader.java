@@ -5,6 +5,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 
@@ -33,14 +34,14 @@ public class CmdColeader extends FCommand {
     public void perform() {
         FPlayer you = this.argAsBestFPlayerMatch(0);
         if (you == null) {
-            FancyMessage msg = new FancyMessage(TL.COMMAND_COLEADER_CANDIDATES.toString()).color(ChatColor.GOLD);
+            FancyMessage msg = new FancyMessage(TL.CMD_CANDIDATES.toString()).color(ChatColor.GOLD);
             for (FPlayer player : myFaction.getFPlayersWhereRole(Role.NORMAL)) {
                 String s = player.getName();
-                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_MOD_CLICKTOPROMOTE.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " coleader " + s);
+                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.CMD_CLICK_TO_PROMOTE.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " coleader " + s);
             }
             for (FPlayer player : myFaction.getFPlayersWhereRole(Role.MODERATOR)) {
                 String s = player.getName();
-                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_MOD_CLICKTOPROMOTE.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " coleader " + s);
+                msg.then(s + " ").color(ChatColor.WHITE).tooltip(TL.CMD_CLICK_TO_PROMOTE.toString() + s).command("/" + Conf.baseCommandAliases.get(0) + " coleader " + s);
             }
 
             sendFancyMessage(msg);
@@ -51,35 +52,35 @@ public class CmdColeader extends FCommand {
         Faction targetFaction = you.getFaction();
 
         if (targetFaction != myFaction && !permAny) {
-            msg(TL.COMMAND_MOD_NOTMEMBER, you.describeTo(fme, true));
+            msg(TL.CMD_NOT_MEMBER, you.describeTo(fme, true));
             return;
         }
 
         if (fme != null && fme.getRole() != Role.LEADER && !permAny) {
-            msg(TL.COMMAND_COLEADER_NOTADMIN);
+            msg(TL.CMD_ADMIN_NOTADMIN);
             return;
         }
 
         if (you == fme && !permAny) {
-            msg(TL.COMMAND_COLEADER_SELF);
+            msg(TL.CMD_ADMIN_NOTADMIN);
             return;
         }
 
         if (you.getRole() == Role.LEADER) {
-            msg(TL.COMMAND_COLEADER_TARGETISADMIN);
+            msg(TL.CMD_TARGET_IS_ADMIN);
             return;
         }
 
         if (you.getRole() == Role.COLEADER) {
             // Revoke
             you.setRole(Role.MODERATOR);
-            targetFaction.msg(TL.COMMAND_COLEADER_REVOKED, you.describeTo(targetFaction, true));
-            msg(TL.COMMAND_COLEADER_REVOKES, you.describeTo(fme, true));
+            targetFaction.msg(TL.CMD_REVOKED_COLEADER.toString(), you.describeTo(targetFaction, true));
+            msg(TL.CMD_REVOKES_COLEADER, you.describeTo(fme, true));
         } else {
             // Give
             you.setRole(Role.COLEADER);
-            targetFaction.msg(TL.COMMAND_COLEADER_PROMOTED, you.describeTo(targetFaction, true));
-            msg(TL.COMMAND_COLEADER_PROMOTES, you.describeTo(fme, true));
+            targetFaction.msg(TL.CMD_CO_PROMOTED.toString(), you.describeTo(targetFaction, true));
+            msg(TL.CMD_CO_PROMOTES, you.describeTo(fme, true));
         }
     }
 

@@ -5,6 +5,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -183,7 +184,7 @@ public class CmdHelp extends FCommand {
         helpPages.add(pageLines);
 
         pageLines = new ArrayList<>();
-        pageLines.add(TL.COMMAND_HELP_MOAR_1.toString());
+        pageLines.add(TL.COMMAND_HELP_MORE_1.toString());
         pageLines.add(p.cmdBase.cmdBypass.getUseageTemplate(true));
         pageLines.add(p.txt.parse(TL.COMMAND_HELP_ADMIN_1.toString()));
         pageLines.add(p.txt.parse(TL.COMMAND_HELP_ADMIN_2.toString()));
@@ -196,7 +197,7 @@ public class CmdHelp extends FCommand {
         helpPages.add(pageLines);
 
         pageLines = new ArrayList<>();
-        pageLines.add(p.txt.parse(TL.COMMAND_HELP_MOAR_2.toString()));
+        pageLines.add(p.txt.parse(TL.COMMAND_HELP_MORE_2.toString()));
         pageLines.add(p.cmdBase.cmdChatSpy.getUseageTemplate(true));
         pageLines.add(p.cmdBase.cmdPermanent.getUseageTemplate(true));
         pageLines.add(p.cmdBase.cmdPermanentPower.getUseageTemplate(true));
@@ -205,7 +206,7 @@ public class CmdHelp extends FCommand {
         helpPages.add(pageLines);
 
         pageLines = new ArrayList<>();
-        pageLines.add(p.txt.parse(TL.COMMAND_HELP_MOAR_3.toString()));
+        pageLines.add(p.txt.parse(TL.COMMAND_HELP_MORE_3.toString()));
         pageLines.add(p.cmdBase.cmdLock.getUseageTemplate(true));
         pageLines.add(p.cmdBase.cmdReload.getUseageTemplate(true));
         pageLines.add(p.cmdBase.cmdSaveAll.getUseageTemplate(true));

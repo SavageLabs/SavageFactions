@@ -5,6 +5,7 @@ import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 
 public class CmdPermanent extends FCommand {
@@ -35,10 +36,10 @@ public class CmdPermanent extends FCommand {
 
         String change;
         if (faction.isPermanent()) {
-            change = TL.COMMAND_PERMANENT_REVOKE.toString();
+            change = TL.CMD_FPERMN_REVOKE.toString();
             faction.setPermanent(false);
         } else {
-            change = TL.COMMAND_PERMANENT_GRANT.toString();
+            change = TL.CMD_FPERMN_GRANT.toString();
             faction.setPermanent(true);
         }
 
@@ -46,17 +47,17 @@ public class CmdPermanent extends FCommand {
 
         // Inform all players
         for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
-            String blame = (fme == null ? TL.GENERIC_SERVERADMIN.toString() : fme.describeTo(fplayer, true));
+            String blame = (fme == null ? TL.GENERIC_SERVER_ADMIN.toString() : fme.describeTo(fplayer, true));
             if (fplayer.getFaction() == faction) {
-                fplayer.msg(TL.COMMAND_PERMANENT_YOURS, blame, change);
+                fplayer.msg(TL.CMD_FPERMN_YOURS, blame, change);
             } else {
-                fplayer.msg(TL.COMMAND_PERMANENT_OTHER, blame, change, faction.getTag(fplayer));
+                fplayer.msg(TL.CMD_FPERMN_OTHER, blame, change, faction.getTag(fplayer));
             }
         }
     }
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_PERMANENT_DESCRIPTION;
+        return TL.CMD_FPERMN_DESCRIPTION;
     }
 }

@@ -2,7 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
-
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdVersion extends FCommand {
 
@@ -24,8 +24,8 @@ public class CmdVersion extends FCommand {
 
     @Override
     public void perform() {
-        msg(TL.COMMAND_VERSION_NAME); // Did this so people can differentiate between SavageFactions and FactionsUUID (( Requested Feature ))
-        msg(TL.COMMAND_VERSION_VERSION, SavageFactions.plugin.getDescription().getFullName());
+        msg(TL.CMD_PLUGIN_NAME);
+        msg(TL.CMD_FACTION_VERSION, SavageFactions.plugin.getDescription().getFullName());
     }
 
     @Override

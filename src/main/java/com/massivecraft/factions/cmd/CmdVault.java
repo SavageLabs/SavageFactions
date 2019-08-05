@@ -2,9 +2,9 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Location;
@@ -20,7 +20,6 @@ public class CmdVault extends FCommand {
 
         //this.requiredArgs.add("");
 
-
         this.permission = Permission.VAULT.node;
         this.disableOnLock = false;
 
@@ -28,19 +27,18 @@ public class CmdVault extends FCommand {
         senderMustBeMember = true;
         senderMustBeModerator = false;
         senderMustBeAdmin = false;
-
     }
 
     @Override
     public void perform() {
         FileConfiguration config = Files.CONFIG.getFile();
         if (!config.getBoolean("fvault.Enabled")) {
-            fme.sendMessage("This command is disabled!");
+            fme.msg(TL.GENERIC_COMMAND_DISABLED.toString());
             return;
         }
         Access access = fme.getFaction().getAccess(fme, PermissableAction.VAULT);
         if (access.equals(Access.DENY)) {
-            fme.msg(TL.GENERIC_NOPERMISSION, "vault");
+            fme.msg(TL.GENERIC_NO_CMD_PERMS.toString(), "vault");
             return;
         }
 
@@ -51,26 +49,24 @@ public class CmdVault extends FCommand {
         fme.setInVault(true);
         Location vaultLocation = fme.getFaction().getVault();
         if (vaultLocation == null) {
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+            fme.msg(TL.CMD_VAULT_INVALID_LOCATION.toString());
             return;
         }
         FLocation vaultFLocation = new FLocation(vaultLocation);
         if (Board.getInstance().getFactionAt(vaultFLocation) != fme.getFaction()) {
             fme.getFaction().setVault(null);
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+            fme.msg(TL.CMD_VAULT_INVALID_LOCATION.toString());
             return;
         }
         if (vaultLocation.getBlock().getType() != Material.CHEST) {
             fme.getFaction().setVault(null);
-            fme.msg(TL.COMMAND_VAULT_INVALID);
+            fme.msg(TL.CMD_VAULT_INVALID_LOCATION.toString());
             return;
         }
         Chest chest = (Chest) vaultLocation.getBlock().getState();
         Inventory chestInv = chest.getBlockInventory();
-        fme.msg(TL.COMMAND_VAULT_OPENING);
+        fme.msg(TL.CMD_VAULT_OPENING.toString());
         me.openInventory(chestInv);
-
-
     }
 
     @Override

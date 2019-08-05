@@ -112,5 +112,4 @@ public class TempAreaMarker {
             marker.setBoostFlag(this.boost);
         }
     }
-
 }

@@ -20,7 +20,7 @@ public class FPlayerJoinEvent extends FactionPlayerEvent implements Cancellable 
     /**
      * Get the reason the player joined the faction.
      *
-     * @return reason player joined the faction.
+     * @return reason player joined the faction
      */
     public PlayerJoinReason getReason() {
         return reason;

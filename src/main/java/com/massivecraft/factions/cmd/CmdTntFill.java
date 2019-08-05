@@ -4,6 +4,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Location;
@@ -48,7 +49,6 @@ public class CmdTntFill extends FCommand {
                 return;
             }
         }
-
 
         msg(TL.COMMAND_TNTFILL_HEADER);
         int radius = argAsInt(0, 16);
@@ -116,7 +116,6 @@ public class CmdTntFill extends FCommand {
                             //sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}",amount + "").replace("{x}",(int) x + "").replace("{y}",(int) y + "").replace("{z}",(int) z + ""));
                             counter++;
                         }
-
                     }
                 }
             }
@@ -126,8 +125,6 @@ public class CmdTntFill extends FCommand {
         }
         sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
         me.updateInventory();
-
-
     }
 
     private void removeFromBank(int amount) {
@@ -218,7 +215,6 @@ public class CmdTntFill extends FCommand {
         return false;
     }
 
-
     public void removeFromInventory(Inventory inventory, ItemStack item) {
         int amt = item.getAmount();
         ItemStack[] items = inventory.getContents();
@@ -254,5 +250,4 @@ public class CmdTntFill extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_TNTFILL_DESCRIPTION;
     }
-
 }

@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdMoney extends FCommand {
 
@@ -26,7 +27,7 @@ public class CmdMoney extends FCommand {
         senderMustBeColeader = false;
         senderMustBeAdmin = false;
 
-        this.helpLong.add(p.txt.parseTags(TL.COMMAND_MONEY_LONG.toString()));
+        this.helpLong.add(p.txt.parseTags(TL.CMD_MONEY_DESCRIPTION.toString()));
 
         this.addSubCommand(this.cmdMoneyBalance);
         this.addSubCommand(this.cmdMoneyDeposit);
@@ -45,7 +46,6 @@ public class CmdMoney extends FCommand {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_MONEY_DESCRIPTION;
+        return TL.CMD_MONEY_DESCRIPTION;
     }
-
 }

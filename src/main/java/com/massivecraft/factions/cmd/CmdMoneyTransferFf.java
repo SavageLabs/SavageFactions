@@ -5,6 +5,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -21,7 +22,6 @@ public class CmdMoneyTransferFf extends FCommand {
         //this.optionalArgs.put("", "");
 
         this.permission = Permission.MONEY_F2F.node;
-
 
         senderMustBePlayer = false;
         senderMustBeMember = false;

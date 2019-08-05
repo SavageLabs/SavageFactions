@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdPower extends FCommand {
 
@@ -51,5 +52,4 @@ public class CmdPower extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_POWER_DESCRIPTION;
     }
-
 }

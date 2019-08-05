@@ -24,5 +24,4 @@ public class PowerRegenEvent extends FactionPlayerEvent implements Cancellable {
     public void setCancelled(boolean c) {
         this.cancelled = c;
     }
-
 }

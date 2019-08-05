@@ -133,7 +133,6 @@ public class Worldguard {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return foundregions;
     }
 }

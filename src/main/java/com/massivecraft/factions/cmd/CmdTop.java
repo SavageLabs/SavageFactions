@@ -5,6 +5,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ public class CmdTop extends FCommand {
         senderMustBeAdmin = false;
 
     }
-
 
     @Override
     public void perform() {
@@ -169,7 +169,6 @@ public class CmdTop extends FCommand {
             return String.valueOf(balance);
         }
     }
-
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_TOP_DESCRIPTION;

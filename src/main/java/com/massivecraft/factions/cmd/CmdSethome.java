@@ -6,6 +6,7 @@ import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 
@@ -74,5 +75,4 @@ public class CmdSethome extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_SETHOME_DESCRIPTION;
     }
-
 }

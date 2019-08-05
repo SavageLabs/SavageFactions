@@ -6,6 +6,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -36,9 +37,9 @@ public class UtilFly {
 
         if (!silent) {
             if (!damage) {
-                fp.msg(TL.COMMAND_FLY_CHANGE, fly ? "enabled" : "disabled");
+                fp.msg(TL.CMD_FLY_CHANGE.toString(), fly ? "enabled" : "disabled");
             } else {
-                fp.msg(TL.COMMAND_FLY_DAMAGE);
+                fp.msg(TL.CMD_FLY_DAMAGE.toString());
             }
         }
 
@@ -86,7 +87,7 @@ public class UtilFly {
         FileConfiguration config = Files.CONFIG.getFile();
         if (!fly) {
             if (!damage) {
-                fp.sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", config.getInt("fly-falldamage-cooldown", 3) + ""));
+                fp.sendMessage(TL.CMD_FLY_COOLDOWN.toString().replace("{amount}", config.getInt("fly-falldamage-cooldown", 3) + ""));
             }
 
             int cooldown = config.getInt("fly-falldamage-cooldown", 3);

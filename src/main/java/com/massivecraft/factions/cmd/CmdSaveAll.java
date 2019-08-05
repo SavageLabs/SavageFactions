@@ -5,6 +5,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdSaveAll extends FCommand {
 
@@ -39,5 +40,4 @@ public class CmdSaveAll extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_SAVEALL_DESCRIPTION;
     }
-
 }

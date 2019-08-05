@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * Event called when a Faction is created.
+ * Event called when a Faction is created
  */
 public class FactionCreateEvent extends Event implements Cancellable {
 

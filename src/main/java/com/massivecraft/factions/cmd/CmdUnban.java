@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 
@@ -33,7 +34,6 @@ public class CmdUnban extends FCommand {
                 return;
             }
         }
-
         // Good on permission checks. Now lets just ban the player.
         FPlayer target = argAsFPlayer(0);
         if (target == null) {

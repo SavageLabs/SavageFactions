@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdPermanentPower extends FCommand {
     public CmdPermanentPower() {
@@ -33,26 +34,26 @@ public class CmdPermanentPower extends FCommand {
 
         targetFaction.setPermanentPower(targetPower);
 
-        String change = TL.COMMAND_PERMANENTPOWER_REVOKE.toString();
+        String change = TL.CMD_FPERMN_REVOKE.toString();
         if (targetFaction.hasPermanentPower()) {
-            change = TL.COMMAND_PERMANENTPOWER_GRANT.toString();
+            change = TL.CMD_FPERMN_GRANT.toString();
         }
 
         // Inform sender
-        msg(TL.COMMAND_PERMANENTPOWER_SUCCESS, change, targetFaction.describeTo(fme));
+        msg(TL.CMD_FPERMN_YOURS, change, targetFaction.describeTo(fme));
 
         // Inform all other players
         for (FPlayer fplayer : targetFaction.getFPlayersWhereOnline(true)) {
             if (fplayer == fme) {
                 continue;
             }
-            String blame = (fme == null ? TL.GENERIC_SERVERADMIN.toString() : fme.describeTo(fplayer, true));
-            fplayer.msg(TL.COMMAND_PERMANENTPOWER_FACTION, blame, change);
+            String blame = (fme == null ? TL.GENERIC_SERVER_ADMIN.toString() : fme.describeTo(fplayer, true));
+            fplayer.msg(TL.CMD_FPERMN_OTHER, blame, change);
         }
     }
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_PERMANENTPOWER_DESCRIPTION;
+        return TL.CMD_FPERMN_DESCRIPTION;
     }
 }

@@ -2,6 +2,7 @@ package com.massivecraft.factions.scoreboards;
 
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -187,7 +188,7 @@ public class FTeamWrapper {
                 }
             }
             if (!focused) {
-                String prefix = TL.DEFAULT_PREFIX.toString();
+                String prefix = TL.COMMANDS_DEFAULT_FACTION_PREFIX.toString();
 
                 prefix = PlaceholderAPI.setPlaceholders(fplayer.getPlayer(), prefix);
                 prefix = PlaceholderAPI.setBracketPlaceholders(fplayer.getPlayer(), prefix);

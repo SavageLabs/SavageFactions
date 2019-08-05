@@ -7,6 +7,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.SpiralTask;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 
@@ -40,7 +41,7 @@ public class CmdClaim extends FCommand {
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.TERRITORY);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "change faction territory");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION.toString(), "change faction territory");
                 return;
             }
         }
@@ -52,7 +53,7 @@ public class CmdClaim extends FCommand {
         }
 
         if (radius < 1) {
-            msg(TL.COMMAND_CLAIM_INVALIDRADIUS);
+            msg(TL.CMD_INVALID_CLAIM_RADIUS);
             return;
         }
 
@@ -62,7 +63,7 @@ public class CmdClaim extends FCommand {
         } else {
             // radius claim
             if (!Permission.CLAIM_RADIUS.has(sender, false)) {
-                msg(TL.COMMAND_CLAIM_DENIED);
+                msg(TL.CMD_CLAIM_DENY);
                 return;
             }
 
@@ -90,5 +91,4 @@ public class CmdClaim extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_CLAIM_DESCRIPTION;
     }
-
 }

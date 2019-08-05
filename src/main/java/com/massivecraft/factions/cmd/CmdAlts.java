@@ -3,8 +3,9 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
-public class CmdAlts extends FCommand {
+public class  CmdAlts extends FCommand {
 
 
     public CmdKickAlt cmdKickAlt = new CmdKickAlt();
@@ -35,7 +36,7 @@ public class CmdAlts extends FCommand {
     @Override
     public void perform() {
         if (!Conf.enableFactionAlts) {
-            fme.msg(TL.GENERIC_DISABLED);
+            fme.msg(TL.GENERIC_DISABLED.toString());
             return;
         }
 
@@ -45,8 +46,6 @@ public class CmdAlts extends FCommand {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_ALTS_DESCRIPTION;
+        return TL.CMD_ADMIN_DESCRIPTION;
     }
-
 }
-

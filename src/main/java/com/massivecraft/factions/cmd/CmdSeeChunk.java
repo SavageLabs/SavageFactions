@@ -8,6 +8,7 @@ import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -25,10 +26,6 @@ public class CmdSeeChunk extends FCommand {
     private ParticleEffect effect;
     private int taskID = -1;
 
-
-    //I remade it cause of people getting mad that I had the same seechunk as drtshock
-
-
     public CmdSeeChunk() {
         FileConfiguration config = Files.CONFIG.getFile();
         super();
@@ -41,7 +38,6 @@ public class CmdSeeChunk extends FCommand {
         senderMustBeMember = false;
         senderMustBeModerator = false;
         senderMustBeAdmin = false;
-
 
         this.useParticles = p.getConfig().getBoolean("see-chunk.particles", true);
         interval = config.getLong("see-chunk.interval", 10L);
@@ -145,10 +141,8 @@ public class CmdSeeChunk extends FCommand {
         }
     }
 
-
     @Override
     public TL getUsageTranslation() {
         return TL.GENERIC_PLACEHOLDER;
     }
-
 }

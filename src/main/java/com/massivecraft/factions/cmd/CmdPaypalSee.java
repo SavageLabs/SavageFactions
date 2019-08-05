@@ -4,6 +4,7 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdPaypalSee extends FCommand {
@@ -52,5 +53,3 @@ public class CmdPaypalSee extends FCommand {
         return TL.COMMAND_PAYPALSEE_DESCRIPTION;
     }
 }
-
-

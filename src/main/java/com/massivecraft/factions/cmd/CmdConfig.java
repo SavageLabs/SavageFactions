@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -236,7 +237,6 @@ public class CmdConfig extends FCommand {
                 SavageFactions.plugin.log(success);
             }
         }
-        // save change to disk
         Conf.save();
     }
 
@@ -244,5 +244,4 @@ public class CmdConfig extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_CONFIG_DESCRIPTION;
     }
-
 }

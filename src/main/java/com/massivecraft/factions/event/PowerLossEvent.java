@@ -77,5 +77,4 @@ public class PowerLossEvent extends FactionPlayerEvent implements Cancellable {
     public void setCancelled(boolean c) {
         this.cancelled = c;
     }
-
 }

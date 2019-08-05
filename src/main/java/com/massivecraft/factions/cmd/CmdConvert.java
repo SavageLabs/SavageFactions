@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.Conf.Backend;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.persist.json.FactionsJSON;
 import org.bukkit.command.ConsoleCommandSender;
 
@@ -19,7 +20,7 @@ public class CmdConvert extends FCommand {
     @Override
     public void perform() {
         if (!(this.sender instanceof ConsoleCommandSender)) {
-            this.sender.sendMessage(TL.GENERIC_CONSOLEONLY.toString());
+            this.sender.sendMessage(TL.GENERIC_CONSOLE_ONLY.toString());
         }
         Backend nb = Backend.valueOf(this.argAsString(0).toUpperCase());
         if (nb == Conf.backEnd) {

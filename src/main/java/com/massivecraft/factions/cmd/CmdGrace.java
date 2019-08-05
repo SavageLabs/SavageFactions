@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdGrace extends FCommand {
 
@@ -29,7 +30,7 @@ public class CmdGrace extends FCommand {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMANd_GRACE_DESCRIPTION;
+        return TL.COMMAND_GRACE_DESCRIPTION;
     }
 
 }

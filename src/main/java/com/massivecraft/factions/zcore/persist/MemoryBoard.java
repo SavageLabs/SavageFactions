@@ -7,6 +7,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.AsciiCompass;
 import com.massivecraft.factions.util.LazyLocation;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TagReplacer;
 import com.massivecraft.factions.zcore.util.TagUtil;
 import mkremins.fanciful.FancyMessage;
@@ -227,18 +228,18 @@ public abstract class MemoryBoard extends Board {
             FancyMessage row = new FancyMessage("");
             for (int dx = 6; dx < width; dx++) {
                 if (dx == halfWidth && dz == halfHeight) {
-                    row.then(Conf.mapYouAreHereIcon).color(ChatColor.AQUA).tooltip(TL.CLAIM_YOUAREHERE.toString());
+                    row.then(Conf.mapYouAreHereIcon).color(ChatColor.AQUA).tooltip(TL.CMD_YOU_ARE_HERE.toString());
                 } else {
                     FLocation flocationHere = topLeft.getRelative(dx, dz);
                     Faction factionHere = getFactionAt(flocationHere);
                     Relation relation = fplayer.getRelationTo(factionHere);
                     if (flocationHere.isOutsideWorldBorder(buffer)) {
-                        row.then(Conf.mapFlatIcon).color(ChatColor.BLACK).tooltip(TL.CLAIM_MAP_OUTSIDEBORDER.toString());
+                        row.then(Conf.mapFlatIcon).color(ChatColor.BLACK).tooltip(TL.CMD_OUTSIDE_WORLD_BORDER.toString());
                     } else if (factionHere.isWilderness()) {
                         row.then(Conf.mapFlatIcon).color(Conf.colorWilderness);
                         // Lol someone didnt add the x and z making it claim the wrong position Can i copyright this xD
                         if (fplayer.getPlayer().hasPermission(Permission.CLAIMAT.node)) {
-                            row.tooltip(TL.CLAIM_CLICK_TO_CLAIM.format(dx + topLeft.getX(), dz + topLeft.getZ()))
+                            row.tooltip(TL.CMD_CLICK_TO_CLAIM.format(dx + topLeft.getX(), dz + topLeft.getZ()))
                                     .command(String.format("/f claimat %s %d %d", flocation.getWorldName(), dx + topLeft.getX(), dz + topLeft.getZ()));
                         }
                     } else if (factionHere.isSafeZone()) {
@@ -328,7 +329,7 @@ public abstract class MemoryBoard extends Board {
             if (!parsed.contains("{notFrozen}") && !parsed.contains("{notPermanent}")) {
                 if (parsed.contains("{ig}")) {
                     // replaces all variables with no home TL
-                    parsed = parsed.substring(0, parsed.indexOf("{ig}")) + TL.COMMAND_SHOW_NOHOME.toString();
+                    parsed = parsed.substring(0, parsed.indexOf("{ig}")) + TL.CMD_NO_HOME_F_HOME_2.toString();
                 }
                 if (parsed.contains("%")) {
                     parsed = parsed.replaceAll("%", ""); // Just in case it got in there before we disallowed it.

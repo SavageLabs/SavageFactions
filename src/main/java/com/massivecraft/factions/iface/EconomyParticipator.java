@@ -1,5 +1,7 @@
 package com.massivecraft.factions.iface;
 
+import com.massivecraft.factions.util.fm.enums.TL;
+
 public interface EconomyParticipator extends RelationParticipator {
 
     String getAccountId();

@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,10 +16,8 @@ public class CmdChest extends FCommand {
 
         //this.requiredArgs.add("");
 
-
         this.permission = Permission.CHEST.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = true;
@@ -34,17 +33,15 @@ public class CmdChest extends FCommand {
             fme.sendMessage("This command is disabled!");
             return;
         }
-        // This permission check is way too explicit but it's clean
+
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.CHEST);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "access chest");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION.toString(), "access chest");
                 return;
             }
         }
-
         me.openInventory(fme.getFaction().getChestInventory());
-
     }
 
     @Override

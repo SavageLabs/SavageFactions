@@ -6,6 +6,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.LandUnclaimAllEvent;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 
 public class CmdUnclaimall extends FCommand {
@@ -16,7 +17,6 @@ public class CmdUnclaimall extends FCommand {
 
         //this.requiredArgs.add("");
         //this.optionalArgs.put("", "");
-
         this.permission = Permission.UNCLAIM_ALL.node;
         this.disableOnLock = true;
 
@@ -49,10 +49,10 @@ public class CmdUnclaimall extends FCommand {
         }
 
         Board.getInstance().unclaimAll(myFaction.getId());
-        myFaction.msg(TL.COMMAND_UNCLAIMALL_UNCLAIMED, fme.describeTo(myFaction, true));
+        myFaction.msg(TL.CMD_UNCLAIMALL_UNCLAIMED.toString(), fme.describeTo(myFaction, true));
 
         if (Conf.logLandUnclaims) {
-            SavageFactions.plugin.log(TL.COMMAND_UNCLAIMALL_LOG.format(fme.getName(), myFaction.getTag()));
+            SavageFactions.plugin.log(TL.CMD_UNCLAIMALL_LOG.format(fme.getName(), myFaction.getTag()));
         }
     }
 
@@ -60,5 +60,4 @@ public class CmdUnclaimall extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_UNCLAIMALL_DESCRIPTION;
     }
-
 }

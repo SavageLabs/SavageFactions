@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -89,7 +90,7 @@ public enum Role implements Permissable {
         return this.nicename;
     }
 
-    public TL getTranslation() {
+    public Object getTranslation() {
         return translation;
     }
 
@@ -153,5 +154,4 @@ public enum Role implements Permissable {
 
         return string;
     }
-
 }

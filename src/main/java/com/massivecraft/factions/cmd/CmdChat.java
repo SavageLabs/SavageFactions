@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.struct.ChatMode;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdChat extends FCommand {
 
@@ -29,7 +30,7 @@ public class CmdChat extends FCommand {
     @Override
     public void perform() {
         if (!Conf.factionOnlyChat) {
-            msg(TL.COMMAND_CHAT_DISABLED.toString());
+            msg(TL.GENERIC_COMMAND_DISABLED.toString());
             return;
         }
 
@@ -41,7 +42,7 @@ public class CmdChat extends FCommand {
             // Only allow Mods and higher rank to switch to this channel.
             if (modeString.startsWith("m")) {
                 if (!fme.getRole().isAtLeast(Role.MODERATOR)) {
-                    msg(TL.COMMAND_CHAT_MOD_ONLY);
+                    msg(TL.CMD_MOD_ONLY_MODE);
                     return;
                 } else modeTarget = ChatMode.MOD;
             } else if (modeString.startsWith("p")) {
@@ -53,7 +54,7 @@ public class CmdChat extends FCommand {
             } else if (modeString.startsWith("t")) {
                 modeTarget = ChatMode.TRUCE;
             } else {
-                msg(TL.COMMAND_CHAT_INVALIDMODE);
+                msg(TL.CMD_INVALID_CHAT);
                 return;
             }
         }
@@ -62,19 +63,19 @@ public class CmdChat extends FCommand {
 
         switch (fme.getChatMode()) {
             case MOD:
-                msg(TL.COMMAND_CHAT_MODE_MOD);
+                msg(TL.CMD_MOD_ONLY_MODE);
                 break;
             case PUBLIC:
-                msg(TL.COMMAND_CHAT_MODE_PUBLIC);
+                msg(TL.CMD_PUBLIC_MODE);
                 break;
             case ALLIANCE:
-                msg(TL.COMMAND_CHAT_MODE_ALLIANCE);
+                msg(TL.CMD_ALLY_MODE);
                 break;
             case TRUCE:
-                msg(TL.COMMAND_CHAT_MODE_TRUCE);
+                msg(TL.CMD_TRUCE_MODE);
                 break;
             default:
-                msg(TL.COMMAND_CHAT_MODE_FACTION);
+                msg(TL.CMD_FACTION_MODE);
                 break;
         }
     }

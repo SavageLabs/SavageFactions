@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdLeave extends FCommand {
 
@@ -8,12 +9,8 @@ public class CmdLeave extends FCommand {
         super();
         this.aliases.add("leave");
 
-        //this.requiredArgs.add("");
-        //this.optionalArgs.put("", "");
-
         this.permission = Permission.LEAVE.node;
         this.disableOnLock = true;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = true;
@@ -29,7 +26,6 @@ public class CmdLeave extends FCommand {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.LEAVE_DESCRIPTION;
+        return TL.COMMAND_LEAVE_DESCRIPTION;
     }
-
 }

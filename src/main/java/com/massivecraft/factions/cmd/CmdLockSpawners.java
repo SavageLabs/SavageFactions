@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdLockSpawners extends FCommand {
 
@@ -15,7 +16,6 @@ public class CmdLockSpawners extends FCommand {
 
         this.permission = Permission.LOCKSPAWNERS.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = false;
         senderMustBeMember = false;
@@ -34,5 +34,4 @@ public class CmdLockSpawners extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_SPAWNERTOGGLE_DESCRIPTION;
     }
-
 }

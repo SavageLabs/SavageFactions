@@ -6,6 +6,7 @@ import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.WarmUpUtil;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,7 +36,7 @@ public class FactionsChatListener implements Listener {
                 doWarmup(me.getEnteringWarp(), me);
             } else {
                 // Invalid Password
-                me.msg(TL.COMMAND_FWARP_INVALID_PASSWORD);
+                me.msg(TL.CMD_INVALID_PASSWORD.toString());
             }
             me.setEnteringPassword(false, "");
             return;
@@ -59,7 +60,7 @@ public class FactionsChatListener implements Listener {
                 }
             } else {
                 // Just in case player gets demoted while in faction chat.
-                me.msg(TL.COMMAND_CHAT_MOD_ONLY);
+                me.msg(TL.CMD_MOD_ONLY_MODE.toString());
                 event.setCancelled(true);
                 me.setChatMode(ChatMode.FACTION);
                 return;
@@ -198,16 +199,15 @@ public class FactionsChatListener implements Listener {
 
     private void doWarmup(final String warp, final FPlayer fme) {
         FileConfiguration config = Files.CONFIG.getFile();
-        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, new Runnable() {
+        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUP_TELEPORT, warp, new Runnable() {
             @Override
             public void run() {
                 Player player = Bukkit.getPlayer(fme.getPlayer().getUniqueId());
                 if (player != null) {
                     player.teleport(fme.getFaction().getWarp(warp).getLocation());
-                    fme.msg(TL.COMMAND_FWARP_WARPED, warp);
+                    fme.msg(TL.CMD_F_SUCCESSFUL_WARP.toString(), warp);
                 }
             }
         }, config.getLong("warmups.f-warp", 0));
     }
-
 }

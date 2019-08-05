@@ -85,8 +85,5 @@ public class PlayerRoleExpression extends SimpleExpression<String> {
                 break;
             default:
         }
-
     }
-
-
 }

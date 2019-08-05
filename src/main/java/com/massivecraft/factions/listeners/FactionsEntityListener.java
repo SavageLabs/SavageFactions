@@ -5,6 +5,7 @@ import com.massivecraft.factions.event.PowerLossEvent;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -49,23 +50,23 @@ public class FactionsEntityListener implements Listener {
         if (faction.isWarZone()) {
             // war zones always override worldsNoPowerLoss either way, thus this layout
             if (!Conf.warZonePowerLoss) {
-                powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_WARZONE.toString());
+                powerLossEvent.setMessage(TL.CMD_NO_LOSS_WARZONE.toString());
                 powerLossEvent.setCancelled(true);
             }
             if (Conf.worldsNoPowerLoss.contains(player.getWorld().getName())) {
-                powerLossEvent.setMessage(TL.PLAYER_POWER_LOSS_WARZONE.toString());
+                powerLossEvent.setMessage(TL.CMD_NO_LOSS_WARZONE.toString());
             }
         } else if (faction.isWilderness() && !Conf.wildernessPowerLoss && !Conf.worldsNoWildernessProtection.contains(player.getWorld().getName())) {
-            powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_WILDERNESS.toString());
+            powerLossEvent.setMessage(TL.CMD_NO_LOSS_WILDERNESS.toString());
             powerLossEvent.setCancelled(true);
         } else if (Conf.worldsNoPowerLoss.contains(player.getWorld().getName())) {
-            powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_WORLD.toString());
+            powerLossEvent.setMessage(TL.CMD_NO_LOSS_WORLD.toString());
             powerLossEvent.setCancelled(true);
         } else if (Conf.peacefulMembersDisablePowerLoss && fplayer.hasFaction() && fplayer.getFaction().isPeaceful()) {
-            powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_PEACEFUL.toString());
+            powerLossEvent.setMessage(TL.CMD_NO_LOSS_PEACEFUL.toString());
             powerLossEvent.setCancelled(true);
         } else {
-            powerLossEvent.setMessage(TL.PLAYER_POWER_NOW.toString());
+            powerLossEvent.setMessage(TL.CMD_POWER_NOW.toString());
         }
 
         // call Event
@@ -175,7 +176,7 @@ public class FactionsEntityListener implements Listener {
                 FPlayer fplayer = FPlayers.getInstance().getByPlayer((Player) damagee);
                 if (fplayer.isInspectMode()) {
                     fplayer.setInspectMode(false);
-                    fplayer.msg(TL.COMMAND_INSPECT_DISABLED_MSG);
+                    fplayer.msg(TL.COMMAND_INSPECT_DISABLED_MSG.toString());
                 }
             }
             if (damager instanceof Player) {
@@ -184,7 +185,7 @@ public class FactionsEntityListener implements Listener {
                 FPlayer fplayer = FPlayers.getInstance().getByPlayer((Player) damager);
                 if (fplayer.isInspectMode()) {
                     fplayer.setInspectMode(false);
-                    fplayer.msg(TL.COMMAND_INSPECT_DISABLED_MSG);
+                    fplayer.msg(TL.COMMAND_INSPECT_DISABLED_MSG.toString());
                 }
             }
         } else if (Conf.safeZonePreventAllDamageToPlayers && isPlayerInSafeZone(event.getEntity())) {
@@ -206,7 +207,7 @@ public class FactionsEntityListener implements Listener {
             cancelFStuckTeleport(player);
             if (me.isWarmingUp()) {
                 me.clearWarmup();
-                me.msg(TL.WARMUPS_CANCELLED);
+                me.msg(TL.WARMUP_CANCELLED.toString());
             }
         }
     }
@@ -228,7 +229,7 @@ public class FactionsEntityListener implements Listener {
         }
         UUID uuid = player.getUniqueId();
         if (SavageFactions.plugin.getStuckMap().containsKey(uuid)) {
-            FPlayers.getInstance().getByPlayer(player).msg(TL.COMMAND_STUCK_CANCELLED);
+            FPlayers.getInstance().getByPlayer(player).msg(TL.CMD_STUCK_CANCELLED.toString());
             SavageFactions.plugin.getStuckMap().remove(uuid);
         }
     }
@@ -410,7 +411,7 @@ public class FactionsEntityListener implements Listener {
             if (damager instanceof Player) {
                 if (notify) {
                     FPlayer attacker = FPlayers.getInstance().getByPlayer((Player) damager);
-                    attacker.msg(TL.PLAYER_CANTHURT, (defLocFaction.isSafeZone() ? TL.REGION_SAFEZONE.toString() : TL.REGION_PEACEFUL.toString()));
+                    attacker.msg(TL.CMD_PLAYER_CANNOT_HURT.toString(), (defLocFaction.isSafeZone() ? TL.REG_SAFEZONE.toString() : TL.REG_PEACEFUL.toString()));
                 }
                 return false;
             }
@@ -433,7 +434,7 @@ public class FactionsEntityListener implements Listener {
 
         if (attacker.hasLoginPvpDisabled()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_LOGIN, Conf.noPVPDamageToOthersForXSecondsAfterLogin);
+                attacker.msg(TL.CMD_PLAYER_LOGIN.toString(), Conf.noPVPDamageToOthersForXSecondsAfterLogin);
             }
             return false;
         }
@@ -443,7 +444,7 @@ public class FactionsEntityListener implements Listener {
         // so we know from above that the defender isn't in a safezone... what about the attacker, sneaky dog that he might be?
         if (locFaction.noPvPInTerritory()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_CANTHURT, (locFaction.isSafeZone() ? TL.REGION_SAFEZONE.toString() : TL.REGION_PEACEFUL.toString()));
+                attacker.msg(TL.CMD_PLAYER_CANNOT_HURT.toString(), (locFaction.isSafeZone() ? TL.REG_SAFEZONE.toString() : TL.REG_PEACEFUL.toString()));
             }
             return false;
         }
@@ -461,7 +462,7 @@ public class FactionsEntityListener implements Listener {
 
         if (attackFaction.isWilderness() && Conf.disablePVPForFactionlessPlayers) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_REQUIREFACTION);
+                attacker.msg(TL.CMD_PLAYER_REQUIRE_FACTION.toString());
             }
             return false;
         } else if (defendFaction.isWilderness()) {
@@ -470,7 +471,7 @@ public class FactionsEntityListener implements Listener {
                 return true;
             } else if (Conf.disablePVPForFactionlessPlayers) {
                 if (notify) {
-                    attacker.msg(TL.PLAYER_PVP_FACTIONLESS);
+                    attacker.msg(TL.CMD_PLAYER_FACTION_LESS.toString());
                 }
                 return false;
             }
@@ -478,12 +479,12 @@ public class FactionsEntityListener implements Listener {
 
         if (defendFaction.isPeaceful()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_PEACEFUL);
+                attacker.msg(TL.CMD_PLAYER_PEACEFUL.toString());
             }
             return false;
         } else if (attackFaction.isPeaceful()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_PEACEFUL);
+                attacker.msg(TL.CMD_PLAYER_PEACEFUL.toString());
             }
             return false;
         }
@@ -493,7 +494,7 @@ public class FactionsEntityListener implements Listener {
         // You can not hurt neutral factions
         if (Conf.disablePVPBetweenNeutralFactions && relation.isNeutral()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_NEUTRAL);
+                attacker.msg(TL.CMD_PLAYER_NEUTRAL.toString());
             }
             return false;
         }
@@ -506,7 +507,7 @@ public class FactionsEntityListener implements Listener {
         // You can never hurt faction members or allies
         if (relation.isMember() || relation.isAlly()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_CANTHURT, defender.describeTo(attacker));
+                attacker.msg(TL.CMD_PLAYER_CANNOT_HURT_2.toString(), defender.describeTo(attacker));
             }
             return false;
         }
@@ -516,8 +517,8 @@ public class FactionsEntityListener implements Listener {
         // You can not hurt neutrals in their own territory.
         if (ownTerritory && relation.isNeutral()) {
             if (notify) {
-                attacker.msg(TL.PLAYER_PVP_NEUTRALFAIL, defender.describeTo(attacker));
-                defender.msg(TL.PLAYER_PVP_TRIED, attacker.describeTo(defender, true));
+                attacker.msg(TL.CMD_PLAYER_NEUTRAL_FAIL.toString(), defender.describeTo(attacker));
+                defender.msg(TL.CMD_PLAYER_TRIED_TO_HURT.toString(), attacker.describeTo(defender, true));
             }
             return false;
         }
@@ -683,7 +684,7 @@ public class FactionsEntityListener implements Listener {
                 FPlayer fvictim = FPlayers.getInstance().getByPlayer(victim);
                 FPlayer fattacker = FPlayers.getInstance().getByPlayer(attacker);
                 if (fattacker.getRelationTo(fvictim) == Relation.TRUCE) {
-                    fattacker.msg(TL.PLAYER_PVP_CANTHURT, fvictim.describeTo(fattacker));
+                    fattacker.msg(TL.CMD_PLAYER_CANNOT_HURT_2.toString(), fvictim.describeTo(fattacker));
                     e.setCancelled(true);
                 }
             }
@@ -701,7 +702,7 @@ public class FactionsEntityListener implements Listener {
                     FPlayer fdamager = FPlayers.getInstance().getByPlayer(damager);
                     FPlayer fvictim = FPlayers.getInstance().getByPlayer(victim);
                     if (fvictim.getRelationTo(fdamager) == Relation.TRUCE) {
-                        fdamager.msg(TL.PLAYER_PVP_CANTHURT, fvictim.describeTo(fdamager));
+                        fdamager.msg(TL.CMD_PLAYER_CANNOT_HURT_2.toString(), fvictim.describeTo(fdamager));
                         e.setCancelled(true);
                     }
                     if (fvictim.getRelationTo(fdamager) == Relation.ENEMY) {

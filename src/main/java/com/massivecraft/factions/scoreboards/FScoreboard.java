@@ -40,7 +40,7 @@ public class FScoreboard {
 
     // Glowstone doesn't support scoreboards.
     // All references to this and related workarounds can be safely
-    // removed when scoreboards are supported.
+    // removed when scoreboards are supported
     public static boolean isSupportedByServer() {
         return Bukkit.getScoreboardManager() != null;
     }

@@ -4,6 +4,7 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -170,14 +171,14 @@ public enum TagReplacer {
                 case PLAYER_NAME:
                     return fp.getName();
                 case FACTION:
-                    return !fac.isWilderness() ? fac.getTag(fp) : TL.GENERIC_FACTIONLESS.toString();
+                    return !fac.isWilderness() ? fac.getTag(fp) : TL.GENERIC_FACTION_LESS.toString();
                 case LAST_SEEN:
-                    String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fp.getLastLoginTime(), true, true) + TL.COMMAND_STATUS_AGOSUFFIX;
-                    return fp.isOnline() ? ChatColor.GREEN + TL.COMMAND_STATUS_ONLINE.toString() : (System.currentTimeMillis() - fp.getLastLoginTime() < 432000000 ? ChatColor.YELLOW + humanized : ChatColor.RED + humanized);
+                    String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fp.getLastLoginTime(), true, true) + TL.CMD_AGO_SUFFIX;
+                    return fp.isOnline() ? ChatColor.GREEN + TL.CMD_FORMAT_F_STATUS.toString() : (System.currentTimeMillis() - fp.getLastLoginTime() < 432000000 ? ChatColor.YELLOW + humanized : ChatColor.RED + humanized);
                 case PLAYER_GROUP:
                     return SavageFactions.plugin.getPrimaryGroup(Bukkit.getOfflinePlayer(UUID.fromString(fp.getId())));
                 case PLAYER_BALANCE:
-                    return Econ.isSetup() ? Econ.getFriendlyBalance(fp) : TL.ECON_OFF.format("balance");
+                    return Econ.isSetup() ? Econ.getFriendlyBalance(fp) : TL.ECON_FORMAT.format("balance");
                 case PLAYER_POWER:
                     return String.valueOf(fp.getPowerRounded());
                 case PLAYER_MAXPOWER:
@@ -196,9 +197,9 @@ public enum TagReplacer {
             case FACTION:
                 return fac.getTag();
             case JOINING:
-                return (fac.getOpen() ? TL.COMMAND_SHOW_UNINVITED.toString() : TL.COMMAND_SHOW_INVITATION.toString());
+                return (fac.getOpen() ? TL.CMD_UNINVITED.toString() : TL.CMD_INVITATION.toString());
             case PEACEFUL:
-                return fac.isPeaceful() ? Conf.colorNeutral + TL.COMMAND_SHOW_PEACEFUL.toString() : "";
+                return fac.isPeaceful() ? Conf.colorNeutral + TL.CMD_PEACEFULF_SHOW.toString() : "";
             case PERMANENT:
                 return fac.isPermanent() ? "permanent" : "{notPermanent}";
             case CHUNKS:
@@ -209,7 +210,7 @@ public enum TagReplacer {
                 return String.valueOf(fac.getPowerMaxRounded());
             case POWER_BOOST:
                 double powerBoost = fac.getPowerBoost();
-                return (powerBoost == 0.0) ? "" : (powerBoost > 0.0 ? TL.COMMAND_SHOW_BONUS.toString() : TL.COMMAND_SHOW_PENALTY.toString() + powerBoost + ")");
+                return (powerBoost == 0.0) ? "" : (powerBoost > 0.0 ? TL.CMD_BONUS_F_SHOW.toString() : TL.CMD_PENALTY_F_SHOW.toString() + powerBoost + ")");
             case LEADER:
                 FPlayer fAdmin = fac.getFPlayerAdmin();
                 return fAdmin == null ? "Server" : fAdmin.getName().substring(0, fAdmin.getName().length() > 14 ? 13 : fAdmin.getName().length());
@@ -219,7 +220,7 @@ public enum TagReplacer {
                 return TL.sdf.format(fac.getFoundedDate());
             case RAIDABLE:
                 boolean raid = config.getBoolean("hcf.raidable", false) && fac.getLandRounded() >= fac.getPowerRounded();
-                return raid ? TL.RAIDABLE_TRUE.toString() : TL.RAIDABLE_FALSE.toString();
+                return raid ? TL.COMMANDS_RAIDABLE_TRUE.toString() : TL.COMMANDS_RAIDABLE_FALSE.toString();
             case HOME_WORLD:
                 return fac.hasHome() ? fac.getHome().getWorld().getName() : minimal ? null : "{ig}";
             case HOME_X:

@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 import mkremins.fanciful.FancyMessage;
 import org.bukkit.ChatColor;
 
@@ -27,7 +28,6 @@ public class CmdShowInvites extends FCommand {
             String name = fp != null ? fp.getName() : id;
             msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_SHOWINVITES_CLICKTOREVOKE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
         }
-
         sendFancyMessage(msg);
     }
 
@@ -35,6 +35,4 @@ public class CmdShowInvites extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_SHOWINVITES_DESCRIPTION;
     }
-
-
 }

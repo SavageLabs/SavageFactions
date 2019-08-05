@@ -6,6 +6,7 @@ import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.struct.BanInfo;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import org.bukkit.Bukkit;
@@ -37,7 +38,7 @@ public class CmdBan extends FCommand {
         if (!fme.isAdminBypassing()) {
             Access access = myFaction.getAccess(fme, PermissableAction.BAN);
             if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
-                fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "ban");
+                fme.msg(TL.CMD_FPERMS_DENY_ACTION.toString(), "ban");
                 return;
             }
         }
@@ -51,17 +52,17 @@ public class CmdBan extends FCommand {
 
         if (fme == target) {
             // You may not ban yourself
-            fme.msg(TL.COMMAND_BAN_SELF);
+            fme.msg(TL.CMD_NO_BAN_SELF.toString());
             return;
         } else if (target.getFaction() == myFaction && target.getRole().value >= fme.getRole().value) {
             // You may not ban someone that has same or higher faction rank
-            fme.msg(TL.COMMAND_BAN_INSUFFICIENTRANK, target.getName());
+            fme.msg(TL.CMD_INSUFFICIENT_RANK.toString(), target.getName());
             return;
         }
 
         for (BanInfo banInfo : myFaction.getBannedPlayers()) {
             if (banInfo.getBanned().equals(target.getId())) {
-                msg(TL.COMMAND_BAN_ALREADYBANNED);
+                msg(TL.CMD_ALREADY_BANNED);
                 return;
             }
         }
@@ -89,12 +90,12 @@ public class CmdBan extends FCommand {
         }
 
         // Lets inform the people!
-        target.msg(TL.COMMAND_BAN_TARGET, myFaction.getTag(target.getFaction()));
-        myFaction.msg(TL.COMMAND_BAN_BANNED, fme.getName(), target.getName());
+        target.msg(TL.CMD_BAN_TARGET.toString(), myFaction.getTag(target.getFaction()));
+        myFaction.msg(TL.CMD_BANNED_MEMBER.toString(), fme.getName(), target.getName());
     }
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMAND_BAN_DESCRIPTION;
+        return TL.CMD_ADMIN_DESCRIPTION;
     }
 }

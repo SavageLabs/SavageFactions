@@ -6,6 +6,7 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.fm.FileManager.Files;
 import com.massivecraft.factions.util.fm.Methods;
+import com.massivecraft.factions.util.fm.enums.TL;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,11 +38,11 @@ public class CmdBanner extends FCommand {
     public void perform() {
         FileConfiguration config = Files.CONFIG.getFile();
         if (!config.getBoolean("fbanners.Enabled")) {
-            msg(TL.COMMAND_BANNER_DISABLED);
+            msg(TL.CMD_BANNER_DISABLED);
             return;
         }
         if (!fme.hasMoney(config.getInt("fbanners.Banner-Cost", 5000))) {
-            msg(TL.COMMAND_BANNER_NOTENOUGHMONEY);
+            msg(TL.CMD_BANNER_NOT_ENOUGH_MONEY);
             return;
         }
         takeMoney(fme, config.getInt("fbanners.Banner-Cost", 5000));
@@ -61,7 +62,7 @@ public class CmdBanner extends FCommand {
 
             warBanner = SavageFactions.plugin.createItem(XMaterial.BLACK_BANNER.parseMaterial(), 1, (short) 1, config.getString("fbanners.Item.Name"), SavageFactions.plugin.getConfig().getStringList("fbanners.Item.Lore"));
         }
-        fme.msg(TL.COMMAND_BANNER_SUCCESS);
+        fme.msg(TL.CMD_BANNER_SUCCESS.toString());
         warBanner.setAmount(1);
         me.getInventory().addItem(warBanner);
     }
@@ -72,7 +73,7 @@ public class CmdBanner extends FCommand {
         if (econ.getBalance(fme.getPlayer()) >= amt) {
             return true;
         } else {
-            fme.msg(TL.COMMAND_BANNER_NOTENOUGHMONEY);
+            fme.msg(TL.CMD_BANNER_NOT_ENOUGH_MONEY.toString());
             return false;
         }
     }
@@ -81,7 +82,7 @@ public class CmdBanner extends FCommand {
         if (hasMoney(fme, amt)) {
             Economy econ = SavageFactions.plugin.getEcon();
             econ.withdrawPlayer(fme.getPlayer(), amt);
-            fme.sendMessage(TL.COMMAND_BANNER_MONEYTAKE.toString().replace("{amount}", amt + ""));
+            fme.sendMessage(TL.CMD_BANNER_MONEY_TAKE.toString().replace("{amount}", amt + ""));
         }
     }
 

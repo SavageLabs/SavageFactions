@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdOpen extends FCommand {
 
@@ -16,7 +17,6 @@ public class CmdOpen extends FCommand {
 
         this.permission = Permission.OPEN.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;
@@ -39,10 +39,10 @@ public class CmdOpen extends FCommand {
         // Inform
         for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
             if (fplayer.getFactionId().equals(myFaction.getId())) {
-                fplayer.msg(TL.COMMAND_OPEN_CHANGES, fme.getName(), open);
+                fplayer.msg(TL.CMD_OPENED_CHANGES, fme.getName(), open);
                 continue;
             }
-            fplayer.msg(TL.COMMAND_OPEN_CHANGED, myFaction.getTag(fplayer.getFaction()), open);
+            fplayer.msg(TL.CMD_OPENED_CHANGED, myFaction.getTag(fplayer.getFaction()), open);
         }
     }
 
@@ -50,5 +50,4 @@ public class CmdOpen extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_OPEN_DESCRIPTION;
     }
-
 }

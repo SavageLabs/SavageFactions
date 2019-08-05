@@ -6,6 +6,7 @@ import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import com.massivecraft.factions.zcore.util.TagUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -26,7 +27,6 @@ public class CmdList extends FCommand {
         defaults[1] = "<i>Factionless<i> {factionless} online";
         defaults[2] = "<a>{faction} <i>{online} / {members} online, <a>Land / Power / Maxpower: <i>{chunks}/{power}/{maxPower}";
 
-        //this.requiredArgs.add("");
         this.optionalArgs.put("page", "1");
 
         this.permission = Permission.LIST.node;
@@ -110,7 +110,6 @@ public class CmdList extends FCommand {
         if (end > factionList.size()) {
             end = factionList.size();
         }
-
 
         String header = p.getConfig().getString("list.header", defaults[0]);
         header = header.replace("{pagenumber}", String.valueOf(pagenumber)).replace("{pagecount}", String.valueOf(pagecount));

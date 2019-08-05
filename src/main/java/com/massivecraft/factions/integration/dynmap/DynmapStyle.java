@@ -103,5 +103,4 @@ public class DynmapStyle {
         this.boost = boost;
         return this;
     }
-
 }

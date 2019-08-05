@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdShowClaims extends FCommand {
 
@@ -42,14 +43,10 @@ public class CmdShowClaims extends FCommand {
             if (chunks.length() != 0) sendMessage(chunks.toString());
             sendMessage("");
         }
-
-
     }
 
     @Override
     public TL getUsageTranslation() {
         return TL.COMMAND_SHOWCLAIMS_DESCRIPTION;
     }
-
-
 }

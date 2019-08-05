@@ -3,7 +3,6 @@
 # Made with love <3
 # You do not need to use the prefix in commands, change the universal prefix under root.
 # IF anything does not work, Please private message me on discord first @ Ryder Belserion#3548
-Messages:
   root:
     generic-prefix: "&8&l[&c&l!&8&l] "
     generic-command-disabled: "&7This command is disabled."
@@ -232,7 +231,7 @@ Messages:
       cmd-no-fac-msg: "&7Inspection Mode is now disabled because you do not have a faction."
       cmd-inspect-header: "&c&m---&7Inspect Data&c&m---&c//&7x:{x},y:{y},z:{z}"
       cmd-inspect-row: "&c{time} &7// &c{action} &7// &c{player} &7// &c{block-type}"
-      cmd-inspect-no-date: "&7No data was found!"
+      cmd-inspect-no-data: "&7No data was found!"
       cmd-inspect-not-in-claim: "&7You can only inspect in your faction claims."
       cmd-inspect-bypass: "&7Inspecting in Bypass Mode."
     f-invite:

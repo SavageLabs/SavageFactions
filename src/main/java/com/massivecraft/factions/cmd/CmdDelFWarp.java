@@ -4,6 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.fm.FileManager.Files;
+import com.massivecraft.factions.util.fm.enums.TL;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class CmdDelFWarp extends FCommand {
@@ -18,7 +19,6 @@ public class CmdDelFWarp extends FCommand {
         this.senderMustBeModerator = true;
         this.senderMustBePlayer = true;
         this.permission = Permission.SETWARP.node;
-
     }
 
     @Override
@@ -29,9 +29,9 @@ public class CmdDelFWarp extends FCommand {
                 return;
             }
             myFaction.removeWarp(warp);
-            fme.msg(TL.COMMAND_DELFWARP_DELETED, warp);
+            fme.msg(TL.CMD_DELETED_WARP.toString().replace("{warp}", warp));
         } else {
-            fme.msg(TL.COMMAND_DELFWARP_INVALID, warp);
+            fme.msg(TL.CMD_INVALID_WARP.toString().replace("{warp}", warp));
         }
     }
 

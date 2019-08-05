@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 public class CmdMapHeight extends FCommand {
 
@@ -13,7 +14,6 @@ public class CmdMapHeight extends FCommand {
         this.optionalArgs.put("height", "height");
 
         this.permission = Permission.MAPHEIGHT.node;
-
 
         this.senderMustBePlayer = true;
     }
@@ -35,5 +35,4 @@ public class CmdMapHeight extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_MAPHEIGHT_DESCRIPTION;
     }
-
 }

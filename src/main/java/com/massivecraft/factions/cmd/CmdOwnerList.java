@@ -4,6 +4,7 @@ import com.massivecraft.factions.Board;
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.util.fm.enums.TL;
 
 
 public class CmdOwnerList extends FCommand {
@@ -17,7 +18,6 @@ public class CmdOwnerList extends FCommand {
 
         this.permission = Permission.OWNERLIST.node;
         this.disableOnLock = false;
-
 
         senderMustBePlayer = true;
         senderMustBeMember = false;
@@ -35,7 +35,7 @@ public class CmdOwnerList extends FCommand {
         }
 
         if (!Conf.ownedAreasEnabled) {
-            fme.msg(TL.COMMAND_OWNERLIST_DISABLED);
+            fme.msg(TL.CMD_FOWNER_DISABLED);
             return;
         }
 
@@ -43,13 +43,13 @@ public class CmdOwnerList extends FCommand {
 
         if (Board.getInstance().getFactionAt(flocation) != myFaction) {
             if (!hasBypass) {
-                fme.msg(TL.COMMAND_OWNERLIST_WRONGFACTION);
+                fme.msg(TL.CMD_FOWNER_WRONG_FACTION);
                 return;
             }
             //TODO: This code won't ever be called.
             myFaction = Board.getInstance().getFactionAt(flocation);
             if (!myFaction.isNormal()) {
-                fme.msg(TL.COMMAND_OWNERLIST_NOTCLAIMED);
+                fme.msg(TL.CMD_NONE);
                 return;
             }
         }
@@ -57,11 +57,11 @@ public class CmdOwnerList extends FCommand {
         String owners = myFaction.getOwnerListString(flocation);
 
         if (owners == null || owners.isEmpty()) {
-            fme.msg(TL.COMMAND_OWNERLIST_NONE);
+            fme.msg(TL.CMD_NONE);
             return;
         }
 
-        fme.msg(TL.COMMAND_OWNERLIST_OWNERS, owners);
+        fme.msg(TL.CMD_OWNERS, owners);
     }
 
     @Override
