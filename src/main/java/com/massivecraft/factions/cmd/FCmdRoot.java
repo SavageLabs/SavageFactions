@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 public class FCmdRoot extends FCommand implements CommandExecutor {
 
-    public BrigadierManager brigadierManager = new BrigadierManager();
+    public BrigadierManager brigadierManager;
 
     public CmdAdmin cmdAdmin = new CmdAdmin();
     public CmdAutoClaim cmdAutoClaim = new CmdAutoClaim();
@@ -130,6 +130,8 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
 
         this.setHelpShort("The faction base command");
         this.helpLong.add(SavageFactions.plugin.txt.parseTags("<i>This command contains all faction stuff."));
+
+        if (CommodoreProvider.isSupported()) brigadierManager = new BrigadierManager();
 
         this.addSubCommand(this.cmdAdmin);
         this.addSubCommand(this.cmdAutoClaim);
@@ -272,6 +274,7 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
     @Override
     public void addSubCommand(FCommand subCommand) {
         super.addSubCommand(subCommand);
+        // People were getting NPE's as somehow CommodoreProvider#isSupported returned true on legacy versions.
         if (CommodoreProvider.isSupported()) {
             brigadierManager.addSubCommand(subCommand);
         }
