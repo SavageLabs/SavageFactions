@@ -24,6 +24,7 @@ public class CmdSetFWarp extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.SETWARP)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.SETWARP)
                 .build();
     }
 
@@ -32,16 +33,6 @@ public class CmdSetFWarp extends FCommand {
         if (!(context.fPlayer.getRelationToLocation() == Relation.MEMBER)) {
             context.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
             return;
-        }
-
-        // This statement allows us to check if they've specifically denied it, or default to
-        // the old setting of allowing moderators to set warps.
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.SETWARP);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "set warps");
-                return;
-            }
         }
 
         String warp = context.argAsString(0);

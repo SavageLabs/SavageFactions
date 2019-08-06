@@ -6,6 +6,7 @@ import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.CommandRequirements;
 import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 
 public class CmdClaimAt extends FCommand {
@@ -21,6 +22,7 @@ public class CmdClaimAt extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.CLAIMAT)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.TERRITORY)
                 .build();
     }
 

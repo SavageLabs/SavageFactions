@@ -18,6 +18,7 @@ public class FPromoteCommand extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.PROMOTE)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.PROMOTE)
                 .build();
     }
 
@@ -39,11 +40,6 @@ public class FPromoteCommand extends FCommand {
 
         // Now it ain't that messy
         if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.PROMOTE);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_NOPERMISSION, "manage ranks");
-                return;
-            }
             if (target == context.fPlayer) {
                 context.msg(TL.COMMAND_PROMOTE_NOTSELF);
                 return;

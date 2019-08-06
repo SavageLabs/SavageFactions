@@ -22,6 +22,7 @@ public class CmdUnclaim extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.UNCLAIM)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.TERRITORY)
                 .build();
     }
 
@@ -29,14 +30,6 @@ public class CmdUnclaim extends FCommand {
     public void perform(CommandContext context) {
         // Read and validate input
         int radius = context.argAsInt(0, 1); // Default to 1
-
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.TERRITORY);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage faction territory");
-                return;
-            }
-        }
 
         if (radius < 1) {
             context.msg(TL.COMMAND_CLAIM_INVALIDRADIUS);

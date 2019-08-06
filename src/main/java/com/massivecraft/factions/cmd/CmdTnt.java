@@ -22,6 +22,7 @@ public class CmdTnt extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.TNT)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.TNTBANK)
                 .build();
     }
 
@@ -30,14 +31,6 @@ public class CmdTnt extends FCommand {
         if (!SavageFactions.plugin.getConfig().getBoolean("ftnt.Enabled")) {
             context.msg(TL.COMMAND_TNT_DISABLED_MSG);
             return;
-        }
-
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.TNTBANK);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "use tnt bank");
-                return;
-            }
         }
 
         if (context.args.size() == 2) {

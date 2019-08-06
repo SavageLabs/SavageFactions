@@ -16,6 +16,7 @@ public class CmdSethome extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.SETHOME)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.SETHOME)
                 .build();
     }
 
@@ -29,14 +30,6 @@ public class CmdSethome extends FCommand {
         Faction faction = context.argAsFaction(0, context.faction);
         if (faction == null) {
             return;
-        }
-
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.SETHOME);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER && !Permission.SETHOME_ANY.has(context.sender, true)) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "set home");
-                return;
-            }
         }
 
         // Can the player set the faction home HERE?

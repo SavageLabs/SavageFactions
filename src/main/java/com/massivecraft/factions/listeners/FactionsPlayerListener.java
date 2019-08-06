@@ -692,7 +692,6 @@ public class FactionsPlayerListener implements Listener {
             }
         }
 
-
         if (me.isMapAutoUpdating()) {
             if (showTimes.containsKey(player.getUniqueId()) && (showTimes.get(player.getUniqueId()) > System.currentTimeMillis())) {
                 if (SavageFactions.plugin.getConfig().getBoolean("findfactionsexploit.log", false)) {

@@ -22,6 +22,7 @@ public class CmdInvite extends FCommand {
 
         this.requirements = new CommandRequirements.Builder(Permission.INVITE)
                 .playerOnly()
+                .withAction(PermissableAction.INVITE)
                 .build();
     }
 
@@ -41,14 +42,6 @@ public class CmdInvite extends FCommand {
         // if economy is enabled, they're not on the bypass list, and this command has a cost set, make 'em pay
         if (!context.payForCommand(Conf.econCostInvite, TL.COMMAND_INVITE_TOINVITE.toString(), TL.COMMAND_INVITE_FORINVITE.toString())) {
             return;
-        }
-
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.INVITE);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage invites");
-                return;
-            }
         }
 
         if (context.faction.isInvited(target)) {

@@ -7,6 +7,9 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
@@ -69,4 +72,5 @@ public class CmdVault extends FCommand {
     public TL getUsageTranslation() {
         return TL.COMMAND_VAULT_DESCRIPTION;
     }
+
 }

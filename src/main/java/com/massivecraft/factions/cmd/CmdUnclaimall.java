@@ -6,6 +6,7 @@ import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.LandUnclaimAllEvent;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
@@ -18,6 +19,7 @@ public class CmdUnclaimall extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.UNCLAIM_ALL)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.TERRITORY) //TODO: Add UnclaimALl PermissableAction
                 .build();
     }
 

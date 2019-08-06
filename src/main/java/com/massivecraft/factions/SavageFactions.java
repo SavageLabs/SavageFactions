@@ -5,14 +5,20 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
+import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
+import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.integration.dynmap.EngineDynmap;
 import com.massivecraft.factions.listeners.*;
 import com.massivecraft.factions.struct.ChatMode;
+import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.*;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
+import com.massivecraft.factions.zcore.CommandVisibility;
+import com.massivecraft.factions.zcore.MCommand;
 import com.massivecraft.factions.zcore.MPlugin;
 import com.massivecraft.factions.zcore.ffly.UtilFly;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
@@ -25,6 +31,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.*;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -43,6 +50,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 
 public class SavageFactions extends MPlugin {
@@ -136,12 +144,12 @@ public class SavageFactions extends MPlugin {
                 SavageFactions.plugin.log("Minecraft Version 1.8 found, Title Fadeouttime etc will not be configurable.");
                 mc18 = true;
                 break;
+            case 12:
+                mc112 = true;
+                break;
             case 13:
                 SavageFactions.plugin.log("Minecraft Version 1.13 found, New Items will be used.");
                 mc113 = true;
-                break;
-            case 12:
-                mc112 = true;
                 break;
             case 14:
                 SavageFactions.plugin.log("Minecraft Version 1.14 found.");
@@ -151,7 +159,9 @@ public class SavageFactions extends MPlugin {
         migrateFPlayerLeaders();
         log("==== End Setup ====");
 
-        if (!preEnable()) { return; }
+        if (!preEnable()) {
+            return;
+        }
 
         new ConfigVersion(this.getConfig()).checkVersion();
 
@@ -176,7 +186,7 @@ public class SavageFactions extends MPlugin {
         }
 
         Factions.getInstance().getAllFactions().forEach(Faction::refreshFPlayers);
-        
+
 
         UtilFly.run();
 
@@ -236,6 +246,10 @@ public class SavageFactions extends MPlugin {
         // since some other plugins execute commands directly through this command interface, provide it
         this.getCommand(refCommand).setExecutor(cmdBase);
 
+        if (mc18 || mc17) {
+            this.getCommand(refCommand).setTabCompleter(this);
+        }
+
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {
             divider();
             System.out.println("You are using an unstable version of the plugin!");
@@ -280,7 +294,8 @@ public class SavageFactions extends MPlugin {
 
     public List<String> replacePlaceholders(List<String> lore, Placeholder... placeholders) {
         for (Placeholder placeholder : placeholders) {
-            for (int x = 0; x <= lore.size() - 1; x++) lore.set(x, lore.get(x).replace(placeholder.getTag(), placeholder.getReplace()));
+            for (int x = 0; x <= lore.size() - 1; x++)
+                lore.set(x, lore.get(x).replace(placeholder.getTag(), placeholder.getReplace()));
         }
         return lore;
     }
@@ -430,22 +445,6 @@ public class SavageFactions extends MPlugin {
         return Conf.logPlayerCommands;
     }
 
-    @Override
-    public boolean handleCommand(CommandSender sender, String commandString, boolean testOnly) {
-        return sender instanceof Player && FactionsPlayerListener.preventCommand(commandString, (Player) sender) || super.handleCommand(sender, commandString, testOnly);
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] split) {
-        if (split.length == 0) {
-            return handleCommand(sender, "/f help", false);
-        }
-
-        // otherwise, needs to be handled; presumably another plugin directly ran the command
-        String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
-        return handleCommand(sender, cmd + " " + TextUtil.implode(Arrays.asList(split), " "), false);
-    }
-
     public void createTimedHologram(final Location location, String text, Long timeout) {
         ArmorStand as = (ArmorStand) location.add(0.5, 1, 0.5).getWorld().spawnEntity(location, EntityType.ARMOR_STAND); //Spawn the ArmorStand
         as.setVisible(false); //Makes the ArmorStand invisible
@@ -460,6 +459,77 @@ public class SavageFactions extends MPlugin {
                     getLogger().info("Removing Hologram.");
                 }
                 , timeout * 20);
+    }
+
+    @Override
+    public boolean handleCommand(CommandSender sender, String commandString, boolean testOnly) {
+        return sender instanceof Player && FactionsPlayerListener.preventCommand(commandString, (Player) sender) || super.handleCommand(sender, commandString, testOnly);
+    }
+
+    // This method must stay for < 1.12 versions
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        // Must be a LinkedList to prevent UnsupportedOperationException.
+        List<String> argsList = new LinkedList<>(Arrays.asList(args));
+        CommandContext context = new CommandContext(sender, argsList, alias);
+        String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
+        String cmdValid = (cmd + " " + TextUtil.implode(context.args, " ")).trim();
+        List<FCommand> commandsList = cmdBase.subCommands;
+        FCommand commandsEx = cmdBase;
+        List<String> completions = new ArrayList<>();
+
+        if (context.args.size() == 1) {
+            for (; !commandsList.isEmpty() && !context.args.isEmpty(); context.args.remove(0)) {
+                String cmdName = context.args.get(0).toLowerCase();
+                boolean toggle = false;
+                for (FCommand fCommand : commandsList) {
+                    for (String s : fCommand.aliases) {
+                        if (s.startsWith(cmdName)) {
+                            commandsEx = fCommand;
+                            commandsList = fCommand.subCommands;
+                            completions.addAll(fCommand.aliases);
+                            toggle = true;
+                            break;
+                        }
+                    }
+                    if (toggle) break;
+                }
+
+            }
+            if (context.args.isEmpty()) {
+                for (FCommand subCommand : commandsEx.subCommands) {
+                    if (handleCommand(sender, cmdValid + " " + subCommand.aliases.get(0), true)
+                            && subCommand.requirements.playerOnly
+                            && sender.hasPermission(subCommand.requirements.permission.node)
+                            && subCommand.visibility != CommandVisibility.INVISIBLE)
+                        completions.addAll(subCommand.aliases);
+                }
+            }
+            String lastArg = args[args.length - 1].toLowerCase();
+
+            completions = completions.stream()
+                    .filter(m -> m.toLowerCase().startsWith(lastArg))
+                    .collect(Collectors.toList());
+
+            return completions;
+
+        } else {
+            String lastArg = args[args.length - 1].toLowerCase();
+            if (context.args.size() >= 2) {
+                for (Role value : Role.values()) completions.add(value.nicename);
+                for (Relation value : Relation.values()) completions.add(value.nicename);
+                for (Player player : Bukkit.getServer().getOnlinePlayers()) completions.add(player.getName());
+
+               List<Faction> facs = Factions.getInstance().getAllFactions().stream().filter(f -> f.getTag().startsWith(lastArg)).collect(Collectors.toList());
+                for (Faction fac : facs) completions.add(fac.getTag());
+
+            }
+            completions = completions.stream()
+                    .filter(m -> m.toLowerCase().startsWith(lastArg))
+                    .collect(Collectors.toList());
+
+            return completions;
+        }
     }
 
 
@@ -501,7 +571,7 @@ public class SavageFactions extends MPlugin {
     // TODO: GET THIS BACK AND WORKING
 
     public boolean isFactionsCommand(String check) {
-        return !(check == null || check.isEmpty()) && this.handleCommand(null, check, true);
+        return !(check == null || check.isEmpty());
     }
 
     // Get a player's faction tag (faction name), mainly for usage by chat plugins for local/channel chat

@@ -31,6 +31,7 @@ public class CmdPerm extends FCommand {
 		this.requirements = new CommandRequirements.Builder(Permission.MANAGE_PERMISSIONS)
 				.playerOnly()
 				.memberOnly()
+				.withRole(Role.LEADER)
 				.build();
 	}
 

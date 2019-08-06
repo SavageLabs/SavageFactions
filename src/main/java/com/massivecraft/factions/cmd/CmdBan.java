@@ -24,21 +24,12 @@ public class CmdBan extends FCommand {
 
         this.requirements = new CommandRequirements.Builder(Permission.BAN)
                 .playerOnly()
+                .withAction(PermissableAction.BAN)
                 .build();
     }
 
     @Override
     public void perform(CommandContext context) {
-
-        // Adds bypass to admins and clean permission check
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.BAN);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.fPlayer.msg(TL.GENERIC_FPERM_NOPERMISSION, "ban");
-                return;
-            }
-        }
-
 
         // Good on permission checks. Now lets just ban the player.
         FPlayer target = context.argAsFPlayer(0);
