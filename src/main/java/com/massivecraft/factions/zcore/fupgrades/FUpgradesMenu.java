@@ -56,12 +56,10 @@ public class FUpgradesMenu {
 
     private void updateChests(Faction faction) {
         String invName = SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title"));
-
         for (Player player : faction.getOnlinePlayers()) {
             if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
                 player.closeInventory();
         }
-
         int level = faction.getUpgrade(UpgradeType.CHEST);
         int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + (level + 1));
         faction.setChestSize(size * 9);
@@ -77,9 +75,12 @@ public class FUpgradesMenu {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        // meta is null for air.
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 }

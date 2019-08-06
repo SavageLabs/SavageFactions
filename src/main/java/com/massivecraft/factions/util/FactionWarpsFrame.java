@@ -4,20 +4,20 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.Conf;
+import com.massivecraft.factions.FPlayer;
+import com.massivecraft.factions.Faction;
+import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.integration.Econ;
+import com.massivecraft.factions.zcore.util.TL;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Bukkit;
-import com.massivecraft.factions.zcore.util.TL;
 import java.util.Map;
-import com.massivecraft.factions.FPlayer;
-import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.Faction;
-import org.bukkit.configuration.ConfigurationSection;
 
 public class FactionWarpsFrame {
 
@@ -69,9 +69,11 @@ public class FactionWarpsFrame {
         final ConfigurationSection config = this.section.getConfigurationSection("warp-item");
         final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         final ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{warp-protected}", faction.hasWarpPassword(warp.getKey()) ? "Enabled" : "Disabled"), new Placeholder("{warp-cost}", SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) ? Integer.toString(SavageFactions.plugin.getConfig().getInt("warp-cost.warp", 5)) : "Disabled"))));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name").replace("{warp}", warp.getKey())));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{warp-protected}", faction.hasWarpPassword(warp.getKey()) ? "Enabled" : "Disabled"), new Placeholder("{warp-cost}", SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) ? Integer.toString(SavageFactions.plugin.getConfig().getInt("warp-cost.warp", 5)) : "Disabled"))));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name").replace("{warp}", warp.getKey())));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 
@@ -79,9 +81,11 @@ public class FactionWarpsFrame {
         final ConfigurationSection config = this.section.getConfigurationSection("dummy-item");
         final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         final ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 

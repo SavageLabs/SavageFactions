@@ -85,9 +85,11 @@ public class PermissableActionFrame {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-item");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 
@@ -95,9 +97,12 @@ public class PermissableActionFrame {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.back-item");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
+
         return item;
     }
 

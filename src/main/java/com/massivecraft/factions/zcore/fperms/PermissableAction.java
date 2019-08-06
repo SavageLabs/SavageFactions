@@ -91,16 +91,18 @@ public enum PermissableAction {
         ConfigurationSection section = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.action");
         ItemStack item = XMaterial.matchXMaterial(section.getString("Materials." + this.name)).parseItem();
         ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.setDisplayName(SavageFactions.plugin.color(section.getString("placeholder-item.name").replace("{action}", this.name)));
+            List<String> lore = section.getStringList("placeholder-item.lore");
 
-        meta.setDisplayName(SavageFactions.plugin.color(section.getString("placeholder-item.name").replace("{action}", this.name)));
-        List<String> lore = section.getStringList("placeholder-item.lore");
+            lore = SavageFactions.plugin.replacePlaceholders(lore,
+                    new Placeholder("{action-access-color}", fme.getFaction().getPermissions().get(perm).get(this).getColor()),
+                    new Placeholder("{action-access}", fme.getFaction().getPermissions().get(perm).get(this).getName()));
 
-        lore = SavageFactions.plugin.replacePlaceholders(lore,
-                new Placeholder("{action-access-color}", fme.getFaction().getPermissions().get(perm).get(this).getColor()),
-                new Placeholder("{action-access}", fme.getFaction().getPermissions().get(perm).get(this).getName()));
+            meta.setLore(SavageFactions.plugin.colorList(lore));
+            item.setItemMeta(meta);
+        }
 
-        meta.setLore(SavageFactions.plugin.colorList(lore));
-        item.setItemMeta(meta);
         return item;
     }
 

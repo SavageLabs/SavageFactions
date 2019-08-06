@@ -53,8 +53,10 @@ public class PermissableRelationFrame {
     private ItemStack buildAsset(String loc, String relation) {
         ItemStack item = XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString(loc)).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fperm-gui.relation.Placeholder-Item.Name").replace("{relation}", relation)));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fperm-gui.relation.Placeholder-Item.Name").replace("{relation}", relation)));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 
@@ -62,9 +64,12 @@ public class PermissableRelationFrame {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-item");
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        // So u can set it to air.
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
         return item;
     }
 

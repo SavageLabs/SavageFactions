@@ -43,9 +43,11 @@ public enum UpgradeType {
         ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
         int level = f.getUpgrade(this);
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{level}", level + ""))));
-        meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{level}", level + ""))));
+            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
+            item.setItemMeta(meta);
+        }
         return updateLevelStatus(item, level);
     }
 
@@ -57,9 +59,11 @@ public enum UpgradeType {
 
     private ItemStack enchant(ItemStack item) {
         ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
-        item.setItemMeta(itemMeta);
+        if (itemMeta != null) {
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+            item.setItemMeta(itemMeta);
+        }
         return item;
     }
 }
