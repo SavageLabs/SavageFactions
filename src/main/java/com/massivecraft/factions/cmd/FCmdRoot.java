@@ -125,6 +125,10 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
 
     public FCmdRoot() {
         super();
+
+        if (CommodoreProvider.isSupported()) brigadierManager = new BrigadierManager();
+
+
         this.aliases.addAll(Conf.baseCommandAliases);
         this.aliases.removeAll(Collections.<String>singletonList(null));
 
@@ -251,10 +255,7 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
             this.addSubCommand(this.cmdPaypalSee);
         }
 
-        if (CommodoreProvider.isSupported()) {
-            brigadierManager.build();
-        }
-
+        if (CommodoreProvider.isSupported()) brigadierManager.build();
     }
 
     @Override
