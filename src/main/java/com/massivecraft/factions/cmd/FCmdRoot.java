@@ -135,6 +135,8 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
         this.setHelpShort("The faction base command");
         this.helpLong.add(SavageFactions.plugin.txt.parseTags("<i>This command contains all faction stuff."));
 
+        if (CommodoreProvider.isSupported()) brigadierManager = new BrigadierManager();
+
         this.addSubCommand(this.cmdAdmin);
         this.addSubCommand(this.cmdAutoClaim);
         this.addSubCommand(this.cmdBoom);
@@ -273,6 +275,7 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
     @Override
     public void addSubCommand(FCommand subCommand) {
         super.addSubCommand(subCommand);
+        // People were getting NPE's as somehow CommodoreProvider#isSupported returned true on legacy versions.
         if (CommodoreProvider.isSupported()) {
             brigadierManager.addSubCommand(subCommand);
         }

@@ -114,7 +114,7 @@ public enum Permission {
     PARTICLE("particle"),
     CHEST("Chest"),
     LOCKSPAWNERS("lockspawners"),
-    MANAGE_PERMISSIONS("managerperms"),
+    MANAGE_PERMISSIONS("manageperms"),
     NEAR("near");
 
     public final String node;
