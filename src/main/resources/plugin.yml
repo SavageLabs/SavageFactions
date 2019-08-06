@@ -60,6 +60,13 @@ permissions:
       factions.kit.halfplayer: true
       factions.create: true
       factions.title.color: true
+      factions.manageperms: true
+      factions.setwarp: true
+      factions.warp: true
+      factions.modifypower: true
+      factions.paypal: true
+      factions.lockspawners: true
+      factions.near: true
   factions.kit.halfplayer:
     description: Can do all but create factions.
     children:
