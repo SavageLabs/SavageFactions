@@ -28,6 +28,7 @@ public class CmdTntFill extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.TNTFILL)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.TNTFILL)
                 .build();
     }
 
@@ -37,14 +38,6 @@ public class CmdTntFill extends FCommand {
             context.msg(TL.GENERIC_DISABLED);
             return;
         }
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.TNTFILL);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "use tnt fill");
-                return;
-            }
-        }
-
 
         context.msg(TL.COMMAND_TNTFILL_HEADER);
         int radius = context.argAsInt(0, 16);

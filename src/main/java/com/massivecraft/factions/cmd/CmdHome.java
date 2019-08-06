@@ -27,6 +27,7 @@ public class CmdHome extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.HOME)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.HOME)
                 .build();
     }
 
@@ -42,14 +43,6 @@ public class CmdHome extends FCommand {
             context.msg(TL.COMMAND_HOME_TELEPORTDISABLED);
             return;
         }
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.HOME);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "teleport home");
-                return;
-            }
-        }
-
 
         if (!context.faction.hasHome()) {
             context.msg(TL.COMMAND_HOME_NOHOME.toString() + (context.fPlayer.getRole().value < Role.MODERATOR.value ? TL.GENERIC_ASKYOURLEADER.toString() : TL.GENERIC_YOUSHOULD.toString()));

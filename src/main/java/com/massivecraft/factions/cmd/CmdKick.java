@@ -24,6 +24,7 @@ public class CmdKick extends FCommand {
 
         this.requirements = new CommandRequirements.Builder(Permission.KICK)
                 .playerOnly()
+                .withAction(PermissableAction.KICK)
                 .memberOnly()
                 .build();
     }
@@ -75,11 +76,6 @@ public class CmdKick extends FCommand {
         // - Make sure the player is in the faction.
         // - Make sure the kicked player has lower rank than the kicker.
         if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.KICK);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.fPlayer.msg(TL.GENERIC_NOPERMISSION, "kick");
-                return;
-            }
             if (toKickFaction != context.faction) {
                 context.msg(TL.COMMAND_KICK_NOTMEMBER, toKick.describeTo(context.fPlayer, true), context.faction.describeTo(context.fPlayer));
                 return;

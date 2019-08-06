@@ -20,7 +20,7 @@ public class CmdAdmin extends FCommand {
 
         this.requiredArgs.add("player");
 
-        this.requirements = new CommandRequirements.Builder(Permission.ADMIN).build();
+        this.requirements = new CommandRequirements.Builder(Permission.ADMIN).withRole(Role.LEADER).build();
     }
 
     @Override
@@ -35,11 +35,6 @@ public class CmdAdmin extends FCommand {
 
         if (targetFaction != context.faction && !permAny) {
             context.msg(TL.COMMAND_ADMIN_NOTMEMBER, fyou.describeTo(context.fPlayer, true));
-            return;
-        }
-
-        if (context.fPlayer != null && context.fPlayer.getRole() != Role.LEADER && !permAny) {
-            context.msg(TL.COMMAND_ADMIN_NOTADMIN);
             return;
         }
 

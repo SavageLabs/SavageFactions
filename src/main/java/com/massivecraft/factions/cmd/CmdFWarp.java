@@ -27,20 +27,12 @@ public class CmdFWarp extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.WARP)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.WARP)
                 .build();
     }
 
     @Override
     public void perform(CommandContext context) {
-        //TODO: check if in combat.
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.WARP);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "use warps");
-                return;
-            }
-        }
-
 
         if (context.args.size() == 0) {
             new FactionWarpsFrame(context.faction).buildGUI(context.fPlayer);

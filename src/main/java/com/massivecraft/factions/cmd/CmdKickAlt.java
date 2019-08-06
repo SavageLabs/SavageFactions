@@ -23,6 +23,7 @@ public class CmdKickAlt extends FCommand{
         this.requirements = new CommandRequirements.Builder(Permission.KICK)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.KICK)
                 .build();
     }
 
@@ -57,13 +58,6 @@ public class CmdKickAlt extends FCommand{
         // players with admin-level "disband" permission can bypass these
         // requirements
         if (!Permission.KICK_ANY.has(context.sender)) {
-
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.KICK);
-            if (access == Access.DENY || (access == Access.UNDEFINED && !context.assertMinRole(Role.MODERATOR))) {
-                context.msg(TL.GENERIC_NOPERMISSION, "kick");
-                return;
-            }
-
             if (toKickFaction != context.faction) {
                 context.msg(TL.COMMAND_KICK_NOTMEMBER, toKick.describeTo(context.fPlayer, true), context.faction.describeTo(context.fPlayer));
                 return;
@@ -71,12 +65,6 @@ public class CmdKickAlt extends FCommand{
 
             if (!toKick.isAlt()) {
                 context.msg(TL.COMMAND_ALTKICK_NOTALT);
-                return;
-            }
-
-            // Check for Access before we check for Role.
-            if (access != Access.ALLOW && toKick.getRole().value >= context.fPlayer.getRole().value) {
-                context.msg(TL.COMMAND_KICK_INSUFFICIENTRANK);
                 return;
             }
 
