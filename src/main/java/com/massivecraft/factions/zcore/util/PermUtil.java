@@ -20,7 +20,7 @@ public class PermUtil {
     }
 
     public String getForbiddenMessage(String perm) {
-        return p.txt.parse(TL.GENERIC_NOPERMISSION.toString(), getPermissionDescription(perm));
+        return p.txt.parse(TL.GENERIC_NOPERMISSION.toString(), perm, getPermissionDescription(perm));
     }
 
     /**
