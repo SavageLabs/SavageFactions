@@ -412,7 +412,6 @@ help:
 # This can be useful if you would like to create
 # A template for factions in your server to have for /f perms.
 fperm-gui:
-  '0':
     relation:
       # GUI Name
       name: 'Faction Permissions'
