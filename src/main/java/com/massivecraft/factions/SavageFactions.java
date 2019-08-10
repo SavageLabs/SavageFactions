@@ -262,6 +262,7 @@ public class SavageFactions extends MPlugin {
         this.postEnable();
         this.loadSuccessful = true;
         // Set startup finished to true. to give plugins hooking in a greenlight
+        reloadConfig();
         SavageFactions.startupFinished = true;
 
 
