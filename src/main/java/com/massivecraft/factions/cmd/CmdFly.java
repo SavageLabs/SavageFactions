@@ -94,7 +94,7 @@ public class CmdFly extends FCommand {
                         flyMap.remove(name);
                         continue;
                     }
-                    if (fPlayer.checkIfNearbyEnemies()) {
+                    if (player.hasPermission("factions.fly.bypassnearbyenemycheck") || fPlayer.checkIfNearbyEnemies()) {
                         continue;
                     }
                     FLocation myFloc = new FLocation(player.getLocation());
