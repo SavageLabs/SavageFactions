@@ -22,7 +22,7 @@ public class FUpgradesMenu {
 
     public FUpgradesMenu(Faction f) {
         gui = new Gui(SavageFactions.plugin,
-                SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.rows"),
+                SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.rows", 3),
                 SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.MainMenu.Title").replace("{faction}", f.getTag())));
     }
 
