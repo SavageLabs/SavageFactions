@@ -673,13 +673,13 @@ fupgrades:
   Enabled: true
   MainMenu:
     Title: '&c&l{faction}''s Upgrade Menu'
+    rows: 4
     DummyItem:
       Name: '&f'
       Type: STAINED_GLASS_PANE
       Amount: 1
       Lore:
       - ''
-      rows: 4
       slots:
         - 0
         - 1
