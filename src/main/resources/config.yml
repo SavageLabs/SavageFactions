@@ -412,128 +412,129 @@ help:
 # This can be useful if you would like to create
 # A template for factions in your server to have for /f perms.
 fperm-gui:
-  relation:
-    # GUI Name
-    name: 'Faction Permissions'
-    # Amount of inventory rows, No larger than 5
-    rows: 4
+  '0':
+    relation:
+      # GUI Name
+      name: 'Faction Permissions'
+      # Amount of inventory rows, No larger than 5
+      rows: 4
 
-    # These are the slots where the relations are going to be placed on the first GUI
-    # Note: Slots start at 0 and end at one less that GUI size
-    #Setting a slot to -1 will disable it
-    slots:
-      recruit: 10
-      normal: 12
-      moderator: 14
-      coleader: 16
-      truce: 19
-      ally: 21
-      enemy: 23
-      neutral: 25
-    # Material to be displayed
-    materials:
-      recruit: WOOD_SWORD
-      normal: GOLD_SWORD
-      moderator: IRON_SWORD
-      coleader: DIAMOND_SWORD
-      truce: IRON_AXE
-      ally: GOLD_AXE
-      enemy: DIAMOND_AXE
-      neutral: WOOD_AXE
-    Placeholder-Item:
-      Name: '&cClick to edit {relation} permissions!'
-  action:
-    name: 'Faction Permissions'
-    rows: 6
-    Access-Colors:
-      Allow: '&a'
-      Deny: '&c'
-      Undefined: '&7'
-    Materials:
-      build: COBBLESTONE
-      destroy: DIAMOND_PICKAXE
-      frostwalk: ICE
-      painbuild: ARROW
-      door: IRON_DOOR
-      button: OAK_BUTTON
-      lever: LEVER
-      container: CHEST
-      invite: NETHER_STAR
-      kick: DIAMOND_SWORD
-      items: PAPER
-      sethome: HOPPER
-      withdraw: SUNFLOWER
-      territory: SIGN
-      access: EMERALD
-      promote: DIAMOND
-      setwarp: COMPASS
-      warp: ENDER_PEARL
-      ban: ANVIL
-      disband: BARRIER
-      fly: FEATHER
-      vault: END_PORTAL_FRAME
-      tntbank: BEACON
-      tntfill: TNT
-      chest: ENDER_CHEST
-      spawner: MOB_SPAWNER
-      home: ENDER_EYE
-    slots:
-      # Uses same format as above to inform the player of clicked relation
-      relation: 4
-      # Back button slot
-      back: 0
-      # Start action slots
-      build: 10
-      destroy: 11
-      frostwalk: 12
-      painbuild: 13
-      door: 14
-      button: 15
-      lever: 16
-      container: 19
-      invite: 20
-      kick: 21
-      items: 22
-      sethome: 23
-      withdraw: 24
-      territory: 25
-      access: 28
-      promote: 29
-      setwarp: 30
-      warp: 31
-      ban: 32
-      disband: 33
-      fly: 34
-      vault: 40
-      tntbank: 39
-      tntfill: 41
-      chest: 42
-      spawner: 38
-      home: 49
-    # {action} Action name eg: Setwarp, Kick
-    # {action-access} Access name eg: Allow, Deny
-    # {action-access-color} Access color eg: Allow;GREEN
-    placeholder-item:
-      name: '&e&l(!) &ePermission: &6&n{action}'
+      # These are the slots where the relations are going to be placed on the first GUI
+      # Note: Slots start at 0 and end at one less that GUI size
+      #Setting a slot to -1 will disable it
+      slots:
+        recruit: 10
+        normal: 12
+        moderator: 14
+        coleader: 16
+        truce: 19
+        ally: 21
+        enemy: 23
+        neutral: 25
+      # Material to be displayed
+      materials:
+        recruit: WOOD_SWORD
+        normal: GOLD_SWORD
+        moderator: IRON_SWORD
+        coleader: DIAMOND_SWORD
+        truce: IRON_AXE
+        ally: GOLD_AXE
+        enemy: DIAMOND_AXE
+        neutral: WOOD_AXE
+      Placeholder-Item:
+        Name: '&cClick to edit {relation} permissions!'
+    action:
+      name: 'Faction Permissions'
+      rows: 6
+      Access-Colors:
+        Allow: '&a'
+        Deny: '&c'
+        Undefined: '&7'
+      Materials:
+        build: COBBLESTONE
+        destroy: DIAMOND_PICKAXE
+        frostwalk: ICE
+        painbuild: ARROW
+        door: IRON_DOOR
+        button: OAK_BUTTON
+        lever: LEVER
+        container: CHEST
+        invite: NETHER_STAR
+        kick: DIAMOND_SWORD
+        items: PAPER
+        sethome: HOPPER
+        withdraw: SUNFLOWER
+        territory: SIGN
+        access: EMERALD
+        promote: DIAMOND
+        setwarp: COMPASS
+        warp: ENDER_PEARL
+        ban: ANVIL
+        disband: BARRIER
+        fly: FEATHER
+        vault: END_PORTAL_FRAME
+        tntbank: BEACON
+        tntfill: TNT
+        chest: ENDER_CHEST
+        spawner: MOB_SPAWNER
+        home: ENDER_EYE
+      slots:
+        # Uses same format as above to inform the player of clicked relation
+        relation: 4
+        # Back button slot
+        back: 0
+        # Start action slots
+        build: 10
+        destroy: 11
+        frostwalk: 12
+        painbuild: 13
+        door: 14
+        button: 15
+        lever: 16
+        container: 19
+        invite: 20
+        kick: 21
+        items: 22
+        sethome: 23
+        withdraw: 24
+        territory: 25
+        access: 28
+        promote: 29
+        setwarp: 30
+        warp: 31
+        ban: 32
+        disband: 33
+        fly: 34
+        vault: 40
+        tntbank: 39
+        tntfill: 41
+        chest: 42
+        spawner: 38
+        home: 49
+      # {action} Action name eg: Setwarp, Kick
+      # {action-access} Access name eg: Allow, Deny
+      # {action-access-color} Access color eg: Allow;GREEN
+      placeholder-item:
+        name: '&e&l(!) &ePermission: &6&n{action}'
+        lore:
+          - ''
+          - '&6&l * &eStatus: &8[{action-access-color}{action-access}&8]'
+          - ''
+          - '&7Left click to &a&nAllow&7.'
+          - '&7Right click to &c&nDeny&7.'
+          - '&7Middle click to &7&nUndefine&7.'
+    # Back item will be take you to the previous GUI
+    back-item:
+      Type: ARROW
+      Name: '&c&l<- Back'
       lore:
-        - ''
-        - '&6&l * &eStatus: &8[{action-access-color}{action-access}&8]'
-        - ''
-        - '&7Left click to &a&nAllow&7.'
-        - '&7Right click to &c&nDeny&7.'
-        - '&7Middle click to &7&nUndefine&7.'
-  # Back item will be take you to the previous GUI
-  back-item:
-    Type: ARROW
-    Name: '&c&l<- Back'
-    lore:
-      - '&7Click to return to previous menu.'
-  # Dummy Items
-  dummy-item:
-    Type: BLACK_STAINED_GLASS_PANE
-    Name: ' '
-    Lore:
-      - ' '
+        - '&7Click to return to previous menu.'
+    # Dummy Items
+    dummy-item:
+      Type: BLACK_STAINED_GLASS_PANE
+      Name: ' '
+      Lore:
+        - ' '
         ############################################################
         # +------------------------------------------------------+ #
         # |                  Faction Warp GUI                    | #
