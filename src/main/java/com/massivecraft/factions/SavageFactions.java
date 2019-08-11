@@ -479,14 +479,20 @@ public class SavageFactions extends MPlugin {
         FCommand commandsEx = cmdBase;
         List<String> completions = new ArrayList<>();
 
-        if (context.args.size() == 1) {
+        // Check for "" first arg because spigot is mangled.
+        if (context.args.get(0).equals("")) {
+            for (FCommand subCommand : commandsEx.subCommands) {
+                if (subCommand.requirements.playerOnly && sender.hasPermission(subCommand.requirements.permission.node) && subCommand.visibility != CommandVisibility.INVISIBLE)
+                    completions.addAll(subCommand.aliases);
+            }
+            return completions;
+        } else if (context.args.size() == 1) {
             for (; !commandsList.isEmpty() && !context.args.isEmpty(); context.args.remove(0)) {
                 String cmdName = context.args.get(0).toLowerCase();
                 boolean toggle = false;
                 for (FCommand fCommand : commandsList) {
                     for (String s : fCommand.aliases) {
                         if (s.startsWith(cmdName)) {
-                            commandsEx = fCommand;
                             commandsList = fCommand.subCommands;
                             completions.addAll(fCommand.aliases);
                             toggle = true;
@@ -494,16 +500,6 @@ public class SavageFactions extends MPlugin {
                         }
                     }
                     if (toggle) break;
-                }
-
-            }
-            if (context.args.isEmpty()) {
-                for (FCommand subCommand : commandsEx.subCommands) {
-                    if (handleCommand(sender, cmdValid + " " + subCommand.aliases.get(0), true)
-                            && subCommand.requirements.playerOnly
-                            && sender.hasPermission(subCommand.requirements.permission.node)
-                            && subCommand.visibility != CommandVisibility.INVISIBLE)
-                        completions.addAll(subCommand.aliases);
                 }
             }
             String lastArg = args[args.length - 1].toLowerCase();
@@ -517,11 +513,12 @@ public class SavageFactions extends MPlugin {
         } else {
             String lastArg = args[args.length - 1].toLowerCase();
             if (context.args.size() >= 2) {
+
                 for (Role value : Role.values()) completions.add(value.nicename);
                 for (Relation value : Relation.values()) completions.add(value.nicename);
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) completions.add(player.getName());
 
-               List<Faction> facs = Factions.getInstance().getAllFactions().stream().filter(f -> f.getTag().startsWith(lastArg)).collect(Collectors.toList());
+                List<Faction> facs = Factions.getInstance().getAllFactions().stream().filter(f -> f.getTag().startsWith(lastArg)).collect(Collectors.toList());
                 for (Faction fac : facs) completions.add(fac.getTag());
 
             }
@@ -532,7 +529,6 @@ public class SavageFactions extends MPlugin {
             return completions;
         }
     }
-
 
     // -------------------------------------------- //
     // Functions for other plugins to hook into

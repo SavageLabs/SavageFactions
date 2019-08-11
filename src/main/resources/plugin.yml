@@ -65,7 +65,6 @@ permissions:
       factions.warp: true
       factions.modifypower: true
       factions.paypal: true
-      factions.lockspawners: true
       factions.near: true
   factions.kit.halfplayer:
     description: Can do all but create factions.
