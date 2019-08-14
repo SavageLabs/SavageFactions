@@ -149,7 +149,7 @@ public class FactionsChatListener implements Listener {
             }
 
             InsertIndex = eventFormat.indexOf(Conf.chatTagReplaceString);
-            eventFormat = eventFormat.replace(Conf.chatTagReplaceString, "");
+            eventFormat = eventFormat.replace(Conf.chatTagReplaceString, TL.NOFACTION_PREFIX.toString());
             Conf.chatTagPadAfter = false;
             Conf.chatTagPadBefore = false;
         } else if (!Conf.chatTagInsertAfterString.isEmpty() && eventFormat.contains(Conf.chatTagInsertAfterString)) {
