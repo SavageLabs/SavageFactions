@@ -27,9 +27,7 @@ public class BrigadierManager {
 
         // Add factions children to f alias
         LiteralArgumentBuilder<Object> fLiteral = LiteralArgumentBuilder.literal("f");
-        for (CommandNode<Object> node : brigadier.getArguments()) {
-            fLiteral.then(node);
-        }
+        for (CommandNode<Object> node : brigadier.getArguments()) fLiteral.then(node);
         commodore.register(fLiteral.build());
     }
 

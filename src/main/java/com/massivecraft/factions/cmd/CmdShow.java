@@ -1,22 +1,16 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.*;
+import com.massivecraft.factions.Conf;
+import com.massivecraft.factions.Faction;
+import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.struct.Relation;
-import com.massivecraft.factions.tag.FancyTag;
-import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.zcore.util.TL;
 import com.massivecraft.factions.zcore.util.TagReplacer;
 import com.massivecraft.factions.zcore.util.TagUtil;
 import mkremins.fanciful.FancyMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CmdShow extends FCommand {
 
@@ -42,17 +36,19 @@ public class CmdShow extends FCommand {
         // this.requiredArgs.add("");
         this.optionalArgs.put("faction tag", "yours");
 
-        this.requirements = new CommandRequirements.Builder(Permission.SHOW)
-                .build();
+        this.requirements = new CommandRequirements.Builder(Permission.SHOW).build();
     }
 
     @Override
     public void perform(CommandContext context) {
         Faction faction = context.faction;
-        if (context.argIsSet(0)) faction = context.argAsFaction(0);
-        if (faction == null) return;
+        if (context.argIsSet(0))
+            faction = context.argAsFaction(0);
 
-        if (context.fPlayer != null && !context.player.hasPermission("factions.show.bypassexempt")
+        if (faction == null)
+            return;
+
+        if (context.fPlayer != null && !context.player.getPlayer().hasPermission("factions.show.bypassexempt")
                 && SavageFactions.plugin.getConfig().getStringList("show-exempt").contains(faction.getTag())) {
             context.msg(TL.COMMAND_SHOW_EXEMPT);
             return;
@@ -64,7 +60,9 @@ public class CmdShow extends FCommand {
         }
 
         List<String> show = SavageFactions.plugin.getConfig().getStringList("show");
-        if (show == null || show.isEmpty()) show = defaults;
+        if (show == null || show.isEmpty())
+            show = defaults;
+
         if (!faction.isNormal()) {
             String tag = faction.getTag(context.fPlayer);
             // send header and that's all
@@ -77,7 +75,6 @@ public class CmdShow extends FCommand {
             return; // we only show header for non-normal factions
         }
 
-        List<String> messageList = new ArrayList<>();
         for (String raw : show) {
             String parsed = TagUtil.parsePlain(faction, context.fPlayer, raw); // use relations
             if (parsed == null) {
@@ -85,7 +82,7 @@ public class CmdShow extends FCommand {
             }
 
             if (context.fPlayer != null) {
-                parsed = TagUtil.parsePlaceholders(context.player, parsed);
+                parsed = TagUtil.parsePlaceholders(context.fPlayer.getPlayer(), parsed);
             }
 
             if (TagUtil.hasFancy(parsed)) {
@@ -102,135 +99,11 @@ public class CmdShow extends FCommand {
                 }
                 if (parsed.contains("%")) {
                     parsed = parsed.replaceAll("%", ""); // Just in case it got in there before we disallowed it.
-                    messageList.add(parsed);
                 }
                 context.msg(SavageFactions.plugin.txt.parse(parsed));
             }
         }
-        if (context.fPlayer != null && groupPresent()) {
-            new GroupGetter(messageList, context.fPlayer, faction).runTaskAsynchronously(SavageFactions.plugin);
-        } else {
-            this.sendMessages(messageList, context.sender, faction, context.fPlayer, null);
-        }
     }
-
-    private void sendMessages(List<String> messageList, CommandSender recipient, Faction faction, FPlayer player, Map<UUID, String> groupMap) {
-        FancyTag tag;
-        for (String parsed : messageList) {
-            if ((tag = FancyTag.getMatch(parsed)) != null) {
-                if (player != null) {
-                    List<FancyMessage> fancy = FancyTag.parse(parsed, faction, player, groupMap);
-                    if (fancy != null) {
-                        for (FancyMessage fancyMessage : fancy) {
-                            fancyMessage.send(recipient);
-                        }
-                    }
-                } else {
-                    StringBuilder builder = new StringBuilder();
-                    builder.append(parsed.replace(tag.getTag(), ""));
-                    switch (tag) {
-                        case ONLINE_LIST:
-                            this.onOffLineMessage(builder, recipient, faction, true);
-                            break;
-                        case OFFLINE_LIST:
-                            this.onOffLineMessage(builder, recipient, faction, false);
-                            break;
-                        case ALLIES_LIST:
-                            this.relationMessage(builder, recipient, faction, Relation.ALLY);
-                            break;
-                        case ENEMIES_LIST:
-                            this.relationMessage(builder, recipient, faction, Relation.ENEMY);
-                            break;
-                        case TRUCES_LIST:
-                            this.relationMessage(builder, recipient, faction, Relation.TRUCE);
-                            break;
-                        default:
-                            // NO
-                    }
-                }
-            } else {
-                recipient.sendMessage(SavageFactions.plugin.txt.parse(parsed));
-            }
-        }
-    }
-
-    private boolean groupPresent() {
-        for (String line : SavageFactions.plugin.getConfig().getStringList("tooltips.show")) {
-            if (line.contains("{group}")) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void onOffLineMessage(StringBuilder builder, CommandSender recipient, Faction faction, boolean online) {
-        boolean first = true;
-        for (FPlayer p : MiscUtil.rankOrder(faction.getFPlayersWhereOnline(online))) {
-            String name = p.getNameAndTitle();
-            builder.append(first ? name : ", " + name);
-            first = false;
-        }
-        recipient.sendMessage(SavageFactions.plugin.txt.parse(builder.toString()));
-    }
-
-    private void relationMessage(StringBuilder builder, CommandSender recipient, Faction faction, Relation relation) {
-        boolean first = true;
-        for (Faction otherFaction : Factions.getInstance().getAllFactions()) {
-            if (otherFaction != faction && otherFaction.getRelationTo(faction) == relation) {
-                String s = otherFaction.getTag();
-                builder.append(first ? s : ", " + s);
-                first = false;
-            }
-        }
-        recipient.sendMessage(SavageFactions.plugin.txt.parse(builder.toString()));
-    }
-
-
-    private class GroupGetter extends BukkitRunnable {
-        private List<String> messageList;
-        private FPlayer sender;
-        private Faction faction;
-        private Set<OfflinePlayer> players;
-
-        private GroupGetter(List<String> messageList, FPlayer sender, Faction faction) {
-            this.messageList = messageList;
-            this.sender = sender;
-            this.faction = faction;
-            this.players = faction.getFPlayers().stream().map(fp -> Bukkit.getOfflinePlayer(UUID.fromString(fp.getId()))).collect(Collectors.toSet());
-        }
-
-        @Override
-        public void run() {
-            Map<UUID, String> map = new HashMap<>();
-            for (OfflinePlayer player : this.players) {
-                map.put(player.getUniqueId(), SavageFactions.plugin.getPrimaryGroup(player));
-            }
-            new Sender(this.messageList, this.sender, this.faction, map).runTask(SavageFactions.plugin);
-        }
-    }
-
-    private class Sender extends BukkitRunnable {
-        private List<String> messageList;
-        private FPlayer sender;
-        private Faction faction;
-        private Map<UUID, String> map;
-
-        private Sender(List<String> messageList, FPlayer sender, Faction faction, Map<UUID, String> map) {
-            this.messageList = messageList;
-            this.sender = sender;
-            this.faction = faction;
-            this.map = map;
-        }
-
-        @Override
-        public void run() {
-            Player player = Bukkit.getPlayerExact(sender.getName());
-            if (player != null) {
-                CmdShow.this.sendMessages(messageList, player, faction, sender, map);
-            }
-        }
-    }
-
 
     @Override
     public TL getUsageTranslation() {
