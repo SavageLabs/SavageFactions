@@ -33,7 +33,7 @@ public class UtilFly {
 
         if (!silent) {
             if (!damage) {
-                fp.msg(TL.COMMAND_FLY_CHANGE, fly ? "enabled" : "disabled");
+                fp.msg(TL.COMMAND_FLY_CHANGE, fly ? TL.GENERIC_ENABLED : TL.GENERIC_DISABLED);
             } else {
                 fp.msg(TL.COMMAND_FLY_DAMAGE);
             }
