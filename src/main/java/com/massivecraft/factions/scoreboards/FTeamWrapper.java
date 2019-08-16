@@ -24,54 +24,33 @@ public class FTeamWrapper {
     private FTeamWrapper(Faction faction) {
         this.teamName = "faction_" + (factionTeamPtr++);
         this.faction = faction;
-
-        for (FScoreboard fboard : tracking) {
-            add(fboard);
-        }
+        for (FScoreboard fboard : tracking) add(fboard);
     }
 
     public static void applyUpdatesLater(final Faction faction) {
-        if (!FScoreboard.isSupportedByServer()) {
-            return;
-        }
+        if (!FScoreboard.isSupportedByServer()) return;
+        if (faction.isWilderness()) return;
 
-        if (faction.isWilderness()) {
-            return;
-        }
+        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false)
+                || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) return;
 
-        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false) || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) {
-            return;
-        }
 
 
         if (updating.add(faction)) {
-            Bukkit.getScheduler().runTask(SavageFactions.plugin, new Runnable() {
-                @Override
-                public void run() {
+            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> {
                     updating.remove(faction);
                     applyUpdates(faction);
-                }
             });
         }
     }
 
     public static void applyUpdates(Faction faction) {
-        if (!FScoreboard.isSupportedByServer()) {
-            return;
-        }
+        if (!FScoreboard.isSupportedByServer()) return;
+        if (faction.isWilderness()) return;
+        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false)
+                || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) return;
 
-        if (faction.isWilderness()) {
-            return;
-        }
-
-        if (!SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false) || SavageFactions.plugin.getConfig().getBoolean("See-Invisible-Faction-Members")) {
-            return;
-        }
-
-        if (updating.contains(faction)) {
-            // Faction will be updated soon.
-            return;
-        }
+        if (updating.contains(faction)) return;
 
         FTeamWrapper wrapper = wrappers.get(faction);
         Set<FPlayer> factionMembers = faction.getFPlayers();
@@ -96,47 +75,29 @@ public class FTeamWrapper {
         }
 
         for (FPlayer fmember : factionMembers) {
-            if (!fmember.isOnline()) {
-                continue;
-            }
-
+            if (!fmember.isOnline()) continue;
             // Scoreboard might not have player; add him/her
             wrapper.addPlayer(fmember.getPlayer());
         }
-
         wrapper.updatePrefixes();
     }
 
     public static void updatePrefixes(Faction faction) {
-        if (!FScoreboard.isSupportedByServer()) {
-            return;
-        }
-
-        if (!wrappers.containsKey(faction)) {
-            applyUpdates(faction);
-        } else {
-            wrappers.get(faction).updatePrefixes();
-        }
+        if (!FScoreboard.isSupportedByServer()) return;
+        if (!wrappers.containsKey(faction)) applyUpdates(faction);
+        else wrappers.get(faction).updatePrefixes();
     }
 
     protected static void track(FScoreboard fboard) {
-        if (!FScoreboard.isSupportedByServer()) {
-            return;
-        }
+        if (!FScoreboard.isSupportedByServer()) return;
         tracking.add(fboard);
-        for (FTeamWrapper wrapper : wrappers.values()) {
-            wrapper.add(fboard);
-        }
+        for (FTeamWrapper wrapper : wrappers.values()) wrapper.add(fboard);
     }
 
     protected static void untrack(FScoreboard fboard) {
-        if (!FScoreboard.isSupportedByServer()) {
-            return;
-        }
+        if (!FScoreboard.isSupportedByServer()) return;
         tracking.remove(fboard);
-        for (FTeamWrapper wrapper : wrappers.values()) {
-            wrapper.remove(fboard);
-        }
+        for (FTeamWrapper wrapper : wrappers.values()) wrapper.remove(fboard);
     }
 
     private void add(FScoreboard fboard) {
@@ -144,16 +105,11 @@ public class FTeamWrapper {
         Team team = board.registerNewTeam(teamName);
         teams.put(fboard, team);
 
-        for (OfflinePlayer player : getPlayers()) {
-            team.addPlayer(player);
-        }
-
+        for (OfflinePlayer player : getPlayers()) team.addPlayer(player);
         updatePrefix(fboard);
     }
 
-    private void remove(FScoreboard fboard) {
-        teams.remove(fboard).unregister();
-    }
+    private void remove(FScoreboard fboard) { teams.remove(fboard).unregister(); }
 
     private void updatePrefixes() {
         if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-prefixes", false)) {
@@ -198,19 +154,11 @@ public class FTeamWrapper {
 
 
     private void addPlayer(OfflinePlayer player) {
-        if (members.add(player)) {
-            for (Team team : teams.values()) {
-                team.addPlayer(player);
-            }
-        }
+        if (members.add(player)) for (Team team : teams.values()) team.addPlayer(player);
     }
 
     private void removePlayer(OfflinePlayer player) {
-        if (members.remove(player)) {
-            for (Team team : teams.values()) {
-                team.removePlayer(player);
-            }
-        }
+        if (members.remove(player)) for (Team team : teams.values()) team.removePlayer(player);
     }
 
     private Set<OfflinePlayer> getPlayers() {
@@ -218,9 +166,7 @@ public class FTeamWrapper {
     }
 
     private void unregister() {
-        for (Team team : teams.values()) {
-            team.unregister();
-        }
+        for (Team team : teams.values()) team.unregister();
         teams.clear();
     }
 }
