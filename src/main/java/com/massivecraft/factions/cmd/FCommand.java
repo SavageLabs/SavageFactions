@@ -205,7 +205,7 @@ public abstract class FCommand {
  */
     public String getUseageTemplate(CommandContext context, boolean addShortHelp) {
         StringBuilder ret = new StringBuilder();
-        ret.append(SavageFactions.plugin.txt.parseTags("<c>"));
+        ret.append(SavageFactions.plugin.color(TL.COMMAND_USEAGE_TEMPLATE_COLOR.toString()));
         ret.append('/');
 
         for (FCommand fc : context.commandChain) {

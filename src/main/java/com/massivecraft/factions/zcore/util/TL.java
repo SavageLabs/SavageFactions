@@ -65,6 +65,7 @@ public enum TL {
 	/**
 	 * Command translations
 	 */
+	COMMAND_USEAGE_TEMPLATE_COLOR("&c"),
 
 	/**
 	 * Messsges for /f help
