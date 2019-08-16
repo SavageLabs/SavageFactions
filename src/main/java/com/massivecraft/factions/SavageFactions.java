@@ -167,7 +167,9 @@ public class SavageFactions extends MPlugin {
         saveDefaultConfig();
         // Load Conf from disk
         Conf.load();
-        new ConfigVersion(this.getConfig()).checkVersion();
+
+        new ConfigVersion.Checker().checkLevel().TakeActionIfRequired().save();
+
         com.massivecraft.factions.integration.Essentials.setup();
         hookedPlayervaults = setupPlayervaults();
         FPlayers.getInstance().load();
