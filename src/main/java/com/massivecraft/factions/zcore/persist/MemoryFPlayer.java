@@ -591,7 +591,10 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
 
         PowerRegenEvent powerRegenEvent = new PowerRegenEvent(getFaction(), this);
-        Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(powerRegenEvent));
+        if (Bukkit.getPluginManager().getPlugin("SavageFactions") != null) {
+            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(powerRegenEvent));
+
+        }
 
         if (!powerRegenEvent.isCancelled())
             this.alterPower(millisPassed * Conf.powerPerMinute / 60000); // millisPerMinute : 60 * 1000
@@ -892,7 +895,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         }
 
         if (!damage) {
-            msg(TL.COMMAND_FLY_CHANGE, fly ? "enabled" : "disabled");
+            msg(TL.COMMAND_FLY_CHANGE, fly ? TL.GENERIC_ENABLED : TL.GENERIC_DISABLED);
             if (!fly) {
                 sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3) + ""));
             }

@@ -107,7 +107,6 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
     public CmdGetVault cmdGetVault = new CmdGetVault();
     public CmdFly cmdFly = new CmdFly();
     public CmdColeader cmdColeader = new CmdColeader();
-    public CmdBanner cmdBanner = new CmdBanner();
     public CmdTpBanner cmdTpBanner = new CmdTpBanner();
     public CmdKillHolograms cmdKillHolograms = new CmdKillHolograms();
     public CmdInspect cmdInspect = new CmdInspect();
@@ -216,7 +215,6 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
         this.addSubCommand(this.cmdVault);
         this.addSubCommand(this.cmdGetVault);
         this.addSubCommand(this.cmdColeader);
-        this.addSubCommand(this.cmdBanner);
         this.addSubCommand(this.cmdTpBanner);
         this.addSubCommand(this.cmdKillHolograms);
         this.addSubCommand(this.cmdCoords);

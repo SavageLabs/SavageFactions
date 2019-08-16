@@ -18,7 +18,7 @@ public class CmdGrace extends FCommand {
     @Override
     public void perform(CommandContext context) {
         Conf.graceEnabled = !Conf.graceEnabled;
-        context.msg(TL.COMMMAND_GRACE_TOGGLED, Conf.graceEnabled ? "Enabled" : "Disabled");
+        context.msg(TL.COMMMAND_GRACE_TOGGLED, Conf.graceEnabled ? TL.GENERIC_ENABLED : TL.GENERIC_DISABLED);
     }
 
 

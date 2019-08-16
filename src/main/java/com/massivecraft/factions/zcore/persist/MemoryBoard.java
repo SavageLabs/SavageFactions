@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
-import com.massivecraft.factions.util.AsciiCompass;
 import com.massivecraft.factions.util.LazyLocation;
 import com.massivecraft.factions.zcore.util.TL;
 import com.massivecraft.factions.zcore.util.TagReplacer;
@@ -16,7 +15,6 @@ import org.bukkit.World;
 
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public abstract class MemoryBoard extends Board {
@@ -247,7 +245,7 @@ public abstract class MemoryBoard extends Board {
                             (Conf.showEnemyFactionsOnMap && relation.equals(Relation.ENEMY)) ||
                             (Conf.showTrucesFactionsOnMap && relation.equals(Relation.TRUCE))) {
                         if (!fList.containsKey(factionHere.getTag())) {
-                            fList.put(factionHere.getTag(), Conf.mapKeyChrs.get(ThreadLocalRandom.current().nextInt(0, Conf.mapKeyChrs.size())));
+                            fList.put(factionHere.getTag(), Conf.mapKeyChrs[Math.min(chrIdx++, Conf.mapKeyChrs.length - 1)] + "");
                         }
                         String tag = fList.get(factionHere.getTag());
 

@@ -347,8 +347,8 @@ public class Conf {
     public static String mapYouAreHereIcon = "\u271c";
     public static String mapFlatIcon = "\u2589";
 
-    public static List<String> mapKeyChrs = new ArrayList<>(Arrays.asList("\u2726", "\u2734", "\u2735", "\u2777", "\u2778", "\u2779", "\u277a", "\u277b", "\u277c", "\u277d", "\u277e", "\u277f"));
-
+    public static char[] mapKeyChrs = "\u2726\u2734\u2735\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f".toCharArray();
+//    public static transient char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
 
     // Grace Period Settings
     public static boolean graceEnabled = false;
