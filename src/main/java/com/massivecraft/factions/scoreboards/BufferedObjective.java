@@ -20,18 +20,13 @@ public class BufferedObjective {
         // Teams, as adding OfflinePlayers to a team is far too slow.
 
         Method addEntryMethodLookup = null;
-        try {
-            addEntryMethodLookup = Team.class.getMethod("addEntry", String.class);
-        } catch (NoSuchMethodException ignored) {
-        }
+        try { addEntryMethodLookup = Team.class.getMethod("addEntry", String.class); }
+        catch (NoSuchMethodException ignored) { }
 
         addEntryMethod = addEntryMethodLookup;
 
-        if (addEntryMethod != null) {
-            MAX_LINE_LENGTH = 48;
-        } else {
-            MAX_LINE_LENGTH = 16;
-        }
+        if (addEntryMethod != null) MAX_LINE_LENGTH = 48;
+        else MAX_LINE_LENGTH = 16;
     }
 
     private final Scoreboard scoreboard;
@@ -55,9 +50,7 @@ public class BufferedObjective {
     private String createBaseName() {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();
-        while (builder.length() < 14) {
-            builder.append(Integer.toHexString(random.nextInt()));
-        }
+        while (builder.length() < 14) builder.append(Integer.toHexString(random.nextInt()));
         return builder.toString().substring(0, 14);
     }
 
@@ -74,20 +67,13 @@ public class BufferedObjective {
     }
 
     public void setAllLines(List<String> lines) {
-        if (lines.size() != contents.size()) {
-            contents.clear();
-        }
-        for (int i = 0; i < lines.size(); i++) {
-            setLine(lines.size() - i, lines.get(i));
-        }
+        if (lines.size() != contents.size()) contents.clear();
+        for (int i = 0; i < lines.size(); i++) setLine(lines.size() - i, lines.get(i));
     }
 
     public void setLine(int lineNumber, String content) {
-        if (content.length() > MAX_LINE_LENGTH) {
-            content = content.substring(0, MAX_LINE_LENGTH);
-        }
+        if (content.length() > MAX_LINE_LENGTH) content = content.substring(0, MAX_LINE_LENGTH);
         content = ChatColor.translateAlternateColorCodes('&', content);
-
         if (contents.get(lineNumber) == null || !contents.get(lineNumber).equals(content)) {
             contents.put(lineNumber, content);
             requiresUpdate = true;
@@ -95,16 +81,11 @@ public class BufferedObjective {
     }
 
     // Hides the objective from the display slot until flip() is called
-    public void hide() {
-        if (displaySlot != null) {
-            scoreboard.clearSlot(displaySlot);
-        }
-    }
+    public void hide() { if (displaySlot != null) scoreboard.clearSlot(displaySlot); }
 
     public void flip() {
-        if (!requiresUpdate) {
-            return;
-        }
+        if (!requiresUpdate) return;
+
         requiresUpdate = false;
 
         Objective buffer = scoreboard.registerNewObjective(getNextObjectiveName(), "dummy");
@@ -121,24 +102,15 @@ public class BufferedObjective {
 
                 team.setPrefix(split.next());
                 String name = split.next();
-                if (split.hasNext()) { // We only guarantee two splits
-                    team.setSuffix(split.next());
-                }
+                if (split.hasNext()) team.setSuffix(split.next());
+                try { addEntryMethod.invoke(team, name); }
+                catch (ReflectiveOperationException ignored) { }
 
-                try {
-                    addEntryMethod.invoke(team, name);
-                } catch (ReflectiveOperationException ignored) {
-                }
                 buffer.getScore(name).setScore(entry.getKey());
-            } else {
-                buffer.getScore(entry.getValue()).setScore(entry.getKey());
-            }
+            } else buffer.getScore(entry.getValue()).setScore(entry.getKey());
         }
 
-        if (displaySlot != null) {
-            buffer.setDisplaySlot(displaySlot);
-        }
-
+        if (displaySlot != null) buffer.setDisplaySlot(displaySlot);
         // Unregister _ALL_ the old things
         current.unregister();
 
@@ -152,11 +124,7 @@ public class BufferedObjective {
         currentTeams = bufferTeams;
     }
 
-    private String getNextObjectiveName() {
-        return baseName + "_" + ((objPtr++) % 2);
-    }
+    private String getNextObjectiveName() { return baseName + "_" + ((objPtr++) % 2); }
 
-    private String getNextTeamName() {
-        return baseName.substring(0, 10) + "_" + ((teamPtr++) % 999999);
-    }
+    private String getNextTeamName() { return baseName.substring(0, 10) + "_" + ((teamPtr++) % 999999); }
 }

@@ -46,10 +46,7 @@ public class FScoreboard {
     public static void init(FPlayer fplayer) {
         FScoreboard fboard = new FScoreboard(fplayer);
         fscoreboards.put(fplayer, fboard);
-
-        if (fplayer.hasFaction()) {
-            FTeamWrapper.applyUpdates(fplayer.getFaction());
-        }
+        if (fplayer.hasFaction()) FTeamWrapper.applyUpdates(fplayer.getFaction());
         FTeamWrapper.track(fboard);
     }
 
@@ -79,23 +76,15 @@ public class FScoreboard {
     }
 
     public void setSidebarVisibility(boolean visible) {
-        if (!isSupportedByServer()) {
-            return;
-        }
-
+        if (!isSupportedByServer()) return;
         bufferedObjective.setDisplaySlot(visible ? DisplaySlot.SIDEBAR : null);
     }
 
     public void setDefaultSidebar(final FSidebarProvider provider, int updateInterval) {
-        if (!isSupportedByServer()) {
-            return;
-        }
+        if (!isSupportedByServer()) return;
 
         defaultProvider = provider;
-        if (temporaryProvider == null) {
-            // We have no temporary provider; update the BufferedObjective!
-            updateObjective();
-        }
+        if (temporaryProvider == null) updateObjective();
 
         new BukkitRunnable() {
             @Override
@@ -104,19 +93,13 @@ public class FScoreboard {
                     cancel();
                     return;
                 }
-
-                if (temporaryProvider == null) {
-                    updateObjective();
-                }
+                if (temporaryProvider == null) updateObjective();
             }
         }.runTaskTimer(SavageFactions.plugin, updateInterval, updateInterval);
     }
 
     public void setTemporarySidebar(final FSidebarProvider provider) {
-        if (!isSupportedByServer()) {
-            return;
-        }
-
+        if (!isSupportedByServer()) return;
         temporaryProvider = provider;
         updateObjective();
 
@@ -138,9 +121,8 @@ public class FScoreboard {
     private void updateObjective() {
         FSidebarProvider provider = temporaryProvider != null ? temporaryProvider : defaultProvider;
 
-        if (provider == null) {
-            bufferedObjective.hide();
-        } else {
+        if (provider == null) bufferedObjective.hide();
+        else {
             bufferedObjective.setTitle(provider.getTitle(fplayer));
             bufferedObjective.setAllLines(provider.getLines(fplayer));
             bufferedObjective.flip();
