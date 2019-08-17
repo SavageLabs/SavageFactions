@@ -24,7 +24,7 @@ public class CmdGrace extends FCommand {
 
     @Override
     public TL getUsageTranslation() {
-        return TL.COMMANd_GRACE_DESCRIPTION;
+        return TL.COMMAND_GRACE_DESCRIPTION;
     }
 
 }

@@ -638,7 +638,7 @@ public enum TL {
 
 
 	COMMMAND_GRACE_TOGGLED("&c&lGrace has now been %1$s"),
-	COMMANd_GRACE_DESCRIPTION("Does grace toggling"),
+	COMMAND_GRACE_DESCRIPTION("Does grace toggling"),
 
 	COMMAND_SHOW_NOFACTION_SELF("You are not in a faction"),
 	COMMAND_SHOW_NOFACTION_OTHER("That's not a faction"),
