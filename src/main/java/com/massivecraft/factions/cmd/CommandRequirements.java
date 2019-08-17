@@ -63,7 +63,7 @@ public class CommandRequirements {
                 Access access = context.faction.getAccess(context.fPlayer, action);
                 if (access == Access.DENY) {
                     if (informIfNot) {
-                        context.msg(TL.GENERIC_NOPERMISSION, action.getName());
+                        context.msg(TL.GENERIC_FPERM_NOPERMISSION, action.getName());
                     }
                     return false;
                 }
