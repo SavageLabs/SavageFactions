@@ -856,10 +856,10 @@ public enum TL {
 	GENERIC_NOPERMISSION("You don't have permission \"%1$s\" required to %2$s."),
 	GENERIC_FPERM_NOPERMISSION("&7The faction leader does not allow you to &c%1$s."),
 	GENERIC_DOTHAT("do that"),  //Ugh nuke this from high orbit
-    GENERIC_NOPLAYERMATCH("No player match found for \"<plugin>%1$s\"."),
-    GENERIC_NOPLAYERFOUND("No player \"<plugin>%1$s\" could not be found."),
+    GENERIC_NOPLAYERMATCH("No player match found for \"%1$s\"."),
+    GENERIC_NOPLAYERFOUND("No player \"%1$s\" could not be found."),
     GENERIC_ARGS_TOOFEW("Too few arguments. Use like this:"),
-    GENERIC_ARGS_TOOMANY("Strange argument \"<plugin>%1$s\". Use the command like this:"),
+    GENERIC_ARGS_TOOMANY("Strange argument \"%1$s\". Use the command like this:"),
 	GENERIC_DEFAULTDESCRIPTION("Default faction description :("),
 	GENERIC_OWNERS("Owner(s): %1$s"),
 	GENERIC_PUBLICLAND("Public faction land."),

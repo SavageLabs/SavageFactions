@@ -235,7 +235,7 @@ public class CommandContext {
         }
 
         if (msg && ret == null) {
-            sender.sendMessage(TL.GENERIC_NOPLAYERFOUND.format(name));
+            msg(TL.GENERIC_NOPLAYERFOUND, name);
         }
 
         return ret;

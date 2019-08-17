@@ -28,6 +28,20 @@ public class CmdDeinvite extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+
+        // Check if arg 0 == null do you don't have
+        // `No player "null" could be found.` message.
+        if (context.args.get(0) == null) {
+            FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
+            for (String id : context.faction.getInvites()) {
+                FPlayer fp = FPlayers.getInstance().getById(id);
+                String name = fp != null ? fp.getName() : id;
+                msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_DEINVITE_CLICKTODEINVITE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
+            }
+            context.sendFancyMessage(msg);
+            return;
+        }
+
         FPlayer you = context.argAsBestFPlayerMatch(0);
         if (!context.fPlayer.isAdminBypassing()) {
             Access access = context.faction.getAccess(context.fPlayer, PermissableAction.INVITE);
@@ -36,6 +50,7 @@ public class CmdDeinvite extends FCommand {
                 return;
             }
         }
+
         if (you == null) {
             FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
             for (String id : context.faction.getInvites()) {
