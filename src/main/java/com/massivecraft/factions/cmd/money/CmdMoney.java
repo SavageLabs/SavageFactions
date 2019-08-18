@@ -1,7 +1,9 @@
 package com.massivecraft.factions.cmd.money;
 
+import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.cmd.*;
+import com.massivecraft.factions.cmd.CommandContext;
+import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.zcore.util.TL;
 
 public class CmdMoney extends FCommand {
@@ -33,6 +35,10 @@ public class CmdMoney extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+        if (!Conf.econEnabled) {
+            context.msg(TL.ECON_OFF, "economy option is enabled, please set \'econEnabled\' to true in conf.json");
+            return;
+        }
         context.commandChain.add(this);
         SavageFactions.plugin.cmdAutoHelp.execute(context);
     }
