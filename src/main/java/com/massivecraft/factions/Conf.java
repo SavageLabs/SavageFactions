@@ -78,6 +78,7 @@ public class Conf {
     public static transient boolean chatTagHandledByAnotherPlugin = false;
     public static boolean chatTagRelationColored = true;
     public static String chatTagReplaceString = "[FACTION]";
+    public static String chatTagReplaceTitleString = "[FACTION_TITLE]";
     public static String chatTagInsertAfterString = "";
     public static String chatTagInsertBeforeString = "";
     public static int chatTagInsertIndex = 0;
