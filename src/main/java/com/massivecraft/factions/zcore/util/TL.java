@@ -741,7 +741,7 @@ public enum TL {
 	COMMAND_TNT_DEPOSIT_SUCCESS("&cSuccessfully deposited tnt."),
 	COMMAND_TNT_EXCEEDLIMIT("&cThis exceeds the bank limit!"),
 	COMMAND_TNT_WIDTHDRAW_SUCCESS("&cSuccessfully withdrew tnt."),
-	COMMAND_TNT_WIDTHDRAW_NOTENOUGH("&cNot enough tnt in bank."),
+	COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT("&cNot enough tnt in bank."),
 	COMMAND_TNT_DEPOSIT_NOTENOUGH("&cNot enough tnt in tnt inventory."),
 	COMMAND_TNT_AMOUNT("&cYour faction has {amount} tnt in the tnt bank."),
 	COMMAND_TNT_POSITIVE("&cPlease use positive numbers!"),
@@ -757,6 +757,7 @@ public enum TL {
 	COMMAND_TNTFILL_AMOUNTMAX("&c&l[!] &7The max amount is {max}"),
 	COMMAND_TNTFILL_MOD("&c&l[!] &7Tnt will be used from the faction bank because you dont have the specified amount in your inventory and you are a {role}"),
 	COMMAND_TNTFILL_DESCRIPTION("Fill tnt into dispensers around you"),
+	COMMAND_TNTFILL_NODISPENSERS("&c&l[!] &7No dispensers were found in a radius of {radius} blocks."),
 
 	COMMAND_UNBAN_DESCRIPTION("Unban someone from your Faction"),
 	COMMAND_UNBAN_NOTBANNED("&7%s &cisn't banned. Not doing anything."),
