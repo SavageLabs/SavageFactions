@@ -7,7 +7,6 @@ import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.CommandRequirements;
 import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.SpiralTask;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -24,7 +23,7 @@ public class CmdClaim extends FCommand {
         this.optionalArgs.put("radius", "1");
         this.optionalArgs.put("faction", "your");
 
-        this.requirements = new CommandRequirements.Builder(Permission.CLAIM)
+        this.requirements = new CommandRequirements.Builder(null)
                 .playerOnly()
                 .withAction(PermissableAction.TERRITORY)
                 .build();
