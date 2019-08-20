@@ -24,7 +24,9 @@ public class ParticleGUI {
     public void buildGUI(FPlayer fplayer) {
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> particleEffectItems = new ArrayList<>();
-        Conf.particleEffectSettings.forEach((particle, data) -> particleEffectItems.add(new GuiItem(data.getItem().buildItemStack(fplayer.getSelectedParticle() == particle), inventoryClickEvent -> {
+       Conf.particleEffectSettings.forEach((particle, data) ->
+               // TODO: Enchantment for isGlowing in itembuilder breaks itemstack equal check on 1.12.2. Fix it.
+               particleEffectItems.add(new GuiItem(data.getItem().buildItemStack(false), inventoryClickEvent -> {
             inventoryClickEvent.setCancelled(true);
             fplayer.setSelectedParticle(particle);
             fplayer.msg(TL.COMMAND_PARTICLE_SELECTED_PARTICLE.toString().replace("{particle}", particle.name()));
