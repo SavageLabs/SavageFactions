@@ -391,14 +391,14 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
 					break;
 			}
-			chest = Bukkit.createInventory(null, size, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title")));
+        chest = Bukkit.createInventory(null, size, SavageFactions.plugin.color(Conf.fchestInventoryTitle));
 			return chest;
 	}
 
 	@Override
 	public void setChestSize(int chestSize) {
 		ItemStack[] contents = this.getChestInventory().getContents();
-		chest = Bukkit.createInventory(null, chestSize, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fchest.Inventory-Title")));
+        chest = Bukkit.createInventory(null, chestSize, SavageFactions.plugin.color(Conf.fchestInventoryTitle));
 		chest.setContents(contents);
 	}
 

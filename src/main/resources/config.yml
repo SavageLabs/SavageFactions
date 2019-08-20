@@ -659,9 +659,7 @@ fvault:
 # |                  Faction Chest                       | #
 # +------------------------------------------------------+ #
 ############################################################
-fchest:
-  Enabled: true
-  Inventory-Title: '&2&lFaction Chest'
+  # Chest options can now be found in conf.json, search "fchest".
   # Chest size upgrades can be configured in the upgrades section of config
 
 ############################################################
