@@ -8,7 +8,7 @@ import com.massivecraft.factions.zcore.util.TL;
 public class CmdPaypalSee extends FCommand {
     public CmdPaypalSee() {
         aliases.add("seepaypal");
-        requiredArgs.add("faction");
+        optionalArgs.put("faction", "your");
 
         this.requirements = new CommandRequirements.Builder(Permission.ADMIN)
                 .build();
@@ -20,12 +20,12 @@ public class CmdPaypalSee extends FCommand {
             context.msg(TL.GENERIC_DISABLED);
             return;
         }
-        Faction faction = context.argAsFaction(0);
+        Faction faction = context.argIsSet(0) ? context.argAsFaction(0) : context.fPlayer.getFaction();
 
         if (faction == null)
             return;
 
-        if (!faction.isWilderness() && !faction.isSafeZone() && !faction.isWarZone()) {
+        if (faction.isWilderness() || faction.isSafeZone() || faction.isWarZone()) {
             context.msg(TL.COMMAND_PAYPALSEE_FACTION_NOFACTION.toString(), context.player.getName());
             return;
         }
