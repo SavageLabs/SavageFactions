@@ -3,18 +3,21 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.Dispenser;
-import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CmdTntFill extends FCommand {
 
@@ -39,9 +42,23 @@ public class CmdTntFill extends FCommand {
             return;
         }
 
+        // Don't do I/O unless necessary
+        try {
+            Integer.parseInt(context.args.get(0));
+            Integer.parseInt(context.args.get(1));
+        } catch (NumberFormatException e) {
+            context.msg(TL.COMMAND_TNT_INVALID_NUM);
+            return;
+        }
+
         context.msg(TL.COMMAND_TNTFILL_HEADER);
-        int radius = context.argAsInt(0, 16);
-        int amount = context.argAsInt(1, 16);
+        int radius = context.argAsInt(0, 0); // We don't know the max yet, so let's not assume.
+        int amount = context.argAsInt(1, 0); // We don't know the max yet, so let's not assume.
+
+        if (amount < 0) {
+            context.msg(TL.COMMAND_TNT_POSITIVE);
+            return;
+        }
         if (radius > SavageFactions.plugin.getConfig().getInt("Tntfill.max-radius")) {
             context.msg(TL.COMMAND_TNTFILL_RADIUSMAX.toString().replace("{max}", SavageFactions.plugin.getConfig().getInt("Tntfill.max-radius") + ""));
             return;
@@ -51,97 +68,80 @@ public class CmdTntFill extends FCommand {
             return;
         }
 
-        try {
-            Integer.parseInt(context.args.get(1));
-        } catch (NumberFormatException e) {
-            context.msg(TL.COMMAND_TNT_INVALID_NUM);
-            return;
-        }
-        if (amount < 0) {
-            context.msg(TL.COMMAND_TNT_POSITIVE);
-            return;
-        }
-        boolean bankMode = context.fPlayer.getRole().isAtLeast(Role.MODERATOR);
+        // How many dispensers are we to fill in?
+
         Location start = context.player.getLocation();
-        int counter = 0;
-        for (double x = start.getX() - radius; x <= start.getX() + radius; x++) {
-            for (double y = start.getY() - radius; y <= start.getY() + radius; y++) {
-                for (double z = start.getZ() - radius; z <= start.getZ() + radius; z++) {
-                    Location blockLoc = new Location(start.getWorld(), x, y, z);
-                    if (blockLoc.getBlock().getState() instanceof Dispenser) {
-                        Dispenser disp = (Dispenser) blockLoc.getBlock().getState();
-                        Inventory dispenser = disp.getInventory();
-                        if (canHold(context.fPlayer, dispenser, amount)) {
-                            int fullStacks = amount / 64;
-                            int remainderAmt = amount % 64;
-                            if (!inventoryContains(context.player.getInventory(), new ItemStack(Material.TNT, amount))) {
-                                if (!context.fPlayer.getRole().isAtLeast(Role.MODERATOR)) {
-                                    context.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
-                                    context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-                                    context.player.updateInventory();
-                                    return;
-                                } else if (bankMode) {
-                                    //msg(TL.COMMAND_TNTFILL_MOD.toString().replace("{role}",fme.getRole().nicename));
-                                    bankMode = true;
-                                    removeFromBank(context, amount);
-                                    if (!inventoryContains(context.player.getInventory(), new ItemStack(Material.TNT, amount))) {
-                                        context.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
-                                        context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-                                        context.player.updateInventory();
-                                        return;
-                                    }
-                                }
-                            }
-                            ItemStack tnt64 = new ItemStack(Material.TNT, 64);
-                            for (int i = 0; i <= fullStacks - 1; i++) {
-                                dispenser.addItem(tnt64);
-                                takeTnt(context.fPlayer, 64);
-                            }
-                            if (remainderAmt != 0) {
-                                ItemStack tnt = new ItemStack(Material.TNT, remainderAmt);
-                                dispenser.addItem(tnt);
-                                takeTnt(context.fPlayer, remainderAmt);
-                            }
-                            //sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}",amount + "").replace("{x}",(int) x + "").replace("{y}",(int) y + "").replace("{z}",(int) z + ""));
-                            counter++;
-                        }
+        // Keep it on the stack for CPU saving.
+        List<Dispenser> opDispensers = new ArrayList<>();
 
-                    }
+        Block startBlock = start.getBlock();
+        for (int x = -radius; x <= radius; x++)
+            for (int y = -radius; y <= radius; y++)
+                for (int z = -radius; z <= radius; z++) {
+                    Block block = startBlock.getRelative(x, y, z);
+                    if (block == null) continue;
+                    BlockState blockState = block.getState();
+                    if (!(blockState instanceof Dispenser)) continue;
+                    opDispensers.add((Dispenser) blockState);
                 }
+        if (opDispensers.isEmpty()) {
+            context.fPlayer.msg(TL.COMMAND_TNTFILL_NODISPENSERS.toString().replace("{radius}", radius + ""));
+            return;
+        }
+
+        // What's the required amount of resources
+        int requiredTnt = (opDispensers.size() * amount);
+
+        // Do I have enough tnt in my inventory?
+        int playerTnt = inventoryItemCount(context.player.getInventory(), Material.TNT);
+        if (playerTnt < requiredTnt) {
+            // How much TNT will I take from bank?
+            int getFactionTnt = requiredTnt - playerTnt;
+
+            // Do I have enough tnt in bank?
+            if ((context.faction.getTnt() < getFactionTnt)) {
+                context.fPlayer.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT.toString());
+                return;
             }
-        }
-        if (bankMode) {
-            context.msg(TL.COMMAND_TNTFILL_MOD.toString().replace("{role}", context.fPlayer.getRole().nicename));
-        }
-        context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", amount + "").replace("{dispensers}", counter + ""));
-        context.player.updateInventory();
 
-
+            // Take TNT from the bank.
+            removeFromBank(context, getFactionTnt);
+        }
+        fillDispensers(context.fPlayer, opDispensers, amount);
+        // Remove used TNT from player inventory.
+        context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", requiredTnt + "").replace("{dispensers}", opDispensers.size() + ""));
+    }
+    // Actually fill every dispenser with the precise amount.
+    private void fillDispensers(FPlayer fPlayer, List<Dispenser> dispensers, int count) {
+        for (Dispenser dispenser : dispensers) {
+            takeTnt(fPlayer, count);
+            dispenser.getInventory().addItem(new ItemStack(Material.TNT, count));
+        }
     }
 
     private void removeFromBank(CommandContext context, int amount) {
         try {
             Integer.parseInt(context.args.get(1));
         } catch (NumberFormatException e) {
-            context.msg(TL.COMMAND_TNT_INVALID_NUM);
+            context.fPlayer.msg(TL.COMMAND_TNT_INVALID_NUM.toString());
             return;
         }
         if (amount < 0) {
-            context.msg(TL.COMMAND_TNT_POSITIVE);
+            context.fPlayer.msg(TL.COMMAND_TNT_POSITIVE.toString());
             return;
         }
         if (context.faction.getTnt() < amount) {
-            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+            context.fPlayer.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT.toString());
             return;
         }
         int fullStacks = amount / 64;
         int remainderAmt = amount % 64;
         if ((remainderAmt == 0 && getEmptySlots(context.player) <= fullStacks)) {
-            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+            context.fPlayer.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT.toString());
             return;
         }
         if (getEmptySlots(context.player) + 1 <= fullStacks) {
-            context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
+            context.fPlayer.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT.toString());
             return;
         }
         ItemStack tnt64 = new ItemStack(Material.TNT, 64);
@@ -156,7 +156,7 @@ public class CmdTntFill extends FCommand {
         context.player.updateInventory();
     }
 
-    public void takeTnt(FPlayer fme, int amount) {
+    private void takeTnt(FPlayer fme, int amount) {
         Inventory inv = fme.getPlayer().getInventory();
         int invTnt = 0;
         for (int i = 0; i <= inv.getSize(); i++) {
@@ -168,46 +168,27 @@ public class CmdTntFill extends FCommand {
             }
         }
         if (amount > invTnt) {
-            fme.msg(TL.COMMAND_TNTFILL_NOTENOUGH);
+            fme.msg(TL.COMMAND_TNTFILL_NOTENOUGH.toString());
             return;
         }
         ItemStack tnt = new ItemStack(Material.TNT, amount);
         if (fme.getFaction().getTnt() + amount > SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit")) {
-            fme.msg(TL.COMMAND_TNT_EXCEEDLIMIT);
+            fme.msg(TL.COMMAND_TNT_EXCEEDLIMIT.toString());
             return;
         }
         removeFromInventory(fme.getPlayer().getInventory(), tnt);
     }
 
-    public boolean canHold(FPlayer fme, Inventory inventory, int amount) {
-        int fullStacks = amount / 64;
-        int remainderAmt = amount % 64;
-        if ((remainderAmt == 0 && getEmptySlots(fme.getPlayer()) <= fullStacks)) {
-            return false;
-        }
-        if (getEmptySlots(fme.getPlayer()) + 1 <= fullStacks) {
-            fme.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH.toString());
-            return false;
-        }
-        return true;
-    }
-
-    public boolean inventoryContains(Inventory inventory, ItemStack item) {
+    // Counts the item type available in the inventory.
+    private int inventoryItemCount(Inventory inventory, Material mat) {
         int count = 0;
-        ItemStack[] items = inventory.getContents();
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
-                count += items[i].getAmount();
-            }
-            if (count >= item.getAmount()) {
-                return true;
-            }
-        }
-        return false;
+        HashMap<Integer, ? extends ItemStack> items = inventory.all(mat);
+        for (int item : items.keySet())
+            count += inventory.getItem(item).getAmount();
+        return count;
     }
 
-
-    public void removeFromInventory(Inventory inventory, ItemStack item) {
+    private void removeFromInventory(Inventory inventory, ItemStack item) {
         int amt = item.getAmount();
         ItemStack[] items = inventory.getContents();
         for (int i = 0; i < items.length; i++) {
@@ -227,7 +208,7 @@ public class CmdTntFill extends FCommand {
         inventory.setContents(items);
     }
 
-    public int getEmptySlots(Player p) {
+    private int getEmptySlots(Player p) {
         PlayerInventory inventory = p.getInventory();
         ItemStack[] cont = inventory.getContents();
         int i = 0;
