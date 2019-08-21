@@ -52,7 +52,7 @@ public class CmdUnclaim extends FCommand {
 
                 @Override
                 public boolean work() {
-                    boolean success = unClaim(new FLocation(context.player), context);
+                    boolean success = unClaim(currentFLocation(), context);
                     if (success) {
                         failCount = 0;
                     } else if (failCount++ >= limit) {
