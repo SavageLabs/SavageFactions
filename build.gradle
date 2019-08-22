@@ -1,9 +1,8 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '4.0.3'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
 
 }
-
 group 'com.massivecraft'
 version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC'
 
@@ -35,9 +34,7 @@ repositories {
     maven {
         url 'https://www.myget.org/F/prosavage/maven/'
     }
-    maven {
-        url 'https://papermc.io/repo/repository/maven-public/'
-    }
+
     maven {
         url 'https://jitpack.io'
     }
@@ -121,7 +118,6 @@ shadowJar {
     mergeServiceFiles()
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
-   // archiveName = "ide.jar"
     relocate 'com.github.stefvanschie.inventoryframework', 'com.massivecraft.factions.shade.stefvanschie.inventoryframework'
     relocate 'mkremins.fanciful', 'com.massivecraft.factions.shade.mkremins.fanciful'
     relocate 'com.google.gson', 'com.massivecraft.factions.shade.com.google.gson'
