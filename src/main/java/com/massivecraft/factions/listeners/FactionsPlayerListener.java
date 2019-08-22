@@ -140,8 +140,9 @@ public class FactionsPlayerListener implements Listener {
 
         // no door/chest/whatever protection in wilderness, war zones, or safe zones
         if (otherFaction.isSystemFaction()) return true;
+
         if (myFaction.isWilderness()) {
-            me.msg(TL.GENERIC_NOPERMISSION, TL.GENERIC_DOTHAT);
+            me.msg(TL.GENERTIC_ACTION_NOPERMISSION, block.getType().toString().replace("_"," "));
             return false;
         }
 
