@@ -12,6 +12,10 @@
 # maven
 /target
 
+#gradle
+/.gradle
+/build
+
 # vim
 .*.sw[a-savageFactions]
 
