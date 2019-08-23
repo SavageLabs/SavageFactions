@@ -34,7 +34,9 @@ repositories {
     maven {
         url 'https://www.myget.org/F/prosavage/maven/'
     }
-
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
     maven {
         url 'https://jitpack.io'
     }
@@ -122,4 +124,6 @@ shadowJar {
     relocate 'mkremins.fanciful', 'com.massivecraft.factions.shade.mkremins.fanciful'
     relocate 'com.google.gson', 'com.massivecraft.factions.shade.com.google.gson'
     relocate 'com.darkblade12', 'com.massivecraft.factions.shade.com.darkblade12'
+    archiveName 'SavageFactions-' + version.replace("1.6.9.5-U0.2.1-RC-1.6.2-RC-", "") + ".jar"
 }
+
