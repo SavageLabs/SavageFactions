@@ -1,0 +1,129 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+
+}
+group 'com.massivecraft'
+version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'dependencies'
+    }
+    maven {
+        url 'http://ci.ender.zone/plugin/repository/everything/'
+    }
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+    maven {
+        url 'http://maven.sk89q.com/repo/'
+    }
+    maven {
+        url 'http://repo.mikeprimm.com/'
+    }
+    maven {
+        url 'http://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
+    maven {
+        url 'http://repo.mvdw-software.com/content/repositories/mvdw-software/'
+    }
+    maven {
+        url 'https://www.myget.org/F/prosavage/maven/'
+    }
+    maven {
+        url 'https://papermc.io/repo/repository/maven-public/'
+    }
+    maven {
+        url 'https://jitpack.io'
+    }
+    maven {
+        url 'https://libraries.minecraft.net'
+    }
+}
+
+dependencies {
+    implementation 'com.github.stefvanschie.inventoryframework:IF:0.5.8'
+    compileOnly ('org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5', module: 'bungeecord-chat'
+        exclude group: 'javax.persistence', module: 'persistence-api'
+        exclude group: 'junit', module: 'junit'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    implementation 'me.lucko:commodore:1.3'
+    compileOnly ('net.milkbowl.vault:VaultAPI:1.6') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+    }
+    compileOnly ('com.sk89q:worldguard:6.1.1-SNAPSHOT') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+        exclude group: 'com.sk89q.spigot', module: 'bukkit-classloader-check'
+        exclude group: 'com.sk89q', module: 'commandbook'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'rhino', module: 'js'
+        exclude group: 'de.schlichtherle', module: 'truezip'
+        exclude group: 'com.sk89q', module: 'jchronic'
+        exclude group: 'com.sk89q', module: 'worldedit'
+    }
+    compileOnly ('com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'org.sk89q.bukkit', module: 'bukkit-classloader-check'
+        exclude group: 'com.sk89q', module: 'dummypermscompat'
+        exclude group: 'com.sk89q', module: 'jchronic'
+        exclude group: 'rhino', module: 'js'
+        exclude group: 'de.schlichtherle', module: 'truezip'
+        exclude group: 'com.sk89q.lib', module: 'jlibnoise'
+        exclude group: 'com.thoughtworks.paranamer', module: 'paranamer'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.google.code.gson', module: 'gson'
+        exclude group: 'org.yaml', module: 'snakeyaml'
+    }
+
+    compileOnly ('net.ess3:EssentialsXChat:2.0.1') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+        exclude group: 'org.projectlombok', module: 'lombok'
+        exclude group: 'net.ess3', module: 'Essentials'
+    }
+    implementation ('mkremins:fanciful:0.4.0-SNAPSHOT') {
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
+    compileOnly ('org.dynmap:dynmap:2.0') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+        exclude group: 'com.nijikokun.bukkit', module: 'Permissions'
+        exclude group: 'de.bananaco', module: 'bPermissions'
+        exclude group: 'org.anjocaido', module: 'EssentialsGroupManager'
+        exclude group: 'org.getspout', module: 'spoutpluginapi'
+        exclude group: 'com.platymuus.bukkit.permissions', module: 'PermissionsBukkit'
+        exclude group: 'ru.tehkode', module: 'PermissionsEx'
+    }
+    compileOnly ('com.google.guava:guava:28.0-jre') {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
+    implementation 'com.google.code.gson:gson:2.8.5'
+    compileOnly 'me.clip:placeholderapi:2.10.3'
+    compileOnly ('be.maximvdw:MVdWPlaceholderAPI:2.2.3-SNAPSHOT') {
+        exclude group: 'org.spigotmc', module: 'spigot'
+    }
+    compileOnly 'net.coreprotect:CoreProtect:2'
+    compileOnly ('com.github.SkriptLang:Skript:dev37c') {
+        exclude group: '*', module: '*'
+    }
+    implementation name: 'EssentialsX-2.15.0.1'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    relocate 'com.github.stefvanschie.inventoryframework', 'com.massivecraft.factions.shade.stefvanschie.inventoryframework'
+    relocate 'mkremins.fanciful', 'com.massivecraft.factions.shade.mkremins.fanciful'
+    relocate 'com.google.gson', 'com.massivecraft.factions.shade.com.google.gson'
+    relocate 'com.darkblade12', 'com.massivecraft.factions.shade.com.darkblade12'
+    archiveName 'SavageFactions-' + version.replace("1.6.9.5-U0.2.1-RC-1.6.2-RC-", "") + ".jar"
+}
+
