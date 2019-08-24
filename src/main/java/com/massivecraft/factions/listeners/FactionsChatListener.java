@@ -166,8 +166,8 @@ public class FactionsChatListener implements Listener {
             }
         }
 
-        String formatStart = eventFormat.substring(0, InsertIndex) + ((Conf.chatTagPadBefore && !me.getChatTag().isEmpty()) ? " " : "");
-        String formatEnd = ((Conf.chatTagPadAfter && !me.getChatTag().isEmpty()) ? " " : "") + eventFormat.substring(InsertIndex);
+        String formatStart = eventFormat.substring(0, InsertIndex) + ((Conf.chatTagPadBefore && !me.getChatTag().isEmpty() && !me.getFaction().isWilderness()) ? " " : "");
+        String formatEnd = ((Conf.chatTagPadAfter && !me.getChatTag().isEmpty() && !me.getFaction().isWilderness()) ? " " : "") + eventFormat.substring(InsertIndex);
 
         String nonColoredMsgFormat = formatStart + me.getChatTag().trim() + formatEnd;
 
