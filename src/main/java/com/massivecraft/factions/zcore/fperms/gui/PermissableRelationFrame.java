@@ -37,6 +37,7 @@ public class PermissableRelationFrame {
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e -> e.setCancelled(true)));
         ConfigurationSection sec = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.relation");
         for (String key : sec.getConfigurationSection("slots").getKeys(false)) {
+            if (sec.getInt("slots." + key) < 0) continue;
             GUIItems.set(sec.getInt("slots." + key), new GuiItem(buildAsset("fperm-gui.relation.materials." + key, key), e -> {
                 e.setCancelled(true);
                 // Closing and opening resets the cursor.
