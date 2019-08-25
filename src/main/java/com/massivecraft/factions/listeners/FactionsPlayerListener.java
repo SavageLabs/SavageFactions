@@ -239,26 +239,26 @@ public class FactionsPlayerListener implements Listener {
 
     private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck, Access access, PermissableAction action, boolean pain) {
         boolean doPain = pain && Conf.handleExploitInteractionSpam;
-        if (access != null && access != Access.UNDEFINED) {
+        if (access != null) {
             // TODO: Update this once new access values are added other than just allow / deny.
             boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
             if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId())))
                 return true;
             else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
-                me.msg("<b>You can't do that in this territory, it is owned by: " + factionToCheck.getOwnerListString(loc));
+                me.msg(TL.ACTIONS_OWNEDTERRITORYDENY, factionToCheck.getOwnerListString(loc));
                 if (doPain) {
                     player.damage(Conf.actionDeniedPainAmount);
                 }
                 return false;
             } else if (!landOwned && access == Access.ALLOW) return true;
             else {
-                me.msg("You cannot " + action + " in the territory of " + factionToCheck.getTag(me.getFaction()));
+                me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
                 return false;
             }
         }
         // Approves any permission check if the player in question is a leader AND owns the faction.
         if (me.getRole().equals(Role.LEADER) && me.getFaction().equals(factionToCheck)) return true;
-        me.msg("You cannot " + action + " in the territory of " + factionToCheck.getTag(me.getFaction()));
+        me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
         return false;
     }
 

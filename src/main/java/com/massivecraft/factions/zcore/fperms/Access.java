@@ -4,8 +4,8 @@ import com.massivecraft.factions.SavageFactions;
 
 public enum Access {
     ALLOW("Allow"),
-    DENY("Deny"),
-    UNDEFINED("Undefined");
+    UNDEFINED("Undefined"),
+    DENY("Deny");
 
     private final String name;
 
@@ -36,9 +36,4 @@ public enum Access {
     }
 
     public String getColor() { return SavageFactions.plugin.getConfig().getString("fperm-gui.action.Access-Colors." + this.name); }
-
-    public static Access booleanToAccess(boolean access) {
-        if (access) return Access.ALLOW;
-        else return Access.DENY;
-    }
 }

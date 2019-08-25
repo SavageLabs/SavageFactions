@@ -396,7 +396,6 @@ help:
 # 2nd: The Action GUI, here you define the permission of the clicked Action using click types,
 # depending on the click type it will set the permission differently:
 # Left Click: ALLOW
-# Middle Click: UNDEFINED
 # Right Click: DENY
 #
 #
@@ -448,7 +447,6 @@ fperm-gui:
       Access-Colors:
         Allow: '&a'
         Deny: '&c'
-        Undefined: '&7'
       Materials:
         build: COBBLESTONE
         destroy: DIAMOND_PICKAXE
@@ -515,18 +513,17 @@ fperm-gui:
       # {action-access-color} Access color eg: Allow;GREEN
       placeholder-item:
         name: '&e&l(!) &ePermission: &6&n{action}'
-        lore:
+        Lore:
           - ''
           - '&6&l * &eStatus: &8[{action-access-color}{action-access}&8]'
           - ''
           - '&7Left click to &a&nAllow&7.'
           - '&7Right click to &c&nDeny&7.'
-          - '&7Middle click to &7&nUndefine&7.'
     # Back item will be take you to the previous GUI
     back-item:
       Type: ARROW
       Name: '&c&l<- Back'
-      lore:
+      Lore:
         - '&7Click to return to previous menu.'
     # Dummy Items
     dummy-item:

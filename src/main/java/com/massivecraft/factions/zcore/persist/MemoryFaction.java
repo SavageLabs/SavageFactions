@@ -636,7 +636,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public Access getAccess(Permissable permissable, PermissableAction permissableAction) {
 		if (permissable == null || permissableAction == null) {
-			return Access.UNDEFINED;
+			return Access.DENY;
 		}
 
 		Map<PermissableAction, Access> accessMap = permissions.get(permissable);
@@ -644,7 +644,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			return accessMap.get(permissableAction);
 		}
 
-		return Access.UNDEFINED;
+		return Access.DENY;
 	}
 
 	/**
@@ -656,7 +656,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	 */
 	public Access getAccess(FPlayer player, PermissableAction permissableAction) {
 		if (player == null || permissableAction == null) {
-			return Access.UNDEFINED;
+			return Access.DENY;
 		}
 
 		Permissable perm;
@@ -672,7 +672,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			return accessMap.get(permissableAction);
 		}
 
-		return Access.UNDEFINED;
+		return Access.DENY;
 	}
 
 	public boolean setPermission(Permissable permissable, PermissableAction permissableAction, Access access) {
@@ -691,7 +691,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		// First populate a map with undefined as the permission for each action.
 		Map<PermissableAction, Access> freshMap = new HashMap<>();
 		for (PermissableAction permissableAction : PermissableAction.values()) {
-			freshMap.put(permissableAction, Access.UNDEFINED);
+			freshMap.put(permissableAction, Access.DENY);
 		}
 
 		// Put the map in there for each relation.
@@ -711,7 +711,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public void setDefaultPerms() {
 		Map<PermissableAction, Access> defaultMap = new HashMap<>();
-		for (PermissableAction action : PermissableAction.values()) defaultMap.put(action, Access.UNDEFINED);
+		for (PermissableAction action : PermissableAction.values()) defaultMap.put(action, Access.DENY);
 
 		for (Relation rel : Relation.values()) {
 			if (rel != Relation.MEMBER) {

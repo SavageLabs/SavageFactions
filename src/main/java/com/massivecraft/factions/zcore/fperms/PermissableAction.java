@@ -4,6 +4,7 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.Placeholder;
 import com.massivecraft.factions.util.XMaterial;
+import jdk.nashorn.internal.runtime.Undefined;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -94,6 +95,11 @@ public enum PermissableAction {
         if (meta != null) {
             meta.setDisplayName(SavageFactions.plugin.color(section.getString("placeholder-item.name").replace("{action}", this.name)));
             List<String> lore = section.getStringList("placeholder-item.lore");
+
+            // TEMP: This check is required for factions created before `Undefined` permission was removed
+            if (fme.getFaction().getPermissions().get(perm).get(this) == Access.UNDEFINED) {
+                fme.getFaction().getPermissions().get(perm).put(this, Access.DENY);
+            }
 
             lore = SavageFactions.plugin.replacePlaceholders(lore,
                     new Placeholder("{action-access-color}", fme.getFaction().getPermissions().get(perm).get(this).getColor()),
