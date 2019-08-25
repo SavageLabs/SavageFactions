@@ -526,7 +526,7 @@ fperm-gui:
     back-item:
       Type: ARROW
       Name: '&c&l<- Back'
-      lore:
+      Lore:
         - '&7Click to return to previous menu.'
     # Dummy Items
     dummy-item:
