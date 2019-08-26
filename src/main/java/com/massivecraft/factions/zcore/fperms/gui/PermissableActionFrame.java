@@ -53,9 +53,6 @@ public class PermissableActionFrame {
                             success = fplayer.getFaction().setPermission(perm, action, access);
                             break;
                         case MIDDLE:
-                            access = Access.UNDEFINED;
-                            success = fplayer.getFaction().setPermission(perm, action, access);
-                            break;
                         default:
                             return;
                     }
