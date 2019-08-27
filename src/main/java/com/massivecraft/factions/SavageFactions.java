@@ -29,6 +29,7 @@ import com.massivecraft.factions.zcore.util.TextUtil;
 import me.lucko.commodore.CommodoreProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import net.savagellc.trackx.TrackX;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -124,8 +125,7 @@ public class SavageFactions extends MPlugin {
     @Override
     public void onEnable() {
         log("==== Setup ====");
-
-
+        TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(),"com.massivecraft.factions");
         // Vault dependency check.
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             log("Vault is not present, the plugin will not run properly.");
