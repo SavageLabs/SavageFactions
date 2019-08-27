@@ -765,6 +765,7 @@ public enum TL {
 	COMMAND_TNTFILL_NODISPENSERS("&c&l[!] &7No dispensers were found in a radius of {radius} blocks."),
 
 	COMMAND_UNBAN_DESCRIPTION("Unban someone from your Faction"),
+    COMMAND_UNBAN_TARGET_IN_OTHER_FACTION("&c%1$s is not in your faction!"),
 	COMMAND_UNBAN_NOTBANNED("&7%s &cisn't banned. Not doing anything."),
 	COMMAND_UNBAN_UNBANNED("&e%1$s &cunbanned &7%2$s"),
 	COMMAND_UNBAN_TARGET("&aYou were unbanned from &r%s"),

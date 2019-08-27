@@ -29,6 +29,14 @@ public class CmdUnban extends FCommand {
             return; // the above method sends a message if fails to find someone.
         }
 
+        if (target.getFaction() != context.fPlayer.getFaction()) {
+            if (target.getFaction().getAccess(context.fPlayer, PermissableAction.BAN) != Access.ALLOW) {
+                if (!context.fPlayer.isAdminBypassing()) {
+                    context.fPlayer.msg(TL.COMMAND_UNBAN_TARGET_IN_OTHER_FACTION);
+                }
+            }
+        }
+
         if (!context.faction.isBanned(target)) {
             context.msg(TL.COMMAND_UNBAN_NOTBANNED, target.getName());
             return;
