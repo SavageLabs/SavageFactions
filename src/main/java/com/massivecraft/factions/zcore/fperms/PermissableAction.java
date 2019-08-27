@@ -14,33 +14,33 @@ import java.util.List;
 import java.util.Map;
 
 public enum PermissableAction {
-    BAN("ban"),
-    BUILD("build"),
-    DESTROY("destroy"),
-    FROST_WALK("frostwalk"),
-    PAIN_BUILD("painbuild"),
-    DOOR("door"),
-    BUTTON("button"),
-    LEVER("lever"),
-    CONTAINER("container"),
-    INVITE("invite"),
-    KICK("kick"),
-    ITEM("items"), // generic for most items
-    SETHOME("sethome"),
-    TERRITORY("territory"),
-    ACCESS("access"),
-    HOME("home"),
-    DISBAND("disband"),
-    PROMOTE("promote"),
-    SETWARP("setwarp"),
-    WARP("warp"),
-    FLY("fly"),
-    VAULT("vault"),
-    TNTBANK("tntbank"),
-    TNTFILL("tntfill"),
-    WITHDRAW("withdraw"),
-    CHEST("chest"),
-    SPAWNER("spawner");
+    BAN("ban"), // Abilities to use /f ban & /f unban
+    BUILD("build"), // Abilities to place blocks in claimed land
+    DESTROY("destroy"), // Abilities to break blocks in claimed land
+    FROST_WALK("frostwalk"), // 1.14 ONLY Abilities to use frost walker boots in claimed land
+    PAIN_BUILD("painbuild"), // Whether a fplayer will take damage from attempting to build after deny.
+    DOOR("door"), // Abilities to open doors in claimed land
+    BUTTON("button"), // Abilities to use buttons in claimed land
+    LEVER("lever"), // Abilities to use levers in claimed land
+    CONTAINER("container"), // Abilities to open containers in claimed land
+    INVITE("invite"), // Abilities to invite new members to a faction
+    KICK("kick"), // Abilities to kick members from the faction
+    ITEM("items"), // generic for most items use?
+    SETHOME("sethome"), // Abilities to to set faction home (/f home)
+    TERRITORY("territory"), // Abilities to claim, claimline, claimat, and unclaim
+    ACCESS("access"), // No current use for this, unsure what is was?
+    HOME("home"), // Abilities to use /f home
+    DISBAND("disband"), // Abilities to disband the faction? Should probably be removed.
+    PROMOTE("promote"), // Abilities to promote faction members.
+    SETWARP("setwarp"), // Abilities to set a faction warp (/f setwarp)
+    WARP("warp"), // Abilities to to use a faction warp (/f warp)
+    FLY("fly"), // Abilities to fly in faction claims.
+    VAULT("vault"), // Abilities to use faction vault.
+    TNTBANK("tntbank"), // Abilities to interact with faction TNTBank
+    TNTFILL("tntfill"), // Abilities to use TNTFill
+    WITHDRAW("withdraw"), // Abilities to withdraw money from the faction bank
+    CHEST("chest"), // Abilities to open, take, and put items into /f chest
+    SPAWNER("spawner"); // Abilities to break spawners in claimed land
 
     private String name;
 
