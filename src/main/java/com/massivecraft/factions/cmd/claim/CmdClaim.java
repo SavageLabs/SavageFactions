@@ -23,7 +23,7 @@ public class CmdClaim extends FCommand {
         this.optionalArgs.put("radius", "1");
         this.optionalArgs.put("faction", "your");
 
-        this.requirements = new CommandRequirements.Builder(null)
+        this.requirements = new CommandRequirements.Builder(Permission.CLAIM)
                 .playerOnly()
                 .withAction(PermissableAction.TERRITORY)
                 .build();

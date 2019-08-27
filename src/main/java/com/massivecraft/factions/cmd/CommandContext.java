@@ -359,25 +359,20 @@ public class CommandContext {
     */
     public boolean canIAdministerYou(FPlayer i, FPlayer you) {
         if (!i.getFaction().equals(you.getFaction())) {
-            i.sendMessage(SavageFactions.plugin.txt.parse("%s <b>is not in the same faction as you.", you.describeTo(i, true)));
+            i.msg(TL.COMMAND_CONTEXT_ADMINISTER_DIF_FACTION, you.describeTo(i, true));
             return false;
         }
 
-        if (i.getRole().value > you.getRole().value || i.getRole().equals(Role.LEADER)) {
-            return true;
-        }
+        if (i.getRole().value > you.getRole().value || i.getRole().equals(Role.LEADER)) return true;
 
-        if (you.getRole().equals(Role.LEADER)) {
-            i.sendMessage(SavageFactions.plugin.txt.parse("<b>Only the faction admin can do that."));
-        } else if (i.getRole().equals(Role.MODERATOR)) {
-            if (i == you) {
-                return true; //Moderators can control themselves
-            } else {
-                i.sendMessage(SavageFactions.plugin.txt.parse("<b>Moderators can't control each other..."));
-            }
-        } else {
-            i.sendMessage(SavageFactions.plugin.txt.parse("<b>You must be a faction moderator to do that."));
-        }
+        if (you.getRole().equals(Role.LEADER)) i.msg(TL.COMMAND_CONTEXT_ADMINISTER_ADMIN_REQUIRED);
+
+        else if (i.getRole().equals(Role.MODERATOR)) {
+
+            if (i == you) return true; //Moderators can control themselves
+            else i.msg(TL.COMMAND_CONTEXT_ADMINISTER_SAME_RANK_CONTROL);
+
+        } else i.msg(TL.COMMAND_CONTEXT_ADMINISTER_MOD_REQUIRED);
 
         return false;
     }

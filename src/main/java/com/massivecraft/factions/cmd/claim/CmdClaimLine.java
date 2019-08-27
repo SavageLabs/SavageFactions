@@ -6,6 +6,7 @@ import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.CommandRequirements;
 import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
@@ -63,6 +64,16 @@ public class CmdClaimLine extends FCommand {
         }
 
         final Faction forFaction = context.argAsFaction(2, context.faction);
+
+        if (forFaction != context.fPlayer.getFaction()) {
+            if (!context.fPlayer.isAdminBypassing()) {
+                if (forFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) != Access.ALLOW) {
+                    context.msg(TL.COMMAND_CLAIM_DENIED);
+                    return;
+                }
+            }
+        }
+
         Location location = context.player.getLocation();
 
         // TODO: make this a task like claiming a radius?

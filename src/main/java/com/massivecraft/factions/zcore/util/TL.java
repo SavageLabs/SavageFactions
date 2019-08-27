@@ -120,6 +120,11 @@ public enum TL {
 	 * Messsges for Faction Admins/Mods
 	 */
 
+	COMMAND_CONTEXT_ADMINISTER_DIF_FACTION("&c[!] %s is not in the same faction as you."),
+    COMMAND_CONTEXT_ADMINISTER_ADMIN_REQUIRED("&c[!] Only the faction admin can do that."),
+    COMMAND_CONTEXT_ADMINISTER_SAME_RANK_CONTROL("&c[!] Moderators can't control each other..."),
+    COMMAND_CONTEXT_ADMINISTER_MOD_REQUIRED("&c[!] You must be a faction moderator to do that."),
+
 	COMMAND_UPGRADES_DESCRIPTION("&cOpen the Upgrades Menu"),
 
 	COMMAND_ADMIN_NOTMEMBER("&c&l[!] &7%1$s &cis not a member in your faction."),
