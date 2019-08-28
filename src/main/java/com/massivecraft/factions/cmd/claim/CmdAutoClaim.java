@@ -6,6 +6,7 @@ import com.massivecraft.factions.cmd.CommandRequirements;
 import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 
@@ -27,6 +28,16 @@ public class CmdAutoClaim extends FCommand {
     @Override
     public void perform(CommandContext context) {
         Faction forFaction = context.argAsFaction(0, context.faction);
+
+        if (forFaction != context.fPlayer.getFaction()) {
+            if (!context.fPlayer.isAdminBypassing()) {
+                if (forFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) != Access.ALLOW) {
+                    context.msg(TL.COMMAND_CLAIM_DENIED);
+                    return;
+                }
+            }
+        }
+
         if (forFaction == null || forFaction == context.fPlayer.getAutoClaimFor()) {
             context.fPlayer.setAutoClaimFor(null);
             context.msg(TL.COMMAND_AUTOCLAIM_DISABLED);

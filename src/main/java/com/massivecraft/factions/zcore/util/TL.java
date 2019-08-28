@@ -120,6 +120,11 @@ public enum TL {
 	 * Messsges for Faction Admins/Mods
 	 */
 
+	COMMAND_CONTEXT_ADMINISTER_DIF_FACTION("&c[!] %s is not in the same faction as you."),
+    COMMAND_CONTEXT_ADMINISTER_ADMIN_REQUIRED("&c[!] Only the faction admin can do that."),
+    COMMAND_CONTEXT_ADMINISTER_SAME_RANK_CONTROL("&c[!] Moderators can't control each other..."),
+    COMMAND_CONTEXT_ADMINISTER_MOD_REQUIRED("&c[!] You must be a faction moderator to do that."),
+
 	COMMAND_UPGRADES_DESCRIPTION("&cOpen the Upgrades Menu"),
 
 	COMMAND_ADMIN_NOTMEMBER("&c&l[!] &7%1$s &cis not a member in your faction."),
@@ -760,6 +765,7 @@ public enum TL {
 	COMMAND_TNTFILL_NODISPENSERS("&c&l[!] &7No dispensers were found in a radius of {radius} blocks."),
 
 	COMMAND_UNBAN_DESCRIPTION("Unban someone from your Faction"),
+    COMMAND_UNBAN_TARGET_IN_OTHER_FACTION("&c%1$s is not in your faction!"),
 	COMMAND_UNBAN_NOTBANNED("&7%s &cisn't banned. Not doing anything."),
 	COMMAND_UNBAN_UNBANNED("&e%1$s &cunbanned &7%2$s"),
 	COMMAND_UNBAN_TARGET("&aYou were unbanned from &r%s"),

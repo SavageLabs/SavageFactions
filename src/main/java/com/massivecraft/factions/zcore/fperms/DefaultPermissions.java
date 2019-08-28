@@ -32,8 +32,7 @@ public class DefaultPermissions {
     public boolean chest;
     public boolean spawner;
 
-    public DefaultPermissions() {
-    }
+    public DefaultPermissions() { }
 
     public DefaultPermissions(boolean def) {
         this.ban = def;

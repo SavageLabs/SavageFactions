@@ -17,23 +17,24 @@ public class CmdUnban extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.BAN)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.BAN)
                 .build();
     }
 
     @Override
     public void perform(CommandContext context) {
-        if (!context.fPlayer.isAdminBypassing()) {
-            Access access = context.faction.getAccess(context.fPlayer, PermissableAction.BAN);
-            if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER && !Permission.BAN.has(context.sender, true)) {
-                context.msg(TL.GENERIC_FPERM_NOPERMISSION, "manage bans");
-                return;
-            }
-        }
-
         // Good on permission checks. Now lets just ban the player.
         FPlayer target = context.argAsFPlayer(0);
         if (target == null) {
             return; // the above method sends a message if fails to find someone.
+        }
+
+        if (target.getFaction() != context.fPlayer.getFaction()) {
+            if (target.getFaction().getAccess(context.fPlayer, PermissableAction.BAN) != Access.ALLOW) {
+                if (!context.fPlayer.isAdminBypassing()) {
+                    context.fPlayer.msg(TL.COMMAND_UNBAN_TARGET_IN_OTHER_FACTION);
+                }
+            }
         }
 
         if (!context.faction.isBanned(target)) {

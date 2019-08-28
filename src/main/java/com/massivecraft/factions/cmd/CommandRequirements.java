@@ -48,23 +48,17 @@ public class CommandRequirements {
         if (context.player != null) {
             // Is Player
             if (!context.fPlayer.hasFaction() && memberOnly) {
-                if (informIfNot) {
-                    context.msg(TL.GENERIC_MEMBERONLY);
-                }
+                if (informIfNot) context.msg(TL.GENERIC_MEMBERONLY);
                 return false;
             }
 
-            if (!SavageFactions.plugin.perm.has(context.sender, permission.node, informIfNot)) {
-                return false;
-            }
+            if (!SavageFactions.plugin.perm.has(context.sender, permission.node, informIfNot)) return false;
 
             // Permissable Action provided compute that before role
             if (action != null) {
                 Access access = context.faction.getAccess(context.fPlayer, action);
                 if (access == Access.DENY) {
-                    if (informIfNot) {
-                        context.msg(TL.GENERIC_FPERM_NOPERMISSION, action.getName());
-                    }
+                    if (informIfNot) context.msg(TL.GENERIC_FPERM_NOPERMISSION, action.getName());
                     return false;
                 }
 
@@ -72,9 +66,7 @@ public class CommandRequirements {
                     // They have undefined assert their role
                     if (role != null && !context.fPlayer.getRole().isAtLeast(role)) {
                         // They do not fullfill the role
-                        if (informIfNot) {
-                            context.msg(TL.GENERIC_YOUMUSTBE, role.translation);
-                        }
+                        if (informIfNot) context.msg(TL.GENERIC_YOUMUSTBE, role.translation);
                         return false;
                     }
                 }
@@ -88,9 +80,7 @@ public class CommandRequirements {
             }
         } else {
             if (playerOnly) {
-                if (informIfNot) {
-                    context.sender.sendMessage(TL.GENERIC_PLAYERONLY.toString());
-                }
+                if (informIfNot) context.sender.sendMessage(TL.GENERIC_PLAYERONLY.toString());
                 return false;
             }
             return context.sender.hasPermission(permission.node);
