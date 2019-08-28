@@ -222,6 +222,17 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public void setRole(Role role) {
+        if (this.role != role) {
+            FPlayerRoleChangeEvent event = new FPlayerRoleChangeEvent(getFaction(), this, role);
+            Bukkit.getPluginManager().callEvent(event);
+
+            if (event.isCancelled()) {
+                return;
+            } else {
+                this.role = event.getTo();
+            }
+        }
+
         this.role = role;
     }
 
