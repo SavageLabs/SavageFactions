@@ -98,29 +98,6 @@ public class SavageFactions extends MPlugin {
         this.setAutoSave(val);
     }
 
-    public void playSoundForAll(String sound) {
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            playSound(pl, sound);
-        }
-    }
-
-    public void playSoundForAll(List<String> sounds) {
-        for (Player pl : Bukkit.getOnlinePlayers()) {
-            playSound(pl, sounds);
-        }
-    }
-
-    public void playSound(Player p, List<String> sounds) {
-        for (String sound : sounds) {
-            playSound(p, sound);
-        }
-    }
-
-    public void playSound(Player p, String sound) {
-        float pitch = Float.valueOf(sound.split(":")[1]);
-        sound = sound.split(":")[0];
-        p.playSound(p.getLocation(), Sound.valueOf(sound), pitch, 5.0F);
-    }
 
     @Override
     public void onEnable() {
@@ -447,21 +424,6 @@ public class SavageFactions extends MPlugin {
         return Conf.logPlayerCommands;
     }
 
-    public void createTimedHologram(final Location location, String text, Long timeout) {
-        ArmorStand as = (ArmorStand) location.add(0.5, 1, 0.5).getWorld().spawnEntity(location, EntityType.ARMOR_STAND); //Spawn the ArmorStand
-        as.setVisible(false); //Makes the ArmorStand invisible
-        as.setGravity(false); //Make sure it doesn't fall
-        as.setCanPickupItems(false); //I'm not sure what happens if you leave this as it is, but you might as well disable it
-        as.setCustomName(SavageFactions.plugin.color(text)); //Set this to the text you want
-        as.setCustomNameVisible(true); //This makes the text appear no matter if your looking at the entity or not
-        final ArmorStand armorStand = as;
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> {
-                    armorStand.remove();
-                    getLogger().info("Removing Hologram.");
-                }
-                , timeout * 20);
-    }
 
     @Override
     public boolean handleCommand(CommandSender sender, String commandString, boolean testOnly) {
