@@ -101,6 +101,7 @@ public class SavageFactions extends MPlugin {
 
     @Override
     public void onEnable() {
+        printLogo();
         log("==== Setup ====");
         TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(),"com.massivecraft.factions");
         // Vault dependency check.
@@ -354,6 +355,16 @@ public class SavageFactions extends MPlugin {
         System.out.println("  .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-");
         System.out.println(" / / \\ \\ / / \\ \\ / / \\ \\ / / \\ \\ / / \\ \\ / / \\ \\ / / \\ \\ / / \\");
         System.out.println("`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'");
+    }
+
+    private void printLogo() {
+        System.out.println("\n __                               ___          _   _                 \n" +
+                "/ _\\ __ ___   ____ _  __ _  ___  / __\\_ _  ___| |_(_) ___  _ __  ___ \n" +
+                "\\ \\ / _` \\ \\ / / _` |/ _` |/ _ \\/ _\\/ _` |/ __| __| |/ _ \\| '_ \\/ __|\n" +
+                "_\\ \\ (_| |\\ V / (_| | (_| |  __/ / | (_| | (__| |_| | (_) | | | \\__ \\\n" +
+                "\\__/\\__,_| \\_/ \\__,_|\\__, |\\___\\/   \\__,_|\\___|\\__|_|\\___/|_| |_|___/\n" +
+                "                     |___/                                           \n" +
+                "Made with love, by ProSavage & SavageLLC Team.");
     }
 
     @Override
