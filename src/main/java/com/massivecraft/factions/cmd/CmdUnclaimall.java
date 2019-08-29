@@ -41,7 +41,9 @@ public class CmdUnclaimall extends FCommand {
             }
 
             Board.getInstance().unclaimAll(target.getId());
-            context.faction.msg(TL.COMMAND_UNCLAIMALL_UNCLAIMED, context.fPlayer.describeTo(target, true));
+            context.faction.msg(TL.COMMAND_UNCLAIMALL_LOG, context.fPlayer.describeTo(target, true), target.getTag());
+            if (Conf.logLandUnclaims) SavageFactions.plugin.log(TL.COMMAND_UNCLAIMALL_LOG.format(context.fPlayer.getName(), context.faction.getTag()));
+            return;
 
         }
         if (Econ.shouldBeUsed()) {
