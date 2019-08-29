@@ -490,10 +490,10 @@ public class SavageFactions extends MPlugin {
 
                 for (Role value : Role.values()) completions.add(value.nicename);
                 for (Relation value : Relation.values()) completions.add(value.nicename);
-                List<Player> players = Bukkit.getServer().getOnlinePlayers().stream().filter(player -> player.getName().startsWith(lastArg)).collect(Collectors.toList());
+                List<Player> players = Bukkit.getServer().getOnlinePlayers().stream().filter(player -> player.getName().toLowerCase().startsWith(lastArg)).collect(Collectors.toList());
                 for (Player player : players) completions.add(player.getName());
 
-                List<Faction> facs = Factions.getInstance().getAllFactions().stream().filter(f -> f.getTag().startsWith(lastArg)).collect(Collectors.toList());
+                List<Faction> facs = Factions.getInstance().getAllFactions().stream().filter(f -> f.getTag().toLowerCase().startsWith(lastArg)).collect(Collectors.toList());
                 for (Faction fac : facs) completions.add(fac.getTag());
 
             }
