@@ -491,7 +491,7 @@ public class SavageFactions extends MPlugin {
             // The stream and foreach from the old implementation looped 2 times, by looping all players -> filtered -> looped filter and added -> filtered AGAIN at the end.
             // This loops them once and just adds, because we are filtering the arguments at the end anyways
             for (Player player : Bukkit.getServer().getOnlinePlayers()) completions.add(player.getName());
-            for (Faction faction : Factions.getInstance().getAllFactions()) completions.add(faction.getTag());
+            for (Faction faction : Factions.getInstance().getAllFactions()) completions.add(ChatColor.stripColor(faction.getTag()));
             completions = completions.stream().filter(m -> m.toLowerCase().startsWith(lastArg)).collect(Collectors.toList());
             return completions;
         }
