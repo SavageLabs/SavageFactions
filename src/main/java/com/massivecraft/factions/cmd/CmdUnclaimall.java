@@ -37,7 +37,8 @@ public class CmdUnclaimall extends FCommand {
             }
 
             if (!context.fPlayer.isAdminBypassing()) {
-                context.msg(TL.ACTIONS_NOPERMISSION, context.faction.getTag(), target.getTag());
+                context.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", target.getTag()).replace("{action}", "unclaimall land"));
+                return;
             }
 
             Board.getInstance().unclaimAll(target.getId());
