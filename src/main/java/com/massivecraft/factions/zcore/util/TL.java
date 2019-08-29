@@ -784,6 +784,7 @@ public enum TL {
 	COMMAND_UNCLAIM_DESCRIPTION("Unclaim the land where you are standing"),
 
 	COMMAND_UNCLAIMALL_TOUNCLAIM("to unclaim all faction land"),
+	COMMAND_UNCLAIMALL_NOLANDCLAIMED("&cYour faction doesn't have any land claimed!"),
 	COMMAND_UNCLAIMALL_FORUNCLAIM("for unclaiming all faction land"),
     COMMAND_UNCLAIMALL_UNCLAIMED("%1$s unclaimed ALL of your faction's land."),
 	COMMAND_UNCLAIMALL_LOG("%1$s unclaimed everything for the faction: %2$s"),

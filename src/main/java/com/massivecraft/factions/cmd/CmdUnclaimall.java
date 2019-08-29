@@ -25,6 +25,10 @@ public class CmdUnclaimall extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+        if (!(context.faction.getLandRounded() > 0)) {
+            context.fPlayer.msg(TL.COMMAND_UNCLAIMALL_NOLANDCLAIMED);
+            return;
+        }
         if (Econ.shouldBeUsed()) {
             double refund = Econ.calculateTotalLandRefund(context.faction.getLandRounded());
             if (Conf.bankEnabled && Conf.bankFactionPaysLandCosts) {

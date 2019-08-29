@@ -41,10 +41,7 @@ public class CommandRequirements {
 
     public boolean computeRequirements(CommandContext context, boolean informIfNot) {
         // Did not modify CommandRequirements return true
-        if (permission == null) {
-            return true;
-        }
-
+        if (permission == null) return true;
         if (context.player != null) {
             // Is Player
             if (!context.fPlayer.hasFaction() && memberOnly) {

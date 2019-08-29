@@ -5,6 +5,7 @@ import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.util.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,31 +25,34 @@ public class FUpgradesMenu {
     }
 
     public void buildGUI(FPlayer fplayer) {
-        PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
-        List<GuiItem> GUIItems = new ArrayList<>();
-        ItemStack dumby = buildDummyItem();
-        // Fill background of GUI with dumbyitem & replace GUI assets after
-        for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
-        for (UpgradeType value : UpgradeType.values()) {
-            if (value.getSlot() == -1) continue;
-            GUIItems.set(value.getSlot(), new GuiItem(value.buildAsset(fplayer.getFaction()), e -> {
-                e.setCancelled(true);
-                FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
-                if (fme.getFaction().getUpgrade(value) == value.getMaxLevel()) return;
-                int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
-                if (fme.hasMoney(cost)) {
-                    fme.takeMoney(cost);
-                    if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
-                    if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
-                    fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
-                    buildGUI(fme);
-                }
-            }));
-            pane.populateWithGuiItems(GUIItems);
-            gui.addPane(pane);
-            gui.update();
-            gui.show(fplayer.getPlayer());
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(SavageFactions.plugin, () -> {
+            PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
+            List<GuiItem> GUIItems = new ArrayList<>();
+            ItemStack dumby = buildDummyItem();
+            // Fill background of GUI with dumbyitem & replace GUI assets after
+            for (int x = 0; x <= (gui.getRows() * 9) - 1; x++)
+                GUIItems.add(new GuiItem(dumby, e -> e.setCancelled(true)));
+            for (UpgradeType value : UpgradeType.values()) {
+                if (value.getSlot() == -1) continue;
+                GUIItems.set(value.getSlot(), new GuiItem(value.buildAsset(fplayer.getFaction()), e -> {
+                    e.setCancelled(true);
+                    FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
+                    if (fme.getFaction().getUpgrade(value) == value.getMaxLevel()) return;
+                    int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
+                    if (fme.hasMoney(cost)) {
+                        fme.takeMoney(cost);
+                        if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
+                        if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
+                        fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
+                        buildGUI(fme);
+                    }
+                }));
+                pane.populateWithGuiItems(GUIItems);
+                gui.addPane(pane);
+                gui.update();
+                Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> gui.show(fplayer.getPlayer()));
+            }
+        });
     }
 
     private void updateChests(Faction faction) {
