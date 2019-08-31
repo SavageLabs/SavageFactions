@@ -690,22 +690,18 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 		// First populate a map with undefined as the permission for each action.
 		Map<PermissableAction, Access> freshMap = new HashMap<>();
-		for (PermissableAction permissableAction : PermissableAction.values()) {
-			freshMap.put(permissableAction, Access.DENY);
-		}
+		for (PermissableAction action : PermissableAction.values()) freshMap.put(action, Access.DENY);
 
 		// Put the map in there for each relation.
 		for (Relation relation : Relation.values()) {
-			if (relation != Relation.MEMBER) {
-				permissions.put(relation, new HashMap<>(freshMap));
-			}
+			if (relation == Relation.MEMBER) continue;
+			permissions.put(relation, new HashMap<>(freshMap));
 		}
 
 		// And each role.
 		for (Role role : Role.values()) {
-			if (role != Role.LEADER) {
-				permissions.put(role, new HashMap<>(freshMap));
-			}
+			if (role == Role.LEADER) continue;
+			permissions.put(role, new HashMap<>(freshMap));
 		}
 	}
 
@@ -714,17 +710,17 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		for (PermissableAction action : PermissableAction.values()) defaultMap.put(action, Access.DENY);
 
 		for (Relation rel : Relation.values()) {
-			if (rel != Relation.MEMBER) {
-				if (Conf.defaultFactionPermissions.containsKey(rel.nicename.toUpperCase())) {
-					permissions.put(rel, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(rel.nicename.toUpperCase())));
-				} else permissions.put(rel, new HashMap<>(defaultMap));
-			}
-		}
-
-		for (Role rel : Role.values()) {
+			if (rel == Relation.MEMBER) continue;
 			if (Conf.defaultFactionPermissions.containsKey(rel.nicename.toUpperCase())) {
 				permissions.put(rel, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(rel.nicename.toUpperCase())));
 			} else permissions.put(rel, new HashMap<>(defaultMap));
+		}
+
+		for (Role role : Role.values()) {
+			if (role == Role.LEADER) continue;
+			if (Conf.defaultFactionPermissions.containsKey(role.nicename.toUpperCase())) {
+				permissions.put(role, PermissableAction.fromDefaults(Conf.defaultFactionPermissions.get(role.nicename.toUpperCase())));
+			} else permissions.put(role, new HashMap<>(defaultMap));
 		}
 	}
 

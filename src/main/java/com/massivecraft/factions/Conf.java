@@ -480,7 +480,6 @@ public class Conf {
         safeZoneNerfedCreatureTypes.add(EntityType.WITHER);
         safeZoneNerfedCreatureTypes.add(EntityType.ZOMBIE);
         // Is this called lazy load?
-        defaultFactionPermissions.put("LEADER", new DefaultPermissions(true));
         defaultFactionPermissions.put("COLEADER", new DefaultPermissions(true));
         defaultFactionPermissions.put("MODERATOR", new DefaultPermissions(true));
         defaultFactionPermissions.put("NORMAL MEMBER", new DefaultPermissions(false));
