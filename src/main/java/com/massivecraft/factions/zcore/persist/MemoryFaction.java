@@ -376,24 +376,35 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return 0;
 	}
 
-	@Override
-	public Inventory getChestInventory() {
-		if (chest != null) return chest;
-			int size = 9;
-			switch (getUpgrade(UpgradeType.CHEST)) {
-				case 1:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
-					break;
-				case 2:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
-					break;
-				case 3:
-					size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
-					break;
-			}
-        chest = Bukkit.createInventory(null, size, SavageFactions.plugin.color(Conf.fchestInventoryTitle));
-			return chest;
-	}
+    @Override
+    public Inventory getChestInventory() {
+        if (chest != null) {
+            Inventory temp = Bukkit.createInventory(null, getChestSize(), SavageFactions.plugin.color(Conf.fchestInventoryTitle));
+            temp.setContents(this.chest.getContents());
+            this.chest = temp;
+            return chest;
+        }
+
+        chest = Bukkit.createInventory(null, getChestSize(), SavageFactions.plugin.color(Conf.fchestInventoryTitle));
+        return chest;
+    }
+
+    private int getChestSize() {
+        int size = 9;
+        switch (getUpgrade(UpgradeType.CHEST)) {
+            case 1:
+                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
+                break;
+            case 2:
+                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
+                break;
+            case 3:
+                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
+                break;
+        }
+        return size;
+    }
+
 
 	@Override
 	public void setChestSize(int chestSize) {
