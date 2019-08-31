@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.Conf;
+import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.LandUnclaimAllEvent;
 import com.massivecraft.factions.integration.Econ;
@@ -16,35 +17,56 @@ public class CmdUnclaimall extends FCommand {
         this.aliases.add("unclaimall");
         this.aliases.add("declaimall");
 
+        this.optionalArgs.put("faction", "yours");
+
         this.requirements = new CommandRequirements.Builder(Permission.UNCLAIM_ALL)
                 .playerOnly()
                 .memberOnly()
-                .withAction(PermissableAction.TERRITORY) //TODO: Add UnclaimALl PermissableAction
+                .withAction(PermissableAction.TERRITORY) //TODO: Add Unclaimall PermissableAction
                 .build();
     }
 
     @Override
     public void perform(CommandContext context) {
+        Faction target = context.faction;
+        if (context.args.size() == 1) {
+            target = context.argAsFaction(0);
+            if (target == null)  {
+                context.msg(TL.GENERIC_NOFACTION_FOUND);
+                return;
+            }
+
+            if (!context.fPlayer.isAdminBypassing()) {
+                context.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", target.getTag()).replace("{action}", "unclaimall land"));
+                return;
+            }
+
+            Board.getInstance().unclaimAll(target.getId());
+            context.faction.msg(TL.COMMAND_UNCLAIMALL_LOG, context.fPlayer.describeTo(target, true), target.getTag());
+            if (Conf.logLandUnclaims) SavageFactions.plugin.log(TL.COMMAND_UNCLAIMALL_LOG.format(context.fPlayer.getName(), context.faction.getTag()));
+            return;
+
+        }
         if (Econ.shouldBeUsed()) {
-            double refund = Econ.calculateTotalLandRefund(context.faction.getLandRounded());
+            double refund = Econ.calculateTotalLandRefund(target.getLandRounded());
             if (Conf.bankEnabled && Conf.bankFactionPaysLandCosts) {
-                if (!Econ.modifyMoney(context.faction, refund, TL.COMMAND_UNCLAIMALL_TOUNCLAIM.toString(), TL.COMMAND_UNCLAIMALL_FORUNCLAIM.toString())) {
+                if (!Econ.modifyMoney(target, refund, TL.COMMAND_UNCLAIMALL_TOUNCLAIM.toString(), TL.COMMAND_UNCLAIMALL_FORUNCLAIM.toString())) {
                     return;
                 }
             } else {
-                if (!Econ.modifyMoney(context.faction, refund, TL.COMMAND_UNCLAIMALL_TOUNCLAIM.toString(), TL.COMMAND_UNCLAIMALL_FORUNCLAIM.toString())) {
+                if (!Econ.modifyMoney(target, refund, TL.COMMAND_UNCLAIMALL_TOUNCLAIM.toString(), TL.COMMAND_UNCLAIMALL_FORUNCLAIM.toString())) {
                     return;
                 }
             }
         }
 
-        LandUnclaimAllEvent unclaimAllEvent = new LandUnclaimAllEvent(context.faction, context.fPlayer);
+        LandUnclaimAllEvent unclaimAllEvent = new LandUnclaimAllEvent(target, context.fPlayer);
         Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(unclaimAllEvent));
         if (unclaimAllEvent.isCancelled()) {
             return;
         }
 
-        Board.getInstance().unclaimAll(context.faction.getId());
+        Board.getInstance().unclaimAll(target.getId());
         context.faction.msg(TL.COMMAND_UNCLAIMALL_UNCLAIMED, context.fPlayer.describeTo(context.faction, true));
 
         if (Conf.logLandUnclaims) {

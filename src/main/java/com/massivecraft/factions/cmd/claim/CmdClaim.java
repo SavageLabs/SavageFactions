@@ -31,6 +31,7 @@ public class CmdClaim extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+
         // Read and validate input
         int radius = context.argAsInt(0, 1); // Default to 1
         final Faction forFaction = context.argAsFaction(1, context.faction); // Default to own
@@ -54,8 +55,7 @@ public class CmdClaim extends FCommand {
             context.fPlayer.attemptClaim(forFaction, context.player.getLocation(), true);
         } else {
             // radius claim
-            if (!Permission.CLAIM_RADIUS.has(context.sender, false)) {
-                context.msg(TL.COMMAND_CLAIM_DENIED);
+            if (!Permission.CLAIM_RADIUS.has(context.sender, true)) {
                 return;
             }
 

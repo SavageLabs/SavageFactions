@@ -1,4 +1,5 @@
 # SavageFactions
+![issues](https://img.shields.io/github/issues/SavageLLC/SavageFactions) ![forks](https://img.shields.io/github/forks/SavageLLC/SavageFactions) ![stars](https://img.shields.io/github/stars/SavageLLC/SavageFactions) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
 
 SavageFactions is a fork of the popular Factions plugin FactionsUUID. The Goal of SavageFactions is to make the ultimate competitive factions experience.
 
@@ -39,7 +40,7 @@ If you would like to use the plugin as a dependency in your project, you can use
 
 <dependency>
 	<groupId>com.github.ProSavage</groupId>
-	<artifactId>SavageFactions</artifactId>
+	<artifactId>SavageFactions</artifactId> 
 	<version>1.6.x-0.1.21-gbdd5473-400</version>
 	<scope>provided</scope>
 </dependency>
