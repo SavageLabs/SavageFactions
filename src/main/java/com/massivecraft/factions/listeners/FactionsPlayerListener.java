@@ -218,14 +218,8 @@ public class FactionsPlayerListener implements Listener {
     }
 
     private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck, Access access, PermissableAction action, boolean pain) {
-<<<<<<< Updated upstream
-        boolean doPain = pain && Conf.handleExploitInteractionSpam;
-        if (access != null) {
-            // TODO: Update this once new access values are added other than just allow / deny.
-=======
         boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to use exploit interaction as well.
         if (access != null) {
->>>>>>> Stashed changes
             boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
             if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId())))
                 return true;
