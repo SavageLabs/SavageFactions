@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 import java.math.BigDecimal;
@@ -42,8 +43,13 @@ public class Essentials {
 	}
 
 	public static boolean isVanished(Player player) {
-		if (essentials == null) return false;
-		User user = essentials.getUser(player);
-		return user != null && user.isVanished();
+		if (essentials != null) {
+			User user = essentials.getUser(player);
+			if (user.isVanished()) return true;
+		}
+		for (MetadataValue meta : player.getMetadata("vanished")) {
+			if (meta.asBoolean()) return true;
+		}
+		return false;
 	}
 }
