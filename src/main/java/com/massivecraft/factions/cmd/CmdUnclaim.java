@@ -18,6 +18,7 @@ public class CmdUnclaim extends FCommand {
         this.aliases.add("declaim");
 
         this.optionalArgs.put("radius", "1");
+        this.optionalArgs.put("faction", "yours");
 
         this.requirements = new CommandRequirements.Builder(Permission.UNCLAIM)
                 .playerOnly()
@@ -28,6 +29,18 @@ public class CmdUnclaim extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+
+        if (context.args.size() == 2) {
+            Faction target = context.argAsFaction(1);
+            // Dont have to say anything since the argsAsFaction method will tell the player for me.
+            if (target == null)  return;
+            context.faction = target;
+            if (context.faction != context.fPlayer.getFaction() && !context.fPlayer.isAdminBypassing()) {
+                context.msg(TL.COMMAND_UNCLAIM_WRONGFACTION);
+                return;
+            }
+        }
+
         // Read and validate input
         int radius = context.argAsInt(0, 1); // Default to 1
 
