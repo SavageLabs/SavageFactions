@@ -448,7 +448,7 @@ public class SavageFactions extends MPlugin {
         List<String> argsList = new LinkedList<>(Arrays.asList(args));
         CommandContext context = new CommandContext(sender, argsList, alias);
         String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
-        String cmdValid = (cmd + " " + TextUtil.implode(context.args, " ")).trim();
+//        String cmdValid = (cmd + " " + TextUtil.implode(context.args, " ")).trim();
         List<FCommand> commandsList = cmdBase.subCommands;
         FCommand commandsEx = cmdBase;
         List<String> completions = new ArrayList<>();
@@ -486,6 +486,7 @@ public class SavageFactions extends MPlugin {
 
         } else {
             String lastArg = args[args.length - 1].toLowerCase();
+
             for (Role value : Role.values()) completions.add(value.nicename);
             for (Relation value : Relation.values()) completions.add(value.nicename);
             // The stream and foreach from the old implementation looped 2 times, by looping all players -> filtered -> looped filter and added -> filtered AGAIN at the end.
