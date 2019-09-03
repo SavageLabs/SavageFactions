@@ -18,6 +18,7 @@ public class CmdUnclaim extends FCommand {
         this.aliases.add("declaim");
 
         this.optionalArgs.put("radius", "1");
+        this.optionalArgs.put("faction", "yours");
 
         this.requirements = new CommandRequirements.Builder(Permission.UNCLAIM)
                 .playerOnly()
@@ -28,6 +29,18 @@ public class CmdUnclaim extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+
+        if (context.args.size() == 2) {
+            Faction target = context.argAsFaction(1);
+            // Dont have to say anything since the argsAsFaction method will tell the player for me.
+            if (target == null)  return;
+            context.faction = target;
+            if (context.faction != context.fPlayer.getFaction() && !context.fPlayer.isAdminBypassing()) {
+                context.msg(TL.COMMAND_UNCLAIM_WRONGFACTION);
+                return;
+            }
+        }
+
         // Read and validate input
         int radius = context.argAsInt(0, 1); // Default to 1
 
@@ -36,7 +49,7 @@ public class CmdUnclaim extends FCommand {
             return;
         }
 
-        if (radius < 2) {
+        if (radius == 1) {
             // single chunk
             unClaim(new FLocation(context.player), context);
         } else {
@@ -115,22 +128,17 @@ public class CmdUnclaim extends FCommand {
             return true;
         }
 
-
-        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) == Access.DENY) {
+        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) == Access.DENY && context.fPlayer.getRole() != Role.LEADER) {
+            context.msg(TL.GENERIC_FPERM_NOPERMISSION, "unclaim");
             return false;
         }
-
 
         if (!context.assertHasFaction()) {
+            context.msg(TL.ACTIONS_NOFACTION);
             return false;
         }
 
-        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) != Access.ALLOW && !context.assertMinRole(Role.MODERATOR)) {
-            return false;
-        }
-
-
-        if (context.faction!= targetFaction) {
+        if (context.faction != targetFaction) {
             context.msg(TL.COMMAND_UNCLAIM_WRONGFACTION);
             return false;
         }

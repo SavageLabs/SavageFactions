@@ -3,6 +3,7 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 
 
@@ -14,6 +15,7 @@ public class CmdOwner extends FCommand {
         this.optionalArgs.put("player name", "you");
 
         this.requirements = new CommandRequirements.Builder(Permission.OWNER)
+                .withRole(Role.LEADER)
                 .playerOnly()
                 .memberOnly()
                 .build();

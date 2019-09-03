@@ -40,22 +40,14 @@ public class CmdFly extends FCommand {
         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, () -> {
             for (String name : flyMap.keySet()) {
                 Player player = Bukkit.getPlayer(name);
-                if (player == null) {
-                    continue;
-                }
-                if (!player.isFlying()) {
-                    continue;
-                }
+                if (player == null) continue;
+                if (!player.isFlying()) continue;
                 if (!SavageFactions.plugin.mc17) {
-                    if (player.getGameMode() == GameMode.SPECTATOR) {
-                        continue;
-                    }
+                    if (player.getGameMode() == GameMode.SPECTATOR) continue;
                 }
 
                 FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
-                if (fplayer.isVanished()) {
-                    continue;
-                }
+                if (fplayer.isVanished()) continue;
 
                 FlyParticle selectedParticle = fplayer.getSelectedParticle();
                 if (selectedParticle == null) {

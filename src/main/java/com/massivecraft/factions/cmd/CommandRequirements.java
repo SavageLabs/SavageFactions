@@ -56,6 +56,7 @@ public class CommandRequirements {
 
             // Permissable Action provided compute that before role
             if (action != null) {
+                if (context.fPlayer.getRole() == Role.LEADER) return true;
                 Access access = context.faction.getAccess(context.fPlayer, action);
                 if (access == Access.DENY) {
                     if (informIfNot) context.msg(TL.GENERIC_FPERM_NOPERMISSION, action.getName());

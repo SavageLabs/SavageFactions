@@ -23,6 +23,7 @@ public class CmdVault extends FCommand {
         this.requirements = new CommandRequirements.Builder(Permission.VAULT)
                 .playerOnly()
                 .memberOnly()
+                .withAction(PermissableAction.VAULT)
                 .build();
     }
 
@@ -33,16 +34,12 @@ public class CmdVault extends FCommand {
             context.fPlayer.sendMessage("This command is disabled!");
             return;
         }
-        Access access = context.faction.getAccess(context.fPlayer, PermissableAction.VAULT);
-        if (access.equals(Access.DENY)) {
-            context.msg(TL.GENERIC_NOPERMISSION, "vault");
-            return;
-        }
 
         if (context.fPlayer.isInVault()) {
             context.player.closeInventory();
             return;
         }
+
         context.fPlayer.setInVault(true);
         Location vaultLocation = context.faction.getVault();
         if (vaultLocation == null) {
