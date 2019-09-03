@@ -22,7 +22,7 @@ public class CmdStrikesGive extends FCommand {
         Faction target = context.argAsFaction(0);
         if (target == null || target.isSystemFaction()) {
             context.msg(TL.COMMAND_STRIKES_TARGET_INVALID, context.argAsString(0));
-            return;
+               return;
         }
         target.giveStrike(true);
         context.msg(TL.COMMAND_STRIKES_CHANGED, target.getTag(), target.getStrikes());
