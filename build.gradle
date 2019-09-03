@@ -50,7 +50,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.stefvanschie.inventoryframework:IF:0.5.9'
+    implementation 'com.github.stefvanschie.inventoryframework:IF:0.5.8'
     compileOnly ('org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5', module: 'bungeecord-chat'
         exclude group: 'javax.persistence', module: 'persistence-api'
