@@ -4,6 +4,7 @@ import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.FPlayers;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.util.TL;
 
 public class CmdOpen extends FCommand {
@@ -14,6 +15,7 @@ public class CmdOpen extends FCommand {
         this.optionalArgs.put("yes/no", "flip");
 
         this.requirements = new CommandRequirements.Builder(Permission.OPEN)
+                .withRole(Role.COLEADER)
                 .playerOnly()
                 .memberOnly()
                 .build();

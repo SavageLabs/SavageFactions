@@ -143,6 +143,7 @@ public class SavageFactions extends MPlugin {
         this.loadSuccessful = false;
 
         saveDefaultConfig();
+
         // Load Conf from disk
         Conf.load();
 
