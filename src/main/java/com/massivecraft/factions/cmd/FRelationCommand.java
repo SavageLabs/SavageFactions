@@ -8,6 +8,8 @@ import com.massivecraft.factions.event.FactionRelationWishEvent;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,6 +23,7 @@ public abstract class FRelationCommand extends FCommand {
         this.requiredArgs.add("faction tag");
 
         this.requirements = new CommandRequirements.Builder(Permission.RELATION)
+                .withRole(Role.MODERATOR)
                 .playerOnly()
                 .memberOnly()
                 .build();
