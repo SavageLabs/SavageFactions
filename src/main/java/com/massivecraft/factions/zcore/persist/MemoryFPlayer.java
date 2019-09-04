@@ -1200,6 +1200,11 @@ public abstract class MemoryFPlayer implements FPlayer {
             }
         }
 
+        if (forFaction.getClaimOwnership().containsKey(flocation) && !forFaction.isPlayerInOwnerList(this, flocation)) {
+            this.msg(TL.GENERIC_FPERM_OWNER_NOPERMISSION, "claim");
+            return false;
+        }
+
         LandClaimEvent claimEvent = new LandClaimEvent(flocation, forFaction, this);
         Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getPluginManager().callEvent(claimEvent));
 

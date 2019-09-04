@@ -129,7 +129,7 @@ public class CmdUnclaim extends FCommand {
         }
 
         if (targetFaction.getClaimOwnership().containsKey(target) && !targetFaction.isPlayerInOwnerList(context.fPlayer, target)) {
-            context.msg(TL.GENERIC_FPERM_OWNER_NOPERMISSION);
+            context.msg(TL.GENERIC_FPERM_OWNER_NOPERMISSION, "unclaim");
             return false;
         }
 
