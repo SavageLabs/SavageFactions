@@ -73,10 +73,27 @@ public class FactionsPlayerListener implements Listener {
         FLocation loc = new FLocation(location);
         Faction otherFaction = Board.getInstance().getFactionAt(loc);
         Faction myFaction = me.getFaction();
+        Relation rel = myFaction.getRelationTo(otherFaction);
 
-        // We handle ownership protection below.
+        // Also cancel if player doesn't have ownership rights for this claim
+        if (Conf.ownedAreasEnabled && myFaction == otherFaction && !myFaction.playerHasOwnershipRights(me, loc)) {
+            if (!justCheck) {
+                me.msg(TL.ACTIONS_OWNEDTERRITORYDENY.toString().replace("{owners}", myFaction.getOwnerListString(loc)));
+            }
+            return false;
+        }
 
         if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
+
+        if (otherFaction.hasPlayersOnline()) {
+            if (!Conf.territoryDenyUseageMaterials.contains(material)) {
+                return true; // Item isn't one we're preventing for online factions.
+            }
+        } else {
+            if (!Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) {
+                return true; // Item isn't one we're preventing for offline factions.
+            }
+        }
 
         if (otherFaction.isWilderness()) {
             if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
@@ -92,12 +109,12 @@ public class FactionsPlayerListener implements Listener {
             return false;
         }
 
-        // We should only after knowing it's not wilderness, otherwise gets bypassed
-        if (otherFaction.hasPlayersOnline()) {
-            // This should be inverted to prevent bypasing
-            if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
-        } else {
-            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) return true; // Item should not be used, deny.
+        // Cancel if we are not in our own territory
+        if (rel.confDenyUseage()) {
+            if (!justCheck) {
+                me.msg(TL.PLAYER_USE_TERRITORY, TextUtil.getMaterialName(material), otherFaction.getTag(myFaction));
+            }
+            return false;
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
@@ -113,10 +130,13 @@ public class FactionsPlayerListener implements Listener {
         if (me.isAdminBypassing())
             return true;
 
+        Material material = block.getType();
+
         // Dupe fix.
         FLocation loc = new FLocation(block);
         Faction otherFaction = Board.getInstance().getFactionAt(loc);
         Faction myFaction = me.getFaction();
+        Relation rel = myFaction.getRelationTo(otherFaction);
 
         // no door/chest/whatever protection in wilderness, war zones, or safe zones
         if (otherFaction.isSystemFaction()) return true;
@@ -218,8 +238,9 @@ public class FactionsPlayerListener implements Listener {
     }
 
     private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck, Access access, PermissableAction action, boolean pain) {
-        boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to use exploit interaction as well.
+        boolean doPain = pain && Conf.handleExploitInteractionSpam;
         if (access != null) {
+            // TODO: Update this once new access values are added other than just allow / deny.
             boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
             if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId())))
                 return true;
@@ -255,6 +276,7 @@ public class FactionsPlayerListener implements Listener {
             switch (material) {
                 case LEVER:
                     return PermissableAction.LEVER;
+
                 case ACACIA_BUTTON:
                 case BIRCH_BUTTON:
                 case DARK_OAK_BUTTON:
@@ -495,16 +517,18 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public void enableFly(FPlayer me) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
-        me.setFlying(true);
-        CmdFly.flyMap.put(me.getName(), true);
-        if (CmdFly.id == -1) {
-            if (Conf.enableFlyParticles) {
-                CmdFly.startParticles();
+        if (SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) {
+
+            me.setFlying(true);
+            CmdFly.flyMap.put(me.getName(), true);
+            if (CmdFly.id == -1) {
+                if (Conf.enableFlyParticles) {
+                    CmdFly.startParticles();
+                }
             }
-        }
-        if (CmdFly.flyid == -1) {
-            CmdFly.startFlyCheck();
+            if (CmdFly.flyid == -1) {
+                CmdFly.startFlyCheck();
+            }
         }
     }
 
@@ -558,9 +582,11 @@ public class FactionsPlayerListener implements Listener {
         Player player = e.getPlayer();
         if (player.getItemInHand().getType() == Material.ENDER_PEARL) {
             FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
-            if (fPlayer.isFlying() && Conf.noEnderpearlsInFly) { // heh
-                fPlayer.msg(TL.COMMAND_FLY_NO_EPEARL);
-                e.setCancelled(true);
+            if (fPlayer.isFlying()) {
+                if (Conf.noEnderpearlsInFly) {
+                    fPlayer.msg(TL.COMMAND_FLY_NO_EPEARL);
+                    e.setCancelled(true);
+                }
             }
         }
     }
@@ -714,14 +740,24 @@ public class FactionsPlayerListener implements Listener {
         // Check if the material is bypassing protection
         if (block == null) return;  // clicked in air, apparently
         if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
-        if (GetPermissionFromUsableBlock(block.getType()) != null) {
+        if (GetPermissionFromUsableBlock(event.getClickedBlock().getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
                 event.setCancelled(true);
                 event.setUseInteractedBlock(Event.Result.DENY);
                 return;
             }
         }
-        if (!playerCanUseItemHere(player, block.getLocation(), block.getType(), false)) {
+        if (event.getPlayer().getItemInHand() != null) {
+            Material handItem = event.getPlayer().getItemInHand().getType();
+            if (handItem.isEdible()
+                    || handItem.equals(XMaterial.POTION.parseMaterial())
+                    || handItem.equals(XMaterial.LINGERING_POTION.parseMaterial())
+                    || handItem.equals(XMaterial.SPLASH_POTION.parseMaterial())) {
+                return;
+            }
+        }
+        if (event.getMaterial().isSolid()) return;
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getMaterial(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
             return;

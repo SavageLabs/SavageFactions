@@ -49,7 +49,7 @@ public class CmdUnclaim extends FCommand {
             return;
         }
 
-        if (radius == 1) {
+        if (radius < 2) {
             // single chunk
             unClaim(new FLocation(context.player), context);
         } else {
@@ -128,17 +128,22 @@ public class CmdUnclaim extends FCommand {
             return true;
         }
 
-        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) == Access.DENY && context.fPlayer.getRole() != Role.LEADER) {
-            context.msg(TL.GENERIC_FPERM_NOPERMISSION, "unclaim");
+
+        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) == Access.DENY) {
             return false;
         }
+
 
         if (!context.assertHasFaction()) {
-            context.msg(TL.ACTIONS_NOFACTION);
             return false;
         }
 
-        if (context.faction != targetFaction) {
+        if (targetFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) != Access.ALLOW && !context.assertMinRole(Role.MODERATOR)) {
+            return false;
+        }
+
+
+        if (context.faction!= targetFaction) {
             context.msg(TL.COMMAND_UNCLAIM_WRONGFACTION);
             return false;
         }

@@ -25,6 +25,7 @@ public class CmdClaim extends FCommand {
 
         this.requirements = new CommandRequirements.Builder(Permission.CLAIM)
                 .playerOnly()
+                .withAction(PermissableAction.TERRITORY)
                 .build();
     }
 
