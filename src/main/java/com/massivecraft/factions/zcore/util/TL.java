@@ -863,6 +863,7 @@ public enum TL {
 	GENERIC_NOPERMISSION("You don't have permission \"%1$s\" required to %2$s."),
 	GENERTIC_ACTION_NOPERMISSION("You don't have permission to use %1$s"),
 	GENERIC_FPERM_NOPERMISSION("&7The faction leader does not allow you to &c%1$s."),
+	GENERIC_FPERM_OWNER_NOPERMISSION("&7This land is ownerclaimed, you need to be an owner to unclaim it."),
 	GENERIC_DOTHAT("do that"),  //Ugh nuke this from high orbit
     GENERIC_NOPLAYERMATCH("No player match found for \"%1$s\"."),
     GENERIC_NOPLAYERFOUND("No player \"%1$s\" could not be found."),
