@@ -20,11 +20,16 @@ public class CmdAdmin extends FCommand {
 
         this.requiredArgs.add("player");
 
-        this.requirements = new CommandRequirements.Builder(Permission.ADMIN).withRole(Role.LEADER).build();
+        this.requirements = new CommandRequirements.Builder(Permission.ADMIN).build();
     }
 
     @Override
     public void perform(CommandContext context) {
+        // Allows admins bypass this.
+        if (!context.fPlayer.isAdminBypassing() && !context.fPlayer.getRole().equals(Role.LEADER)) {
+            context.msg(TL.COMMAND_ADMIN_NOTADMIN);
+            return;
+        }
         FPlayer fyou = context.argAsBestFPlayerMatch(0);
         if (fyou == null) {
             return;
