@@ -24,12 +24,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /*
  *  WorldGuard Permission Checking.
  *  https://github.com/elBukkit/MagicPlugin/blob/master/Magic/src/main/java/com/elmakers/mine/bukkit/protection/WorldGuardAPI.java
- *  Author: NathonWolf, killme, adapted by Savag3life
+ *  Original Authors: NathonWolf, killme
+ *  Converted & Adapted: Savag3life
  */
 
 public class Worldguard {
@@ -113,7 +113,7 @@ public class Worldguard {
 
                     Class<?> flagsClass = Class.forName("com.sk89q.worldguard.protection.flags.Flags");
 
-                    buildFlag = (StateFlag)flagsClass.getField("BUILD").get(null);
+                    buildFlag = (StateFlag) flagsClass.getField("BUILD").get(null);
                     breakFlag = (StateFlag) flagsClass.getField("BREAK").get(null);
 
                 } catch (Exception ex) {
@@ -132,7 +132,7 @@ public class Worldguard {
 
                     Class<?> flagsClass = Class.forName("com.sk89q.worldguard.protection.flags.DefaultFlag");
 
-                    buildFlag = (StateFlag)flagsClass.getField("BUILD").get(null);
+                    buildFlag = (StateFlag) flagsClass.getField("BUILD").get(null);
                     breakFlag = (StateFlag) flagsClass.getField("BREAK").get(null);
 
                 } catch (Exception ex) {
@@ -198,18 +198,18 @@ public class Worldguard {
     /**
      * Used to check WorldGuard to see if a Player has permission to place a block.
      * @param player player in question.
-     * @param loc Location of block placed.
+     * @param location Location of block placed.
      * @return
      */
-    public boolean hasBuildPermission(Player player, Location loc) {
+    public boolean hasBuildPermission(Player player, Location location) {
         initialize();
         if (createQueryMethod != null && regionContainer != null) {
             try {
                 Object query = createQueryMethod.invoke(regionContainer);
                 if (locationAdaptMethod != null) {
-                    Object location = locationAdaptMethod.invoke(null, loc);
-                    return (boolean)regionQueryTestStateMethod.invoke(query, location, getAssociable(player), new StateFlag[]{buildFlag});
-                } else return (boolean)regionQueryTestStateMethod.invoke(query, loc, getAssociable(player), new StateFlag[]{buildFlag});
+                    Object loc = locationAdaptMethod.invoke(null, location);
+                    return (boolean)regionQueryTestStateMethod.invoke(query, loc, getAssociable(player), new StateFlag[]{buildFlag});
+                } else return (boolean)regionQueryTestStateMethod.invoke(query, location, getAssociable(player), new StateFlag[]{buildFlag});
             } catch (Exception ex) {
                 SavageFactions.plugin.log("An error occurred querying WorldGuard! Report this issue to SF Developers!");
                 SavageFactions.plugin.log("WorldGuard 7.0.0 support is currently in BETA. Please be careful!");
@@ -221,18 +221,18 @@ public class Worldguard {
     /**
      * Used to check WorldGuard to see if a player has permission to break a block.
      * @param player player in question.
-     * @param loc Location of block broken.
+     * @param location Location of block broken.
      * @return
      */
-    public boolean hasBreakPermission(Player player, Location loc) {
+    public boolean hasBreakPermission(Player player, Location location) {
         initialize();
         if (createQueryMethod != null && regionContainer != null) {
             try {
                 Object query = createQueryMethod.invoke(regionContainer);
                 if (locationAdaptMethod != null) {
-                    Object location = locationAdaptMethod.invoke(null, loc);
-                    return (boolean) regionQueryTestStateMethod.invoke(query, location, getAssociable(player), new StateFlag[]{breakFlag});
-                } else return (boolean) regionQueryTestStateMethod.invoke(query, loc, getAssociable(player), new StateFlag[]{breakFlag});
+                    Object loc = locationAdaptMethod.invoke(null, location);
+                    return (boolean) regionQueryTestStateMethod.invoke(query, loc, getAssociable(player), new StateFlag[]{breakFlag});
+                } else return (boolean) regionQueryTestStateMethod.invoke(query, location, getAssociable(player), new StateFlag[]{breakFlag});
 
             } catch (Exception ex) {
                 SavageFactions.plugin.log("An error occurred querying WorldGuard! Report this issue to SF Developers!");
@@ -244,13 +244,18 @@ public class Worldguard {
 
     public boolean checkForRegionsInChunk(FLocation floc) { return checkForRegionsInChunk(floc.getChunk()); }
 
-    public boolean checkForRegionsInChunk(Chunk c) {
+    /**
+     * Used for checking if regions are located in a chunk
+     * @param chunk Chunk in question.
+     * @return
+     */
+    public boolean checkForRegionsInChunk(Chunk chunk) {
         initialize();
         if (createQueryMethod != null && regionContainer != null) {
             try {
-                World world = c.getWorld();
-                int minChunkX = c.getX() << 4;
-                int minChunkZ = c.getZ() << 4;
+                World world = chunk.getWorld();
+                int minChunkX = chunk.getX() << 4;
+                int minChunkZ = chunk.getZ() << 4;
                 int maxChunkX = minChunkX + 15;
                 int maxChunkZ = minChunkZ + 15;
 
