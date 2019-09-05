@@ -171,6 +171,12 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return hasWarpPassword(warp) && warpPasswords.get(warp.toLowerCase()).equals(password);
 	}
 
+	public boolean hasMoney(double amount) { return (Econ.getBalance(this.getAccountId()) >= amount); }
+
+	public void takeMoney(double amount) { Econ.withdraw(this.getAccountId(), amount); }
+
+	public void addMoney(double amount) { Econ.deposit(this.getAccountId(), amount); }
+
 	public String getPaypal() {
 		return this.paypal;
 	}
