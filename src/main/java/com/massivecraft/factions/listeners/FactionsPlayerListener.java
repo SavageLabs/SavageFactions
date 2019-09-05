@@ -91,13 +91,12 @@ public class FactionsPlayerListener implements Listener {
             if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
-
         // We should only after knowing it's not wilderness, otherwise gets bypassed
         if (otherFaction.hasPlayersOnline()) {
             // This should be inverted to prevent bypasing
-            if (Conf.territoryDenyUseageMaterials.contains(material) && myFaction == otherFaction) return false; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
         } else {
-            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material) && myFaction == otherFaction) return true; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) return true; // Item should not be used, deny.
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
@@ -721,7 +720,7 @@ public class FactionsPlayerListener implements Listener {
                 return;
             }
         }
-        if (!playerCanUseItemHere(player, block.getLocation(), block.getType(), false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getMaterial(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
             return;
