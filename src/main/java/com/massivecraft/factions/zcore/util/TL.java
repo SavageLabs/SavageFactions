@@ -120,7 +120,7 @@ public enum TL {
 	 * Messsges for Faction Admins/Mods
 	 */
 
-	COMMAND_CONTEXT_ADMINISTER_DIF_FACTION("&c[!] %s is not in the same faction as you."),
+	COMMAND_CONTEXT_ADMINISTER_DIF_FACTION("&c[!] %1$s is not in the same faction as you."),
     COMMAND_CONTEXT_ADMINISTER_ADMIN_REQUIRED("&c[!] Only the faction admin can do that."),
     COMMAND_CONTEXT_ADMINISTER_SAME_RANK_CONTROL("&c[!] Moderators can't control each other..."),
     COMMAND_CONTEXT_ADMINISTER_MOD_REQUIRED("&c[!] You must be a faction moderator to do that."),
@@ -172,9 +172,9 @@ public enum TL {
 
 	COMMAND_BANLIST_DESCRIPTION("View a Faction's ban list"),
 	COMMAND_BANLIST_HEADER("&c&l[!] &7There are &c%d&7 bans for &c%s"),
-	COMMAND_BANLIST_ENTRY("&7%d. &c%s &r&7// &c%s &r&7// &c%s"),
+	COMMAND_BANLIST_ENTRY("&7%1$s. &c%2$s &r&7// &c%3$s &r&7// &c%4$s"),
 	COMMAND_BANLIST_NOFACTION("&c&l[!] &7You are &cnot &7in a Faction."),
-	COMMAND_BANLIST_INVALID("&c&l[!] &7The faction &c%s &7does not exist"),
+	COMMAND_BANLIST_INVALID("&c&l[!] &7The faction &c%1$s &7does not exist"),
 
 	COMMAND_BOOM_PEACEFULONLY("&c&l[!] &7This command is &conly &7usable by factions which are &cspecifically &7designated as &cpeaceful&7."),
 	COMMAND_BOOM_TOTOGGLE("to toggle explosions"),
@@ -225,7 +225,7 @@ public enum TL {
 	COMMAND_CLAIMLINE_DENIED("&c&l[!]&7 You &cdo not &7have&c permission&7 to claim in a line."),
 	COMMAND_CLAIMLINE_DESCRIPTION("Claim land in a straight line."),
 	COMMAND_CLAIMLINE_ABOVEMAX("&c&l[!]&7 The &cmaximum&7 limit for claim line is &c%s&7."),
-	COMMAND_CLAIMLINE_NOTVALID("&c&l[!]&7 &c%s&7 is not a &ccardinal &7direction. You may use &cnorth&7, &ceast&7, &csouth &7or &cwest&7."),
+	COMMAND_CLAIMLINE_NOTVALID("&c&l[!]&7 &c%1$s&7 is not a &ccardinal &7direction. You may use &cnorth&7, &ceast&7, &csouth &7or &cwest&7."),
 
 	COMMAND_CONFIG_NOEXIST("&c&l[!]&7 No configuration setting \"&c%1$s&7\" exists."),
 	COMMAND_CONFIG_SET_TRUE("\" option set to true (enabled)."),
@@ -516,7 +516,7 @@ public enum TL {
 
 	COMMAND_PEACEFUL_DESCRIPTION("&c&l[!]&7Set a faction to peaceful"),
 	COMMAND_PEACEFUL_YOURS("&c&l[!]&7%1$s has %2$s your faction"),
-    COMMAND_PEACEFUL_OTHER("&c&l[!]&7%s has %s the faction '%s'."),
+    COMMAND_PEACEFUL_OTHER("&c&l[!]&7%1$s has %2$s the faction '%3$s'."),
 	COMMAND_PEACEFUL_GRANT("&c&l[!]&7 granted peaceful status to"),
 	COMMAND_PEACEFUL_REVOKE("removed peaceful status from"),
 
@@ -532,7 +532,7 @@ public enum TL {
 	COMMAND_PERMANENT_GRANT("&c&l[!]&7 added permanent status to"),
 	COMMAND_PERMANENT_REVOKE("&c&l[!]&7 removed permanent status from"),
 	COMMAND_PERMANENT_YOURS("&c&l[!]&7 &c%1$s&7 has &c%2$s&7 your faction"),
-	COMMAND_PERMANENT_OTHER("&c&l[!]&7 &c%s &7has &c%s &7the faction &c'%s'."),
+	COMMAND_PERMANENT_OTHER("&c&l[!]&7 &c%1$s &7has &c%2$s &7the faction &c'%3$s'."),
 	COMMAND_PROMOTE_TARGET("&c&l[!]&7 You've been &c%1$s&7 to &c%2$s"),
 	COMMAND_PROMOTE_SUCCESS("&c&l[!]&7 You successfully&c %1$s %2$s &cto&7 %3$s"),
 	COMMAND_PROMOTE_PROMOTED("promoted"),
@@ -542,8 +542,8 @@ public enum TL {
 	COMMAND_PERMANENTPOWER_DESCRIPTION("Toggle permanent faction power option"),
 	COMMAND_PERMANENTPOWER_GRANT("added permanentpower status to"),
 	COMMAND_PERMANENTPOWER_REVOKE("removed permanentpower status from"),
-	COMMAND_PERMANENTPOWER_SUCCESS("&c&l[!]&7 You&c %s &7%s."),
-	COMMAND_PERMANENTPOWER_FACTION("&c&l[!]&7 &c%s %s &7your faction"),
+	COMMAND_PERMANENTPOWER_SUCCESS("&c&l[!]&7 You&c %1$s &7%2$s."),
+	COMMAND_PERMANENTPOWER_FACTION("&c&l[!]&7 &c%1$s %2$s &7your faction"),
 
 	COMMAND_PROMOTE_DESCRIPTION("/f promote <name>"),
 	COMMAND_PROMOTE_WRONGFACTION("&c&l[!]&7 &c%1$s&7 is &cnot&7 part of your faction."),
@@ -624,7 +624,7 @@ public enum TL {
 	COMMAND_SETHOME_DESCRIPTION("Set the faction home"),
 
 	COMMAND_SETMAXVAULTS_DESCRIPTION("Set max vaults for a Faction."),
-	COMMAND_SETMAXVAULTS_SUCCESS("&aSet max vaults for &e%s &ato &b%d"),
+	COMMAND_SETMAXVAULTS_SUCCESS("&aSet max vaults for &e%1$s &ato &b%2$s"),
 
 	COMMAND_VAULT_DESCRIPTION("Open your placed faction vault!"),
 	COMMAND_VAULT_INVALID("&c&l[!]&7 Your vault was either&c claimed&7, &cbroken&7, or has&c not been&7 placed yet."),
@@ -708,7 +708,7 @@ public enum TL {
     COMMAND_STUCK_CANCELLED("Teleport cancelled because you were damaged"),
     COMMAND_STUCK_OUTSIDE("Teleport cancelled because you left %1$d block radius"),
     COMMAND_STUCK_EXISTS("You are already teleporting, you must wait %1$s"),
-    COMMAND_STUCK_START("Teleport will commence in %s. Don't take or deal damage. "),
+    COMMAND_STUCK_START("Teleport will commence in %1$s. Don't take or deal damage. "),
     COMMAND_STUCK_TELEPORT("Teleported safely to %1$d, %2$d, %3$d."),
 	COMMAND_STUCK_TOSTUCK("to safely teleport %1$s out"),
 	COMMAND_STUCK_FORSTUCK("for %1$s initiating a safe teleport out"),
@@ -737,9 +737,9 @@ public enum TL {
 	COMMAND_TOGGLESB_DISABLED("You can't toggle scoreboards while they are disabled."),
 
 	COMMAND_TOP_DESCRIPTION("Sort Factions to see the top of some criteria."),
-	COMMAND_TOP_TOP("Top Factions by %s. Page %d/%d"),
-	COMMAND_TOP_LINE("%d. &6%s: &c%s"), // Rank. Faction: Value
-	COMMAND_TOP_INVALID("Could not sort by %s. Try balance, online, members, power or land."),
+	COMMAND_TOP_TOP("Top Factions by %1$s. Page %2$s/%3$s"),
+	COMMAND_TOP_LINE("%d. &6%1$s: &c%2$s"), // Rank. Faction: Value
+	COMMAND_TOP_INVALID("Could not sort by %1$s. Try balance, online, members, power or land."),
 
 	COMMAND_TNT_DISABLED_MSG("&cThis command is disabled!"),
 	COMMAND_TNT_INVALID_NUM("The amount needs to be a number!"),
@@ -766,9 +766,9 @@ public enum TL {
 
 	COMMAND_UNBAN_DESCRIPTION("Unban someone from your Faction"),
     COMMAND_UNBAN_TARGET_IN_OTHER_FACTION("&c%1$s is not in your faction!"),
-	COMMAND_UNBAN_NOTBANNED("&7%s &cisn't banned. Not doing anything."),
+	COMMAND_UNBAN_NOTBANNED("&7%1$s &cisn't banned. Not doing anything."),
 	COMMAND_UNBAN_UNBANNED("&e%1$s &cunbanned &7%2$s"),
-	COMMAND_UNBAN_TARGET("&aYou were unbanned from &r%s"),
+	COMMAND_UNBAN_TARGET("&aYou were unbanned from &r%1$s"),
 
     COMMAND_UNCLAIM_SAFEZONE_SUCCESS("Safe zone was unclaimed."),
     COMMAND_UNCLAIM_SAFEZONE_NOPERM("This is a safe zone. You lack permissions to unclaim."),
@@ -815,9 +815,9 @@ public enum TL {
     LEAVE_NEGATIVEPOWER("You cannot leave until your power is positive."),
 	LEAVE_TOLEAVE("to leave your faction."),
 	LEAVE_FORLEAVE("for leaving your faction."),
-    LEAVE_LEFT("%s left faction %s."),
-    LEAVE_DISBANDED("%s was disbanded."),
-	LEAVE_DISBANDEDLOG("The faction %s (%s) was disbanded due to the last player (%s) leaving."),
+    LEAVE_LEFT("%1$s left faction %2$s."),
+    LEAVE_DISBANDED("%1$s was disbanded."),
+	LEAVE_DISBANDEDLOG("The faction %1$s (%2$s) was disbanded due to the last player (%3$s) leaving."),
 	LEAVE_DESCRIPTION("\\n  &a&l» &7Leave your faction"),
 
 	/**
@@ -825,10 +825,10 @@ public enum TL {
 	 */
     CLAIM_PROTECTED("This land is protected"),
     CLAIM_DISABLED("Sorry, this world has land claiming disabled."),
-    CLAIM_CANTCLAIM("You can't claim land for %s."),
-    CLAIM_ALREADYOWN("%s already own this land."),
-    CLAIM_MUSTBE("You must be %s to claim land."),
-    CLAIM_MEMBERS("Factions must have at least %s members to claim land."),
+    CLAIM_CANTCLAIM("You can't claim land for %1$s."),
+    CLAIM_ALREADYOWN("%1$s already own this land."),
+    CLAIM_MUSTBE("You must be %1$s to claim land."),
+    CLAIM_MEMBERS("Factions must have at least %1$s members to claim land."),
     CLAIM_SAFEZONE("You can not claim a Safe Zone."),
     CLAIM_WARZONE("You can not claim a War Zone."),
     CLAIM_POWER("You can't claim more land!You need more power!"),
@@ -836,18 +836,18 @@ public enum TL {
     CLAIM_ALLY("You can't claim the land of your allies."),
     CLAIM_CONTIGIOUS("You can only claim additional land which is connected to your first claim or controlled by another faction!"),
     CLAIM_FACTIONCONTIGUOUS("You can only claim additional land which is connected to your first claim!"),
-    CLAIM_PEACEFUL("%s owns this land. Your faction is peaceful, so you cannot claim land from other factions."),
-    CLAIM_PEACEFULTARGET("%s owns this land, and is a peaceful faction. You cannot claim land from them."),
-    CLAIM_THISISSPARTA("%s owns this land and is strong enough to keep it."),
+    CLAIM_PEACEFUL("%1$s owns this land. Your faction is peaceful, so you cannot claim land from other factions."),
+    CLAIM_PEACEFULTARGET("%1$s owns this land, and is a peaceful faction. You cannot claim land from them."),
+    CLAIM_THISISSPARTA("%1$s owns this land and is strong enough to keep it."),
     CLAIM_BORDER("You must start claiming land at the border of the territory."),
 	CLAIM_TOCLAIM("to claim this land"),
 	CLAIM_FORCLAIM("for claiming this land"),
 	CLAIM_TOOVERCLAIM("to overclaim this land"),
 	CLAIM_FOROVERCLAIM("for over claiming this land"),
-    CLAIM_CLAIMED("%s claimed land for %s from %s."),
-	CLAIM_CLAIMEDLOG("%s claimed land at (%s) for the faction: %s"),
+    CLAIM_CLAIMED("%1$s claimed land for %2$s from %3$s."),
+	CLAIM_CLAIMEDLOG("%1$s claimed land at (%2$s) for the faction: %3$s"),
     CLAIM_OVERCLAIM_DISABLED("Over claiming is disabled on this server."),
-    CLAIM_TOOCLOSETOOTHERFACTION("Your claim is too close to another Faction. Buffer required is %d"),
+    CLAIM_TOOCLOSETOOTHERFACTION("Your claim is too close to another Faction. Buffer required is %2$s"),
     CLAIM_OUTSIDEWORLDBORDER("Your claim is outside the border."),
     CLAIM_OUTSIDEBORDERBUFFER("Your claim is outside the border. %d chunks away world edge required."),
 	CLAIM_CLICK_TO_CLAIM("Click to try to claim &2(%1$d, %2$d)"),
@@ -886,8 +886,8 @@ public enum TL {
 	GENERIC_TRANSLATION_CONTRIBUTORS("Translation contributors: %1$s"),
 	GENERIC_TRANSLATION_RESPONSIBLE("Responsible for translation: %1$s"),
     GENERIC_FACTIONTAG_TOOSHORT("The faction tag can't be shorter than %1$s chars."),
-    GENERIC_FACTIONTAG_TOOLONG("The faction tag can't be longer than %s chars."),
-    GENERIC_FACTIONTAG_ALPHANUMERIC("Faction tag must be alphanumeric. \"%s\" is not allowed."),
+    GENERIC_FACTIONTAG_TOOLONG("The faction tag can't be longer than %1$s chars."),
+    GENERIC_FACTIONTAG_ALPHANUMERIC("Faction tag must be alphanumeric. \"%1$s\" is not allowed."),
 	GENERIC_PLACEHOLDER("<This is a placeholder for a message you should not see>"),
 	GENERIC_NOTENOUGHMONEY("&cYou dont have enough money!"),
 	GENERIC_MONEYTAKE("&c{amount} has been taken from your account."),
@@ -922,7 +922,7 @@ public enum TL {
 	 * Economy stuff
 	 */
 
-	ECON_OFF("no %s"), // no balance, no value, no refund, etc
+	ECON_OFF("no %1$s"), // no balance, no value, no refund, etc
 	ECON_FORMAT("###,###.###"),
 
 	/**
@@ -959,38 +959,38 @@ public enum TL {
 	/**
 	 * In the player and entity listeners
 	 */
-    PLAYER_CANTHURT("You may not harm other players in %s"),
+    PLAYER_CANTHURT("You may not harm other players in %1$s"),
     PLAYER_SAFEAUTO("This land is now a safe zone."),
     PLAYER_WARAUTO("This land is now a war zone."),
     PLAYER_OUCH("Ouch, that is starting to hurt. You should give it a rest."),
-    PLAYER_USE_WILDERNESS("You can't use %s in the wilderness."),
-    PLAYER_USE_SAFEZONE("You can't use %s in a safe zone."),
-    PLAYER_USE_WARZONE("You can't use %s in a war zone."),
-    PLAYER_USE_TERRITORY("You can't %s in the territory of %s."),
-    PLAYER_USE_OWNED("You can't use %s in this territory, it is owned by: %s."),
-    PLAYER_COMMAND_WARZONE("You can't use the command '%s' in warzone."),
-    PLAYER_COMMAND_NEUTRAL("You can't use the command '%s' in neutral territory."),
-    PLAYER_COMMAND_ENEMY("You can't use the command '%s' in enemy territory."),
-    PLAYER_COMMAND_PERMANENT("You can't use the command '%s' because you are in a permanent faction."),
-    PLAYER_COMMAND_ALLY("You can't use the command '%s' in ally territory."),
-    PLAYER_COMMAND_WILDERNESS("You can't use the command '%s' in the wilderness."),
+    PLAYER_USE_WILDERNESS("You can't use %1$s in the wilderness."),
+    PLAYER_USE_SAFEZONE("You can't use %1$s in a safe zone."),
+    PLAYER_USE_WARZONE("You can't use %1$s in a war zone."),
+    PLAYER_USE_TERRITORY("You can't %1$s in the territory of %2$s."),
+    PLAYER_USE_OWNED("You can't use %1$s in this territory, it is owned by: %2$s."),
+    PLAYER_COMMAND_WARZONE("You can't use the command '%1$s' in warzone."),
+    PLAYER_COMMAND_NEUTRAL("You can't use the command '%1$s' in neutral territory."),
+    PLAYER_COMMAND_ENEMY("You can't use the command '%1$s' in enemy territory."),
+    PLAYER_COMMAND_PERMANENT("You can't use the command '%1$s' because you are in a permanent faction."),
+    PLAYER_COMMAND_ALLY("You can't use the command '%1$s' in ally territory."),
+    PLAYER_COMMAND_WILDERNESS("You can't use the command '%1$s' in the wilderness."),
 
     PLAYER_POWER_NOLOSS_PEACEFUL("You didn't lose any power since you are in a peaceful faction."),
     PLAYER_POWER_NOLOSS_WORLD("You didn't lose any power due to the world you died in."),
     PLAYER_POWER_NOLOSS_WILDERNESS("You didn't lose any power since you were in the wilderness."),
     PLAYER_POWER_NOLOSS_WARZONE("You didn't lose any power since you were in a war zone."),
-    PLAYER_POWER_LOSS_WARZONE("The world you are in has power loss normally disabled, but you still lost power since you were in a war zone.\nYour power is now %d / %d"),
-    PLAYER_POWER_NOW("Your power is now %d / %d"),
+    PLAYER_POWER_LOSS_WARZONE("The world you are in has power loss normally disabled, but you still lost power since you were in a war zone.\nYour power is now %1$s / %2$s"),
+    PLAYER_POWER_NOW("Your power is now %1$s / %2$s"),
 
-    PLAYER_PVP_LOGIN("You can't hurt other players for %d seconds after logging in."),
+    PLAYER_PVP_LOGIN("You can't hurt other players for %1$s seconds after logging in."),
     PLAYER_PVP_REQUIREFACTION("You can't hurt other players until you join a faction."),
     PLAYER_PVP_FACTIONLESS("You can't hurt players who are not currently in a faction."),
     PLAYER_PVP_PEACEFUL("Peaceful players cannot participate in combat."),
     PLAYER_PVP_NEUTRAL("You can't hurt neutral factions. Declare them as an enemy."),
-    PLAYER_PVP_CANTHURT("You can't hurt %s."),
+    PLAYER_PVP_CANTHURT("You can't hurt %1$s."),
 
-    PLAYER_PVP_NEUTRALFAIL("You can't hurt %s in their own territory unless you declare them as an enemy."),
-    PLAYER_PVP_TRIED("%s tried to hurt you."),
+    PLAYER_PVP_NEUTRALFAIL("You can't hurt %1$s in their own territory unless you declare them as an enemy."),
+    PLAYER_PVP_TRIED("%1$s tried to hurt you."),
 
 	/**
 	 * Strings lying around in other bits of the plugins
