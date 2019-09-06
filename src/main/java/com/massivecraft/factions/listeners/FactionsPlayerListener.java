@@ -91,7 +91,6 @@ public class FactionsPlayerListener implements Listener {
             if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
-
         // We should only after knowing it's not wilderness, otherwise gets bypassed
         if (otherFaction.hasPlayersOnline()) {
             // This should be inverted to prevent bypasing
@@ -721,7 +720,7 @@ public class FactionsPlayerListener implements Listener {
                 return;
             }
         }
-        if (!playerCanUseItemHere(player, block.getLocation(), block.getType(), false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getMaterial(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
             return;
@@ -784,12 +783,12 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteractGUI(InventoryClickEvent event) {
-        if (event.getClickedInventory() == null) {
+        if (event.getInventory() == null) {
             return;
         }
-        if (event.getClickedInventory().getHolder() instanceof FactionGUI) {
+        if (event.getInventory().getHolder() instanceof FactionGUI) {
             event.setCancelled(true);
-            ((FactionGUI) event.getClickedInventory().getHolder()).onClick(event.getRawSlot(), event.getClick());
+            ((FactionGUI) event.getInventory().getHolder()).onClick(event.getRawSlot(), event.getClick());
         }
     }
 
