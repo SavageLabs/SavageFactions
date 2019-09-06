@@ -91,6 +91,7 @@ public class FactionsPlayerListener implements Listener {
             if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
+
         // We should only after knowing it's not wilderness, otherwise gets bypassed
         if (otherFaction.hasPlayersOnline()) {
             // This should be inverted to prevent bypasing
@@ -380,14 +381,9 @@ public class FactionsPlayerListener implements Listener {
         me.login(); // set kills / deaths
 
         // Check for Faction announcements. Let's delay this so they actually see it.
-        Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (me.isOnline()) {
-                    me.getFaction().sendUnreadAnnouncements(me);
-                }
-            }
-        }, 33L); // Don't ask me why.
+        Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
+                    if (me.isOnline()) me.getFaction().sendUnreadAnnouncements(me);
+                }, 33L); // Don't ask me why.
 
         if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false)) {
             FScoreboard.init(me);
@@ -406,14 +402,7 @@ public class FactionsPlayerListener implements Listener {
 
 
         fallMap.put(me.getPlayer(), false);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, new Runnable() {
-            @Override
-            public void run() {
-                fallMap.remove(me.getPlayer());
-
-            }
-        }, 180L);
-
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()), 180L);
 
         if (me.isSpyingChat() && !player.hasPermission(Permission.CHATSPY.node)) {
             me.setSpyingChat(false);
@@ -468,11 +457,9 @@ public class FactionsPlayerListener implements Listener {
         }
 
         if (!myFaction.isWilderness()) {
-            for (FPlayer player : myFaction.getFPlayersWhereOnline(true)) {
-                if (player != me && player.isMonitoringJoins()) {
-                    player.msg(TL.FACTION_LOGOUT, me.getName());
-                }
-            }
+            for (FPlayer player : myFaction.getFPlayersWhereOnline(true))
+                if (player != me && player.isMonitoringJoins()) player.msg(TL.FACTION_LOGOUT, me.getName());
+
         }
 
         CmdSeeChunk.seeChunkMap.remove(event.getPlayer().getName());
@@ -497,14 +484,9 @@ public class FactionsPlayerListener implements Listener {
         if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
         me.setFlying(true);
         CmdFly.flyMap.put(me.getName(), true);
-        if (CmdFly.id == -1) {
-            if (Conf.enableFlyParticles) {
-                CmdFly.startParticles();
-            }
-        }
-        if (CmdFly.flyid == -1) {
-            CmdFly.startFlyCheck();
-        }
+        if (CmdFly.id == -1)
+            if (Conf.enableFlyParticles) CmdFly.startParticles();
+        if (CmdFly.flyid == -1) CmdFly.startFlyCheck();
     }
 
     //inspect
@@ -593,12 +575,9 @@ public class FactionsPlayerListener implements Listener {
         FLocation from = me.getLastStoodAt();
         FLocation to = new FLocation(event.getTo());
 
-        if (from.equals(to)) {
-            return;
-        }
+        if (from.equals(to)) return;
 
         // Yes we did change coord (:
-
         me.setLastStoodAt(to);
 
         // Did we change "host"(faction)?
@@ -699,8 +678,7 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
         FPlayer fme = FPlayers.getInstance().getById(e.getPlayer().getUniqueId().toString());
-        if (fme.isInVault())
-            fme.setInVault(false);
+        if (fme.isInVault()) fme.setInVault(false);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -711,7 +689,9 @@ public class FactionsPlayerListener implements Listener {
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
         if (block == null) return;  // clicked in air, apparently
+
         if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
+
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
                 event.setCancelled(true);
@@ -782,9 +762,7 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteractGUI(InventoryClickEvent event) {
-        if (event.getInventory() == null) {
-            return;
-        }
+        if (event.getInventory() == null) return;
         if (event.getInventory().getHolder() instanceof FactionGUI) {
             event.setCancelled(true);
             ((FactionGUI) event.getInventory().getHolder()).onClick(event.getRawSlot(), event.getClick());
@@ -803,9 +781,7 @@ public class FactionsPlayerListener implements Listener {
 
         // if player was banned (not just kicked), get rid of their stored info
         if (Conf.removePlayerDataWhenBanned && event.getReason().equals("Banned by admin.")) {
-            if (badGuy.getRole() == Role.LEADER) {
-                badGuy.getFaction().promoteNewLeader();
-            }
+            if (badGuy.getRole() == Role.LEADER) badGuy.getFaction().promoteNewLeader();
 
             badGuy.leave(false);
             badGuy.remove();
@@ -829,11 +805,9 @@ public class FactionsPlayerListener implements Listener {
         // returns the current attempt count
         public int increment() {
             long now = System.currentTimeMillis();
-            if (now > lastAttempt + 2000) {
-                attempts = 1;
-            } else {
-                attempts++;
-            }
+            if (now > lastAttempt + 2000) attempts = 1;
+            else attempts++;
+
             lastAttempt = now;
             return attempts;
         }
