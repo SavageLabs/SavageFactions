@@ -225,9 +225,7 @@ public class FactionsPlayerListener implements Listener {
                 return true;
             else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
                 me.msg(TL.ACTIONS_OWNEDTERRITORYDENY, factionToCheck.getOwnerListString(loc));
-                if (doPain) {
-                    player.damage(Conf.actionDeniedPainAmount);
-                }
+                if (doPain) player.damage(Conf.actionDeniedPainAmount);
                 return false;
             } else if (!landOwned && access == Access.ALLOW) return true;
             else {
@@ -689,7 +687,6 @@ public class FactionsPlayerListener implements Listener {
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
         if (block == null) return;  // clicked in air, apparently
-
         if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
@@ -699,10 +696,11 @@ public class FactionsPlayerListener implements Listener {
                 return;
             }
         }
-        if (!playerCanUseItemHere(player, block.getLocation(), event.getMaterial(), false)) {
+
+        if (event.getItem() == null) return;
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
-            return;
         }
     }
 
@@ -714,7 +712,6 @@ public class FactionsPlayerListener implements Listener {
                 && event.hasItem() && event.getItem().getType() == XMaterial.BONE_MEAL.parseMaterial()) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), block.getLocation(), PermissableAction.BUILD.name(), true)) {
                 FPlayer me = FPlayers.getInstance().getById(event.getPlayer().getUniqueId().toString());
-                Faction otherFaction = Board.getInstance().getFactionAt(new FLocation(block.getLocation()));
                 Faction myFaction = me.getFaction();
 
                 me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", "use bone meal"));
