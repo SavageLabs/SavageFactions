@@ -435,6 +435,9 @@ public class Conf {
     static {
         baseCommandAliases.add("f");
 
+        // Default item for Obsidian Destroyer
+        territoryBypasssProtectedMaterials.add(XMaterial.POTATO.parseMaterial());
+
         territoryEnemyDenyCommands.add("home");
         territoryEnemyDenyCommands.add("sethome");
         territoryEnemyDenyCommands.add("spawn");
