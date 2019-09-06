@@ -439,31 +439,23 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
 
-
-
         // Config is not loading if value is empty ???
-        territoryBypasssProtectedMaterials.add(Material.COOKIE);
+        territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
 
         territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
-        territoryDenyUseageMaterials.add(Material.FLINT_AND_STEEL);
-        territoryDenyUseageMaterials.add(Material.BUCKET);
-        territoryDenyUseageMaterials.add(Material.WATER_BUCKET);
-        territoryDenyUseageMaterials.add(Material.LAVA_BUCKET);
-        if (!SavageFactions.plugin.mc17) {
-            territoryDenyUseageMaterials.add(Material.ARMOR_STAND);
-        }
-
-
-
+        territoryDenyUseageMaterials.add(XMaterial.FLINT_AND_STEEL.parseMaterial());
+        territoryDenyUseageMaterials.add(XMaterial.BUCKET.parseMaterial());
+        territoryDenyUseageMaterials.add(XMaterial.WATER_BUCKET.parseMaterial());
+        territoryDenyUseageMaterials.add(XMaterial.LAVA_BUCKET.parseMaterial());
+        territoryDenyUseageMaterials.add(XMaterial.ARMOR_STAND.parseMaterial());
 
         territoryDenyUseageMaterialsWhenOffline.add(XMaterial.FIRE_CHARGE.parseMaterial());
-        territoryDenyUseageMaterialsWhenOffline.add(Material.FLINT_AND_STEEL);
-        territoryDenyUseageMaterialsWhenOffline.add(Material.BUCKET);
-        territoryDenyUseageMaterialsWhenOffline.add(Material.WATER_BUCKET);
-        territoryDenyUseageMaterialsWhenOffline.add(Material.LAVA_BUCKET);
-        if (!SavageFactions.plugin.mc17) {
-            territoryDenyUseageMaterialsWhenOffline.add(Material.ARMOR_STAND);
-        }
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.FLINT_AND_STEEL.parseMaterial());
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.BUCKET.parseMaterial());
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.WATER_BUCKET.parseMaterial());
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.LAVA_BUCKET.parseMaterial());
+        territoryDenyUseageMaterialsWhenOffline.add(XMaterial.ARMOR_STAND.parseMaterial());
+
         safeZoneNerfedCreatureTypes.add(EntityType.BLAZE);
         safeZoneNerfedCreatureTypes.add(EntityType.CAVE_SPIDER);
         safeZoneNerfedCreatureTypes.add(EntityType.CREEPER);
@@ -479,6 +471,7 @@ public class Conf {
         safeZoneNerfedCreatureTypes.add(EntityType.WITCH);
         safeZoneNerfedCreatureTypes.add(EntityType.WITHER);
         safeZoneNerfedCreatureTypes.add(EntityType.ZOMBIE);
+
         // Is this called lazy load?
         defaultFactionPermissions.put("COLEADER", new DefaultPermissions(true));
         defaultFactionPermissions.put("MODERATOR", new DefaultPermissions(true));
