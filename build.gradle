@@ -72,6 +72,7 @@ dependencies {
         exclude group: 'com.sk89q', module: 'jchronic'
         exclude group: 'com.sk89q', module: 'worldedit'
     }
+
     compileOnly ('com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT') {
         exclude group: 'org.bukkit', module: 'bukkit'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'

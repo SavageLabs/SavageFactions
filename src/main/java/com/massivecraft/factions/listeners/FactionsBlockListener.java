@@ -51,17 +51,17 @@ public class FactionsBlockListener implements Listener {
         Faction myFaction = me.getFaction();
 
         if (otherFaction.isWilderness()) {
-            if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
+            if (Conf.worldGuardBuildPriority && Worldguard.getInstance().playerCanBuild(player, location)) return true;
             if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
             if (!justCheck) me.msg(TL.ACTION_DENIED_WILDERNESS, action);
             return false;
         } else if (otherFaction.isSafeZone()) {
-            if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
+            if (Conf.worldGuardBuildPriority && Worldguard.getInstance().playerCanBuild(player, location)) return true;
             if (!Conf.safeZoneDenyBuild || Permission.MANAGE_SAFE_ZONE.has(player)) return true;
             if (!justCheck) me.msg(TL.ACTION_DENIED_SAFEZONE, action);
             return false;
         } else if (otherFaction.isWarZone()) {
-            if (Conf.worldGuardBuildPriority && Worldguard.playerCanBuild(player, location)) return true;
+            if (Conf.worldGuardBuildPriority && Worldguard.getInstance().playerCanBuild(player, location)) return true;
             if (!Conf.warZoneDenyBuild || Permission.MANAGE_WAR_ZONE.has(player)) return true;
             if (!justCheck) me.msg(TL.ACTION_DENIED_WARZONE, action);
             return false;

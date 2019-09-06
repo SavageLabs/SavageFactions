@@ -144,10 +144,9 @@ public class FTeamWrapper {
                 prefix = PlaceholderAPI.setBracketPlaceholders(fplayer.getPlayer(), prefix);
                 prefix = prefix.replace("{relationcolor}", faction.getRelationTo(fplayer).getColor().toString());
                 prefix = prefix.replace("{faction}",
-                        faction.getTag().substring(0, Math.min("{faction}".length() + 16 - prefix.length(), faction.getTag().length())));
-                if ((team.getPrefix() == null) || (!team.getPrefix().equals(prefix))) {
-                    team.setPrefix(prefix);
-                }
+                                faction.getTag().substring(0, Math.min("{faction}".length() + 16 - prefix.length(),
+                                faction.getTag().length())));
+                if ((team.getPrefix() == null) || (!team.getPrefix().equals(prefix))) team.setPrefix(prefix);
             }
         }
     }

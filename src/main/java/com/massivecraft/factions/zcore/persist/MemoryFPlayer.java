@@ -784,7 +784,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         int factionBuffer = SavageFactions.plugin.getConfig().getInt("hcf.buffer-zone", 0);
         int worldBuffer = SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1;
 
-        if (Conf.worldGuardChecking && Worldguard.checkForRegionsInChunk(flocation)) {
+        if (Conf.worldGuardChecking && Worldguard.getInstance().checkForRegionsInChunk(flocation)) {
             // Checks for WorldGuard regions in the chunk attempting to be claimed
             error = SavageFactions.plugin.txt.parse(TL.CLAIM_PROTECTED.toString());
         } else if (flocation.isOutsideWorldBorder(SavageFactions.plugin.getConfig().getInt("world-border.buffer", 0) - 1)) {

@@ -84,6 +84,7 @@ public class SavageFactions extends MPlugin {
     private ClipPlaceholderAPIManager clipPlaceholderAPIManager;
     private boolean mvdwPlaceholderAPIManager = false;
     private Listener[] eventsListener;
+    private Worldguard wg;
 
     public SavageFactions() {
         plugin = this;
@@ -179,9 +180,7 @@ public class SavageFactions extends MPlugin {
         Econ.setup();
         setupPermissions();
 
-        if (Conf.worldGuardChecking || Conf.worldGuardBuildPriority) {
-            Worldguard.init(this);
-        }
+        if (Conf.worldGuardChecking || Conf.worldGuardBuildPriority) wg = new Worldguard();
 
         EngineDynmap.getInstance().init();
 
@@ -193,9 +192,7 @@ public class SavageFactions extends MPlugin {
             log("Minecraft Version 1.9 or higher found, using non packet based particle API");
         }
 
-        if (getConfig().getBoolean("enable-faction-flight")) {
-            factionsFlight = true;
-        }
+        if (getConfig().getBoolean("enable-faction-flight")) factionsFlight = true;
 
         if (getServer().getPluginManager().getPlugin("Skript") != null) {
             log("Skript was found! Registering SavageFactions Addon...");
@@ -226,9 +223,7 @@ public class SavageFactions extends MPlugin {
         this.getCommand(refCommand).setExecutor(cmdBase);
 
         // Dont forget to skid this Driftay :D
-        if (!CommodoreProvider.isSupported()) {
-            this.getCommand(refCommand).setTabCompleter(this);
-        }
+        if (!CommodoreProvider.isSupported()) this.getCommand(refCommand).setTabCompleter(this);
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {
             divider();
@@ -636,6 +631,8 @@ public class SavageFactions extends MPlugin {
     public boolean isHookedPlayervaults() {
         return hookedPlayervaults;
     }
+
+    public Worldguard getWorldGuard() { return this.wg; }
 
     public String getPrimaryGroup(OfflinePlayer player) {
         AtomicReference<String> primaryGroup = new AtomicReference<>();

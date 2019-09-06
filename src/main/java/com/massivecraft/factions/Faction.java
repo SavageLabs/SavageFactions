@@ -3,6 +3,7 @@ package com.massivecraft.factions;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.iface.RelationParticipator;
+import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.BanInfo;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
@@ -369,5 +370,9 @@ public interface Faction extends EconomyParticipator {
 
     void paypalSet(String paypal);
 
+    boolean hasMoney(double amount);
 
+    void takeMoney(double amount);
+
+    void addMoney(double amount);
 }

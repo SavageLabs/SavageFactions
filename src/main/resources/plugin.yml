@@ -346,3 +346,5 @@ permissions:
     description: View all you faction claims.
   factions.particle:
     description: Set your player's particle in fly.
+  factions.tntfill:
+    description: Allows use of factions tnt fill.
