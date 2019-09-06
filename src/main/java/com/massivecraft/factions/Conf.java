@@ -166,18 +166,21 @@ public class Conf {
     public static boolean territoryEnemyPainBuildWhenOffline = false;
     public static boolean territoryEnemyDenyUseage = true;
     public static boolean territoryEnemyProtectMaterials = true;
+
     public static boolean territoryAllyDenyBuild = true;
     public static boolean territoryAllyDenyBuildWhenOffline = true;
     public static boolean territoryAllyPainBuild = false;
     public static boolean territoryAllyPainBuildWhenOffline = false;
     public static boolean territoryAllyDenyUseage = true;
     public static boolean territoryAllyProtectMaterials = true;
+
     public static boolean territoryTruceDenyBuild = true;
     public static boolean territoryTruceDenyBuildWhenOffline = true;
     public static boolean territoryTrucePainBuild = false;
     public static boolean territoryTrucePainBuildWhenOffline = false;
     public static boolean territoryTruceDenyUseage = true;
     public static boolean territoryTruceProtectMaterials = true;
+
     public static boolean territoryBlockCreepers = false;
     public static boolean territoryBlockCreepersWhenOffline = false;
     public static boolean territoryBlockFireballs = false;
