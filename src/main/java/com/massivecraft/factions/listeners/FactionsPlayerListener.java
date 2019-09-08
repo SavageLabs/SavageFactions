@@ -238,7 +238,9 @@ public class FactionsPlayerListener implements Listener {
         }
         // Approves any permission check if the player in question is a leader AND owns the faction.
         if (me.getRole().equals(Role.LEADER) && me.getFaction().equals(factionToCheck)) return true;
-        me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
+        if (factionToCheck != null) {
+            me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
+        }
         return false;
     }
 
