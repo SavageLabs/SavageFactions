@@ -43,6 +43,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 
+
 public class FactionsPlayerListener implements Listener {
 
     // Map of saving falling players from fall damage after F-Fly leaves.
@@ -75,6 +76,8 @@ public class FactionsPlayerListener implements Listener {
         Faction myFaction = me.getFaction();
 
         // We handle ownership protection below.
+
+        if (me.getFaction() == otherFaction) return true;
 
         if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
 
