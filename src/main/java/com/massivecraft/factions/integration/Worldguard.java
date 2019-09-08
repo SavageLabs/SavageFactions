@@ -280,11 +280,11 @@ public class Worldguard {
 
     /**
      * General check for WorldGuard region @ location.
-     * @param p player in question.
-     * @param loc Location of block broken.
+     * @param player player in question.
+     * @param location Location of block broken.
      * @return
      */
-    public boolean playerCanBuild(Player p, Location loc) {
-        return hasBuildPermission(p, loc) && hasBreakPermission(p, loc);
+    public boolean playerCanBuild(Player player, Location location) {
+        return hasBuildPermission(player, location) && hasBreakPermission(player, location);
     }
 }

@@ -94,6 +94,7 @@ public class FactionsPlayerListener implements Listener {
             if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
+
         // We should only after knowing it's not wilderness, otherwise gets bypassed
         if (otherFaction.hasPlayersOnline()) {
             // This should be inverted to prevent bypasing
@@ -227,9 +228,7 @@ public class FactionsPlayerListener implements Listener {
                 return true;
             else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
                 me.msg(TL.ACTIONS_OWNEDTERRITORYDENY, factionToCheck.getOwnerListString(loc));
-                if (doPain) {
-                    player.damage(Conf.actionDeniedPainAmount);
-                }
+                if (doPain) player.damage(Conf.actionDeniedPainAmount);
                 return false;
             } else if (!landOwned && access == Access.ALLOW) return true;
             else {
@@ -383,14 +382,9 @@ public class FactionsPlayerListener implements Listener {
         me.login(); // set kills / deaths
 
         // Check for Faction announcements. Let's delay this so they actually see it.
-        Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (me.isOnline()) {
-                    me.getFaction().sendUnreadAnnouncements(me);
-                }
-            }
-        }, 33L); // Don't ask me why.
+        Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
+                    if (me.isOnline()) me.getFaction().sendUnreadAnnouncements(me);
+                }, 33L); // Don't ask me why.
 
         if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false)) {
             FScoreboard.init(me);
@@ -409,14 +403,7 @@ public class FactionsPlayerListener implements Listener {
 
 
         fallMap.put(me.getPlayer(), false);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, new Runnable() {
-            @Override
-            public void run() {
-                fallMap.remove(me.getPlayer());
-
-            }
-        }, 180L);
-
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()), 180L);
 
         if (me.isSpyingChat() && !player.hasPermission(Permission.CHATSPY.node)) {
             me.setSpyingChat(false);
@@ -471,11 +458,9 @@ public class FactionsPlayerListener implements Listener {
         }
 
         if (!myFaction.isWilderness()) {
-            for (FPlayer player : myFaction.getFPlayersWhereOnline(true)) {
-                if (player != me && player.isMonitoringJoins()) {
-                    player.msg(TL.FACTION_LOGOUT, me.getName());
-                }
-            }
+            for (FPlayer player : myFaction.getFPlayersWhereOnline(true))
+                if (player != me && player.isMonitoringJoins()) player.msg(TL.FACTION_LOGOUT, me.getName());
+
         }
 
         CmdSeeChunk.seeChunkMap.remove(event.getPlayer().getName());
@@ -500,14 +485,9 @@ public class FactionsPlayerListener implements Listener {
         if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
         me.setFlying(true);
         CmdFly.flyMap.put(me.getName(), true);
-        if (CmdFly.id == -1) {
-            if (Conf.enableFlyParticles) {
-                CmdFly.startParticles();
-            }
-        }
-        if (CmdFly.flyid == -1) {
-            CmdFly.startFlyCheck();
-        }
+        if (CmdFly.id == -1)
+            if (Conf.enableFlyParticles) CmdFly.startParticles();
+        if (CmdFly.flyid == -1) CmdFly.startFlyCheck();
     }
 
     //inspect
@@ -596,12 +576,9 @@ public class FactionsPlayerListener implements Listener {
         FLocation from = me.getLastStoodAt();
         FLocation to = new FLocation(event.getTo());
 
-        if (from.equals(to)) {
-            return;
-        }
+        if (from.equals(to)) return;
 
         // Yes we did change coord (:
-
         me.setLastStoodAt(to);
 
         // Did we change "host"(faction)?
@@ -702,20 +679,19 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
         FPlayer fme = FPlayers.getInstance().getById(e.getPlayer().getUniqueId().toString());
-        if (fme.isInVault())
-            fme.setInVault(false);
+        if (fme.isInVault()) fme.setInVault(false);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         // only need to check right-clicks and physical as of MC 1.4+; good performance boost
-        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_AIR))
-            return;
+        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_AIR)) return;
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
         if (block == null) return;  // clicked in air, apparently
         if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
+
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
                 event.setCancelled(true);
@@ -723,10 +699,11 @@ public class FactionsPlayerListener implements Listener {
                 return;
             }
         }
-        if (!playerCanUseItemHere(player, block.getLocation(), event.getMaterial(), false)) {
+
+        if (event.getItem() == null) return;
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
-            return;
         }
     }
 
@@ -738,7 +715,6 @@ public class FactionsPlayerListener implements Listener {
                 && event.hasItem() && event.getItem().getType() == XMaterial.BONE_MEAL.parseMaterial()) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), block.getLocation(), PermissableAction.BUILD.name(), true)) {
                 FPlayer me = FPlayers.getInstance().getById(event.getPlayer().getUniqueId().toString());
-                Faction otherFaction = Board.getInstance().getFactionAt(new FLocation(block.getLocation()));
                 Faction myFaction = me.getFaction();
 
                 me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", "use bone meal"));
@@ -786,9 +762,7 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteractGUI(InventoryClickEvent event) {
-        if (event.getInventory() == null) {
-            return;
-        }
+        if (event.getInventory() == null) return;
         if (event.getInventory().getHolder() instanceof FactionGUI) {
             event.setCancelled(true);
             ((FactionGUI) event.getInventory().getHolder()).onClick(event.getRawSlot(), event.getClick());
@@ -807,9 +781,7 @@ public class FactionsPlayerListener implements Listener {
 
         // if player was banned (not just kicked), get rid of their stored info
         if (Conf.removePlayerDataWhenBanned && event.getReason().equals("Banned by admin.")) {
-            if (badGuy.getRole() == Role.LEADER) {
-                badGuy.getFaction().promoteNewLeader();
-            }
+            if (badGuy.getRole() == Role.LEADER) badGuy.getFaction().promoteNewLeader();
 
             badGuy.leave(false);
             badGuy.remove();
@@ -833,11 +805,9 @@ public class FactionsPlayerListener implements Listener {
         // returns the current attempt count
         public int increment() {
             long now = System.currentTimeMillis();
-            if (now > lastAttempt + 2000) {
-                attempts = 1;
-            } else {
-                attempts++;
-            }
+            if (now > lastAttempt + 2000) attempts = 1;
+            else attempts++;
+
             lastAttempt = now;
             return attempts;
         }
