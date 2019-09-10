@@ -49,8 +49,9 @@ public class Essentials {
 			User user = essentials.getUser(player);
 			vanish = user.isVanished();
 		}
+		if (player.getMetadata("vanished") == null) return false;
 		for (MetadataValue meta : player.getMetadata("vanished")) {
-			if (meta.asBoolean()) {
+ 			if (meta.asBoolean()) {
 				vanish = true;
 				break;
 			}
