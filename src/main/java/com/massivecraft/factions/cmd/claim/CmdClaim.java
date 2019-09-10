@@ -7,6 +7,7 @@ import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.CommandRequirements;
 import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.SpiralTask;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -24,7 +25,6 @@ public class CmdClaim extends FCommand {
         this.optionalArgs.put("faction", "your");
 
         this.requirements = new CommandRequirements.Builder(Permission.CLAIM)
-                .withAction(PermissableAction.TERRITORY)
                 .playerOnly()
                 .build();
     }
@@ -36,14 +36,15 @@ public class CmdClaim extends FCommand {
         int radius = context.argAsInt(0, 1); // Default to 1
         final Faction forFaction = context.argAsFaction(1, context.faction); // Default to own
 
-        if (context.fPlayer.getFaction() != forFaction) {
-            if (!context.fPlayer.isAdminBypassing()) {
+        if (!context.fPlayer.isAdminBypassing()) {
+            if (!(context.fPlayer.getFaction().equals(forFaction) && context.fPlayer.getRole() == Role.LEADER)) {
                 if (forFaction.getAccess(context.fPlayer, PermissableAction.TERRITORY) != Access.ALLOW) {
                     context.msg(TL.COMMAND_CLAIM_DENIED);
                     return;
                 }
             }
         }
+
 
         if (radius < 1) {
             context.msg(TL.COMMAND_CLAIM_INVALIDRADIUS);
