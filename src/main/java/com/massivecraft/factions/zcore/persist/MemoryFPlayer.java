@@ -1205,6 +1205,11 @@ public abstract class MemoryFPlayer implements FPlayer {
             return false;
         }
 
+        if (Conf.worldGuardChecking && Worldguard.getInstance().checkForRegionsInChunk(flocation)) {
+            this.msg(TL.GENERIC_WORLDGUARD);
+            return false;
+        }
+
         LandClaimEvent claimEvent = new LandClaimEvent(flocation, forFaction, this);
         Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getPluginManager().callEvent(claimEvent));
 
@@ -1222,6 +1227,7 @@ public abstract class MemoryFPlayer implements FPlayer {
             // Give them money for over claiming.
             Econ.modifyMoney(payee, Conf.econOverclaimRewardMultiplier, TL.CLAIM_TOOVERCLAIM.toString(), TL.CLAIM_FOROVERCLAIM.toString());
         }
+
 
         // announce success
         Set<FPlayer> informTheseFPlayers = new HashSet<>();
