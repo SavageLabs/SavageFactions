@@ -444,8 +444,6 @@ public class Conf {
 
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
-        territoryBypasssProtectedMaterials.add(XMaterial.SPLASH_POTION.parseMaterial());
-        territoryBypasssProtectedMaterials.add(XMaterial.POTION.parseMaterial());
         territoryBypasssProtectedMaterials.add(XMaterial.CREEPER_SPAWN_EGG.parseMaterial());
 
         territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
