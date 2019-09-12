@@ -695,11 +695,15 @@ public class FactionsPlayerListener implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
-        if (block == null || event.getItem() == null) return;  // clicked in air, or had nothing apparently
-        Material type = event.getItem().getType();
-        if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
-        if (Conf.territoryBypassProtectedPotions && type.name().contains("POTION") && !type.name().contains("SPLASH_POTION")) return;
-        if (Conf.territoryBypassProtectedSplashPotions && type.name().contains("SPLASH_POTION")) return;
+        if (block == null) return;  // clicked in air apparently
+
+        if (event.getItem() != null) {
+            Material type = event.getItem().getType();
+            if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
+            if (Conf.territoryBypassProtectedPotions && type.name().contains("POTION") && !type.name().contains("SPLASH_POTION")) return;
+            if (Conf.territoryBypassProtectedSplashPotions && type.name().contains("SPLASH_POTION")) return;
+        }
+
 
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
@@ -711,7 +715,7 @@ public class FactionsPlayerListener implements Listener {
         }
 
         if (event.getItem() == null) return;
-        if (!playerCanUseItemHere(player, block.getLocation(), type, false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
         }
