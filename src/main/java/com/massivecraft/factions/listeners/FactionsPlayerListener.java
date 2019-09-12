@@ -696,7 +696,11 @@ public class FactionsPlayerListener implements Listener {
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
         if (block == null || event.getItem() == null) return;  // clicked in air, or had nothing apparently
-        if (Conf.territoryBypasssProtectedMaterials.contains(event.getItem().getType())) return;
+        Material type = event.getItem().getType();
+        if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
+        if (Conf.territoryBypassProtectedPotions && type.name().contains("POTION") && !type.name().contains("SPLASH_POTION")) return;
+        if (Conf.territoryBypassProtectedSplashPotions && type.name().contains("SPLASH_POTION")) return;
+
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
@@ -707,7 +711,7 @@ public class FactionsPlayerListener implements Listener {
         }
 
         if (event.getItem() == null) return;
-        if (!playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), type, false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
         }
@@ -716,6 +720,7 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler
     public void onPlayerBoneMeal(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
+
 
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && block.getType() == XMaterial.GRASS_BLOCK.parseMaterial()
                 && event.hasItem() && event.getItem().getType() == XMaterial.BONE_MEAL.parseMaterial()) {

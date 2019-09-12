@@ -231,6 +231,8 @@ public class Conf {
     /// Useful for HCF features.
     /// </summary>
     public static Set<Material> territoryBypasssProtectedMaterials = EnumSet.noneOf(Material.class);
+    public static boolean territoryBypassProtectedPotions = true;
+    public static boolean territoryBypassProtectedSplashPotions = true;
 
     // Economy settings
     public static boolean econEnabled = false;
