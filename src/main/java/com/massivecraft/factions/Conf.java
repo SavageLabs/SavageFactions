@@ -230,6 +230,7 @@ public class Conf {
     /// This defines a set of materials which should always be allowed to use, regardless of factions permissions.
     /// Useful for HCF features.
     /// </summary>
+    public static Set<Material> territoryBlockBlackList = new HashSet<>();
     public static Set<Material> territoryBypasssProtectedMaterials = EnumSet.noneOf(Material.class);
     public static boolean territoryBypassProtectedPotions = true;
     public static boolean territoryBypassProtectedSplashPotions = true;
@@ -443,6 +444,24 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpahere");
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
+
+        territoryBlockBlackList.add(XMaterial.ACACIA_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.BIRCH_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.DARK_OAK_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.IRON_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.JUNGLE_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.OAK_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.SPRUCE_TRAPDOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.OAK_DOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.IRON_DOOR.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.ACACIA_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.BIRCH_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.DARK_OAK_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.JUNGLE_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.OAK_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
+        territoryBlockBlackList.add(XMaterial.STONE_BUTTON.parseMaterial());
+
 
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
