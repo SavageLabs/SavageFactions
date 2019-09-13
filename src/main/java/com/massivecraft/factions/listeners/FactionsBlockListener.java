@@ -339,9 +339,9 @@ public class FactionsBlockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void FrameRemove(HangingBreakByEntityEvent event) {
         if ((event.getRemover() instanceof Player)) {
-            if (event.getEntity().getType() == EntityType.ITEM_FRAME) {
+            if (event.getEntity().getType().equals(EntityType.ITEM_FRAME)) {
                 Player p = (Player) event.getRemover();
-                if (!playerCanBuildDestroyBlock(p, event.getEntity().getLocation(), "destroy", false)) {
+                if (!playerCanBuildDestroyBlock(p, event.getEntity().getLocation(), "destroy", true)) {
                     event.setCancelled(true);
                     return;
                 }
