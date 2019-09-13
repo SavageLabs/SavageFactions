@@ -409,7 +409,6 @@ public class FactionsPlayerListener implements Listener {
             }
         }
 
-
         fallMap.put(me.getPlayer(), false);
         Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()), 180L);
 
@@ -693,7 +692,16 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         // only need to check right-clicks and physical as of MC 1.4+; good performance boost
-        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_AIR))
+        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)){
+            if (event.getClickedBlock() != null && event.getClickedBlock().getType() == XMaterial.ITEM_FRAME.parseMaterial()){
+                if (!canPlayerUseBlock(event.getPlayer(), event.getClickedBlock(), false)) {
+                    event.setCancelled(true);
+                    event.setUseInteractedBlock(Event.Result.DENY);
+                    return;
+                }
+            }
+        }
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR))
             return;
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
@@ -709,7 +717,6 @@ public class FactionsPlayerListener implements Listener {
                 }
             }
         }
-
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
