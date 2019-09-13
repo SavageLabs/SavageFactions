@@ -689,25 +689,21 @@ public class FactionsPlayerListener implements Listener {
         if (fme.isInVault()) fme.setInVault(false);
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        // only need to check right-clicks and physical as of MC 1.4+; good performance boost
-        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
-            return;
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) return;
+
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
-        // Check if the material is bypassing protection
-        if (block == null) return;  // clicked in air apparently
 
-        if (event.getItem() != null) {
-            Material type = event.getItem().getType();
-            if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
-            if (!Conf.territoryDenySwitchMaterials.contains(block.getType())) {
-                if (Conf.territoryAllowItemUseMaterials.contains(type)) {
-                    return;
-                }
-            }
-        }
+        if (block == null || event.getItem() == null) return;
+
+        // Convert 1.8 Material Names -> 1.14
+        Material type = XMaterial.matchXMaterial(event.getItem().getType().toString()).parseMaterial();
+
+        if (Conf.territoryAllowItemUseMaterials.contains(type)) return;
+        if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
+        if (!Conf.territoryDenySwitchMaterials.contains(block.getType())) return;
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
@@ -717,7 +713,6 @@ public class FactionsPlayerListener implements Listener {
             }
         }
 
-        if (event.getItem() == null) return;
         if (!playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
