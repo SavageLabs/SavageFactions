@@ -692,16 +692,7 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         // only need to check right-clicks and physical as of MC 1.4+; good performance boost
-        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK)){
-            if (event.getClickedBlock() != null && event.getClickedBlock().getType() == XMaterial.ITEM_FRAME.parseMaterial()){
-                if (!canPlayerUseBlock(event.getPlayer(), event.getClickedBlock(), false)) {
-                    event.setCancelled(true);
-                    event.setUseInteractedBlock(Event.Result.DENY);
-                    return;
-                }
-            }
-        }
-        if (event.getAction().equals(Action.LEFT_CLICK_AIR))
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
             return;
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
@@ -736,8 +727,6 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler
     public void onPlayerBoneMeal(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
-
-
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && block.getType() == XMaterial.GRASS_BLOCK.parseMaterial()
                 && event.hasItem() && event.getItem().getType() == XMaterial.BONE_MEAL.parseMaterial()) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), block.getLocation(), PermissableAction.BUILD.name(), true)) {
