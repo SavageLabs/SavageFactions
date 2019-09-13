@@ -338,6 +338,7 @@ public class FactionsBlockListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void FrameRemove(HangingBreakByEntityEvent event) {
+        if (event.getRemover() == null) return;
         if ((event.getRemover() instanceof Player)) {
             if (event.getEntity().getType().equals(EntityType.ITEM_FRAME)) {
                 Player p = (Player) event.getRemover();
