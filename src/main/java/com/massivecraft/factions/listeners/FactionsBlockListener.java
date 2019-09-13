@@ -53,8 +53,9 @@ public class FactionsBlockListener implements Listener {
 
         if (otherFaction.isWilderness()) {
             if (Conf.worldGuardBuildPriority && Worldguard.getInstance().playerCanBuild(player, location)) return true;
-            if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName()))
-                return true;
+            if (location.getWorld() != null) {
+                if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
+            }
             if (!justCheck) me.msg(TL.ACTION_DENIED_WILDERNESS, action);
             return false;
         } else if (otherFaction.isSafeZone()) {
@@ -330,7 +331,6 @@ public class FactionsBlockListener implements Listener {
                 Access access = fme.getFaction().getAccess(fme, PermissableAction.SPAWNER);
                 if (access != Access.ALLOW && fme.getRole() != Role.LEADER) {
                     fme.msg(TL.GENERIC_FPERM_NOPERMISSION, "mine spawners");
-                    return;
                 }
             }
         }
