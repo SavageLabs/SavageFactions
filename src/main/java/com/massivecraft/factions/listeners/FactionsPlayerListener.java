@@ -47,15 +47,12 @@ public class FactionsPlayerListener implements Listener {
 
     // Map of saving falling players from fall damage after F-Fly leaves.
     HashMap<Player, Boolean> fallMap = new HashMap<>();
+
     // Holds the next time a player can have a map shown.
     private HashMap<UUID, Long> showTimes = new HashMap<>();
-    // for handling people who repeatedly spam attempts to open a door (or similar) in another faction's territory
-    private Map<String, InteractAttemptSpam> interactSpammers = new HashMap<>();
 
     public FactionsPlayerListener() {
-        for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
-            initPlayer(player);
-        }
+        for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) initPlayer(player);
     }
 
     private static Boolean isSystemFaction(Faction faction) {
@@ -101,8 +98,7 @@ public class FactionsPlayerListener implements Listener {
             // This should be inverted to prevent bypasing
             if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
         } else {
-            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material))
-                return true; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) return true; // Item should not be used, deny.
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
@@ -403,9 +399,7 @@ public class FactionsPlayerListener implements Listener {
         Faction myFaction = me.getFaction();
         if (!myFaction.isWilderness()) {
             for (FPlayer other : myFaction.getFPlayersWhereOnline(true)) {
-                if (other != me && other.isMonitoringJoins()) {
-                    other.msg(TL.FACTION_LOGIN, me.getName());
-                }
+                if (other != me && other.isMonitoringJoins()) other.msg(TL.FACTION_LOGIN, me.getName());
             }
         }
 
@@ -460,9 +454,7 @@ public class FactionsPlayerListener implements Listener {
         }
 
         Faction myFaction = me.getFaction();
-        if (!myFaction.isWilderness()) {
-            myFaction.memberLoggedOff();
-        }
+        if (!myFaction.isWilderness()) myFaction.memberLoggedOff();
 
         if (!myFaction.isWilderness()) {
             for (FPlayer player : myFaction.getFPlayersWhereOnline(true))
@@ -502,9 +494,7 @@ public class FactionsPlayerListener implements Listener {
     public void onInspect(PlayerInteractEvent e) {
         if (e.getAction().name().contains("BLOCK")) {
             FPlayer fplayer = FPlayers.getInstance().getByPlayer(e.getPlayer());
-            if (!fplayer.isInspectMode()) {
-                return;
-            }
+            if (!fplayer.isInspectMode()) return;
             e.setCancelled(true);
             if (!fplayer.isAdminBypassing()) {
                 if (!fplayer.hasFaction()) {
@@ -516,9 +506,7 @@ public class FactionsPlayerListener implements Listener {
                     fplayer.msg(TL.COMMAND_INSPECT_NOTINCLAIM);
                     return;
                 }
-            } else {
-                fplayer.msg(TL.COMMAND_INSPECT_BYPASS);
-            }
+            } else fplayer.msg(TL.COMMAND_INSPECT_BYPASS);
             List<String[]> info = CoreProtect.getInstance().getAPI().blockLookup(e.getClickedBlock(), 0);
             if (info.size() == 0) {
                 e.getPlayer().sendMessage(TL.COMMAND_INSPECT_NODATA.toString());
