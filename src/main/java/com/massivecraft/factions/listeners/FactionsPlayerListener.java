@@ -13,8 +13,8 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.FactionGUI;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.util.VisualizeUtil;
+import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.MemoryFPlayer;
@@ -76,10 +76,14 @@ public class FactionsPlayerListener implements Listener {
 
         // We handle ownership protection below.
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded()) return true;
+        if (me.getFaction() == otherFaction) return true;
+
+        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
+            return true;
 
         if (otherFaction.isWilderness()) {
-            if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
+            if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName()))
+                return true;
             if (!justCheck) me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isSafeZone()) {
@@ -97,11 +101,12 @@ public class FactionsPlayerListener implements Listener {
             // This should be inverted to prevent bypasing
             if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
         } else {
-            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) return true; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material))
+                return true; // Item should not be used, deny.
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
-        return CheckPlayerAccess(player, me, loc, myFaction, access, PermissableAction.ITEM, false);
+        return CheckPlayerAccess(player, me, loc, otherFaction, access, PermissableAction.ITEM, false);
     }
 
     @SuppressWarnings("deprecation")
@@ -122,7 +127,7 @@ public class FactionsPlayerListener implements Listener {
         if (otherFaction.isSystemFaction()) return true;
 
         if (myFaction.isWilderness()) {
-            me.msg(TL.GENERTIC_ACTION_NOPERMISSION, block.getType().toString().replace("_"," "));
+            me.msg(TL.GENERTIC_ACTION_NOPERMISSION, block.getType().toString().replace("_", " "));
             return false;
         }
 
@@ -221,21 +226,25 @@ public class FactionsPlayerListener implements Listener {
         boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to use exploit interaction as well.
         if (access != null) {
             boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
-            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId())))
+            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId()))) {
                 return true;
-            else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
+            } else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
                 me.msg(TL.ACTIONS_OWNEDTERRITORYDENY, factionToCheck.getOwnerListString(loc));
                 if (doPain) player.damage(Conf.actionDeniedPainAmount);
                 return false;
-            } else if (!landOwned && access == Access.ALLOW) return true;
-            else {
+            } else if (!landOwned && access == Access.ALLOW) {
+                return true;
+            } else {
                 me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
                 return false;
             }
         }
+
         // Approves any permission check if the player in question is a leader AND owns the faction.
         if (me.getRole().equals(Role.LEADER) && me.getFaction().equals(factionToCheck)) return true;
-        me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
+        if (factionToCheck != null) {
+            me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
+        }
         return false;
     }
 
@@ -247,7 +256,7 @@ public class FactionsPlayerListener implements Listener {
         // Check for doors that might have diff material name in old version.
         if (material.name().contains("DOOR") || material.name().contains("FENCE_GATE"))
             return PermissableAction.DOOR;
-        if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE"))
+        if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE") || material.name().contains("DIODE") || material.name().contains("COMPARATOR"))
             return PermissableAction.BUTTON;
         if (SavageFactions.plugin.mc113 || SavageFactions.plugin.mc114) {
             switch (material) {
@@ -260,6 +269,8 @@ public class FactionsPlayerListener implements Listener {
                 case OAK_BUTTON:
                 case SPRUCE_BUTTON:
                 case STONE_BUTTON:
+                case COMPARATOR:
+                case REPEATER:
                     return PermissableAction.BUTTON;
 
                 case ACACIA_DOOR:
@@ -380,8 +391,8 @@ public class FactionsPlayerListener implements Listener {
 
         // Check for Faction announcements. Let's delay this so they actually see it.
         Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
-                    if (me.isOnline()) me.getFaction().sendUnreadAnnouncements(me);
-                }, 33L); // Don't ask me why.
+            if (me.isOnline()) me.getFaction().sendUnreadAnnouncements(me);
+        }, 33L); // Don't ask me why.
 
         if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false)) {
             FScoreboard.init(me);
@@ -397,7 +408,6 @@ public class FactionsPlayerListener implements Listener {
                 }
             }
         }
-
 
         fallMap.put(me.getPlayer(), false);
         Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()), 180L);
@@ -682,12 +692,22 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
         // only need to check right-clicks and physical as of MC 1.4+; good performance boost
-        if (event.getAction().equals(Action.LEFT_CLICK_BLOCK) || event.getAction().equals(Action.LEFT_CLICK_AIR)) return;
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+            return;
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
         // Check if the material is bypassing protection
-        if (block == null) return;  // clicked in air, apparently
-        if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
+        if (block == null) return;  // clicked in air apparently
+
+        if (event.getItem() != null) {
+            Material type = event.getItem().getType();
+            if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
+            if (!Conf.territoryDenySwitchMaterials.contains(block.getType())) {
+                if (Conf.territoryAllowItemUseMaterials.contains(type)) {
+                    return;
+                }
+            }
+        }
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
@@ -707,7 +727,6 @@ public class FactionsPlayerListener implements Listener {
     @EventHandler
     public void onPlayerBoneMeal(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
-
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && block.getType() == XMaterial.GRASS_BLOCK.parseMaterial()
                 && event.hasItem() && event.getItem().getType() == XMaterial.BONE_MEAL.parseMaterial()) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), block.getLocation(), PermissableAction.BUILD.name(), true)) {

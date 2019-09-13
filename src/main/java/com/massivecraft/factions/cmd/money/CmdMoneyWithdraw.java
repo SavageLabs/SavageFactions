@@ -8,6 +8,7 @@ import com.massivecraft.factions.cmd.FCommand;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -37,11 +38,12 @@ public class CmdMoneyWithdraw extends FCommand {
         }
 
         Access access = context.faction.getAccess(context.fPlayer, PermissableAction.WITHDRAW);
-        if (access == Access.DENY) {
-            context.msg(TL.GENERIC_NOPERMISSION, "withdraw");
-            return;
+        if (context.fPlayer.getRole() != Role.LEADER)  {
+            if (access == Access.DENY) {
+                context.msg(TL.GENERIC_NOPERMISSION, "withdraw", "withdraw money from the bank");
+                return;
+            }
         }
-
         boolean success = Econ.transferMoney(context.fPlayer, faction, context.fPlayer, amount);
 
         if (success && Conf.logMoneyTransactions) {

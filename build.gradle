@@ -4,7 +4,7 @@ plugins {
 
 }
 group 'com.massivecraft'
-version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-4'
+version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-5'
 
 sourceCompatibility = 1.8
 
