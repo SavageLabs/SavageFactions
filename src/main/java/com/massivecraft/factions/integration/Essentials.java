@@ -22,16 +22,12 @@ public class Essentials {
 
 	public static void setup() {
 		Plugin ess = Bukkit.getPluginManager().getPlugin("Essentials");
-		if (ess != null) {
-			essentials = (IEssentials) ess;
-		}
+		if (ess != null) essentials = (IEssentials) ess;
 	}
 
 	// return false if feature is disabled or Essentials isn't available
 	public static boolean handleTeleport(Player player, Location loc) {
-		if (!Conf.homesTeleportCommandEssentialsIntegration || essentials == null) {
-			return false;
-		}
+		if (!Conf.homesTeleportCommandEssentialsIntegration || essentials == null) return false;
 
 		Teleport teleport = essentials.getUser(player).getTeleport();
 		Trade trade = new Trade(new BigDecimal(Conf.econCostHome), essentials);
