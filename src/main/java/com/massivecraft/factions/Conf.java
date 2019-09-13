@@ -230,10 +230,9 @@ public class Conf {
     /// This defines a set of materials which should always be allowed to use, regardless of factions permissions.
     /// Useful for HCF features.
     /// </summary>
-    public static Set<Material> territoryBlockBlackList = new HashSet<>();
     public static Set<Material> territoryBypasssProtectedMaterials = EnumSet.noneOf(Material.class);
-    public static boolean territoryBypassProtectedPotions = true;
-    public static boolean territoryBypassProtectedSplashPotions = true;
+    public static Set<Material> territoryAllowItemUseMaterials = new HashSet<>();
+    public static Set<Material> territoryDenySwitchMaterials = new HashSet<>();
 
     // Economy settings
     public static boolean econEnabled = false;
@@ -388,6 +387,7 @@ public class Conf {
     static {
         enabledParticleEffects.addAll(Arrays.asList(FlyParticle.values()));
     }
+
     // Custom Ranks - Oof I forgot I was doing this _SvenjaReissaus_
     //public static boolean enableCustomRanks = false; // We will disable it by default to avoid any migration error
     //public static int maxCustomRanks = 2; // Setting this to -1 will allow unlimited custom ranks
@@ -445,27 +445,63 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
 
-        territoryBlockBlackList.add(XMaterial.ACACIA_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.BIRCH_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.DARK_OAK_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.IRON_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.JUNGLE_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.OAK_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.SPRUCE_TRAPDOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.OAK_DOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.IRON_DOOR.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.ACACIA_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.BIRCH_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.DARK_OAK_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.JUNGLE_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.OAK_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
-        territoryBlockBlackList.add(XMaterial.STONE_BUTTON.parseMaterial());
-
-
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
         territoryBypasssProtectedMaterials.add(XMaterial.CREEPER_SPAWN_EGG.parseMaterial());
+
+        territoryDenySwitchMaterials.add(XMaterial.ACACIA_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BIRCH_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DARK_OAK_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.JUNGLE_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.OAK_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SPRUCE_FENCE_GATE.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ACACIA_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BIRCH_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DARK_OAK_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.JUNGLE_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.OAK_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SPRUCE_DOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DISPENSER.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.CHEST.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.TRAPPED_CHEST.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ACACIA_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BIRCH_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DARK_OAK_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.JUNGLE_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.OAK_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DROPPER.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.HOPPER.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ITEM_FRAME.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ACACIA_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BIRCH_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DARK_OAK_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.JUNGLE_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.OAK_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SPRUCE_TRAPDOOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.LEVER.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.COMPARATOR.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.REPEATER.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ACACIA_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BIRCH_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.DARK_OAK_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.JUNGLE_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.OAK_BUTTON.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
+
+        territoryAllowItemUseMaterials.add(XMaterial.GOLDEN_APPLE.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.APPLE.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.ENCHANTED_GOLDEN_APPLE.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_BEEF.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_MUTTON.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_CHICKEN.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_COD.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_PORKCHOP.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_RABBIT.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.COOKED_SALMON.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.ENDER_PEARL.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.POTION.parseMaterial());
+        territoryAllowItemUseMaterials.add(XMaterial.SPLASH_POTION.parseMaterial());
 
         territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
         territoryDenyUseageMaterials.add(XMaterial.FLINT_AND_STEEL.parseMaterial());
