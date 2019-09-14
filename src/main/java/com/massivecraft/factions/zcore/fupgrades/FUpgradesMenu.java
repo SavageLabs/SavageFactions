@@ -6,6 +6,7 @@ import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -53,7 +54,7 @@ public class FUpgradesMenu {
 
     private void updateChests(Faction faction) {
         String invName = SavageFactions.plugin.color(Conf.fchestInventoryTitle);
-        for (Player player : faction.getOnlinePlayers()) {
+        for (HumanEntity player : faction.getChestInventory().getViewers()) {
             if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
                 player.closeInventory();
         }
