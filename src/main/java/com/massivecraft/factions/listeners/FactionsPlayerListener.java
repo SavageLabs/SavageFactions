@@ -689,9 +689,10 @@ public class FactionsPlayerListener implements Listener {
         // Convert 1.8 Material Names -> 1.14
         Material type = XMaterial.matchXMaterial(event.getItem().getType().toString()).parseMaterial();
 
-        if (Conf.territoryAllowItemUseMaterials.contains(type)) return;
         if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
-        if (!Conf.territoryDenySwitchMaterials.contains(block.getType())) return;
+        if (!Conf.territoryDenySwitchMaterials.contains(block.getType()))
+            if (Conf.territoryAllowItemUseMaterials.contains(type)) return;
+        
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {
