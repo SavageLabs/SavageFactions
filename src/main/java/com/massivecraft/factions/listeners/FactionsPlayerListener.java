@@ -684,14 +684,26 @@ public class FactionsPlayerListener implements Listener {
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();
 
-        if (block == null || event.getItem() == null) return;
+        if (block == null) return;
 
-        // Convert 1.8 Material Names -> 1.14
-        Material type = XMaterial.matchXMaterial(event.getItem().getType().toString()).parseMaterial();
 
-        if (Conf.territoryAllowItemUseMaterials.contains(type)) return;
-        if (Conf.territoryBypasssProtectedMaterials.contains(type)) return;
-        if (!Conf.territoryDenySwitchMaterials.contains(block.getType())) return;
+        Material type;
+        if (event.getItem() != null) {
+            // Convert 1.8 Material Names -> 1.14
+            type = XMaterial.matchXMaterial(event.getItem().getType().toString()).parseMaterial();
+        } else {
+            type = null;
+        }
+
+
+        if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
+        // Do type null checks so if XMaterial has a parsing issue and fills null as a value it will not bypass.
+        if (type != null && Conf.territoryCancelAndAllowItemUseMaterial.contains(type)) {
+            event.setCancelled(true);
+            return;
+        }
+        if (type != null && !Conf.territoryDenySwitchMaterials.contains(block.getType())) return;
+
 
         if (GetPermissionFromUsableBlock(block.getType()) != null) {
             if (!canPlayerUseBlock(player, block, false)) {

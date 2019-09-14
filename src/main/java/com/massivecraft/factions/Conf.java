@@ -231,7 +231,7 @@ public class Conf {
     /// Useful for HCF features.
     /// </summary>
     public static Set<Material> territoryBypasssProtectedMaterials = EnumSet.noneOf(Material.class);
-    public static Set<Material> territoryAllowItemUseMaterials = new HashSet<>();
+    public static Set<Material> territoryCancelAndAllowItemUseMaterial = new HashSet<>();
     public static Set<Material> territoryDenySwitchMaterials = new HashSet<>();
 
     // Economy settings
@@ -438,8 +438,7 @@ public class Conf {
     static {
         baseCommandAliases.add("f");
 
-        // Default item for Obsidian Destroyer
-        territoryBypasssProtectedMaterials.add(XMaterial.POTATO.parseMaterial());
+
 
         territoryEnemyDenyCommands.add("home");
         territoryEnemyDenyCommands.add("sethome");
@@ -451,6 +450,8 @@ public class Conf {
         // Config is not loading if value is empty ???
         territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
         territoryBypasssProtectedMaterials.add(XMaterial.CREEPER_SPAWN_EGG.parseMaterial());
+        // Default item for Obsidian Destroyer
+        territoryBypasssProtectedMaterials.add(XMaterial.POTATO.parseMaterial());
 
         territoryDenySwitchMaterials.add(XMaterial.ACACIA_FENCE_GATE.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.BIRCH_FENCE_GATE.parseMaterial());
@@ -492,19 +493,19 @@ public class Conf {
         territoryDenySwitchMaterials.add(XMaterial.OAK_BUTTON.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
 
-        territoryAllowItemUseMaterials.add(XMaterial.GOLDEN_APPLE.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.APPLE.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.ENCHANTED_GOLDEN_APPLE.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_BEEF.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_MUTTON.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_CHICKEN.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_COD.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_PORKCHOP.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_RABBIT.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.COOKED_SALMON.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.ENDER_PEARL.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.POTION.parseMaterial());
-        territoryAllowItemUseMaterials.add(XMaterial.SPLASH_POTION.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.GOLDEN_APPLE.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.APPLE.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.ENCHANTED_GOLDEN_APPLE.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_BEEF.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_MUTTON.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_CHICKEN.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_COD.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_PORKCHOP.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_RABBIT.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.COOKED_SALMON.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.ENDER_PEARL.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.POTION.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.SPLASH_POTION.parseMaterial());
 
         territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
         territoryDenyUseageMaterials.add(XMaterial.FLINT_AND_STEEL.parseMaterial());
