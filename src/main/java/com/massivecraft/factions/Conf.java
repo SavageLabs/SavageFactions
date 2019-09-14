@@ -493,6 +493,24 @@ public class Conf {
         territoryDenySwitchMaterials.add(XMaterial.OAK_BUTTON.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.SPRUCE_BUTTON.parseMaterial());
 
+        territoryDenySwitchMaterials.add(XMaterial.PURPLE_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.WHITE_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.MAGENTA_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.LIGHT_BLUE_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.CYAN_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BLUE_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BROWN_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.ORANGE_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.GREEN_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.RED_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.BLACK_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.GRAY_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.LIME_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.LIGHT_GRAY_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.PINK_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.YELLOW_SHULKER_BOX.parseMaterial());
+        territoryDenySwitchMaterials.add(XMaterial.SHULKER_BOX.parseMaterial());
+
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.GOLDEN_APPLE.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.APPLE.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.ENCHANTED_GOLDEN_APPLE.parseMaterial());
@@ -506,6 +524,7 @@ public class Conf {
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.ENDER_PEARL.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.POTION.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.SPLASH_POTION.parseMaterial());
+        territoryCancelAndAllowItemUseMaterial.add(XMaterial.CREEPER_SPAWN_EGG.parseMaterial());
 
         territoryDenyUseageMaterials.add(XMaterial.FIRE_CHARGE.parseMaterial());
         territoryDenyUseageMaterials.add(XMaterial.FLINT_AND_STEEL.parseMaterial());
