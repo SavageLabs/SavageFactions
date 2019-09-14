@@ -384,14 +384,10 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
     @Override
     public Inventory getChestInventory() {
-        if (chest != null) {
-            Inventory temp = Bukkit.createInventory(null, getChestSize(), SavageFactions.plugin.color(Conf.fchestInventoryTitle));
-            temp.setContents(this.chest.getContents());
-            this.chest = temp;
+        if (chest == null) {
+			this.chest = Bukkit.createInventory(null, getChestSize(), SavageFactions.plugin.color(Conf.fchestInventoryTitle));
             return chest;
         }
-
-        chest = Bukkit.createInventory(null, getChestSize(), SavageFactions.plugin.color(Conf.fchestInventoryTitle));
         return chest;
     }
 
