@@ -47,6 +47,7 @@ public class Essentials {
 		}
 		if (player.getMetadata("vanished") == null) return vanish;
 		for (MetadataValue meta : player.getMetadata("vanished")) {
+			if (meta == null) continue;
  			if (meta.asBoolean()) {
 				vanish = true;
 				break;
