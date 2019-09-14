@@ -222,9 +222,9 @@ public class Conf {
     public static boolean ownedMessageInsideTerritory = true;
     public static boolean ownedMessageByChunk = false;
     public static boolean pistonProtectionThroughDenyBuild = true;
-    public static Set<Material> territoryDenyUseageMaterials = EnumSet.noneOf(Material.class);
-    public static Set<Material> territoryDenyUseageMaterialsWhenOffline = EnumSet.noneOf(Material.class);
-    public static transient Set<EntityType> safeZoneNerfedCreatureTypes = EnumSet.noneOf(EntityType.class);
+    public static Set<Material> territoryDenyUseageMaterials = new HashSet<>();
+    public static Set<Material> territoryDenyUseageMaterialsWhenOffline = new HashSet<>();
+    public static transient Set<EntityType> safeZoneNerfedCreatureTypes = new HashSet<>();
     public static boolean sendFactionChangeMessage = true;
     /// <summary>
     /// This defines a set of materials which should always be allowed to use, regardless of factions permissions.
@@ -447,11 +447,9 @@ public class Conf {
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
 
-        // Config is not loading if value is empty ???
-        territoryBypasssProtectedMaterials.add(XMaterial.COOKIE.parseMaterial());
-        territoryBypasssProtectedMaterials.add(XMaterial.CREEPER_SPAWN_EGG.parseMaterial());
-        // Default item for Obsidian Destroyer
-        territoryBypasssProtectedMaterials.add(XMaterial.POTATO.parseMaterial());
+
+
+
 
         territoryDenySwitchMaterials.add(XMaterial.ACACIA_FENCE_GATE.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.BIRCH_FENCE_GATE.parseMaterial());
