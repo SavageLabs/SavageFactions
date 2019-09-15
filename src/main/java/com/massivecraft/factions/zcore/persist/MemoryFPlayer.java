@@ -599,14 +599,18 @@ public abstract class MemoryFPlayer implements FPlayer {
             return;  // don't let dead players regain power until they respawn
         }
 
-        PowerRegenEvent powerRegenEvent = new PowerRegenEvent(getFaction(), this);
+        double delta = millisPassed * Conf.powerPerMinute / 60000; // millisPerMinute : 60 * 1000
         if (Bukkit.getPluginManager().getPlugin("SavageFactions") != null) {
-            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(powerRegenEvent));
-
+            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> {
+                PowerRegenEvent powerRegenEvent = new PowerRegenEvent(getFaction(), this, delta);
+                Bukkit.getServer().getPluginManager().callEvent(powerRegenEvent);
+                if (!powerRegenEvent.isCancelled()) {
+                    this.alterPower(powerRegenEvent.getDelta());
+                }
+            });
+        } else {
+            this.alterPower(delta);
         }
-
-        if (!powerRegenEvent.isCancelled())
-            this.alterPower(millisPassed * Conf.powerPerMinute / 60000); // millisPerMinute : 60 * 1000
     }
 
     public void losePowerFromBeingOffline() {
