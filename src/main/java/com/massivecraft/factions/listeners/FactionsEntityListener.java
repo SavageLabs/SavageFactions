@@ -363,7 +363,7 @@ public class FactionsEntityListener implements Listener {
 
         if (damager == damagee) return true; // ender pearl usage and other self-inflicted damage
 
-        // Players can not take attack damage in a SafeZone, or possibly peaceful territory
+        // Players can not take attack damage in a SafeZone or peaceful territory depending on Conf options.
         if (defLocFaction.noPvPInTerritory()) {
             if (damager instanceof Player) {
                 if (notify) {
