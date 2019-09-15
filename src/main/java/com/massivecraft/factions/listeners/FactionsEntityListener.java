@@ -500,7 +500,7 @@ public class FactionsEntityListener implements Listener {
 
     @EventHandler
     public void onHangerBreak(HangingBreakByEntityEvent e) {
-        if (e.getRemover() == null || !(e.getRemover() instanceof Player)) return;
+        if (!(e.getRemover() instanceof Player)) return;
         Player p = (Player) e.getRemover();
         
         if(e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
