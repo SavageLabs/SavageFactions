@@ -500,14 +500,10 @@ public class FactionsEntityListener implements Listener {
 
     @EventHandler
     public void onHangerBreak(HangingBreakByEntityEvent e) {
-        if (e.getRemover() == null) return;
-        if (!(e.getRemover() instanceof Player)) return;
+        if (e.getRemover() == null || !(e.getRemover() instanceof Player)) return;
         Player p = (Player) e.getRemover();
-        if (e.getEntity().getType().equals(EntityType.PAINTING)) {
-            if (!FactionsBlockListener.playerCanBuildDestroyBlock(p, e.getEntity().getLocation(), "destroy", false)) {
-                e.setCancelled(true);
-            }
-        } else if (e.getEntity().getType().equals(EntityType.ITEM_FRAME)) {
+        
+        if(e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(p, e.getEntity().getLocation(), "destroy", false)) {
                 e.setCancelled(true);
             }
@@ -515,42 +511,35 @@ public class FactionsEntityListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onPaintingPlace(HangingPlaceEvent event) {
-        if (event.getPlayer() == null) return;
-        if (event.getEntity().getType().equals(EntityType.PAINTING)) {
-            if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), "build", false)) {
-                event.setCancelled(true);
+    public void onPaintingPlace(HangingPlaceEvent e) {
+        if (e.getPlayer() == null) return;
+        
+        if(e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
+            if (!FactionsBlockListener.playerCanBuildDestroyBlock(e.getPlayer(), e.getBlock().getLocation(), "build", false)) {
+                e.setCancelled(true);
                 // Fix: update player's inventory to avoid items glitches
-                event.getPlayer().updateInventory();
-            }
-        } else if (event.getEntity().getType().equals(EntityType.ITEM_FRAME)) {
-            if (!FactionsBlockListener.playerCanBuildDestroyBlock(event.getPlayer(), event.getEntity().getLocation(), "build", false)) {
-                event.setCancelled(true);
-                // Fix: update player's inventory to avoid items glitches
-                event.getPlayer().updateInventory();
+                e.getPlayer().updateInventory();
             }
         }
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onEntityChangeBlock(EntityChangeBlockEvent event) {
-        Entity entity = event.getEntity();
+    public void onEntityChangeBlock(EntityChangeBlockEvent e) {
+        Entity entity = e.getEntity();
+
+        Location loc = e.getBlock().getLocation();
 
         // for now, only interested in Enderman and Wither boss tomfoolery
-        if (!(entity instanceof Enderman) && !(entity instanceof Wither)) return;
-
-        Location loc = event.getBlock().getLocation();
-
-        if (entity instanceof Enderman) {
-            if (stopEndermanBlockManipulation(loc)) event.setCancelled(true);
-        } else if (entity instanceof Wither) {
+        if (entity.getType() == EntityType.ENDERMAN) {
+            if (stopEndermanBlockManipulation(loc)) e.setCancelled(true);
+        } else if (entity.getType() == EntityType.WITHER) {
             Faction faction = Board.getInstance().getFactionAt(new FLocation(loc));
             // it's a bit crude just using fireball protection, but I'd rather not add in a whole new set of xxxBlockWitherExplosion or whatever
             if ((faction.isWilderness() && Conf.wildernessBlockFireballs && !Conf.worldsNoWildernessProtection.contains(loc.getWorld().getName())) ||
                     (faction.isNormal() && (faction.hasPlayersOnline() ? Conf.territoryBlockFireballs : Conf.territoryBlockFireballsWhenOffline)) ||
                     (faction.isWarZone() && Conf.warZoneBlockFireballs) ||
                     faction.isSafeZone()) {
-                event.setCancelled(true);
+                e.setCancelled(true);
             }
         }
     }
