@@ -10,9 +10,19 @@ import org.bukkit.event.Cancellable;
 public class PowerRegenEvent extends FactionPlayerEvent implements Cancellable {
 
     private boolean cancelled = false;
+    private double delta;
 
-    public PowerRegenEvent(Faction f, FPlayer p) {
+    public PowerRegenEvent(Faction f, FPlayer p, double delta) {
         super(f, p);
+        this.delta = delta;
+    }
+
+    public double getDelta() {
+        return delta;
+    }
+
+    public void setDelta(double delta) {
+        this.delta = delta;
     }
 
     @Override
