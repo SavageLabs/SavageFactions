@@ -194,6 +194,7 @@ public class Conf {
     public static boolean safeZoneBlockTNT = true;
     public static boolean safeZonePreventAllDamageToPlayers = false;
     public static boolean safeZoneDenyEndermanBlocks = true;
+    public static boolean safeZoneTerritoryDisablePVP = true;
     public static boolean warZoneDenyBuild = true;
     public static boolean warZoneDenyUseage = true;
     public static boolean warZoneBlockCreepers = false;

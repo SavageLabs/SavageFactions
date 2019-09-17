@@ -3,7 +3,6 @@ package com.massivecraft.factions.integration;
 import com.earth2me.essentials.Teleport;
 import com.earth2me.essentials.Trade;
 import com.earth2me.essentials.User;
-import com.google.gson.internal.$Gson$Preconditions;
 import com.massivecraft.factions.Conf;
 import net.ess3.api.IEssentials;
 import org.bukkit.Bukkit;
@@ -12,8 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
-
 import java.math.BigDecimal;
 
 public class Essentials {
@@ -21,8 +18,7 @@ public class Essentials {
 	private static IEssentials essentials;
 
 	public static void setup() {
-		Plugin ess = Bukkit.getPluginManager().getPlugin("Essentials");
-		if (ess != null) essentials = (IEssentials) ess;
+		essentials = (IEssentials) Bukkit.getPluginManager().getPlugin("Essentials");
 	}
 
 	// return false if feature is disabled or Essentials isn't available
@@ -43,11 +39,12 @@ public class Essentials {
 		boolean vanish = false;
 		if (essentials != null) {
 			User user = essentials.getUser(player);
-			vanish = user.isVanished();
+
+			if (user.isVanished()) return true;
 		}
 		for (MetadataValue meta : player.getMetadata("vanished")) {
 			if (meta == null) continue;
- 			if (meta.asBoolean()) {
+			if (meta.asBoolean()) {
 				vanish = true;
 				break;
 			}

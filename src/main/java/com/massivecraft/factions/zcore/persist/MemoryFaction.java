@@ -758,7 +758,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	// Extra Getters And Setters
 	// -------------------------------------------- //
 	public boolean noPvPInTerritory() {
-		return isSafeZone() || (peaceful && Conf.peacefulTerritoryDisablePVP);
+		return (isSafeZone() && Conf.safeZoneTerritoryDisablePVP) || (peaceful && Conf.peacefulTerritoryDisablePVP);
 	}
 
 	public boolean noMonstersInTerritory() {
