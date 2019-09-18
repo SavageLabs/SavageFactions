@@ -626,6 +626,7 @@ public enum TL {
 	COMMAND_SETMAXVAULTS_DESCRIPTION("Set max vaults for a Faction."),
 	COMMAND_SETMAXVAULTS_SUCCESS("&aSet max vaults for &e%1$s &ato &b%2$s"),
 
+	COMMAND_VAULT_DISABLED("&c&l[!]&7 &cSorry&7, Faction Vaults are disabled on this server."),
 	COMMAND_VAULT_DESCRIPTION("Open your placed faction vault!"),
 	COMMAND_VAULT_INVALID("&c&l[!]&7 Your vault was either&c claimed&7, &cbroken&7, or has&c not been&7 placed yet."),
 	COMMAND_VAULT_OPENING("&c&l[!]&7 Opening faction vault."),
