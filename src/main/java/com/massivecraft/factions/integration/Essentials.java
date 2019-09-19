@@ -36,6 +36,8 @@ public class Essentials {
 	}
 
 	public static boolean isVanished(Player player) {
+		// Edge case handling.
+		if (player == null) return false;
 		boolean vanish = false;
 		if (essentials != null) {
 			User user = essentials.getUser(player);
