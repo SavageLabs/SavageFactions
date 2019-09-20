@@ -31,7 +31,7 @@ public class CmdVault extends FCommand {
     public void perform(CommandContext context) {
 
         if (!SavageFactions.plugin.getConfig().getBoolean("fvault.Enabled")) {
-            context.fPlayer.sendMessage("This command is disabled!");
+            context.msg(TL.COMMAND_VAULT_DISABLED);
             return;
         }
 

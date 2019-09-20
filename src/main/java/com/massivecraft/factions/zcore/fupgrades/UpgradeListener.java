@@ -40,7 +40,7 @@ public class UpgradeListener implements Listener {
         e.setDroppedExp((int) newExp);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onSpawn(SpawnerSpawnEvent e) {
         FLocation floc = new FLocation(e.getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
@@ -53,7 +53,7 @@ public class UpgradeListener implements Listener {
 
     private void lowerSpawnerDelay(SpawnerSpawnEvent e, double multiplier) {
         int lowerby = (int) Math.round(e.getSpawner().getDelay() * multiplier);
-        e.getSpawner().setDelay(e.getSpawner().getDelay() - lowerby);
+        if (e != null && !e.isCancelled()) e.getSpawner().setDelay(e.getSpawner().getDelay() - lowerby);
     }
 
     @EventHandler

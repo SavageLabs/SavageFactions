@@ -117,6 +117,8 @@ public class FactionsBlockListener implements Listener {
                 return false;
             }
         }
+
+
         return CheckPlayerAccess(me.getPlayer(), me, location, target, target.getAccess(me, action), action, pain);
     }
 
