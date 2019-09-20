@@ -13,7 +13,6 @@ public class CmdLockSpawners extends FCommand {
         this.aliases.add("spawnerlock");
 
         this.requirements = new CommandRequirements.Builder(Permission.LOCKSPAWNERS)
-                .playerOnly()
                 .build();
     }
 

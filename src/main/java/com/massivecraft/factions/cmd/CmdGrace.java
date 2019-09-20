@@ -11,7 +11,6 @@ public class CmdGrace extends FCommand {
         this.aliases.add("grace");
 
         this.requirements = new CommandRequirements.Builder(Permission.GRACE)
-                .playerOnly()
                 .build();
     }
 
