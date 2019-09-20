@@ -187,16 +187,16 @@ public class Econ {
 
         if (invoker == null) {
             for (FPlayer recipient : recipients)
-                recipient.msg("<h>%s<i> was transferred from <h>%s<i> to <h>%s<i>.", moneyString(amount), from.describeTo(recipient), to.describeTo(recipient));
+                recipient.msg(TL.ECON_MONEYTRASFERREDFROM, moneyString(amount), from.describeTo(recipient), to.describeTo(recipient));
         } else if (invoker == from) {
             for (FPlayer recipient : recipients)
-                recipient.msg("<h>%s<i> <h>gave %s<i> to <h>%s<i>.", from.describeTo(recipient, true), moneyString(amount), to.describeTo(recipient));
+                recipient.msg(TL.ECON_PERSONGAVEMONEYTO, from.describeTo(recipient, true), moneyString(amount), to.describeTo(recipient));
         } else if (invoker == to) {
             for (FPlayer recipient : recipients)
-                recipient.msg("<h>%s<i> <h>took %s<i> from <h>%s<i>.", to.describeTo(recipient, true), moneyString(amount), from.describeTo(recipient));
+                recipient.msg(TL.ECON_PERSONTOOKMONEYFROM, to.describeTo(recipient, true), moneyString(amount), from.describeTo(recipient));
         } else {
             for (FPlayer recipient : recipients)
-                recipient.msg("<h>%s<i> transferred <h>%s<i> from <h>%s<i> to <h>%s<i>.", invoker.describeTo(recipient, true), moneyString(amount), from.describeTo(recipient), to.describeTo(recipient));
+                recipient.msg(TL.ECON_MONEYTRASFERREDFROMPERSONTOPERSON, invoker.describeTo(recipient, true), moneyString(amount), from.describeTo(recipient), to.describeTo(recipient));
         }
     }
 

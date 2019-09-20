@@ -925,6 +925,10 @@ public enum TL {
 
 	ECON_OFF("no %1$s"), // no balance, no value, no refund, etc
 	ECON_FORMAT("###,###.###"),
+	ECON_MONEYTRASFERREDFROM("%1$s was transferred from %2$s to %3$s."),
+	ECON_PERSONGAVEMONEYTO("%1$s gave %2$s to %3$s."),
+	ECON_PERSONTOOKMONEYFROM("%1$s took %2$s from %3$s."),
+	ECON_MONEYTRASFERREDFROMPERSONTOPERSON("%1$s transferred %2$s from %3$s to %4$s."),
 
 	/**
 	 * Relations
