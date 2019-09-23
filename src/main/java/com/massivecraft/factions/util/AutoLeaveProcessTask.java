@@ -29,9 +29,8 @@ public class AutoLeaveProcessTask extends BukkitRunnable {
             return;
         }
 
-        if (!readyToGo) {
-            return;
-        }
+        if (!readyToGo) return;
+
         // this is set so it only does one iteration at a time, no matter how frequently the timer fires
         readyToGo = false;
         // and this is tracked to keep one iteration from dragging on too long and possibly choking the system if there are a very large number of players to go through
@@ -56,8 +55,9 @@ public class AutoLeaveProcessTask extends BukkitRunnable {
 
             if (fplayer.isOffline() && now - fplayer.getLastLoginTime() > toleranceMillis) {
                 if (Conf.logFactionLeave || Conf.logFactionKick) {
-                    SavageFactions.plugin.log("Player " + fplayer.getName() + " was auto-removed due to inactivity.");
+                    if (Conf.logFactionLeave) SavageFactions.plugin.log("Player " + fplayer.getName() + " was auto-removed due to inactivity.");
                 }
+
 
                 // if player is faction admin, sort out the faction since he's going away
                 if (fplayer.getRole() == Role.LEADER) {
