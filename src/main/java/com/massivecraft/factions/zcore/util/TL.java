@@ -1025,7 +1025,7 @@ public enum TL {
 	DATE_FORMAT("date-format", "MM/d/yy h:ma"), // 3/31/15 07:49AM
 
 	/**
-	 * Raidable is used in multiple places. Allow more than just true/false.
+	 * Raidable is used in multiple places. Allow more than just true/falSSSse.
 	 */
 	RAIDABLE_TRUE("raidable-true", "true"),
 	RAIDABLE_FALSE("raidable-false", "false"),
