@@ -31,10 +31,17 @@ The video can be found [here](https://www.youtube.com/watch?v=fnDwjA2gX-E).
 If you would like to use the plugin as a dependency in your project, you can use maven.
 
    ```xml
+<repository>
+    <id>illyria</id>
+    <url>https://nexus.illyria.io/repository/maven-public/</url>        
+ </repository>
+ 
+ 
+ 
 <dependency>
-  <groupId>com.massivecraft</groupId>
-  <artifactId>SavageFactions</artifactId>
-  <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6</version>
+    <groupId>com.massivecraft</groupId>
+    <artifactId>SavageFactions</artifactId>
+    <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6</version>
 </dependency>
 ```
 The {version} has to be replaced with a version you find in the [mvn-repo](https://github.com/ProSavage/SavageFactions/tree/1.6.x/mvn-repo/com/massivecraft/Factions) folder. An example version that can be used is: `1.6.9.5-U0.2.1-RC-1.5-BETA`
