@@ -44,7 +44,5 @@ If you would like to use the plugin as a dependency in your project, you can use
     <version>1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-6</version>
 </dependency>
 ```
-The {version} has to be replaced with a version you find in the [mvn-repo](https://github.com/ProSavage/SavageFactions/tree/1.6.x/mvn-repo/com/massivecraft/Factions) folder. An example version that can be used is: `1.6.9.5-U0.2.1-RC-1.5-BETA`
-
 
 If you would like to learn how to use the API there are lots of examples that can be found in the [wiki](https://github.com/ProSavage/SavageFactions/wiki) on the [API-Usage](https://github.com/ProSavage/SavageFactions/wiki/API-Usage) page.
