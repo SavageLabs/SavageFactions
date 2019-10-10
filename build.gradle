@@ -44,7 +44,7 @@ repositories {
         url 'https://libraries.minecraft.net'
     }
     maven {
-    url 'https://nexus.savagellc.net/repository/maven-public/'
+    url 'https://nexus.illyria.io/repository/maven-public/'
 }
 
 }
