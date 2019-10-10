@@ -3,6 +3,7 @@ package com.massivecraft.factions.util;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Relational;
@@ -88,6 +89,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             // First list player stuff
             case "player_name":
                 return fPlayer.getName();
+            case "player_in_faction":
+                return fPlayer.hasFaction() ? "Yes" : "No";
             case "player_lastseen":
                 String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fPlayer.getLastLoginTime(), true, true) + TL.COMMAND_STATUS_AGOSUFFIX;
                 return fPlayer.isOnline() ? ChatColor.GREEN + TL.COMMAND_STATUS_ONLINE.toString() : (System.currentTimeMillis() - fPlayer.getLastLoginTime() < 432000000 ? ChatColor.YELLOW + humanized : ChatColor.RED + humanized);
@@ -169,6 +172,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
                 return String.valueOf(faction.getMaxVaults());
             case "faction_tntbank_balance":
                 return String.valueOf(faction.getTnt());
+            case "faction_maxmembers":
+                return String.valueOf(faction.getUpgrade(UpgradeType.MEMBER) == 0 ? Conf.factionMemberLimit : Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Members.Member-Boost.level-" + faction.getUpgrade(UpgradeType.MEMBER)));
             case "faction_name_at_location":
                 Faction factionAtLocation = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
                 return factionAtLocation != null ? factionAtLocation.getTag() : Factions.getInstance().getWilderness().getTag();
