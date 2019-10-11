@@ -3,6 +3,7 @@ package com.massivecraft.factions.util;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
+import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -89,6 +90,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             // First list player stuff
             case "player_name":
                 return fPlayer.getName();
+            case "player_is_leader":
+                return fPlayer.getRole() == Role.LEADER ? "Yes" : "No";
             case "player_in_faction":
                 return fPlayer.hasFaction() ? "Yes" : "No";
             case "player_lastseen":
