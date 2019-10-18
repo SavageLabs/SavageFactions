@@ -76,7 +76,7 @@ public class CmdHome extends FCommand {
         if (Conf.homesTeleportAllowedEnemyDistance > 0 &&
                 !faction.isSafeZone() &&
                 (!context.fPlayer.isInOwnTerritory() || !Conf.homesTeleportIgnoreEnemiesIfInOwnTerritory) &&
-                (!Conf.homesTeleportIgnoreEnemiesIfInNoClaimingWorld && !Conf.worldsNoClaiming.contains(context.fPlayer.getPlayer().getWorld().getName()))) {
+                (!Conf.homesTeleportIgnoreEnemiesIfInNoClaimingWorld || !Conf.worldsNoClaiming.contains(context.fPlayer.getPlayer().getWorld().getName()))) {
             World w = loc.getWorld();
             double x = loc.getX();
             double y = loc.getY();
