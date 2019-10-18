@@ -76,8 +76,7 @@ public class CmdHome extends FCommand {
         if (Conf.homesTeleportAllowedEnemyDistance > 0 &&
                 !faction.isSafeZone() &&
                 (!context.fPlayer.isInOwnTerritory() || !Conf.homesTeleportIgnoreEnemiesIfInOwnTerritory) &&
-                (!Conf.homesTeleportIgnoreEnemiesIfInNoClaimingWorld && !Conf.worldsNoClaiming.contains(context.fPlayer.getPlayer().getWorld().getName()))
-        ) {
+                (!Conf.homesTeleportIgnoreEnemiesIfInNoClaimingWorld && !Conf.worldsNoClaiming.contains(context.fPlayer.getPlayer().getWorld().getName()))) {
             World w = loc.getWorld();
             double x = loc.getX();
             double y = loc.getY();
@@ -120,16 +119,16 @@ public class CmdHome extends FCommand {
         }
 
         context.doWarmUp(WarmUpUtil.Warmup.HOME, TL.WARMUPS_NOTIFY_TELEPORT, "Home", () -> {
-                // Create a smoke effect
-                if (Conf.homesTeleportCommandSmokeEffectEnabled) {
-                    List<Location> smokeLocations = new ArrayList<>();
-                    smokeLocations.add(loc);
-                    smokeLocations.add(loc.add(0, 1, 0));
-                    smokeLocations.add(context.faction.getHome());
-                    smokeLocations.add(context.faction.getHome().clone().add(0, 1, 0));
-                    SmokeUtil.spawnCloudRandom(smokeLocations, Conf.homesTeleportCommandSmokeEffectThickness);
-                }
-                context.player.teleport(context.faction.getHome());
+            // Create a smoke effect
+            if (Conf.homesTeleportCommandSmokeEffectEnabled) {
+                List<Location> smokeLocations = new ArrayList<>();
+                smokeLocations.add(loc);
+                smokeLocations.add(loc.add(0, 1, 0));
+                smokeLocations.add(context.faction.getHome());
+                smokeLocations.add(context.faction.getHome().clone().add(0, 1, 0));
+                SmokeUtil.spawnCloudRandom(smokeLocations, Conf.homesTeleportCommandSmokeEffectThickness);
+            }
+            context.player.teleport(context.faction.getHome());
         }, SavageFactions.plugin.getConfig().getLong("warmups.f-home", 0));
     }
 
