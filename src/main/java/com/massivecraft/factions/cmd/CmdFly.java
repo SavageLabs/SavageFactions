@@ -129,17 +129,8 @@ public class CmdFly extends FCommand {
         FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
         if (!checkBypassPerms(context.fPlayer, context.player, toFac)) return;
-        List<Entity> entities = context.player.getNearbyEntities(16.0D, 256.0D, 16.0D);
-
-        for (int i = 0; i <= entities.size() - 1; ++i) {
-            if (entities.get(i) instanceof Player) {
-                Player eplayer = (Player) entities.get(i);
-                FPlayer efplayer = FPlayers.getInstance().getByPlayer(eplayer);
-                if (efplayer.getRelationTo(context.fPlayer) == Relation.ENEMY && !efplayer.isStealthEnabled()) {
-                    context.msg(TL.COMMAND_FLY_CHECK_ENEMY);
-                    return;
-                }
-            }
+        if (!context.player.hasPermission("factions.fly.bypassnearbyenemycheck") && context.fPlayer.checkIfNearbyEnemies()) {
+            return;
         }
 
         if (context.args.size() == 1) {
