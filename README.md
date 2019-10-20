@@ -1,11 +1,11 @@
 # SavageFactions
-![issues](https://img.shields.io/github/issues/SavageLLC/SavageFactions) ![forks](https://img.shields.io/github/forks/SavageLLC/SavageFactions) ![stars](https://img.shields.io/github/stars/SavageLLC/SavageFactions) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
+![issues](https://img.shields.io/github/issues/illyria-io/illyriaFactions) ![forks](https://img.shields.io/github/forks/illyria-io/illyriaFactions) ![stars](https://img.shields.io/github/stars/illyria-io/illyriaFactions) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
 
-SavageFactions is a fork of the popular Factions plugin FactionsUUID. The Goal of SavageFactions is to make the ultimate competitive factions experience.
+SavageFactions is a fork of the popular Factions plugin FactionsUUID. Our goal is to make the ultimate competitive factions experience.
 
 The plugin contains lots of new revolutionary features, which can be looked at in further detail on the wiki.
 
-Currently the plugin is marketed on [Spigot](https://www.spigotmc.org/forums/) ,  a platform for Minecraft Servers which has an API that SavageFactions uses to enhance the game.
+Currently the plugin is marketed on [Spigot](https://www.spigotmc.org/forums/),  a platform for Minecraft Servers which has an API that SavageFactions uses to enhance the game.
 
 The plugin page can be found [here](https://www.spigotmc.org/resources/savagefactions-the-ultimate-factions-plugin-1-7-1-13.52891/), it contains a few gifs which show features of the plugin.
 
@@ -46,3 +46,7 @@ If you would like to use the plugin as a dependency in your project, you can use
 ```
 
 If you would like to learn how to use the API there are lots of examples that can be found in the [wiki](https://github.com/ProSavage/SavageFactions/wiki) on the [API-Usage](https://github.com/ProSavage/SavageFactions/wiki/API-Usage) page.
+
+## Dev Builds
+
+You can download cutting-edge builds, which are automatically built from this source, on the [illyria Store](https://store.illyria.io/product/illyria_factions). These builds may or may not be stable, so be warned. For a detailed changelog for these builds, consult each commit's description.
