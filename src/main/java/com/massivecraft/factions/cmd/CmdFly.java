@@ -24,7 +24,6 @@ public class CmdFly extends FCommand {
 
     public static ConcurrentHashMap<String, Boolean> flyMap = new ConcurrentHashMap<String, Boolean>();
     public static BukkitTask particleTask = null;
-    public static BukkitTask flyTask = null;
 
     public CmdFly() {
         super();
@@ -39,72 +38,34 @@ public class CmdFly extends FCommand {
 
     public static void startParticles() {
 
-       particleTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
-           for (String name : flyMap.keySet()) {
-               Player player = Bukkit.getPlayer(name);
-               if (player == null) continue;
-               if (!player.isFlying()) continue;
-               if (!SavageFactions.plugin.mc17) {
-                   if (player.getGameMode() == GameMode.SPECTATOR) continue;
-               }
-
-               FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
-               if (fplayer.isVanished()) continue;
-
-               FlyParticle selectedParticle = fplayer.getSelectedParticle();
-               if (selectedParticle == null) {
-                   // This is so we can gracefully accept people flying through autoenable.
-                   selectedParticle = FlyParticle.WHITE_CLOUD;
-               }
-               selectedParticle.getData().display(player.getLocation().add(0, -0.35, 0));
-
-           }
-           if (flyMap.isEmpty()) {
-               particleTask.cancel();
-               particleTask = null;
-           }
-       }, 10L, 3L);
-    }
-
-    public static void startFlyCheck() {
-        flyTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
-            checkTaskState();
-            if (flyMap.keySet().size() != 0) {
-                for (String name : flyMap.keySet()) {
-                    if (name == null) {
-                        continue;
-                    }
-                    Player player = Bukkit.getPlayer(name);
-                    if (player == null
-                            || !player.isFlying()
-                            || player.getGameMode() == GameMode.CREATIVE
-                            || !SavageFactions.plugin.mc17 && player.getGameMode() == GameMode.SPECTATOR) {
-                        continue;
-                    }
-                    FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
-                    Faction myFaction = fPlayer.getFaction();
-                    if (myFaction.isWilderness()) {
-                        fPlayer.setFlying(false);
-                        flyMap.remove(name);
-                        continue;
-                    }
-                    if (player.hasPermission("factions.fly.bypassnearbyenemycheck") || fPlayer.checkIfNearbyEnemies()) {
-                        continue;
-                    }
-                    FLocation myFloc = new FLocation(player.getLocation());
-                    if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
-                        if (!checkBypassPerms(fPlayer, player, Board.getInstance().getFactionAt(myFloc))) {
-                            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> fPlayer.setFFlying(false, false));
-                            flyMap.remove(name);
-                        }
-                    }
-
+        particleTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
+            for (String name : flyMap.keySet()) {
+                Player player = Bukkit.getPlayer(name);
+                if (player == null) continue;
+                if (!player.isFlying()) continue;
+                if (!SavageFactions.plugin.mc17) {
+                    if (player.getGameMode() == GameMode.SPECTATOR) continue;
                 }
+
+                FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+                if (fplayer.isVanished()) continue;
+
+                FlyParticle selectedParticle = fplayer.getSelectedParticle();
+                if (selectedParticle == null) {
+                    // This is so we can gracefully accept people flying through autoenable.
+                    selectedParticle = FlyParticle.WHITE_CLOUD;
+                }
+                selectedParticle.getData().display(player.getLocation().add(0, -0.35, 0));
+
             }
-        }, 20L, 20L);
+            if (flyMap.isEmpty()) {
+                particleTask.cancel();
+                particleTask = null;
+            }
+        }, 10L, 3L);
     }
 
-    private static boolean checkBypassPerms(FPlayer fme, Player me, Faction toFac) {
+    public static boolean checkBypassPerms(FPlayer fme, Player me, Faction toFac) {
 
         if (toFac != fme.getFaction()) {
             if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness() || !me.hasPermission("factions.fly.safezone") && toFac.isSafeZone() || !me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
@@ -139,13 +100,6 @@ public class CmdFly extends FCommand {
         return faction.isSafeZone() ||
                 faction.isWarZone() ||
                 faction.isWilderness();
-    }
-
-    public static void checkTaskState() {
-        if (flyMap.isEmpty()) {
-            flyTask.cancel();
-            flyTask = null;
-        }
     }
 
     public static void disableFlight(final FPlayer fme) {
@@ -187,10 +141,10 @@ public class CmdFly extends FCommand {
             }
         }
 
-        if (context.args.size() == 0) {
-            toggleFlight(context.fPlayer.isFlying(), context.fPlayer, context);
-        } else if (context.args.size() == 1) {
+        if (context.args.size() == 1) {
             toggleFlight(context.argAsBool(0), context.fPlayer, context);
+        } else {
+            toggleFlight(context.fPlayer.isFlying(), context.fPlayer, context);
         }
     }
 
@@ -210,9 +164,6 @@ public class CmdFly extends FCommand {
                     if (Conf.enableFlyParticles) {
                         startParticles();
                     }
-                }
-                if (flyTask == null) {
-                    startFlyCheck();
                 }
             }, SavageFactions.plugin.getConfig().getLong("warmups.f-fly", 0));
     }

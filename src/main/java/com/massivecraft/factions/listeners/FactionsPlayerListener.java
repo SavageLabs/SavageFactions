@@ -24,6 +24,7 @@ import com.massivecraft.factions.zcore.util.TextUtil;
 import net.coreprotect.CoreProtect;
 import net.coreprotect.CoreProtectAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,12 +39,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 import java.util.logging.Level;
-
-import static org.bukkit.Material.*;
-import static org.bukkit.Material.OAK_FENCE_GATE;
 
 
 public class FactionsPlayerListener implements Listener {
@@ -56,6 +55,7 @@ public class FactionsPlayerListener implements Listener {
 
     public FactionsPlayerListener() {
         for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) initPlayer(player);
+        if (positionTask == null) startPositionCheck();
     }
 
     private static Boolean isSystemFaction(Faction faction) {
@@ -101,7 +101,8 @@ public class FactionsPlayerListener implements Listener {
             // This should be inverted to prevent bypasing
             if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
         } else {
-            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material)) return true; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material))
+                return true; // Item should not be used, deny.
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
@@ -489,7 +490,6 @@ public class FactionsPlayerListener implements Listener {
         CmdFly.flyMap.put(me.getName(), true);
         if (CmdFly.particleTask == null)
             if (Conf.enableFlyParticles) CmdFly.startParticles();
-        if (CmdFly.flyTask == null) CmdFly.startFlyCheck();
     }
 
     //inspect
@@ -550,16 +550,59 @@ public class FactionsPlayerListener implements Listener {
         return (result.length() == 3 ? result + "0" : result) + "/hrs ago";
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
+    public static BukkitTask positionTask = null;
+    public static Map<UUID, Location> lastLocations = new HashMap<>();
+
+    public void startPositionCheck() {
+        positionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
+            if (Bukkit.getOnlinePlayers().size() > 0) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    if (!lastLocations.containsKey(player.getUniqueId())) {
+                        lastLocations.put(player.getUniqueId(), player.getLocation());
+                        continue;
+                    }
+                    refreshPosition(player, lastLocations.get(player.getUniqueId()), player.getLocation());
+                    lastLocations.put(player.getUniqueId(), player.getLocation());
+                    if (CmdFly.flyMap.containsKey(player.getName())) {
+                        String name = player.getName();
+                        if (!player.isFlying()
+                                || player.getGameMode() == GameMode.CREATIVE
+                                || !SavageFactions.plugin.mc17 && player.getGameMode() == GameMode.SPECTATOR) {
+                            continue;
+                        }
+                        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
+                        Faction myFaction = fPlayer.getFaction();
+                        if (myFaction.isWilderness()) {
+                            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> fPlayer.setFlying(false));
+                            CmdFly.flyMap.remove(player.getName());
+                            continue;
+                        }
+                        if (player.hasPermission("factions.fly.bypassnearbyenemycheck") || fPlayer.checkIfNearbyEnemies()) {
+                            continue;
+                        }
+                        FLocation myFloc = new FLocation(player.getLocation());
+                        if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
+                            if (!CmdFly.checkBypassPerms(fPlayer, player, Board.getInstance().getFactionAt(myFloc))) {
+                                Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> fPlayer.setFFlying(false, false));
+                                CmdFly.flyMap.remove(name);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }, 5L, 5L);
+    }
+
+
+    public void refreshPosition(Player player, Location oldLocation, Location newLocation) {
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
 
         // clear visualization
-        if (event.getFrom().getBlockX() != event.getTo().getBlockX()
-                || event.getFrom().getBlockY() != event.getTo().getBlockY()
-                || event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
-            VisualizeUtil.clear(event.getPlayer());
+        if (oldLocation.getBlockX() != newLocation.getBlockX()
+                || oldLocation.getBlockY() != newLocation.getBlockY()
+                || oldLocation.getBlockZ() != newLocation.getBlockZ()) {
+            VisualizeUtil.clear(player);
             if (me.isWarmingUp()) {
                 me.clearWarmup();
                 me.msg(TL.WARMUPS_CANCELLED);
@@ -567,16 +610,16 @@ public class FactionsPlayerListener implements Listener {
         }
 
         // quick check to make sure player is moving between chunks; good performance boost
-        if (event.getFrom().getBlockX() >> 4 == event.getTo().getBlockX() >> 4
-                && event.getFrom().getBlockZ() >> 4 == event.getTo().getBlockZ() >> 4
-                && event.getFrom().getWorld() == event.getTo().getWorld()) {
+        if (oldLocation.getBlockX() >> 4 == newLocation.getBlockX() >> 4
+                && oldLocation.getBlockZ() >> 4 == newLocation.getBlockZ() >> 4
+                && oldLocation.getWorld() == newLocation.getWorld()) {
             return;
         }
 
 
         // Did we change coord?
         FLocation from = me.getLastStoodAt();
-        FLocation to = new FLocation(event.getTo());
+        FLocation to = new FLocation(player.getLocation());
 
         if (from.equals(to)) return;
 
@@ -597,14 +640,18 @@ public class FactionsPlayerListener implements Listener {
                 title = parseAllPlaceholders(title, factionTo, player);
                 String subTitle = SavageFactions.plugin.getConfig().getString("Title.Format.Subtitle").replace("{Description}", factionTo.getDescription()).replace("{Faction}", factionTo.getColorTo(me) + factionTo.getTag());
                 subTitle = parseAllPlaceholders(subTitle, factionTo, player);
+                final String finalTitle = title;
+                final String finalsubTitle = subTitle;
                 if (!SavageFactions.plugin.mc17) {
-                    if (!SavageFactions.plugin.mc18) {
-                        me.getPlayer().sendTitle(SavageFactions.plugin.color(title), SavageFactions.plugin.color(subTitle), SavageFactions.plugin.getConfig().getInt("Title.Options.FadeInTime"),
-                                SavageFactions.plugin.getConfig().getInt("Title.Options.ShowTime"),
-                                SavageFactions.plugin.getConfig().getInt("Title.Options.FadeOutTime"));
-                    } else {
-                        me.getPlayer().sendTitle(SavageFactions.plugin.color(title), SavageFactions.plugin.color(subTitle));
-                    }
+                    Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
+                        if (!SavageFactions.plugin.mc18) {
+                            me.getPlayer().sendTitle(SavageFactions.plugin.color(finalTitle), SavageFactions.plugin.color(finalsubTitle), SavageFactions.plugin.getConfig().getInt("Title.Options.FadeInTime"),
+                                    SavageFactions.plugin.getConfig().getInt("Title.Options.ShowTime"),
+                                    SavageFactions.plugin.getConfig().getInt("Title.Options.FadeOutTime"));
+                        } else {
+                            me.getPlayer().sendTitle(SavageFactions.plugin.color(finalTitle), SavageFactions.plugin.color(finalsubTitle));
+                        }
+                    }, 5);
                 }
             }
 
@@ -625,7 +672,7 @@ public class FactionsPlayerListener implements Listener {
             }
 
             if (me.getAutoClaimFor() != null) {
-                me.attemptClaim(me.getAutoClaimFor(), event.getTo(), true);
+                me.attemptClaim(me.getAutoClaimFor(), newLocation, true);
                 if (Conf.disableFlightOnFactionClaimChange) CmdFly.disableFlight(me);
             } else if (me.isAutoSafeClaimEnabled()) {
                 if (!Permission.MANAGE_SAFE_ZONE.has(player)) {
@@ -686,7 +733,8 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK)) return;
+        if (event.getAction().equals(Action.LEFT_CLICK_AIR) || event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+            return;
 
         Block block = event.getClickedBlock();
         Player player = event.getPlayer();

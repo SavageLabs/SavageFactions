@@ -229,7 +229,7 @@ public class SavageFactions extends MPlugin {
             divider();
             System.out.println("You are using an unstable version of the plugin!");
             System.out.println("This comes with risks of small bugs in newer features!");
-            System.out.println("For support head to: https://github.com/ProSavage/SavageFactions/issues");
+            System.out.println("For support head to: https://github.com/illyria-io/illyriaFactions/issues");
             divider();
         }
 
