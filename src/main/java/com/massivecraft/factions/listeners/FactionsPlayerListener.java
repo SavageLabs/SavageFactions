@@ -577,7 +577,7 @@ public class FactionsPlayerListener implements Listener {
                             CmdFly.flyMap.remove(player.getName());
                             continue;
                         }
-                        if (player.hasPermission("factions.fly.bypassnearbyenemycheck") || fPlayer.checkIfNearbyEnemies()) {
+                        if (player.hasPermission("factions.fly.bypassnearbyenemycheck") || !fPlayer.checkIfNearbyEnemies()) {
                             continue;
                         }
                         FLocation myFloc = new FLocation(player.getLocation());
