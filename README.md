@@ -1,5 +1,5 @@
 # SavageFactions
-![issues](https://img.shields.io/github/issues/illyria-io/illyriaFactions) ![forks](https://img.shields.io/github/forks/illyria-io/illyriaFactions) ![stars](https://img.shields.io/github/stars/illyria-io/illyriaFactions) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
+[![issues](https://img.shields.io/github/issues/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/issues) [![forks](https://img.shields.io/github/forks/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/network) [![stars](https://img.shields.io/github/stars/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/stargazers) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
 
 SavageFactions is a fork of the popular Factions plugin FactionsUUID. Our goal is to make the ultimate competitive factions experience.
 
