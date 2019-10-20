@@ -97,6 +97,7 @@ public class FactionsBlockListener implements Listener {
         } else if (!landOwned && access == Access.DENY) { // If land is not owned but access is set to DENY anyway
             if (shouldHurt) {
                 player.damage(Conf.actionDeniedPainAmount);
+                if ((Board.getInstance().getFactionAt(loc).getTag(myFaction)) != null)
                 me.msg(TL.ACTIONS_NOPERMISSIONPAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
             }
             me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));

@@ -42,6 +42,9 @@ import org.bukkit.event.player.*;
 import java.util.*;
 import java.util.logging.Level;
 
+import static org.bukkit.Material.*;
+import static org.bukkit.Material.OAK_FENCE_GATE;
+
 
 public class FactionsPlayerListener implements Listener {
 
@@ -482,11 +485,11 @@ public class FactionsPlayerListener implements Listener {
 
     public void enableFly(FPlayer me) {
         if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
-        me.setFlying(true);
+        me.setFFlying(true, false);
         CmdFly.flyMap.put(me.getName(), true);
-        if (CmdFly.id == -1)
+        if (CmdFly.particleTask == null)
             if (Conf.enableFlyParticles) CmdFly.startParticles();
-        if (CmdFly.flyid == -1) CmdFly.startFlyCheck();
+        if (CmdFly.flyTask == null) CmdFly.startFlyCheck();
     }
 
     //inspect
@@ -553,7 +556,9 @@ public class FactionsPlayerListener implements Listener {
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
 
         // clear visualization
-        if (event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockY() != event.getTo().getBlockY() || event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
+        if (event.getFrom().getBlockX() != event.getTo().getBlockX()
+                || event.getFrom().getBlockY() != event.getTo().getBlockY()
+                || event.getFrom().getBlockZ() != event.getTo().getBlockZ()) {
             VisualizeUtil.clear(event.getPlayer());
             if (me.isWarmingUp()) {
                 me.clearWarmup();
@@ -562,7 +567,9 @@ public class FactionsPlayerListener implements Listener {
         }
 
         // quick check to make sure player is moving between chunks; good performance boost
-        if (event.getFrom().getBlockX() >> 4 == event.getTo().getBlockX() >> 4 && event.getFrom().getBlockZ() >> 4 == event.getTo().getBlockZ() >> 4 && event.getFrom().getWorld() == event.getTo().getWorld()) {
+        if (event.getFrom().getBlockX() >> 4 == event.getTo().getBlockX() >> 4
+                && event.getFrom().getBlockZ() >> 4 == event.getTo().getBlockZ() >> 4
+                && event.getFrom().getWorld() == event.getTo().getWorld()) {
             return;
         }
 

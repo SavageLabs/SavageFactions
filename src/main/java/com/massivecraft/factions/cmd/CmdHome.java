@@ -24,6 +24,8 @@ public class CmdHome extends FCommand {
         super();
         this.aliases.add("home");
 
+        this.optionalArgs.put("home", "faction-name");
+
         this.requirements = new CommandRequirements.Builder(Permission.HOME)
                 .playerOnly()
                 .memberOnly()
@@ -42,6 +44,12 @@ public class CmdHome extends FCommand {
         if (!Conf.homesTeleportCommandEnabled) {
             context.msg(TL.COMMAND_HOME_TELEPORTDISABLED);
             return;
+        }
+
+        if (context.args.size() == 1) {
+            Faction faction = context.argAsFaction(0);
+            if (faction == null) return;
+            context.faction = faction;
         }
 
         if (!context.faction.hasHome()) {
