@@ -372,6 +372,7 @@ public class Conf {
     public static List<FlyParticle> enabledParticleEffects = new ArrayList<>();
     public static Map<FlyParticle, FlyParticleData> particleEffectSettings = new EnumMap<>(FlyParticle.class);
     public static boolean disableFlightOnFactionClaimChange = true;
+    public static boolean denyFlightIfInNoClaimingWorld = false;
 
     // Default Faction Permission Settings.
     public static boolean useLockedPermissions = false;
