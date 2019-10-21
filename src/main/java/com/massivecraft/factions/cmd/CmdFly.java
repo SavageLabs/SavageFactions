@@ -129,7 +129,7 @@ public class CmdFly extends FCommand {
         FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
         if (!checkBypassPerms(context.fPlayer, context.player, toFac)) return;
-        if (!context.player.hasPermission("factions.fly.bypassnearbyenemycheck") && context.fPlayer.checkIfNearbyEnemies()) {
+        if (context.fPlayer.checkIfNearbyEnemies()) {
             return;
         }
 

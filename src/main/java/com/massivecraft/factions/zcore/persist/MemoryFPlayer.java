@@ -1095,6 +1095,7 @@ public abstract class MemoryFPlayer implements FPlayer {
         if (me == null) {
             return false;
         }
+        if (me.hasPermission("factions.fly.bypassnearbyenemycheck")) return false;
         int radius = Conf.stealthFlyCheckRadius;
         for (Entity e : me.getNearbyEntities(radius, 255, radius)) {
             if (e == null) {
