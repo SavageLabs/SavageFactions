@@ -192,12 +192,14 @@ public class Conf {
     public static boolean territoryDenyEndermanBlocksWhenOffline = true;
     public static boolean safeZoneDenyBuild = true;
     public static boolean safeZoneDenyUseage = true;
+    public static Set<Material> safezoneAllowUseageMaterials = new HashSet<>();
     public static boolean safeZoneBlockTNT = true;
     public static boolean safeZonePreventAllDamageToPlayers = false;
     public static boolean safeZoneDenyEndermanBlocks = true;
     public static boolean safeZoneTerritoryDisablePVP = true;
     public static boolean warZoneDenyBuild = true;
     public static boolean warZoneDenyUseage = true;
+    public static Set<Material> warzoneAllowUseageMaterials = new HashSet<>();
     public static boolean warZoneBlockCreepers = false;
     public static boolean warZoneBlockFireballs = false;
     public static boolean warZoneBlockTNT = true;
@@ -573,6 +575,9 @@ public class Conf {
         safeZoneNerfedCreatureTypes.add(EntityType.WITHER);
         safeZoneNerfedCreatureTypes.add(EntityType.ZOMBIE);
 
+        warzoneAllowUseageMaterials.add(XMaterial.FISHING_ROD.parseMaterial());
+
+        safezoneAllowUseageMaterials.add(XMaterial.FISHING_ROD.parseMaterial());
         // Is this called lazy load?
         defaultFactionPermissions.put("COLEADER", new DefaultPermissions(true));
         defaultFactionPermissions.put("MODERATOR", new DefaultPermissions(true));

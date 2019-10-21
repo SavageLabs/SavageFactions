@@ -87,11 +87,11 @@ public class FactionsPlayerListener implements Listener {
             if (!justCheck) me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isSafeZone()) {
-            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player)) return true;
+            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player) || Conf.safezoneAllowUseageMaterials.contains(material)) return true;
             if (!justCheck) me.msg(TL.PLAYER_USE_SAFEZONE, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isWarZone()) {
-            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player)) return true;
+            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player) || Conf.warzoneAllowUseageMaterials.contains(material)) return true;
             if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
