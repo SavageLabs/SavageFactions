@@ -401,24 +401,6 @@ public class SavageFactions extends MPlugin {
         Conf.save();
     }
 
-    public ItemStack createItem(Material material, int amount, short datavalue, String name, List<String> lore) {
-        ItemStack item = new ItemStack(XMaterial.matchXMaterial(material.toString()).parseMaterial(), amount, datavalue);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(color(name));
-        meta.setLore(colorList(lore));
-        item.setItemMeta(meta);
-        return item;
-    }
-
-    public ItemStack createLazyItem(Material material, int amount, short datavalue, String name, String lore) {
-        ItemStack item = new ItemStack(material, amount, datavalue);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(color(SavageFactions.plugin.getConfig().getString(name)));
-        meta.setLore(colorList(SavageFactions.plugin.getConfig().getStringList(lore)));
-        item.setItemMeta(meta);
-        return item;
-    }
-
     public Economy getEcon() {
         RegisteredServiceProvider<Economy> rsp = SavageFactions.plugin.getServer().getServicesManager().getRegistration(Economy.class);
         Economy econ = rsp.getProvider();

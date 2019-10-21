@@ -8,6 +8,7 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
+import com.massivecraft.factions.zcore.util.ItemBuilder;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -184,12 +185,11 @@ public class FactionsBlockListener implements Listener {
     public void onVaultPlace(BlockPlaceEvent e) {
         if (e.getItemInHand().getType() == Material.CHEST) {
 
-            ItemStack vault = SavageFactions.plugin.createItem(
-                    Material.CHEST,
-                    1,
-                    (short) 0,
-                    SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fvault.Item.Name")),
-                    SavageFactions.plugin.colorList(SavageFactions.plugin.getConfig().getStringList("fvault.Item.Lore")));
+            ItemStack vault = new ItemBuilder(Material.CHEST)
+                    .amount(1).name(SavageFactions.plugin.getConfig().getString("fvault.Item.Name"))
+                    .lore(SavageFactions.plugin.getConfig().getStringList("fvault.Item.Lore"))
+                    .build();
+
 
             if (e.getItemInHand().isSimilar(vault)) {
                 FPlayer fme = FPlayers.getInstance().getByPlayer(e.getPlayer());

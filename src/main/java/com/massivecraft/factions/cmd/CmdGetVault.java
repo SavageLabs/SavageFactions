@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
+import com.massivecraft.factions.zcore.util.ItemBuilder;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,9 +27,11 @@ public class CmdGetVault extends FCommand {
             return;
         }
         Location vaultLocation = context.faction.getVault();
-        ItemStack vault = SavageFactions.plugin.createItem(Material.CHEST, 1, (short) 0, SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fvault.Item.Name")), SavageFactions.plugin.colorList(SavageFactions.plugin.getConfig().getStringList("fvault.Item.Lore")));
-
-
+        ItemStack vault = new ItemBuilder(Material.CHEST)
+                .amount(1)
+                .name(SavageFactions.plugin.getConfig().getString("fvault.Item.Name"))
+                .lore(SavageFactions.plugin.getConfig().getStringList("fvault.Item.Lore"))
+                .build();
         //check if vault is set
         if (vaultLocation != null) {
             context.msg(TL.COMMAND_GETVAULT_ALREADYSET);
