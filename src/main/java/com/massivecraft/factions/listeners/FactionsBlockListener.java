@@ -55,7 +55,8 @@ public class FactionsBlockListener implements Listener {
         if (otherFaction.isWilderness()) {
             if (Conf.worldGuardBuildPriority && Worldguard.getInstance().playerCanBuild(player, location)) return true;
             if (location.getWorld() != null) {
-                if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName())) return true;
+                if (!Conf.wildernessDenyBuild || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName()))
+                    return true;
             }
             if (!justCheck) me.msg(TL.ACTION_DENIED_WILDERNESS, action);
             return false;
@@ -99,9 +100,10 @@ public class FactionsBlockListener implements Listener {
             if (shouldHurt) {
                 player.damage(Conf.actionDeniedPainAmount);
                 if ((Board.getInstance().getFactionAt(loc).getTag(myFaction)) != null)
-                me.msg(TL.ACTIONS_NOPERMISSIONPAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
+                    me.msg(TL.ACTIONS_NOPERMISSIONPAIN.toString().replace("{action}", action.toString()).replace("{faction}", Board.getInstance().getFactionAt(loc).getTag(myFaction)));
             }
-            me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
+            if (myFaction.getTag(me.getFaction()) != null && action != null)
+                me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
             return false;
         } else if (access == Access.ALLOW) return true;
         me.msg(TL.ACTIONS_NOPERMISSION.toString().replace("{faction}", myFaction.getTag(me.getFaction())).replace("{action}", action.toString()));
