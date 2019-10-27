@@ -102,7 +102,7 @@ public class FactionsPlayerListener implements Listener {
             if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
         } else {
             if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material))
-                return true; // Item should not be used, deny.
+                return false; // Item should not be used, deny.
         }
 
         Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
