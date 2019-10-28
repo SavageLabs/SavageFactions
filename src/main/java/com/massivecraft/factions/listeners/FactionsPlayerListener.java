@@ -16,6 +16,7 @@ import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
+import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.MemoryFPlayer;
 import com.massivecraft.factions.zcore.util.TL;
@@ -64,7 +65,7 @@ public class FactionsPlayerListener implements Listener {
                 faction.isWilderness();
     }
 
-    public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck) {
+    public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck, PermissableAction permissableAction) {
         if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
 
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
@@ -105,8 +106,8 @@ public class FactionsPlayerListener implements Listener {
                 return false; // Item should not be used, deny.
         }
 
-        Access access = otherFaction.getAccess(me, PermissableAction.ITEM);
-        return CheckPlayerAccess(player, me, loc, otherFaction, access, PermissableAction.ITEM, false);
+        Access access = otherFaction.getAccess(me, permissableAction);
+        return CheckPlayerAccess(player, me, loc, otherFaction, access, permissableAction, false);
     }
 
     @SuppressWarnings("deprecation")
@@ -769,7 +770,7 @@ public class FactionsPlayerListener implements Listener {
             }
         }
 
-        if (type != null && !playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false)) {
+        if (type != null && !playerCanUseItemHere(player, block.getLocation(), event.getItem().getType(), false, PermissableAction.ITEM)) {
             event.setCancelled(true);
             event.setUseInteractedBlock(Event.Result.DENY);
         }
@@ -812,7 +813,7 @@ public class FactionsPlayerListener implements Listener {
         Block block = event.getBlockClicked();
         Player player = event.getPlayer();
 
-        if (!playerCanUseItemHere(player, block.getLocation(), event.getBucket(), false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getBucket(), false, PermissableAction.BUILD)) {
             event.setCancelled(true);
         }
     }
@@ -822,7 +823,7 @@ public class FactionsPlayerListener implements Listener {
         Block block = event.getBlockClicked();
         Player player = event.getPlayer();
 
-        if (!playerCanUseItemHere(player, block.getLocation(), event.getBucket(), false)) {
+        if (!playerCanUseItemHere(player, block.getLocation(), event.getBucket(), false, PermissableAction.DESTROY)) {
             event.setCancelled(true);
         }
     }
