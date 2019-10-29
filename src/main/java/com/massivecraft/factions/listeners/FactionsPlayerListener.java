@@ -668,7 +668,7 @@ public class FactionsPlayerListener implements Listener {
                         (relationTo == Relation.ALLY && me.canflyinAlly()) ||
                         (relationTo == Relation.TRUCE && me.canflyinTruce()) ||
                         (relationTo == Relation.NEUTRAL && me.canflyinNeutral() && !isSystemFaction(factionTo))) {
-                    enableFly(me);
+                    Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> enableFly(me));
                 }
             }
 
