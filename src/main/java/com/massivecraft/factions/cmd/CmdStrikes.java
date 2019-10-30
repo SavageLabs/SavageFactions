@@ -23,7 +23,6 @@ public class CmdStrikes extends FCommand {
         this.addSubCommand(cmdStrikesTake);
 
         this.requirements = new CommandRequirements.Builder(Permission.STRIKES)
-                .playerOnly()
                 .build();
     }
 

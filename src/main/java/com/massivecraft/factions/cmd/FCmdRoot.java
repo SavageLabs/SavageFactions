@@ -121,6 +121,7 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
     public CmdGrace cmdGrace = new CmdGrace();
     public CmdStrikes cmdStrikes = new CmdStrikes();
     public CmdLockSpawners cmdLockSpawners = new CmdLockSpawners();
+    public CmdPoints cmdPoints = new CmdPoints();
 
     public FCmdRoot() {
         super();
@@ -227,6 +228,7 @@ public class FCmdRoot extends FCommand implements CommandExecutor {
         this.addSubCommand(this.cmdGrace);
         this.addSubCommand(this.cmdStrikes);
         this.addSubCommand(this.cmdLockSpawners);
+        this.addSubCommand(this.cmdPoints);
 
         if (Conf.registerAltsCommand) this.addSubCommand(cmdAlts);
 

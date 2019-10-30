@@ -37,6 +37,7 @@ public enum Permission {
     HOME("home"),
     INVITE("invite"),
     JOIN("join"),
+    POINTS("points"),
     JOIN_ANY("join.any"),
     JOIN_OTHERS("join.others"),
     KICK("kick"),

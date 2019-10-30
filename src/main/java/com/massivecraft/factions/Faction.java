@@ -213,6 +213,12 @@ public interface Faction extends EconomyParticipator {
 
     void takeStrike(boolean notify);
 
+    int getPoints();
+
+    void givePoints(int points);
+
+    void takePoints(int points);
+
     long getLastDeath();
 
     void setLastDeath(long time);

@@ -545,6 +545,14 @@ public enum TL {
 	COMMAND_PERMANENTPOWER_SUCCESS("&c&l[!]&7 You&c %1$s &7%2$s."),
 	COMMAND_PERMANENTPOWER_FACTION("&c&l[!]&7 &c%1$s %2$s &7your faction"),
 
+	COMMAND_POINTS_DESCRIPTION("The base command for managing or viewing points"),
+	COMMAND_POINTS_GIVE("Allows you to give a target faction points"),
+	COMMAND_POINTS_TAKE("Allows you to take a target faction's points"),
+	COMMAND_POINTS_TOOK("&c&l[!] &7You took %1$s points from %2$s."),
+	COMMAND_POINTS_GIVEN("&c&l[!] &7You gave %1$s points to %2$s."),
+	COMMAND_POINTS_FACTIONBALANCE("&c&l[!] &7%1$s has %2$s points"),
+	COMMAND_POINTS_BALANCE("Allows you to view a faction's balance"),
+
 	COMMAND_PROMOTE_DESCRIPTION("/f promote <name>"),
 	COMMAND_PROMOTE_WRONGFACTION("&c&l[!]&7 &c%1$s&7 is &cnot&7 part of your faction."),
 	COMMAND_NOACCESS("&c&l[!]&7 You don't have access to that."),

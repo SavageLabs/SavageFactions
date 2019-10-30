@@ -71,6 +71,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	Map<String, Object> bannerSerialized;
 	private long lastDeath;
 	private int strikes;
+	private int points;
 
 	// -------------------------------------------- //
 	// Construct
@@ -614,6 +615,18 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public void takeStrike(boolean notify) {
 		this.strikes--;
 		if (notify) this.msg(TL.COMMAND_STRIKES_STRUCK, 1, strikes, Conf.maxStrikes);
+	}
+
+	public void givePoints(int points) {
+		this.points+=points;
+	}
+
+	public void takePoints(int points) {
+		this.points-=points;
+	}
+
+	public int getPoints() {
+		return this.points;
 	}
 
 
