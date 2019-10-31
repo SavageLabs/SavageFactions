@@ -512,6 +512,9 @@ public class Conf {
         territoryDenySwitchMaterials.add(XMaterial.YELLOW_SHULKER_BOX.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.SHULKER_BOX.parseMaterial());
 
+        // 1.14 Barrel is a container.
+        territoryDenySwitchMaterials.add(XMaterial.BARREL.parseMaterial());
+
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.GOLDEN_APPLE.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.APPLE.parseMaterial());
         territoryCancelAndAllowItemUseMaterial.add(XMaterial.ENCHANTED_GOLDEN_APPLE.parseMaterial());
