@@ -634,7 +634,7 @@ public class FactionsPlayerListener implements Listener {
 
 
         if (changedFaction) {
-            Bukkit.getServer().getPluginManager().callEvent(new FPlayerEnteredFactionEvent(factionTo, factionFrom, me));
+            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(new FPlayerEnteredFactionEvent(factionTo, factionFrom, me)));
             if (SavageFactions.plugin.getConfig().getBoolean("Title.Show-Title")) {
                 String title = SavageFactions.plugin.getConfig().getString("Title.Format.Title");
                 title = title.replace("{Faction}", factionTo.getColorTo(me) + factionTo.getTag());
