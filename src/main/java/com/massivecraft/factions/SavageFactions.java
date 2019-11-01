@@ -147,6 +147,8 @@ public class SavageFactions extends MPlugin {
 
         // Load Conf from disk
         Conf.load();
+        Shop.save();
+        Shop.load();
 
         new ConfigVersion.Checker().checkLevel().TakeActionIfRequired().save();
 
@@ -367,11 +369,16 @@ public class SavageFactions extends MPlugin {
     public void onDisable() {
         // only save data if plugin actually completely loaded successfully
         if (this.loadSuccessful) {
-            // Dont save, as this is kind of pointless, as the /f config command manually saves.
-            // So any edits done are saved, this way manual edits to json can go through.
 
-            // Conf.save();
+            Conf.load();
+            Conf.save();
+
+
+            Shop.load();
+            Shop.save();
         }
+
+
 
         if (AutoLeaveTask != null) {
             this.getServer().getScheduler().cancelTask(AutoLeaveTask);

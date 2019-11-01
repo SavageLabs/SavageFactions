@@ -10,7 +10,7 @@ import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.DefaultPermissions;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.persist.serializable.Item;
+import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -397,7 +397,7 @@ public class Conf {
     // -------------------------------------------- //
     // Persistance
     // -------------------------------------------- //
-    public static Item particleGUIBackgroundItem = new Item("&c ", Collections.emptyList(), XMaterial.GRAY_STAINED_GLASS_PANE, 1);
+    public static ConfigurableItem particleGUIBackgroundItem = new ConfigurableItem("&c ", Collections.emptyList(), XMaterial.GRAY_STAINED_GLASS_PANE, 1);
 
     public static boolean fchestEnabled = true;
     public static String fchestInventoryTitle = "&2&lFaction Chest";
@@ -410,30 +410,30 @@ public class Conf {
         lockedPermissions.add(PermissableAction.CHEST);
 
         particleEffectSettings.put(FlyParticle.WHITE_CLOUD, new ColorableCloud("White Cloud",
-                new Item("White Cloud", Arrays.asList("&cClick me to show a white cloud"), XMaterial.WHITE_WOOL,
+                new ConfigurableItem("White Cloud", Arrays.asList("&cClick me to show a white cloud"), XMaterial.WHITE_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 255, 255)));
         particleEffectSettings.put(FlyParticle.ORANGE_CLOUD, new ColorableCloud("Orange Cloud",
-                new Item("Orange Cloud", Arrays.asList("&cClick me to show a Orange cloud"), XMaterial.ORANGE_WOOL,
+                new ConfigurableItem("Orange Cloud", Arrays.asList("&cClick me to show a Orange cloud"), XMaterial.ORANGE_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(244, 158, 66)));
         particleEffectSettings.put(FlyParticle.GREEN_CLOUD, new ColorableCloud("Green Cloud",
-                new Item("Green Cloud", Arrays.asList("&cClick me to show a Green cloud"), XMaterial.GREEN_WOOL,
+                new ConfigurableItem("Green Cloud", Arrays.asList("&cClick me to show a Green cloud"), XMaterial.GREEN_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(65, 244, 89)));
         particleEffectSettings.put(FlyParticle.BLUE_CLOUD, new ColorableCloud("Blue Cloud",
-                new Item("Blue Cloud", Arrays.asList("&cClick me to show a Blue cloud"), XMaterial.BLUE_WOOL,
+                new ConfigurableItem("Blue Cloud", Arrays.asList("&cClick me to show a Blue cloud"), XMaterial.BLUE_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(87, 162, 242)));
         particleEffectSettings.put(FlyParticle.BLACK_CLOUD, (new ColorableCloud("Black Cloud",
-                new Item("Black Cloud", Arrays.asList("&cClick me to show a Black cloud"), XMaterial.BLACK_WOOL,
+                new ConfigurableItem("Black Cloud", Arrays.asList("&cClick me to show a Black cloud"), XMaterial.BLACK_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(0, 0, 0))));
         particleEffectSettings.put(FlyParticle.YELLOW_CLOUD, (new ColorableCloud("Yellow Cloud",
-                new Item("Yellow Cloud", Arrays.asList("&cClick me to show a Yellow cloud"), XMaterial.YELLOW_WOOL, 1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(234, 237, 66))));
+                new ConfigurableItem("Yellow Cloud", Arrays.asList("&cClick me to show a Yellow cloud"), XMaterial.YELLOW_WOOL, 1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(234, 237, 66))));
         particleEffectSettings.put(FlyParticle.PURPLE_CLOUD, (new ColorableCloud("Purple Cloud",
-                new Item("Purple Cloud", Arrays.asList("&cClick me to show a Purple cloud"), XMaterial.PURPLE_WOOL,
+                new ConfigurableItem("Purple Cloud", Arrays.asList("&cClick me to show a Purple cloud"), XMaterial.PURPLE_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(218, 99, 255))));
         particleEffectSettings.put(FlyParticle.PINK_CLOUD, (new ColorableCloud("Pink Cloud",
-                new Item("Pink Cloud", Arrays.asList("&cClick me to show a Pink cloud"), XMaterial.PINK_WOOL,
+                new ConfigurableItem("Pink Cloud", Arrays.asList("&cClick me to show a Pink cloud"), XMaterial.PINK_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
         particleEffectSettings.put(FlyParticle.RED_CLOUD, (new ColorableCloud("Red Cloud",
-                new Item("Red Cloud", Arrays.asList("&cClick me to show a Red cloud"), XMaterial.RED_WOOL,
+                new ConfigurableItem("Red Cloud", Arrays.asList("&cClick me to show a Red cloud"), XMaterial.RED_WOOL,
                         1), Particles.REDSTONE, new ParticleEffect.OrdinaryColor(255, 99, 190))));
     }
 

@@ -3,14 +3,14 @@ package com.massivecraft.factions.zcore.ffly.flyparticledata;
 
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
-import com.massivecraft.factions.zcore.persist.serializable.Item;
+import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 import org.bukkit.Location;
 
 public class ColorableCloud extends FlyParticleData {
 
     private ParticleEffect.OrdinaryColor color;
 
-    public ColorableCloud(String name, Item item, Particles particleEffect, ParticleEffect.OrdinaryColor color) {
+    public ColorableCloud(String name, ConfigurableItem item, Particles particleEffect, ParticleEffect.OrdinaryColor color) {
         super(name, item, particleEffect);
         this.color = color;
     }

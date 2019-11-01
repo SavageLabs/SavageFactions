@@ -2,6 +2,7 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.Shop;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.util.Particles.ReflectionUtils;
 import com.massivecraft.factions.zcore.util.TL;
@@ -20,6 +21,8 @@ public class CmdReload extends FCommand {
         long timeInitStart = System.currentTimeMillis();
         Conf.load();
         Conf.save();
+        Shop.load();
+        Shop.save();
         SavageFactions.plugin.reloadConfig();
         SavageFactions.plugin.loadLang();
 

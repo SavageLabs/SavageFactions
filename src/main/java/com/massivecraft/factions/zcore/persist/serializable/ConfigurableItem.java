@@ -6,14 +6,14 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class Item {
+public class ConfigurableItem {
 
     private String name;
     private List<String> lore;
     private XMaterial material;
     private int amount;
 
-    public Item(String name, List<String> lore, XMaterial material, int amount) {
+    public ConfigurableItem(String name, List<String> lore, XMaterial material, int amount) {
         this.name = name;
         this.lore = lore;
         this.material = material;

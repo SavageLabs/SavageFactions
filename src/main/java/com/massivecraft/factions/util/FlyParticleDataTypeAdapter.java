@@ -5,7 +5,7 @@ import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
-import com.massivecraft.factions.zcore.persist.serializable.Item;
+import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 import org.bukkit.Location;
 
 import java.lang.reflect.Type;
@@ -14,7 +14,7 @@ public class FlyParticleDataTypeAdapter implements JsonSerializer<FlyParticleDat
     @Override
     public FlyParticleData deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject object = jsonElement.getAsJsonObject();
-        Item particleItem = new Gson().fromJson(object.get("item").getAsString(), Item.class);
+        ConfigurableItem particleItem = new Gson().fromJson(object.get("item").getAsString(), ConfigurableItem.class);
         if (object.has("type")) {
             String[] rgb = object.get("color").getAsString().split(",");
             return new ColorableCloud(object.get("name").getAsString(), particleItem, Particles.valueOf(object.get("particle").getAsString()), new ParticleEffect.OrdinaryColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2])));
