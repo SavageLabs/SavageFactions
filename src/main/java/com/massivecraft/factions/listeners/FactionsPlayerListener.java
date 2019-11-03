@@ -16,7 +16,6 @@ import com.massivecraft.factions.util.FactionGUI;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
-import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.persist.MemoryFPlayer;
 import com.massivecraft.factions.zcore.util.TL;
@@ -578,16 +577,17 @@ public class FactionsPlayerListener implements Listener {
                             CmdFly.flyMap.remove(player.getName());
                             continue;
                         }
-                        if (fPlayer.checkIfNearbyEnemies()) {
-                            continue;
-                        }
-                        FLocation myFloc = new FLocation(player.getLocation());
-                        if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
-                            if (!CmdFly.checkBypassPerms(fPlayer, player, Board.getInstance().getFactionAt(myFloc))) {
-                                Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> fPlayer.setFFlying(false, false));
-                                CmdFly.flyMap.remove(name);
+                        Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> {
+                            if (!fPlayer.checkIfNearbyEnemies()) {
+                                FLocation myFloc = new FLocation(player.getLocation());
+                                if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
+                                    if (!CmdFly.checkBypassPerms(fPlayer, player, Board.getInstance().getFactionAt(myFloc))) {
+                                        fPlayer.setFFlying(false, false);
+                                        CmdFly.flyMap.remove(name);
+                                    }
+                                }
                             }
-                        }
+                        });
                     }
 
                 }
