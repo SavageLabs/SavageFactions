@@ -124,8 +124,7 @@ dependencies {
 }
 processResources {
     filter{
-        String line -> line.replaceAll('\\$\\{project.version\\}',
-                version)
+        String line -> line.replaceAll('\\$\\{project.version\\}', version)
     }
 
 }

@@ -777,7 +777,7 @@ public enum TL {
     COMMAND_UNBAN_TARGET_IN_OTHER_FACTION("&c%1$s is not in your faction!"),
 	COMMAND_UNBAN_NOTBANNED("&7%1$s &cisn't banned. Not doing anything."),
 	COMMAND_UNBAN_UNBANNED("&e%1$s &cunbanned &7%2$s"),
-	COMMAND_UNBAN_TARGET("&aYou were unbanned from &r%1$s"),
+	COMMAND_UNBAN_TARGET_UNBANNED("&aYou were unbanned from &r%1$s"),
 
     COMMAND_UNCLAIM_SAFEZONE_SUCCESS("Safe zone was unclaimed."),
     COMMAND_UNCLAIM_SAFEZONE_NOPERM("This is a safe zone. You lack permissions to unclaim."),
