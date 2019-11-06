@@ -368,10 +368,10 @@ public class SavageFactions extends MPlugin {
         // only save data if plugin actually completely loaded successfully
         if (this.loadSuccessful) {
             Conf.load();
-            Conf.save();
+            Conf.saveSync();
 
             Shop.load();
-            Shop.save();
+            Shop.saveSync();
         }
         this.getServer().getScheduler().cancelTasks(this);
         super.onDisable();
