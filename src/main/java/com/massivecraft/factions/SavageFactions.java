@@ -25,22 +25,20 @@ import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.fupgrades.UpgradeListener;
-import com.massivecraft.factions.zcore.util.TextUtil;
 import me.lucko.commodore.CommodoreProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import net.savagellc.trackx.TrackX;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
@@ -104,7 +102,7 @@ public class SavageFactions extends MPlugin {
     public void onEnable() {
         printLogo();
         log("==== Setup ====");
-        TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(),"com.massivecraft.factions");
+        TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(), "com.massivecraft.factions");
         // Vault dependency check.
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             log("Vault is not present, the plugin will not run properly.");
@@ -119,7 +117,7 @@ public class SavageFactions extends MPlugin {
                 mc17 = true;
                 break;
             case 8:
-                SavageFactions.plugin.log("Minecraft Version 1.8 found, Title Fadeouttime etc will not be configurable.");
+                SavageFactions.plugin.log("Minecraft Version 1.8 found, Title fade etc. will not be configurable.");
                 mc18 = true;
                 break;
             case 12:
@@ -229,9 +227,9 @@ public class SavageFactions extends MPlugin {
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {
             divider();
-            System.out.println("You are using an unstable version of the plugin!");
-            System.out.println("This comes with risks of small bugs in newer features!");
-            System.out.println("For support head to: https://github.com/illyria-io/illyriaFactions/issues");
+            System.out.println("You are using a potentially unstable version of the plugin!");
+            System.out.println("Cutting edge versions can contain bugs and untested features.");
+            System.out.println("Report any errors/bugs to: https://github.com/illyria-io/illyriaFactions/issues");
             divider();
         }
 
@@ -362,29 +360,20 @@ public class SavageFactions extends MPlugin {
                 "_\\ \\ (_| |\\ V / (_| | (_| |  __/ / | (_| | (__| |_| | (_) | | | \\__ \\\n" +
                 "\\__/\\__,_| \\_/ \\__,_|\\__, |\\___\\/   \\__,_|\\___|\\__|_|\\___/|_| |_|___/\n" +
                 "                     |___/                                           \n" +
-                "Made with love, by ProSavage & SavageLLC Team.");
+                "Made with love, by ProSavage & illyria.io Team.");
     }
 
     @Override
     public void onDisable() {
         // only save data if plugin actually completely loaded successfully
         if (this.loadSuccessful) {
-
             Conf.load();
-            Conf.save();
-
+            Conf.saveSync();
 
             Shop.load();
-            Shop.save();
+            Shop.saveSync();
         }
-
-
-
-        if (AutoLeaveTask != null) {
-            this.getServer().getScheduler().cancelTask(AutoLeaveTask);
-            AutoLeaveTask = null;
-        }
-
+        this.getServer().getScheduler().cancelTasks(this);
         super.onDisable();
     }
 
@@ -477,7 +466,8 @@ public class SavageFactions extends MPlugin {
             // The stream and foreach from the old implementation looped 2 times, by looping all players -> filtered -> looped filter and added -> filtered AGAIN at the end.
             // This loops them once and just adds, because we are filtering the arguments at the end anyways
             for (Player player : Bukkit.getServer().getOnlinePlayers()) completions.add(player.getName());
-            for (Faction faction : Factions.getInstance().getAllFactions()) completions.add(ChatColor.stripColor(faction.getTag()));
+            for (Faction faction : Factions.getInstance().getAllFactions())
+                completions.add(ChatColor.stripColor(faction.getTag()));
             completions = completions.stream().filter(m -> m.toLowerCase().startsWith(lastArg)).collect(Collectors.toList());
             return completions;
         }
@@ -621,7 +611,9 @@ public class SavageFactions extends MPlugin {
         return hookedPlayervaults;
     }
 
-    public Worldguard getWorldGuard() { return this.wg; }
+    public Worldguard getWorldGuard() {
+        return this.wg;
+    }
 
     public String getPrimaryGroup(OfflinePlayer player) {
         AtomicReference<String> primaryGroup = new AtomicReference<>();
