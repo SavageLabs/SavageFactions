@@ -3,7 +3,6 @@ package com.massivecraft.factions.addon;
 import com.massivecraft.factions.SavageFactions;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -47,15 +46,12 @@ public final class AddonManager {
 
     private File[] loadAddonFiles() {
 
-        File[] files = addonFolder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(final File file) {
-                boolean res = true;
-                if (file.isDirectory() || !file.getName().endsWith("jar")) {
-                    res = false;
-                }
-                return res;
+        File[] files = addonFolder.listFiles(file -> {
+            boolean res = true;
+            if (file.isDirectory() || !file.getName().endsWith("jar")) {
+                res = false;
             }
+            return res;
         });
 
         return files;
@@ -105,16 +101,13 @@ public final class AddonManager {
             while (allEntries.hasMoreElements()) {
 
                 JarEntry entry = (JarEntry) allEntries.nextElement();
-                if (entry == null) {
+                if (entry == null || entry.isDirectory() || entry.getName().contains("META-INF/")) {
                     continue;
                 }
-
                 String className = entry.getName().replace(".class", "");
-
+                className = className.split("/")[className.split("/").length - 1];
                 Class clazz = Class.forName(className, true, child);
-
                 if (clazz.getSuperclass().equals(FactionsAddon.class)) {
-
                     mainClass = clazz;
                     break;
 
