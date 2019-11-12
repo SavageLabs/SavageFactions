@@ -751,6 +751,12 @@ public class FactionsPlayerListener implements Listener {
             type = null;
         }
 
+        // Creeper Egg Bypass.
+        if (Conf.allowCreeperEggingChests && block.getType() == Material.CHEST && type == XMaterial.CREEPER_SPAWN_EGG.parseMaterial() && event.getPlayer().isSneaking()) {
+            return;
+        }
+
+
         // territoryBypasssProtectedMaterials totally bypass the protection system
         if (Conf.territoryBypasssProtectedMaterials.contains(block.getType())) return;
         // Do type null checks so if XMaterial has a parsing issue and fills null as a value it will not bypass.

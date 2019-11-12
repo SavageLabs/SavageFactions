@@ -4,7 +4,7 @@ plugins {
 
 }
 group 'com.massivecraft'
-version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-7'
+version '1.6.9.5-U0.2.1-RC-1.6.2-RC-2.5-RC-9'
 
 sourceCompatibility = 1.8
 
@@ -119,6 +119,7 @@ dependencies {
         exclude group: '*', module: '*'
     }
     implementation name: 'EssentialsX-2.15.0.1'
+    compile 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

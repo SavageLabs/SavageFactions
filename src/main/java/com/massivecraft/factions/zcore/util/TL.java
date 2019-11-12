@@ -194,6 +194,7 @@ public enum TL {
 	COMMAND_BANNER_MONEYTAKE("&c&l[!] $&c{amount} &7has been taken from your account."),
 	COMMAND_BANNER_SUCCESS("&c&l[!] &7You have created a &c&lWarBanner!"),
 	COMMAND_BANNER_DISABLED("&c&l[!] &7Buying&c warbanners&7 is &cdisabled!"),
+	COMMAND_BANNER_NOBANNER("&c&l[!] &7Your faction has no banner"),
 
 	COMMAND_TPBANNER_NOTSET("&c&l[!] &7Your faction &cdoes not &7have a &c&lWarBanner &7placed!"),
 	COMMAND_TPBANNER_SUCCESS("&c&l[!] &cTeleporting &7to your factions's &c&lWarBanner"),
@@ -649,6 +650,9 @@ public enum TL {
 	COMMAND_GETVAULT_RECEIVE("&cYou have recieved a faction vault!"),
 	COMMAND_GETVAULT_NOMONEY("&cYou do not have enough money"),
 	COMMAND_GETVAULT_MONEYTAKE("&c{amount} has been taken from your account"),
+
+	COMMAND_CHESTLOG_EMPTY("&cYour chest is empty."),
+	COMMAND_CHESTLOG_TOOHIGH("&cThe page is too high"),
 
 
 	COMMMAND_GRACE_TOGGLED("&c&lGrace has now been %1$s"),

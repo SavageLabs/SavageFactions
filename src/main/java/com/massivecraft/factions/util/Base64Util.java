@@ -13,7 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class InventoryUtil {
+public class Base64Util {
 
 
     public static String InventoryToString(ItemStack[] items) throws IllegalStateException {
@@ -59,11 +59,36 @@ public class InventoryUtil {
                 dataOutput.writeObject(inventory.getItem(i));
             }
 
-            // Serialize that array
             dataOutput.close();
             return Base64Coder.encodeLines(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Cannot into itemstacksz!", e);
+        }
+    }
+
+    public static ItemStack fromBase64IS(String data) {
+        try {
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+            return (ItemStack) dataInput.readObject();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static String toBase64(ItemStack itemStack) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+
+
+            dataOutput.writeObject(itemStack);
+
+            // Serialize that array
+            dataOutput.close();
+            return Base64Coder.encodeLines(outputStream.toByteArray());
+        } catch (Exception e) {
+            throw new IllegalStateException("Cannot convert to itemstacks.", e);
         }
     }
 
@@ -73,11 +98,11 @@ public class InventoryUtil {
         return toBase64(inventory);
     }
 
-    public static Inventory fromBase64(String data, String inventoryName) {
+    public static Inventory fromBase64(String data, String title) {
         try {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
-            Inventory inventory = Bukkit.getServer().createInventory(null, dataInput.readInt(), SavageFactions.plugin.color(inventoryName));
+            Inventory inventory = Bukkit.getServer().createInventory(null, dataInput.readInt(), title);
 
             // Read the serialized inventory
             for (int i = 0; i < inventory.getSize(); i++) {
