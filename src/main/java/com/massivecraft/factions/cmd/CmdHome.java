@@ -24,7 +24,7 @@ public class CmdHome extends FCommand {
         super();
         this.aliases.add("home");
 
-        this.optionalArgs.put("home", "faction-name");
+        this.optionalArgs.put("faction", "yours");
 
         this.requirements = new CommandRequirements.Builder(Permission.HOME)
                 .playerOnly()
@@ -46,10 +46,15 @@ public class CmdHome extends FCommand {
             return;
         }
 
-        if (context.args.size() == 1) {
-            Faction faction = context.argAsFaction(0);
-            if (faction == null) return;
-            context.faction = faction;
+        if (context.args.size() >= 1) {
+            Faction target = context.argAsFaction(0);
+            // the context#argsAsFaction call will tell them if the faction was null on its own :)
+            if (target == null) return;
+            context.faction = target;
+            if (target.getAccess(context.fPlayer, PermissableAction.HOME) != Access.ALLOW) {
+                context.fPlayer.msg(TL.GENERIC_FPERM_NOPERMISSION, "teleport home");
+                return;
+            }
         }
 
         if (!context.faction.hasHome()) {
@@ -83,8 +88,8 @@ public class CmdHome extends FCommand {
         // if player is not in a safe zone or their own faction territory, only allow teleport if no enemies are nearby
         if (Conf.homesTeleportAllowedEnemyDistance > 0 &&
                 !faction.isSafeZone() &&
-                (!context.fPlayer.isInOwnTerritory() || !Conf.homesTeleportIgnoreEnemiesIfInOwnTerritory) &&
-                (!Conf.homesTeleportIgnoreEnemiesIfInNoClaimingWorld || !Conf.worldsNoClaiming.stream().anyMatch(context.fPlayer.getPlayer().getWorld().getName()::equalsIgnoreCase))) {
+                (!context.fPlayer.isInOwnTerritory() || (context.fPlayer.isInOwnTerritory() && !Conf.homesTeleportIgnoreEnemiesIfInOwnTerritory))) {
+
             World w = loc.getWorld();
             double x = loc.getX();
             double y = loc.getY();
