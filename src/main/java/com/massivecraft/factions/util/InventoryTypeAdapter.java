@@ -13,8 +13,7 @@ public class InventoryTypeAdapter implements JsonSerializer<Inventory>, JsonDese
     public JsonElement serialize(Inventory inventory, Type type, JsonSerializationContext jsonSerializationContext) {
 
         JsonObject object = new JsonObject();
-        object.add("contents", new JsonPrimitive(InventoryUtil.toBase64(inventory)));
-
+        object.add("contents", new JsonPrimitive(Base64Util.toBase64(inventory)));
         return object;
     }
 
@@ -22,7 +21,7 @@ public class InventoryTypeAdapter implements JsonSerializer<Inventory>, JsonDese
     @Override
     public Inventory deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject object = jsonElement.getAsJsonObject();
-        return InventoryUtil.fromBase64(object.get("contents").getAsString(), Conf.fchestInventoryTitle);
+        return Base64Util.fromBase64(object.get("contents").getAsString(), Conf.fchestInventoryTitle);
     }
 
 

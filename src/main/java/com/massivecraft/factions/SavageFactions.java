@@ -4,6 +4,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.massivecraft.factions.addon.AddonManager;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
 import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
@@ -13,6 +14,7 @@ import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.integration.dynmap.EngineDynmap;
 import com.massivecraft.factions.listeners.*;
 import com.massivecraft.factions.struct.ChatMode;
+import com.massivecraft.factions.struct.ChestLogInfo;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.util.*;
@@ -102,7 +104,7 @@ public class SavageFactions extends MPlugin {
     public void onEnable() {
         printLogo();
         log("==== Setup ====");
-        TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(), "com.massivecraft.factions");
+
         // Vault dependency check.
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             log("Vault is not present, the plugin will not run properly.");
@@ -148,6 +150,9 @@ public class SavageFactions extends MPlugin {
         Shop.save();
         Shop.load();
 
+        if (Conf.useTrackX) {
+            TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(),"com.massivecraft.factions");
+        }
         new ConfigVersion.Checker().checkLevel().TakeActionIfRequired().save();
 
         com.massivecraft.factions.integration.Essentials.setup();
@@ -215,6 +220,8 @@ public class SavageFactions extends MPlugin {
                 new FactionsBlockListener(),
                 new UpgradeListener(),
         };
+
+        AddonManager.getAddonManagerInstance().loadAddons();
 
         for (Listener eventListener : eventsListener)
             getServer().getPluginManager().registerEvents(eventListener, this);
@@ -334,16 +341,18 @@ public class SavageFactions extends MPlugin {
         Type mapFLocToStringSetType = new TypeToken<Map<FLocation, Set<String>>>() {
         }.getType();
 
-        Type accessTypeAdatper = new TypeToken<Map<Permissable, Map<PermissableAction, Access>>>() {
+        Type accessTypeAdapter = new TypeToken<Map<Permissable, Map<PermissableAction, Access>>>() {
         }.getType();
 
         return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().enableComplexMapKeySerialization().excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.VOLATILE)
-                .registerTypeAdapter(accessTypeAdatper, new PermissionsMapTypeAdapter())
+                .registerTypeAdapter(accessTypeAdapter, new PermissionsMapTypeAdapter())
                 .registerTypeAdapter(LazyLocation.class, new MyLocationTypeAdapter())
                 .registerTypeAdapter(mapFLocToStringSetType, new MapFLocToStringSetTypeAdapter())
                 .registerTypeAdapter(Inventory.class, new InventoryTypeAdapter())
                 .registerTypeAdapter(Location.class, new LocationTypeAdapter())
                 .registerTypeAdapter(FlyParticleData.class, new FlyParticleDataTypeAdapter())
+                .registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter())
+                .registerTypeAdapter(ChestLogInfo.class, new ChestLogInfoTypeAdapter())
                 .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
     }
 

@@ -10,14 +10,18 @@ import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.DefaultPermissions;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
+import com.massivecraft.factions.zcore.persist.serializable.ConfigurableGuiItem;
 import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
+
 import java.util.*;
 
 public class Conf {
+
+    public static boolean useTrackX = true;
 
     // Region Style
     public static final transient String DYNMAP_STYLE_LINE_COLOR = "#00FF00";
@@ -236,6 +240,8 @@ public class Conf {
     public static Set<Material> territoryCancelAndAllowItemUseMaterial = new HashSet<>();
     public static Set<Material> territoryDenySwitchMaterials = new HashSet<>();
 
+    public static boolean allowCreeperEggingChests = true;
+
     // Economy settings
     public static boolean econEnabled = false;
     public static String econUniverseAccount = "";
@@ -401,6 +407,25 @@ public class Conf {
 
     public static boolean fchestEnabled = true;
     public static String fchestInventoryTitle = "&2&lFaction Chest";
+    public static String fchestLogEntriesTitle = "&bThere are currently {entries} entries in the log, viewing page {currentpage} of {maxpage}";
+    public static String fchestLogEntryFormat = "&3{entry#}. {time}, &3By: &b{user}, &3{amount}x, &b{item}";
+    public static String fchestLogPageNavigationMessage = "Page Navigation   ";
+    public static String fchestLogPageNavigationUp = "&a&l▲";
+    public static String fchestLogPageNavigationDown = "&c&l▼";
+    public static String fchestLogPreviousPageTooltip = "Go to previous page (Page {page})";
+    public static String fchestLogNextPageTooltip = "Go to next page (Page {page})";
+
+
+    public static int maxChestLogItems = 1000;
+
+    public static int guiRows = 6;
+    public static String memberGuiTitle = "&6MemberGUI";
+    public static ConfigurableGuiItem memberGUIDummyItem = new ConfigurableGuiItem("&f ", Arrays.asList(""), XMaterial.BLACK_STAINED_GLASS_PANE, 1, -1);
+    public static ConfigurableGuiItem memberGUIBackItem = new ConfigurableGuiItem("&cBack", Arrays.asList(""), XMaterial.ARROW, 1, 0);
+    public static ConfigurableGuiItem memberGUINextItem = new ConfigurableGuiItem("&cNext", Arrays.asList(""), XMaterial.ARROW, 1, 8);
+    public static String memberGUISkullDisplayName = "&c{name}";
+    public static List<String> memberGUISkullLore = Arrays.asList("&cPower: {player-power}/{maxPower}", "&7left-click to kick", "&7right-click to promote");
+
 
     // Use this to not fuck the server's disk.
     //   public static int maxChestLogItems = 1000;
