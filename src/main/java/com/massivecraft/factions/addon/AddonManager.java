@@ -84,37 +84,26 @@ public final class AddonManager {
     }
 
     private Class<?> getAddonMainClass(final File addon) {
-
         Class<?> mainClass = null;
-
         try {
-
             URLClassLoader child = new URLClassLoader(
                     new URL[]{addon.toURI().toURL()},
                     this.getClass().getClassLoader()
             );
-
             JarFile jarFile = new JarFile(addon);
-
             Enumeration allEntries = jarFile.entries();
-
             while (allEntries.hasMoreElements()) {
-
                 JarEntry entry = (JarEntry) allEntries.nextElement();
-                if (entry == null || entry.isDirectory() || entry.getName().contains("META-INF/")) {
-                    continue;
-                }
+                System.out.println(entry.getName());
+                if (!entry.getName().endsWith(".class")) continue;
                 String className = entry.getName().replace(".class", "");
                 className = className.split("/")[className.split("/").length - 1];
                 Class clazz = Class.forName(className, true, child);
                 if (clazz.getSuperclass().equals(FactionsAddon.class)) {
                     mainClass = clazz;
                     break;
-
                 }
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

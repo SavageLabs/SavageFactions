@@ -8,10 +8,7 @@ import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.iface.RelationParticipator;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.scoreboards.FTeamWrapper;
-import com.massivecraft.factions.struct.BanInfo;
-import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.struct.Relation;
-import com.massivecraft.factions.struct.Role;
+import com.massivecraft.factions.struct.*;
 import com.massivecraft.factions.util.LazyLocation;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.RelationUtil;
@@ -70,6 +67,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	Inventory chest;
 	Map<String, Object> bannerSerialized;
 	private long lastDeath;
+	List<ChestLogInfo> chestLogs = new ArrayList<>();
 	private int strikes;
 	private int points;
 
@@ -1083,6 +1081,24 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			lastPlayerLoggedOffTime = System.currentTimeMillis();
 		}
 	}
+
+
+
+	public void clearChestLogs() {
+		chestLogs.clear();
+	}
+
+	public List<ChestLogInfo> getAllChestLogs() {
+		return chestLogs;
+	}
+
+	public void logToChest(ChestLogInfo chestLogInfo) {
+		if (chestLogs.size() > Conf.maxChestLogItems) {
+			chestLogs.remove(chestLogs.remove(0));
+		}
+		chestLogs.add(chestLogInfo);
+	}
+
 
 	// used when current leader is about to be removed from the faction;
 	// promotes new leader, or disbands faction if no other members left

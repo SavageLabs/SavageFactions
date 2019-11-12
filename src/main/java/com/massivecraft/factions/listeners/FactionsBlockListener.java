@@ -28,8 +28,6 @@ import java.util.HashMap;
 
 public class FactionsBlockListener implements Listener {
 
-    public static HashMap<String, Location> bannerLocations = new HashMap<>();
-    private HashMap<String, Boolean> bannerCooldownMap = new HashMap<>();
 
     /**
      * Determine if a player has access to do a
