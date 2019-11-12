@@ -41,4 +41,8 @@ public class Shop {
     public static void save() {
         SavageFactions.plugin.persist.save(i);
     }
+
+    public static void saveSync() {
+        SavageFactions.plugin.persist.saveSync(i);
+    }
 }

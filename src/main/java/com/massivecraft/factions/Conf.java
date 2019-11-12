@@ -618,6 +618,10 @@ public class Conf {
         SavageFactions.plugin.persist.save(i);
     }
 
+    public static void saveSync() {
+        SavageFactions.plugin.persist.saveSync(i);
+    }
+
     public enum Backend {
         JSON,
         //MYSQL,  TODO add MySQL storage
