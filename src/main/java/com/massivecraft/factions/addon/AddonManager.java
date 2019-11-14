@@ -84,6 +84,9 @@ public final class AddonManager {
     }
 
     private Class<?> getAddonMainClass(final File addon) {
+
+        //Setup this so we go deep into directories
+
         Class<?> mainClass = null;
         try {
             URLClassLoader child = new URLClassLoader(
