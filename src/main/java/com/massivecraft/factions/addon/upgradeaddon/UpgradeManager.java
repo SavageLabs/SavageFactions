@@ -1,6 +1,8 @@
 package com.massivecraft.factions.addon.upgradeaddon;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 import java.util.HashSet;
@@ -17,6 +19,7 @@ public class UpgradeManager {
 
         this.plugin = plugin;
 
+
     }
 
     public static UpgradeManager getUpgradeManagerInstance() {
@@ -24,10 +27,30 @@ public class UpgradeManager {
         if (upgradeManagerInstance == null) {
 
            upgradeManagerInstance = new UpgradeManager(SavageFactions.plugin);
-
         }
 
         return upgradeManagerInstance;
+
+    }
+
+    public void initUpgrades(){
+
+        /**
+         * Waiting for new upgrade system implementation.
+         * new PowerUpgrade();
+         * new ChestUpgrade();
+         * new ExpUpgrade();
+         * new CropUpgrade();
+         * new MemberUpgrade();
+         * new SpawnerUpgrade();**/
+
+        setupUpgrades();
+
+    }
+
+    protected void setupUpgrades(){
+
+        registerUpgradesListeners();
 
     }
 
@@ -43,17 +66,42 @@ public class UpgradeManager {
 
     }
 
+    public Upgrade getUpgradeByName(String upgradeName){
+
+        Upgrade res = null;
+
+        for (Upgrade upgrade : getUpgrades()){
+
+            if (upgrade.getUpgradeName().equals(upgradeName)) {
+
+                res = upgrade;
+                break;
+
+            }
+
+        }
+
+        return res;
+
+    }
+
     private void registerUpgradesListeners(){
 
         for (Upgrade upgrade : upgrades) {
 
             for (Listener listener : upgrade.listenersToRegister()) {
 
-                plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+                if (!HandlerList.getRegisteredListeners(plugin).contains(listener)) {
+                    plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+                }
 
             }
 
         }
 
+    }
+
+    public Set<Upgrade> getUpgrades() {
+        return upgrades;
     }
 }

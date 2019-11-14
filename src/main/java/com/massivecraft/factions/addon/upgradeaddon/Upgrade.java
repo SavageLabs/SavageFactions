@@ -1,10 +1,11 @@
 package com.massivecraft.factions.addon.upgradeaddon;
 
+import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
-import org.bukkit.Material;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,20 +13,25 @@ public abstract class Upgrade {
 
     private final SavageFactions plugin = SavageFactions.plugin;
 
-    private final String upgradeName;
-    private final Integer maxLevel;
+    private String upgradeName;
+    private Integer maxLevel;
     /**
      * Map representing each level cost
      */
-    private final Map<Integer, Double> costPerLevel;
-    private final Material guiItem;
+    private Map<Integer, Integer> costPerLevel = new HashMap<>();
+    private ItemStack guiItem;
     /**
      * Position the upgrade will take in f upgrades gui.
      * If position is already occupied, next free position will be used.
      */
-    private final Integer guiPosition;
+    private Integer guiPosition;
 
-    public Upgrade(String upgradeName, Integer maxLevel, Map<Integer, Double> costPerLevel, Material guiItem, Integer guiPosition){
+    protected Upgrade(String upgradeName){
+        this.upgradeName = upgradeName;
+        setupUpgrade();
+    }
+
+    public Upgrade(String upgradeName, Integer maxLevel, Map<Integer, Integer> costPerLevel, ItemStack guiItem, Integer guiPosition){
 
         this.upgradeName = upgradeName;
 
@@ -41,7 +47,7 @@ public abstract class Upgrade {
 
         }
 
-        this.costPerLevel = Collections.unmodifiableMap(costPerLevel);
+        this.costPerLevel = costPerLevel;
 
         this.guiItem = guiItem;
 
@@ -71,15 +77,27 @@ public abstract class Upgrade {
         return maxLevel;
     }
 
-    public final Material getGuiItem() {
+    public void setMaxLevel(Integer maxLevel) {
+        this.maxLevel = maxLevel;
+    }
+
+    public final ItemStack getGuiItem() {
         return guiItem;
+    }
+
+    public void setGuiItem(ItemStack guiItem) {
+        this.guiItem = guiItem;
     }
 
     public final Integer getGuiPosition() {
         return guiPosition;
     }
 
-    public Map<Integer, Double> getCostPerLevel() {
+    public void setGuiPosition(Integer guiPosition) {
+        this.guiPosition = guiPosition;
+    }
+
+    public Map<Integer, Integer> getCostPerLevel() {
         return costPerLevel;
     }
 
@@ -88,19 +106,24 @@ public abstract class Upgrade {
      * @param level level you want to get cost
      * @return level cost
      */
-    public final Double getLevelCost(final Integer level) {
+    public final Integer getLevelCost(final Integer level) {
         for (Integer lv : getCostPerLevel().keySet()) {
             if (level.equals(lv)) return getCostPerLevel().get(lv);
         }
-        return 0.;
+        return 0;
     }
 
     private void setupUpgrade() {
 
-        // plugin.getUpgradeManagerInstance().addUpgrade(this);
-        listenersToRegister();
+        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
 
     }
+    /**
+     * Method to build the item that will appear in upgrade menu. You can return guiItem instance variable.
+     * @param faction faction
+     * @return ItemStack
+     */
+    public abstract ItemStack buildGuiItem(Faction faction);
 
     public final SavageFactions getPlugin() {
         return plugin;
