@@ -34,14 +34,12 @@ public class UpgradeManager {
 
     public void initUpgrades(){
 
-        /**
-         * Waiting for new upgrade system implementation.
-         * new PowerUpgrade();
-         * new ChestUpgrade();
-         * new ExpUpgrade();
-         * new CropUpgrade();
-         * new MemberUpgrade();
-         * new SpawnerUpgrade();**/
+         new PowerUpgrade();
+         new ChestUpgrade();
+         new ExpUpgrade();
+         new CropUpgrade();
+         new MemberUpgrade();
+         new SpawnerUpgrade();
 
         setupUpgrades();
 

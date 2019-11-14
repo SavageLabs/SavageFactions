@@ -3,7 +3,6 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.FPlayerJoinEvent;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
@@ -128,8 +127,8 @@ public class CmdJoin extends FCommand {
     }
 
     private int getFactionMemberLimit(Faction f) {
-        if (f.getUpgrade(UpgradeType.MEMBER) == 0) return Conf.factionMemberLimit;
-        return Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Members.Member-Boost.level-" + f.getUpgrade(UpgradeType.MEMBER));
+        if (f.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) == 0) return Conf.factionMemberLimit;
+        return Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "member" + ".levels." + f.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) + ".boost");
     }
 
     @Override

@@ -5,6 +5,7 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.addon.AddonManager;
+import com.massivecraft.factions.addon.upgradeaddon.UpgradeManager;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
 import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
@@ -86,6 +87,7 @@ public class SavageFactions extends MPlugin {
     private boolean mvdwPlaceholderAPIManager = false;
     private Listener[] eventsListener;
     private Worldguard wg;
+    private UpgradeManager upgradeManager;
 
     public SavageFactions() {
         plugin = this;
@@ -223,6 +225,8 @@ public class SavageFactions extends MPlugin {
         };
 
         AddonManager.getAddonManagerInstance().loadAddons();
+        upgradeManager = UpgradeManager.getUpgradeManagerInstance();
+        upgradeManager.initUpgrades();
 
         for (Listener eventListener : eventsListener)
             getServer().getPluginManager().registerEvents(eventListener, this);
@@ -643,5 +647,9 @@ public class SavageFactions extends MPlugin {
 
     public void debug(String s) {
         debug(Level.INFO, s);
+    }
+
+    public UpgradeManager getUpgradeManager() {
+        return upgradeManager;
     }
 }

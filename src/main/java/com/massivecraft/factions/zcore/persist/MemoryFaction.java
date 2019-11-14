@@ -1,6 +1,7 @@
 package com.massivecraft.factions.zcore.persist;
 
 import com.massivecraft.factions.*;
+import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.event.FactionDisbandEvent;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
@@ -15,7 +16,6 @@ import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,7 +35,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public int tnt;
 	public Location checkpoint;
 	public LazyLocation vault;
-	public HashMap<String, Integer> upgrades = new HashMap<>();
+	public Map<Upgrade, Integer> upgrades = new HashMap<>();
 	protected String id = null;
 	protected boolean peacefulExplosionsEnabled;
 	protected boolean permanent;
@@ -92,7 +92,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		this.maxVaults = Conf.defaultMaxVaults;
 		this.defaultRole = Role.RECRUIT;
 
-		resetPerms(); // Reset on new Faction so it has default values.
+		resetPerms();
 	}
 
 	public MemoryFaction(MemoryFaction old) {
@@ -376,8 +376,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		vault = newlocation;
 	}
 
-    public int getUpgrade(UpgradeType upgrade) {
-		if (upgrades.keySet().contains(upgrade.toString())) return upgrades.get(upgrade.toString());
+	public int getUpgrade(Upgrade upgrade) {
+		if (upgrades.keySet().contains(upgrade)) return upgrades.get(upgrade);
 		return 0;
 	}
 
@@ -390,22 +390,14 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
         return chest;
     }
 
-    private int getChestSize() {
-        int size = 9;
-        switch (getUpgrade(UpgradeType.CHEST)) {
-            case 1:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-1") * 9;
-                break;
-            case 2:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-2") * 9;
-                break;
-            case 3:
-                size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-3") * 9;
-                break;
-        }
-        return size;
-    }
+	private int getChestSize() {
 
+		int upgradeLevel = getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("chest"));
+
+		int chestSize = SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "chest" + ".levels." + upgradeLevel + ".boost") * 9;
+
+		return chestSize;
+	}
 
 	@Override
 	public void setChestSize(int chestSize) {
@@ -428,8 +420,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return ItemStack.deserialize(bannerSerialized);
 	}
 
-    public void setUpgrade(UpgradeType upgrade, int level) {
-		upgrades.put(upgrade.toString(), level);
+    public void setUpgrade(Upgrade upgrade, int level) {
+		upgrades.put(upgrade, level);
 	}
 
 	public Location getCheckpoint() {
