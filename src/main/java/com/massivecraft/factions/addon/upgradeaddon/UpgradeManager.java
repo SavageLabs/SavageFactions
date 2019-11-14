@@ -19,7 +19,6 @@ public class UpgradeManager {
 
         this.plugin = plugin;
 
-
     }
 
     public static UpgradeManager getUpgradeManagerInstance() {

@@ -27,4 +27,5 @@ public abstract class FactionsUpgradeAddon extends FactionsAddon {
      * @return Set of upgrades you want to load.
      */
     public abstract Set<Upgrade> upgradesToLoad();
+
 }

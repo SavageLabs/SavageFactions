@@ -20,10 +20,6 @@ public abstract class Upgrade {
      */
     private Map<Integer, Integer> costPerLevel = new HashMap<>();
     private ItemStack guiItem;
-    /**
-     * Position the upgrade will take in f upgrades gui.
-     * If position is already occupied, next free position will be used.
-     */
     private Integer guiPosition;
 
     protected Upgrade(String upgradeName){
