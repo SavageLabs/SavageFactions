@@ -26,22 +26,4 @@ public class PowerUpgrade extends FactionUpgrade {
 
     }
 
-    @Override
-    public ItemStack buildGuiItem(Faction f){
-
-        /**ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu." + this.getUpgradeName() + ".DisplayItem");
-        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
-        int level = f.getUpgrade(this);
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
-            meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{level}", level + ""))));
-            meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
-            item.setItemMeta(meta);
-        }**/
-        ItemMeta meta = getGuiItem().getItemMeta();
-
-        return getGuiItem();
-
-    }
-
 }

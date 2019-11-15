@@ -25,8 +25,4 @@ public class ExpUpgrade extends FactionUpgrade {
 
     }
 
-    @Override
-    public ItemStack buildGuiItem(Faction faction) {
-        return getGuiItem();
-    }
 }

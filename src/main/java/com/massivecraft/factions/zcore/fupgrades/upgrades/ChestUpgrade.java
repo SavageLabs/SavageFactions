@@ -25,8 +25,4 @@ public class ChestUpgrade extends FactionUpgrade {
 
     }
 
-    @Override
-    public ItemStack buildGuiItem(Faction faction) {
-        return getGuiItem();
-    }
 }

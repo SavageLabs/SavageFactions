@@ -1,7 +1,9 @@
 package com.massivecraft.factions.zcore.fupgrades;
 
+import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
+import com.massivecraft.factions.util.Placeholder;
 import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -36,6 +38,18 @@ public abstract class FactionUpgrade extends Upgrade {
         item.setItemMeta(guiItemMeta);
 
         this.setGuiItem(item);
+
+    }
+
+    @Override
+    public ItemStack buildGuiItem(Faction faction){
+
+        ItemStack item = getGuiItem();
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(SavageFactions.plugin.getConfig().getStringList("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.lore"), new Placeholder("{level}", faction.getUpgrade(this) + ""))));
+        item.setItemMeta(itemMeta);
+
+        return item;
 
     }
 

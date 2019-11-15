@@ -24,8 +24,5 @@ public class SpawnerUpgrade extends FactionUpgrade {
         return upgradeListeners;
 
     }
-    @Override
-    public ItemStack buildGuiItem(Faction faction) {
-        return getGuiItem();
-    }
+
 }
