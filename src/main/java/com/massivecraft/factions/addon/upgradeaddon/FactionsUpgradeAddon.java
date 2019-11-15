@@ -9,15 +9,16 @@ public abstract class FactionsUpgradeAddon extends FactionsAddon {
 
     public FactionsUpgradeAddon(SavageFactions plugin) {
         super(plugin);
+        loadUpgrades();
     }
 
-    public void loadUpgrades(){
+    private void loadUpgrades(){
 
-        /*
         for (Upgrade upgrade : upgradesToLoad()) {
-            plugin.getUpgradeManager().addUpgrade().(upgrade);
+            SavageFactions.plugin.getUpgradeManager().addUpgrade(upgrade);
         }
-         */
+
+        getPlugin().getUpgradeManager().setupUpgrades();
 
     }
 
@@ -26,4 +27,5 @@ public abstract class FactionsUpgradeAddon extends FactionsAddon {
      * @return Set of upgrades you want to load.
      */
     public abstract Set<Upgrade> upgradesToLoad();
+
 }
