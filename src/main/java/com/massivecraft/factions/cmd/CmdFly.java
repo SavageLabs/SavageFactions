@@ -122,10 +122,6 @@ public class CmdFly extends FCommand {
             return;
         }
 
-        if (Conf.enableFlyParticles && context.fPlayer.getSelectedParticle() == null) {
-            context.msg(TL.COMMAND_PARTICLE_NO_SELECTED_PARTICLE);
-            return;
-        }
         FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
         if (!checkBypassPerms(context.fPlayer, context.player, toFac)) return;
