@@ -1,7 +1,6 @@
 package com.massivecraft.factions.addon.upgradeaddon;
 
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 

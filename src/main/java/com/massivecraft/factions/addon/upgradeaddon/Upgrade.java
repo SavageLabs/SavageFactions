@@ -111,7 +111,7 @@ public abstract class Upgrade {
 
     private void setupUpgrade() {
 
-        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
+//        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
 
     }
     /**

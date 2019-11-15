@@ -14,11 +14,11 @@ public abstract class FactionsUpgradeAddon extends FactionsAddon {
 
     private void loadUpgrades(){
 
-        for (Upgrade upgrade : upgradesToLoad()) {
-            SavageFactions.plugin.getUpgradeManager().addUpgrade(upgrade);
-        }
-
-        getPlugin().getUpgradeManager().setupUpgrades();
+//        for (Upgrade upgrade : upgradesToLoad()) {
+//            SavageFactions.plugin.getUpgradeManager().addUpgrade(upgrade);
+//        }
+//
+//        getPlugin().getUpgradeManager().setupUpgrades();
 
     }
 
