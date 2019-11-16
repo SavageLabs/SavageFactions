@@ -25,4 +25,10 @@ public class SpawnerUpgrade extends FactionUpgrade {
 
     }
 
+    @Override
+    public void onLevelUp(Faction faction) {
+
+    }
+
+
 }

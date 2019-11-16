@@ -42,9 +42,8 @@ public class FUpgradesMenu {
                 int cost = upgrade.getLevelCost(fme.getFaction().getUpgrade(upgrade)+1);
                 if (fme.hasMoney(cost)) {
                     fme.takeMoney(cost);
-                    if (upgrade == SavageFactions.plugin.getUpgradeManager().getUpgradeByName("chest")) updateChests(fme.getFaction());
-                    if (upgrade == SavageFactions.plugin.getUpgradeManager().getUpgradeByName("power")) updateFactionPowerBoost(fme.getFaction());
                     fme.getFaction().setUpgrade(upgrade, fme.getFaction().getUpgrade(upgrade) + 1);
+                    upgrade.onLevelUp(fme.getFaction());
                     buildGUI(fme);
                 }
             }));
@@ -55,23 +54,6 @@ public class FUpgradesMenu {
         }
     }
 
-    private void updateChests(Faction faction) {
-        String invName = SavageFactions.plugin.color(Conf.fchestInventoryTitle);
-        for (HumanEntity player : faction.getChestInventory().getViewers()) {
-            if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
-                player.closeInventory();
-        }
-        int level = faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("chest"));
-        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "chest" + ".levels." + (level+1) +  ".boost");
-        faction.setChestSize(size * 9);
-    }
-
-    private void updateFactionPowerBoost(Faction f) {
-        //Pillar nueva config
-        double boost = SavageFactions.plugin.getConfig().getDouble("fupgrades.upgrades." + "power" + ".levels." + (f.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("power"))+ 1) +  ".boost");
-        if (boost < 0) return;
-        f.setPowerBoost(f.getPowerBoost() + boost);
-    }
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
@@ -85,6 +67,7 @@ public class FUpgradesMenu {
         }
         return item;
     }
+
     private ItemStack enchant(ItemStack item) {
         ItemMeta itemMeta = item.getItemMeta();
         if (itemMeta != null) {

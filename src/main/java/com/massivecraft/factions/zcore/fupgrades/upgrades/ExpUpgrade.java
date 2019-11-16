@@ -25,4 +25,9 @@ public class ExpUpgrade extends FactionUpgrade {
 
     }
 
+    @Override
+    public void onLevelUp(Faction faction) {
+
+    }
+
 }

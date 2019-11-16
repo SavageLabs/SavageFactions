@@ -61,7 +61,7 @@ public class CmdTnt extends FCommand {
                     return;
                 }
                 ItemStack tnt = new ItemStack(Material.TNT, amount);
-                if (context.faction.getTnt() + amount > SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit")) {
+                if (context.faction.getTnt() + amount > context.faction.getTntLimit()) {
                     context.msg(TL.COMMAND_TNT_EXCEEDLIMIT);
                     return;
                 }

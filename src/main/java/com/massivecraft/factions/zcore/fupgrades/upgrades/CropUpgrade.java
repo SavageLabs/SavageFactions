@@ -25,4 +25,9 @@ public class CropUpgrade extends FactionUpgrade {
 
     }
 
+    @Override
+    public void onLevelUp(Faction faction) {
+
+    }
+
 }

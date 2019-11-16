@@ -109,6 +109,11 @@ public abstract class Upgrade {
         return 0;
     }
 
+    /**
+     * Method called on level up.
+     */
+    public abstract void onLevelUp(Faction faction);
+
     private void setupUpgrade() {
 
 //        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);

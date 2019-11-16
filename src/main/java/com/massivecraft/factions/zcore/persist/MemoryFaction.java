@@ -33,6 +33,7 @@ import java.util.logging.Level;
 public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	public HashMap<Integer, String> rules = new HashMap<Integer, String>();
 	public int tnt;
+	public int tntLimit;
 	public Location checkpoint;
 	public LazyLocation vault;
 	public Map<Upgrade, Integer> upgrades = new HashMap<>();
@@ -91,6 +92,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		this.foundedDate = System.currentTimeMillis();
 		this.maxVaults = Conf.defaultMaxVaults;
 		this.defaultRole = Role.RECRUIT;
+		this.tntLimit = SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit");
 
 		resetPerms();
 	}
@@ -115,6 +117,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		invites = old.invites;
 		announcements = old.announcements;
 		this.defaultRole = Role.NORMAL;
+		tntLimit = old.tntLimit;
 
 		resetPerms(); // Reset on new Faction so it has default values.
 	}
@@ -359,6 +362,9 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return tnt;
 	}
 
+	public int getTntLimit(){ return tntLimit;}
+
+	public void setTntLimit(Integer tntLimit){ this.tntLimit = tntLimit; }
 
 	public Location getVault() {
 		if (vault == null) {

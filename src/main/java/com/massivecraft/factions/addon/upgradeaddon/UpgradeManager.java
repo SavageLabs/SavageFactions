@@ -1,6 +1,7 @@
 package com.massivecraft.factions.addon.upgradeaddon;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
@@ -84,6 +85,8 @@ public class UpgradeManager {
     private void registerUpgradesListeners(){
 
         for (Upgrade upgrade : upgrades) {
+
+            if (upgrade.listenersToRegister() == null) continue;
 
             for (Listener listener : upgrade.listenersToRegister()) {
 
