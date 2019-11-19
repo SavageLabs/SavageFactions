@@ -554,7 +554,7 @@ public class FactionsPlayerListener implements Listener {
     public static Map<UUID, Location> lastLocations = new HashMap<>();
 
     public void startPositionCheck() {
-        positionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
+        positionTask = Bukkit.getScheduler().runTaskTimer(SavageFactions.plugin, () -> {
             if (Bukkit.getOnlinePlayers().size() > 0) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (!lastLocations.containsKey(player.getUniqueId())) {
@@ -592,7 +592,7 @@ public class FactionsPlayerListener implements Listener {
 
                 }
             }
-        }, 5L, 5L);
+        }, 5L, 10L);
     }
 
 
