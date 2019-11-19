@@ -88,7 +88,7 @@ public class CmdDisband extends FCommand {
 				context.player.sendMessage(String.valueOf(TL.COMMAND_DISBAND_PLAYER));
 			}
 			faction.disband(context.player, PlayerDisbandReason.COMMAND);
-			if (!context.fPlayer.canFlyAtLocation(new FLocation(context.fPlayer))) {
+			if (!context.fPlayer.canFlyAtLocation()) {
 				UtilFly.setFly(context.fPlayer, false, false, false);
 			}
 		}
