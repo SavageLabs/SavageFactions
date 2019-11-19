@@ -23,8 +23,6 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-
 
 public class FactionsBlockListener implements Listener {
 

@@ -58,12 +58,6 @@ public class FactionsPlayerListener implements Listener {
         if (positionTask == null) startPositionCheck();
     }
 
-    private static Boolean isSystemFaction(Faction faction) {
-        return faction.isSafeZone() ||
-                faction.isWarZone() ||
-                faction.isWilderness();
-    }
-
     public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck, PermissableAction permissableAction) {
         if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
 
@@ -72,7 +66,6 @@ public class FactionsPlayerListener implements Listener {
 
         FLocation loc = new FLocation(location);
         Faction otherFaction = Board.getInstance().getFactionAt(loc);
-        Faction myFaction = me.getFaction();
 
         // We handle ownership protection below.
 
@@ -109,7 +102,6 @@ public class FactionsPlayerListener implements Listener {
         return CheckPlayerAccess(player, me, loc, otherFaction, access, permissableAction, false);
     }
 
-    @SuppressWarnings("deprecation")
     public static boolean canPlayerUseBlock(Player player, Block block, boolean justCheck) {
         if (Conf.playersWhoBypassAllProtection.contains(player.getName()))
             return true;
@@ -486,6 +478,7 @@ public class FactionsPlayerListener implements Listener {
 
     public void enableFly(FPlayer me) {
         if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
+        if (!me.canFlyAtLocation()) return;
         me.setFFlying(true, false);
         CmdFly.flyMap.put(me.getName(), true);
         if (CmdFly.particleTask == null)
@@ -657,19 +650,8 @@ public class FactionsPlayerListener implements Listener {
             }
 
             // enable fly :)
-            if (SavageFactions.plugin.factionsFlight && me.hasFaction() && !me.isFlying()) {
-                if (factionTo == me.getFaction()) enableFly(me);
-                // bypass checks
-                Relation relationTo = factionTo.getRelationTo(me);
-                if ((factionTo.isWilderness() && me.canflyinWilderness()) ||
-                        (factionTo.isWarZone() && me.canflyinWarzone()) ||
-                        (factionTo.isSafeZone() && me.canflyinSafezone()) ||
-                        (relationTo == Relation.ENEMY && me.canflyinEnemy()) ||
-                        (relationTo == Relation.ALLY && me.canflyinAlly()) ||
-                        (relationTo == Relation.TRUCE && me.canflyinTruce()) ||
-                        (relationTo == Relation.NEUTRAL && me.canflyinNeutral() && !isSystemFaction(factionTo))) {
-                    Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> enableFly(me));
-                }
+            if (!me.isFlying()) {
+                enableFly(me);
             }
 
             if (me.getAutoClaimFor() != null) {
@@ -872,18 +854,18 @@ public class FactionsPlayerListener implements Listener {
         FTeamWrapper.applyUpdatesLater(event.getFaction());
     }
 
-    private static class InteractAttemptSpam {
-        private int attempts = 0;
-        private long lastAttempt = System.currentTimeMillis();
+    // private static class InteractAttemptSpam {
+    //     private int attempts = 0;
+    //     private long lastAttempt = System.currentTimeMillis();
 
-        // returns the current attempt count
-        public int increment() {
-            long now = System.currentTimeMillis();
-            if (now > lastAttempt + 2000) attempts = 1;
-            else attempts++;
+    //     // returns the current attempt count
+    //     public int increment() {
+    //         long now = System.currentTimeMillis();
+    //         if (now > lastAttempt + 2000) attempts = 1;
+    //         else attempts++;
 
-            lastAttempt = now;
-            return attempts;
-        }
-    }
+    //         lastAttempt = now;
+    //         return attempts;
+    //     }
+    // }
 }

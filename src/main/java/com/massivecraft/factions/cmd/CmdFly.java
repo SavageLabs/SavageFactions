@@ -11,12 +11,9 @@ import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CmdFly extends FCommand {

@@ -3,7 +3,6 @@ package com.massivecraft.factions;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.iface.RelationParticipator;
-import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.BanInfo;
 import com.massivecraft.factions.struct.ChestLogInfo;
 import com.massivecraft.factions.struct.Relation;

@@ -4,7 +4,6 @@ import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
-import org.bukkit.command.Command;
 
 public class CmdDelFWarp extends FCommand {
 
