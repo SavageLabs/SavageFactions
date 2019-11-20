@@ -400,6 +400,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 		int upgradeLevel = getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("chest"));
 
+		if (upgradeLevel == 0) return 9;
+
 		int chestSize = SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "chest" + ".levels." + upgradeLevel + ".boost") * 9;
 
 		return chestSize;

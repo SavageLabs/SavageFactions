@@ -669,102 +669,232 @@ fupgrades:
   upgrades:
     chest:
       displayitem:
-        slot: 2
-        type: DIAMOND
-        name: "Hola"
+        slot: 23
+        type: CHEST
+        name: '&e&lUpgrade Chest Size'
         lore:
-          - "Hola"
+          - '&7Increased Faction Chest Size.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f2 Rows'
+          - '&7  - Cost: $1,000,000'
+          - '&f&l* &7Level 2 - &f3 Rows'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 3 - &f4 Rows'
+          - '&7  - Cost: $3,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #Default chest size is 1 row, boost means how many rows /f chest will have.
+      #If you set boost to 2, /f chest will have 2 rows.
       levels:
         1:
-          cost: 5000
+          cost: 500000
           boost: 2
         2:
-          cost: 500
+          cost: 1000000
+          boost: 3
+        3:
+          cost: 1500000
+          boost: 4
+        4:
+          cost: 15000000
           boost: 5
     crop:
       displayitem:
-        slot: 4
-        type: EMERALD
-        name: "Hola2"
+        slot: 9
+        type: WHEAT
+        name: '&e&lUpgrade Growth Speed'
         lore:
-          - "Hola2"
+          - '&7Increase growth speed of crops in claims.'
+          - '&7&o(Chance to Grow Two Levels)'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f10% Chance'
+          - '&7  - Cost: $250,000'
+          - '&f&l* &7Level 2 - &f20% Chance'
+          - '&7  - Cost: $500,000'
+          - '&f&l* &7Level 3 - &f30% Chance'
+          - '&7  - Cost: $750,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
         1:
-          cost: 5000
-          boost: 2
+          cost: 50000
+          boost: 10
         2:
-          cost: 500
-          boost: 5
+          cost: 100000
+          boost: 20
+        3:
+          cost: 150000
+          boost: 30
     exp:
       displayitem:
-        slot: 6
-        type: DIAMOND
-        name: "Hola3"
+        slot: 11
+        type: EXP_BOTTLE
+        name: '&e&lUpgrade EXP Drop Rate'
         lore:
-          - "Hola3"
+          - '&7Increased Vanilla XP gained from monsters.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f1.5x Multiplier'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 2 - &f2.0x Multiplier'
+          - '&7  - Cost: $4,000,000'
+          - '&f&l* &7Level 3 - &f2.5x Multiplier'
+          - '&7  - Cost: $6,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
         1:
           cost: 5000
-          boost: 2
+          boost: 1.5
         2:
-          cost: 500
-          boost: 5
+          cost: 50000
+          boost: 2
+        3:
+          cost: 100000
+          boost: 2.5
+        4:
+          cost: 2000000
+          boost: 3
     member:
       displayitem:
-        slot: 8
-        type: DIAMOND
-        name: "Hola4"
+        slot: 15
+        type: PLAYER_HEAD
+        name: '&e&lFaction Member Limit'
         lore:
-          - "Hola4"
+          - '&7Increase the max amount of faction members'
+          - '&7your faction can have!'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &a+5 Member Limit'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 2 - &a+5 Member Limit'
+          - '&7  - Cost: $4,000,000'
+          - '&f&l* &7Level 3 - &a+5 Member Limit'
+          - '&7  - Cost: $6,000,000'
+          - '&7You SHOULD edit this in config.yml FILE!'
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
         1:
-          cost: 5000
-          boost: 2
-        2:
           cost: 500
-          boost: 5
+          boost: 10
+        2:
+          cost: 5000
+          boost: 20
+        3:
+          cost: 50000
+          boost: 20
+        4:
+          cost: 500000
+          boost: 30
+        5:
+          cost: 5000000
+          boost: 30
+        6:
+          cost: 50000000
+          boost: 40
     power:
       displayitem:
-        slot: 10
-        type: DIAMOND
-        name: "Hola5"
+        slot: 17
+        type: NETHER_STAR
+        name: '&e&lFaction Power Boost'
         lore:
-          - "Hola"
+          - '&7Gain a permanent power boost for each level.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &a+20 Power'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 2 - &a+20 Power'
+          - '&7  - Cost: $4,000,000'
+          - '&f&l* &7Level 3 - &a+20 Power'
+          - '&7  - Cost: $6,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
         1:
-          cost: 5000
-          boost: 2
+          cost: 2000000
+          boost: 20
         2:
-          cost: 500
-          boost: 5
+          cost: 4000000
+          boost: 20
+        3:
+          cost: 6000000
+          boost: 20
     spawner:
       displayitem:
-        slot: 12
-        type: DIAMOND
-        name: "Hola6"
+        slot: 13
+        type: MOB_SPAWNER
+        name: '&e&lUpgrade Spawn Rate'
         lore:
-          - "Hola"
+          - '&7Decreased mob spawner delay in claims.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f10% Lower Delay'
+          - '&7  - Cost: $1,000,000'
+          - '&f&l* &7Level 2 - &f20% Lower Delay'
+          - '&7  - Cost: $2,000,000'
+          - '&f&l* &7Level 3 - &f30% Lower Delay'
+          - '&7  - Cost: $3,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
+      # This is a Percentage so .10 means 10% lowered spawner delay!
         1:
-          cost: 5000
-          boost: 2
+          cost: 50000
+          boost: 0.10
         2:
-          cost: 500
-          boost: 5
-    tnt:
+          cost: 500000
+          boost: 0.30
+    tntbank:
       displayitem:
-        slot: 14
+        slot: 21
         type: TNT
-        name: "Hola7"
+        name: '&e&lUpgrade TNT Bank'
         lore:
-          - "Hola"
+          - '&7Upgrade TNT bank limit..'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f+5000 TNT'
+          - '&7  - Cost: $1,000,000'
+          - '&f&l* &7Level 2 - &f+10000 TNT'
+          - '&7  - Cost: $2,000,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
       levels:
         1:
-          cost: 5000
-          boost: 2
+          cost: 1000000
+          boost: 5000
         2:
-          cost: 500
-          boost: 5
+          cost: 2000000
+          boost: 10000
   MainMenu:
     Title: '&c&l{faction}''s Upgrade Menu DEBUG'
     rows: 4
@@ -773,7 +903,7 @@ fupgrades:
       Type: STAINED_GLASS_PANE
       Amount: 1
       Lore:
-      - ''
+        - ''
       slots:
         - 0
         - 1
@@ -802,180 +932,6 @@ fupgrades:
         - 24
         - 25
         - 26
-    Crops:
-      Crop-Boost:
-        level-1: 10
-        level-2: 20
-        level-3: 30
-      Cost:
-        level-1: 250000
-        level-2: 500000
-        level-3: 750000
-      DisplayItem:
-        Name: '&e&lUpgrade Growth Speed'
-        Type: WHEAT
-        Lore:
-          - '&7Increase growth speed of crops in claims.'
-          - '&7&o(Chance to Grow Two Levels)'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &f10% Chance'
-          - '&7  - Cost: $250,000'
-          - '&f&l* &7Level 2 - &f20% Chance'
-          - '&7  - Cost: $500,000'
-          - '&f&l* &7Level 3 - &f30% Chance'
-          - '&7  - Cost: $750,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 9
-    EXP:
-      EXP-Boost:
-        level-1: 1.5
-        level-2: 2.0
-        level-3: 2.5
-      Cost:
-        level-1: 2000000
-        level-2: 4000000
-        level-3: 6000000
-      DisplayItem:
-        Name: '&e&lUpgrade EXP Drop Rate'
-        Type: EXP_BOTTLE
-        Lore:
-          - '&7Increased Vanilla XP gained from monsters.'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &f1.5x Multiplier'
-          - '&7  - Cost: $2,000,000'
-          - '&f&l* &7Level 2 - &f2.0x Multiplier'
-          - '&7  - Cost: $4,000,000'
-          - '&f&l* &7Level 3 - &f2.5x Multiplier'
-          - '&7  - Cost: $6,000,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 11
-    Spawners:
-      Spawner-Boost:
-        # This is a Percentage so .10 means 10% lowered spawner delay!
-        level-1: 0.10
-        level-2: 0.20
-        level-3: 0.30
-      Cost:
-        level-1: 1000000
-        level-2: 2000000
-        level-3: 3000000
-      DisplayItem:
-        Name: '&e&lUpgrade Spawn Rate'
-        Type: MOB_SPAWNER
-        Lore:
-          - '&7Decreased mob spawner delay in claims.'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &f10% Lower Delay'
-          - '&7  - Cost: $1,000,000'
-          - '&f&l* &7Level 2 - &f20% Lower Delay'
-          - '&7  - Cost: $2,000,000'
-          - '&f&l* &7Level 3 - &f30% Lower Delay'
-          - '&7  - Cost: $3,000,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 13
-    Chest:
-      Chest-Size:
-        # This is rows
-        level-1: 2
-        level-2: 3
-        level-3: 4
-      Cost:
-        level-1: 1000000
-        level-2: 2000000
-        level-3: 3000000
-      DisplayItem:
-        Name: '&e&lUpgrade Faction Chest Size'
-        Type: CHEST
-        Lore:
-          - '&7Increased Faction Chest Size.'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &f2 Rows'
-          - '&7  - Cost: $1,000,000'
-          - '&f&l* &7Level 2 - &f3 Rows'
-          - '&7  - Cost: $2,000,000'
-          - '&f&l* &7Level 3 - &f4 Rows'
-          - '&7  - Cost: $3,000,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 22
-    Members:
-      Member-Boost:
-        # Member boost is added to Conf.json value for FactionMemberLimit
-        # IE: FactionMemberLimit = 15, Level 3 Member Upgrade limit = 30
-        level-1: 5
-        level-2: 10
-        level-3: 15
-      Cost:
-        level-1: 2000000
-        level-2: 4000000
-        level-3: 6000000
-      DisplayItem:
-        Name: '&e&lFaction Member Limit'
-        Type: PLAYER_HEAD
-        Lore:
-          - '&7Increase the max amount of faction members'
-          - '&7your faction can have!'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &a+5 Member Limit'
-          - '&7  - Cost: $2,000,000'
-          - '&f&l* &7Level 2 - &a+5 Member Limit'
-          - '&7  - Cost: $4,000,000'
-          - '&f&l* &7Level 3 - &a+5 Member Limit'
-          - '&7  - Cost: $6,000,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 15
-    Power:
-      Power-Boost:
-        level-1: 20
-        level-2: 20
-        level-3: 20
-      Cost:
-        level-1: 2000000
-        level-2: 4000000
-        level-3: 6000000
-      DisplayItem:
-        Name: '&e&lFaction Power Boost'
-        Type: NETHER_STAR
-        Lore:
-          - '&7Gain a permanent power boost for each level.'
-          - ''
-          - '&e&lTier'
-          - '&f&l* &7Current Level: &n{level}'
-          - ''
-          - '&e&lPerks'
-          - '&f&l* &7Level 1 - &a+20 Power'
-          - '&7  - Cost: $2,000,000'
-          - '&f&l* &7Level 2 - &a+20 Power'
-          - '&7  - Cost: $4,000,000'
-          - '&f&l* &7Level 3 - &a+20 Power'
-          - '&7  - Cost: $6,000,000'
-          - ''
-          - '&e&lClick to &nUnlock'
-        Slot: 17
 ############################################################
 # +------------------------------------------------------+ #
 # |                  Faction Banners                     | #
