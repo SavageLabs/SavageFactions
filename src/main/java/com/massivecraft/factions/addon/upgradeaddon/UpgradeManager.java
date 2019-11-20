@@ -5,7 +5,9 @@ import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class UpgradeManager {
@@ -14,6 +16,7 @@ public class UpgradeManager {
 
     private Set<Upgrade> upgrades = new HashSet<>();
     private SavageFactions plugin;
+    private List<Listener> listenerList = new ArrayList<>();
 
     private UpgradeManager(final SavageFactions plugin){
 
@@ -40,6 +43,7 @@ public class UpgradeManager {
          new CropUpgrade();
          new MemberUpgrade();
          new SpawnerUpgrade();
+         new TntUpgrade();
 
         setupUpgrades();
 
@@ -89,9 +93,9 @@ public class UpgradeManager {
             if (upgrade.listenersToRegister() == null) continue;
 
             for (Listener listener : upgrade.listenersToRegister()) {
-
-                if (!HandlerList.getRegisteredListeners(plugin).contains(listener)) {
+                if (!listenerList.contains(listener)) {
                     plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+                    listenerList.add(listener);
                 }
 
             }

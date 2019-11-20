@@ -31,9 +31,11 @@ public class FUpgradesMenu {
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> GUIItems = new ArrayList<>();
         ItemStack dumby = buildDummyItem();
+        System.out.println("DEBUG 1");
         // Fill background of GUI with dumbyitem & replace GUI assets after
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
         for (Upgrade upgrade : SavageFactions.plugin.getUpgradeManager().getUpgrades()) {
+            System.out.println("DEBUG DE CUANTAS UPGRADES HAY");
             if (upgrade.getGuiPosition() == -1) continue;
             GUIItems.set(upgrade.getGuiPosition(), new GuiItem(upgrade.buildGuiItem(fplayer.getFaction()), e -> {
                 e.setCancelled(true);

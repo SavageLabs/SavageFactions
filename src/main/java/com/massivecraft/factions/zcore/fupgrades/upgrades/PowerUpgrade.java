@@ -19,12 +19,7 @@ public class PowerUpgrade extends FactionUpgrade {
 
     @Override
     public Set<Listener> listenersToRegister() {
-
-        Set<Listener> upgradeListeners = new HashSet<>();
-        upgradeListeners.add(new UpgradeListener());
-
-        return upgradeListeners;
-
+        return null;
     }
 
     @Override

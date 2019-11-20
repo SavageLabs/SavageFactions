@@ -221,7 +221,6 @@ public class SavageFactions extends MPlugin {
                 new FactionsEntityListener(),
                 new FactionsExploitListener(),
                 new FactionsBlockListener(),
-                new UpgradeListener(),
         };
 
         AddonManager.getAddonManagerInstance().loadAddons();

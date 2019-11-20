@@ -666,8 +666,107 @@ fvault:
 ############################################################
 fupgrades:
   Enabled: true
+  upgrades:
+    chest:
+      displayitem:
+        slot: 2
+        type: DIAMOND
+        name: "Hola"
+        lore:
+          - "Hola"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    crop:
+      displayitem:
+        slot: 4
+        type: EMERALD
+        name: "Hola2"
+        lore:
+          - "Hola2"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    exp:
+      displayitem:
+        slot: 6
+        type: DIAMOND
+        name: "Hola3"
+        lore:
+          - "Hola3"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    member:
+      displayitem:
+        slot: 8
+        type: DIAMOND
+        name: "Hola4"
+        lore:
+          - "Hola4"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    power:
+      displayitem:
+        slot: 10
+        type: DIAMOND
+        name: "Hola5"
+        lore:
+          - "Hola"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    spawner:
+      displayitem:
+        slot: 12
+        type: DIAMOND
+        name: "Hola6"
+        lore:
+          - "Hola"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
+    tnt:
+      displayitem:
+        slot: 14
+        type: TNT
+        name: "Hola7"
+        lore:
+          - "Hola"
+      levels:
+        1:
+          cost: 5000
+          boost: 2
+        2:
+          cost: 500
+          boost: 5
   MainMenu:
-    Title: '&c&l{faction}''s Upgrade Menu'
+    Title: '&c&l{faction}''s Upgrade Menu DEBUG'
     rows: 4
     DummyItem:
       Name: '&f'
