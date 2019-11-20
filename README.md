@@ -35,9 +35,7 @@ If you would like to use the plugin as a dependency in your project, you can use
     <id>illyria</id>
     <url>https://nexus.illyria.io/repository/maven-public/</url>        
  </repository>
- 
- 
- 
+
 <dependency>
     <groupId>com.massivecraft</groupId>
     <artifactId>SavageFactions</artifactId>
