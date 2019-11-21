@@ -29,9 +29,15 @@ public class UpgradeListener implements Listener {
         FLocation floc = new FLocation(e.getEntity().getLocation());
         Faction faction = Board.getInstance().getFactionAt(floc);
         if (!faction.isWilderness()) {
-            int level = faction.getUpgrade(UpgradeType.EXP);
-            double multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.EXP.EXP-Boost.level-" + level);
-            if (level != 0 && multiplier > 0.0) spawnMoreExp(e, multiplier);
+            int level = faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("exp"));
+            double multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.upgrades." + "exp" + ".levels." + faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("exp")) + ".boost");
+           System.out.println("el multiplier es de " + multiplier);
+            if (level != 0 && multiplier > 0.0) //spawnMoreExp(e, multiplier);
+            {
+                double newExp = e.getDroppedExp() * multiplier;
+                e.setDroppedExp((int) newExp);
+                System.out.println("La nueva xp es" + newExp);
+            }
         }
     }
 
@@ -45,9 +51,9 @@ public class UpgradeListener implements Listener {
         FLocation floc = new FLocation(e.getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
         if (!factionAtLoc.isWilderness()) {
-            int level = factionAtLoc.getUpgrade(UpgradeType.SPAWNER);
+            int level = factionAtLoc.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("spawner"));
             if (level == 0) return;
-            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Spawners.Spawner-Boost.level-" + level));
+            lowerSpawnerDelay(e, SavageFactions.plugin.getConfig().getDouble("fupgrades.upgrades." + "exp" + ".levels." + level + ".boost"));
         }
     }
 
@@ -61,8 +67,8 @@ public class UpgradeListener implements Listener {
         FLocation floc = new FLocation(e.getBlock().getLocation());
         Faction factionAtLoc = Board.getInstance().getFactionAt(floc);
         if (!factionAtLoc.isWilderness()) {
-            int level = factionAtLoc.getUpgrade(UpgradeType.CROP);
-            int chance = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Crops.Crop-Boost.level-" + level);
+            int level = factionAtLoc.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("crop"));
+            int chance = SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "crop" + ".levels." + level + ".boost");
             if (level == 0 || chance == 0) return;
             int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
             if (randomNum <= chance) growCrop(e);

@@ -35,6 +35,7 @@ public class CmdTnt extends FCommand {
 
         if (context.args.size() == 2) {
             if (context.args.get(0).equalsIgnoreCase("add") || context.args.get(0).equalsIgnoreCase("a")) {
+
                 try {
                     Integer.parseInt(context.args.get(1));
                 } catch (NumberFormatException e) {
@@ -61,7 +62,7 @@ public class CmdTnt extends FCommand {
                     return;
                 }
                 ItemStack tnt = new ItemStack(Material.TNT, amount);
-                if (context.faction.getTnt() + amount > SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit")) {
+                if (context.faction.getTnt() + amount > context.faction.getTntLimit()) {
                     context.msg(TL.COMMAND_TNT_EXCEEDLIMIT);
                     return;
                 }
@@ -70,7 +71,8 @@ public class CmdTnt extends FCommand {
 
                 context.faction.addTnt(amount);
                 context.msg(TL.COMMAND_TNT_DEPOSIT_SUCCESS);
-                context.fPlayer.sendMessage(SavageFactions.plugin.color(TL.COMMAND_TNT_AMOUNT.toString().replace("{amount}", context.fPlayer.getFaction().getTnt() + "")));
+                context.fPlayer.sendMessage(SavageFactions.plugin.color(TL.COMMAND_TNT_AMOUNT.toString().replace("{amount}", context.faction.getTnt() + "").replace("{maxAmount}", context.faction.getTntLimit() + "")));
+
                 return;
 
             }
@@ -112,7 +114,7 @@ public class CmdTnt extends FCommand {
             context.msg(TL.GENERIC_ARGS_TOOFEW);
             context.msg(context.args.get(0).equalsIgnoreCase("take") || context.args.get(0).equalsIgnoreCase("t") ? TL.COMMAND_TNT_TAKE_DESCRIPTION : TL.COMMAND_TNT_ADD_DESCRIPTION);
         }
-        context.sendMessage(TL.COMMAND_TNT_AMOUNT.toString().replace("{amount}", context.faction.getTnt() + ""));
+        context.sendMessage(TL.COMMAND_TNT_AMOUNT.toString().replace("{amount}", context.faction.getTnt() + "").replace("{maxAmount}", context.faction.getTntLimit() + ""));
     }
 
 

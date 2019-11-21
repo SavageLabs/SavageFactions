@@ -4,10 +4,13 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.*;
+import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
 import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,20 +31,21 @@ public class FUpgradesMenu {
         PaginatedPane pane = new PaginatedPane(0, 0, 9, gui.getRows());
         List<GuiItem> GUIItems = new ArrayList<>();
         ItemStack dumby = buildDummyItem();
+        System.out.println("DEBUG 1");
         // Fill background of GUI with dumbyitem & replace GUI assets after
         for (int x = 0; x <= (gui.getRows() * 9) - 1; x++) GUIItems.add(new GuiItem(dumby, e ->  e.setCancelled(true)));
-        for (UpgradeType value : UpgradeType.values()) {
-            if (value.getSlot() == -1) continue;
-            GUIItems.set(value.getSlot(), new GuiItem(value.buildAsset(fplayer.getFaction()), e -> {
+        for (Upgrade upgrade : SavageFactions.plugin.getUpgradeManager().getUpgrades()) {
+            System.out.println("DEBUG DE CUANTAS UPGRADES HAY");
+            if (upgrade.getGuiPosition() == -1) continue;
+            GUIItems.set(upgrade.getGuiPosition(), new GuiItem(upgrade.buildGuiItem(fplayer.getFaction()), e -> {
                 e.setCancelled(true);
                 FPlayer fme = FPlayers.getInstance().getByPlayer((Player) e.getWhoClicked());
-                if (fme.getFaction().getUpgrade(value) == value.getMaxLevel()) return;
-                int cost = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu." + value.toString() + ".Cost.level-" + (fme.getFaction().getUpgrade(value) + 1));
+                if (fme.getFaction().getUpgrade(upgrade) == upgrade.getMaxLevel()) return;
+                int cost = upgrade.getLevelCost(fme.getFaction().getUpgrade(upgrade)+1);
                 if (fme.hasMoney(cost)) {
                     fme.takeMoney(cost);
-                    if (value == UpgradeType.CHEST) updateChests(fme.getFaction());
-                    if (value == UpgradeType.POWER) updateFactionPowerBoost(fme.getFaction());
-                    fme.getFaction().setUpgrade(value, fme.getFaction().getUpgrade(value) + 1);
+                    fme.getFaction().setUpgrade(upgrade, fme.getFaction().getUpgrade(upgrade) + 1);
+                    upgrade.onLevelUp(fme.getFaction());
                     buildGUI(fme);
                 }
             }));
@@ -52,22 +56,6 @@ public class FUpgradesMenu {
         }
     }
 
-    private void updateChests(Faction faction) {
-        String invName = SavageFactions.plugin.color(Conf.fchestInventoryTitle);
-        for (HumanEntity player : faction.getChestInventory().getViewers()) {
-            if (player.getOpenInventory().getTitle().equalsIgnoreCase(invName)) //TODO Check if it's the same as : player.getInventory().getTitle()
-                player.closeInventory();
-        }
-        int level = faction.getUpgrade(UpgradeType.CHEST);
-        int size = SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Chest.Chest-Size.level-" + (level + 1));
-        faction.setChestSize(size * 9);
-    }
-
-    private void updateFactionPowerBoost(Faction f) {
-        double boost = SavageFactions.plugin.getConfig().getDouble("fupgrades.MainMenu.Power.Power-Boost.level-" + (f.getUpgrade(UpgradeType.POWER) + 1));
-        if (boost < 0) return;
-        f.setPowerBoost(f.getPowerBoost() + boost);
-    }
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
@@ -78,6 +66,16 @@ public class FUpgradesMenu {
             meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
             meta.setDisplayName(SavageFactions.plugin.color(config.getString("Name")));
             item.setItemMeta(meta);
+        }
+        return item;
+    }
+
+    private ItemStack enchant(ItemStack item) {
+        ItemMeta itemMeta = item.getItemMeta();
+        if (itemMeta != null) {
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            itemMeta.addEnchant(Enchantment.DURABILITY, 1, true);
+            item.setItemMeta(itemMeta);
         }
         return item;
     }
