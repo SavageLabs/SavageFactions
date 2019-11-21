@@ -1,7 +1,5 @@
 package com.massivecraft.factions.zcore.fperms;
 
-import java.util.HashMap;
-
 public class DefaultPermissions {
 
     public boolean ban;

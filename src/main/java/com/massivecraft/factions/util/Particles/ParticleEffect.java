@@ -1,6 +1,5 @@
 package com.massivecraft.factions.util.Particles;
 
-import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;

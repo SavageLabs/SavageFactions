@@ -42,8 +42,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.logging.Level;
-
 
 public class FactionsPlayerListener implements Listener {
 
@@ -54,45 +54,58 @@ public class FactionsPlayerListener implements Listener {
     private HashMap<UUID, Long> showTimes = new HashMap<>();
 
     public FactionsPlayerListener() {
-        for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) initPlayer(player);
-        if (positionTask == null) startPositionCheck();
+        for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers())
+            initPlayer(player);
+        if (positionTask == null)
+            startPositionCheck();
     }
 
-    public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck, PermissableAction permissableAction) {
-        if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
+    public static boolean playerCanUseItemHere(Player player, Location location, Material material, boolean justCheck,
+            PermissableAction permissableAction) {
+        if (Conf.playersWhoBypassAllProtection.contains(player.getName()))
+            return true;
 
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
-        if (me.isAdminBypassing()) return true;
+        if (me.isAdminBypassing())
+            return true;
 
         FLocation loc = new FLocation(location);
         Faction otherFaction = Board.getInstance().getFactionAt(loc);
 
         // We handle ownership protection below.
 
-        if (me.getFaction() == otherFaction) return true;
+        if (me.getFaction() == otherFaction)
+            return true;
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
+        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false)
+                && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
             return true;
 
         if (otherFaction.isWilderness()) {
             if (!Conf.wildernessDenyUseage || Conf.worldsNoWildernessProtection.contains(location.getWorld().getName()))
                 return true;
-            if (!justCheck) me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
+            if (!justCheck)
+                me.msg(TL.PLAYER_USE_WILDERNESS, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isSafeZone()) {
-            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player)) return true;
-            if (!justCheck) me.msg(TL.PLAYER_USE_SAFEZONE, TextUtil.getMaterialName(material));
+            if (!Conf.safeZoneDenyUseage || Permission.MANAGE_SAFE_ZONE.has(player))
+                return true;
+            if (!justCheck)
+                me.msg(TL.PLAYER_USE_SAFEZONE, TextUtil.getMaterialName(material));
             return false;
         } else if (otherFaction.isWarZone()) {
-            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player)) return true;
-            if (!justCheck) me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
+            if (!Conf.warZoneDenyUseage || Permission.MANAGE_WAR_ZONE.has(player))
+                return true;
+            if (!justCheck)
+                me.msg(TL.PLAYER_USE_WARZONE, TextUtil.getMaterialName(material));
             return false;
         }
 
         // We should only after knowing it's not wilderness, otherwise gets bypassed
         if (otherFaction.hasPlayersOnline()) {
             // This should be inverted to prevent bypasing
-            if (Conf.territoryDenyUseageMaterials.contains(material)) return false; // Item should not be used, deny.
+            if (Conf.territoryDenyUseageMaterials.contains(material))
+                return false; // Item should not be used, deny.
         } else {
             if (Conf.territoryDenyUseageMaterialsWhenOffline.contains(material))
                 return false; // Item should not be used, deny.
@@ -116,33 +129,39 @@ public class FactionsPlayerListener implements Listener {
         Faction myFaction = me.getFaction();
 
         // no door/chest/whatever protection in wilderness, war zones, or safe zones
-        if (otherFaction.isSystemFaction()) return true;
+        if (otherFaction.isSystemFaction())
+            return true;
 
         if (myFaction.isWilderness()) {
             me.msg(TL.GENERTIC_ACTION_NOPERMISSION, block.getType().toString().replace("_", " "));
             return false;
         }
 
-        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
+        if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false)
+                && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
             return true;
 
-        if (otherFaction.getId().equals(myFaction.getId()) && me.getRole() == Role.LEADER) return true;
+        if (otherFaction.getId().equals(myFaction.getId()) && me.getRole() == Role.LEADER)
+            return true;
         PermissableAction action = GetPermissionFromUsableBlock(block);
-        if (action == null) return false;
+        if (action == null)
+            return false;
         // Move up access check to check for exceptions
         if (!otherFaction.getId().equals(myFaction.getId())) { // If the faction target is not my own
             // Get faction pain build access relation to me
             boolean pain = !justCheck && otherFaction.getAccess(me, PermissableAction.PAIN_BUILD) == Access.ALLOW;
             return CheckPlayerAccess(player, me, loc, otherFaction, otherFaction.getAccess(me, action), action, pain);
         } else if (otherFaction.getId().equals(myFaction.getId())) {
-            return CheckPlayerAccess(player, me, loc, myFaction, myFaction.getAccess(me, action), action, (!justCheck && myFaction.getAccess(me, PermissableAction.PAIN_BUILD) == Access.ALLOW));
+            return CheckPlayerAccess(player, me, loc, myFaction, myFaction.getAccess(me, action), action,
+                    (!justCheck && myFaction.getAccess(me, PermissableAction.PAIN_BUILD) == Access.ALLOW));
         }
-        return CheckPlayerAccess(player, me, loc, myFaction, otherFaction.getAccess(me, action), action, Conf.territoryPainBuild);
+        return CheckPlayerAccess(player, me, loc, myFaction, otherFaction.getAccess(me, action), action,
+                Conf.territoryPainBuild);
     }
 
-
     public static boolean preventCommand(String fullCmd, Player player) {
-        if ((Conf.territoryNeutralDenyCommands.isEmpty() && Conf.territoryEnemyDenyCommands.isEmpty() && Conf.permanentFactionMemberDenyCommands.isEmpty() && Conf.warzoneDenyCommands.isEmpty())) {
+        if ((Conf.territoryNeutralDenyCommands.isEmpty() && Conf.territoryEnemyDenyCommands.isEmpty()
+                && Conf.permanentFactionMemberDenyCommands.isEmpty() && Conf.warzoneDenyCommands.isEmpty())) {
             return false;
         }
 
@@ -150,7 +169,7 @@ public class FactionsPlayerListener implements Listener {
 
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
 
-        String shortCmd;  // command without the slash at the beginning
+        String shortCmd; // command without the slash at the beginning
         if (fullCmd.startsWith("/")) {
             shortCmd = fullCmd.substring(1);
         } else {
@@ -158,38 +177,41 @@ public class FactionsPlayerListener implements Listener {
             fullCmd = "/" + fullCmd;
         }
 
-        if (me.hasFaction() &&
-                !me.isAdminBypassing() &&
-                !Conf.permanentFactionMemberDenyCommands.isEmpty() &&
-                me.getFaction().isPermanent() &&
-                isCommandInList(fullCmd, shortCmd, Conf.permanentFactionMemberDenyCommands.iterator())) {
+        if (me.hasFaction() && !me.isAdminBypassing() && !Conf.permanentFactionMemberDenyCommands.isEmpty()
+                && me.getFaction().isPermanent()
+                && isCommandInList(fullCmd, shortCmd, Conf.permanentFactionMemberDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_PERMANENT, fullCmd);
             return true;
         }
 
         Faction at = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
-        if (at.isWilderness() && !Conf.wildernessDenyCommands.isEmpty() && !me.isAdminBypassing() && isCommandInList(fullCmd, shortCmd, Conf.wildernessDenyCommands.iterator())) {
+        if (at.isWilderness() && !Conf.wildernessDenyCommands.isEmpty() && !me.isAdminBypassing()
+                && isCommandInList(fullCmd, shortCmd, Conf.wildernessDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_WILDERNESS, fullCmd);
             return true;
         }
 
         Relation rel = at.getRelationTo(me);
-        if (at.isNormal() && rel.isAlly() && !Conf.territoryAllyDenyCommands.isEmpty() && !me.isAdminBypassing() && isCommandInList(fullCmd, shortCmd, Conf.territoryAllyDenyCommands.iterator())) {
+        if (at.isNormal() && rel.isAlly() && !Conf.territoryAllyDenyCommands.isEmpty() && !me.isAdminBypassing()
+                && isCommandInList(fullCmd, shortCmd, Conf.territoryAllyDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_ALLY, fullCmd);
             return false;
         }
 
-        if (at.isNormal() && rel.isNeutral() && !Conf.territoryNeutralDenyCommands.isEmpty() && !me.isAdminBypassing() && isCommandInList(fullCmd, shortCmd, Conf.territoryNeutralDenyCommands.iterator())) {
+        if (at.isNormal() && rel.isNeutral() && !Conf.territoryNeutralDenyCommands.isEmpty() && !me.isAdminBypassing()
+                && isCommandInList(fullCmd, shortCmd, Conf.territoryNeutralDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_NEUTRAL, fullCmd);
             return true;
         }
 
-        if (at.isNormal() && rel.isEnemy() && !Conf.territoryEnemyDenyCommands.isEmpty() && !me.isAdminBypassing() && isCommandInList(fullCmd, shortCmd, Conf.territoryEnemyDenyCommands.iterator())) {
+        if (at.isNormal() && rel.isEnemy() && !Conf.territoryEnemyDenyCommands.isEmpty() && !me.isAdminBypassing()
+                && isCommandInList(fullCmd, shortCmd, Conf.territoryEnemyDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_ENEMY, fullCmd);
             return true;
         }
 
-        if (at.isWarZone() && !Conf.warzoneDenyCommands.isEmpty() && !me.isAdminBypassing() && isCommandInList(fullCmd, shortCmd, Conf.warzoneDenyCommands.iterator())) {
+        if (at.isWarZone() && !Conf.warzoneDenyCommands.isEmpty() && !me.isAdminBypassing()
+                && isCommandInList(fullCmd, shortCmd, Conf.warzoneDenyCommands.iterator())) {
             me.msg(TL.PLAYER_COMMAND_WARZONE, fullCmd);
             return true;
         }
@@ -214,15 +236,20 @@ public class FactionsPlayerListener implements Listener {
         return false;
     }
 
-    private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck, Access access, PermissableAction action, boolean pain) {
-        boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to use exploit interaction as well.
+    private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction factionToCheck,
+            Access access, PermissableAction action, boolean pain) {
+        boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to
+                                                                    // use exploit interaction as well.
         if (access != null) {
-            boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
-            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId()))) {
+            boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc)
+                    && !factionToCheck.getOwnerList(loc).isEmpty());
+            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName()))
+                    || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId()))) {
                 return true;
             } else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
                 me.msg(TL.ACTIONS_OWNEDTERRITORYDENY, factionToCheck.getOwnerListString(loc));
-                if (doPain) player.damage(Conf.actionDeniedPainAmount);
+                if (doPain)
+                    player.damage(Conf.actionDeniedPainAmount);
                 return false;
             } else if (!landOwned && access == Access.ALLOW) {
                 return true;
@@ -232,8 +259,10 @@ public class FactionsPlayerListener implements Listener {
             }
         }
 
-        // Approves any permission check if the player in question is a leader AND owns the faction.
-        if (me.getRole().equals(Role.LEADER) && me.getFaction().equals(factionToCheck)) return true;
+        // Approves any permission check if the player in question is a leader AND owns
+        // the faction.
+        if (me.getRole().equals(Role.LEADER) && me.getFaction().equals(factionToCheck))
+            return true;
         if (factionToCheck != null) {
             me.msg(TL.PLAYER_USE_TERRITORY, action, factionToCheck.getTag(me.getFaction()));
         }
@@ -248,117 +277,118 @@ public class FactionsPlayerListener implements Listener {
         // Check for doors that might have diff material name in old version.
         if (material.name().contains("DOOR") || material.name().contains("FENCE_GATE"))
             return PermissableAction.DOOR;
-        if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE") || material.name().contains("DIODE") || material.name().contains("COMPARATOR"))
+        if (material.name().toUpperCase().contains("BUTTON") || material.name().toUpperCase().contains("PRESSURE")
+                || material.name().contains("DIODE") || material.name().contains("COMPARATOR"))
             return PermissableAction.BUTTON;
         if (SavageFactions.plugin.mc113 || SavageFactions.plugin.mc114) {
             switch (material) {
-                case LEVER:
-                    return PermissableAction.LEVER;
-                case ACACIA_BUTTON:
-                case BIRCH_BUTTON:
-                case DARK_OAK_BUTTON:
-                case JUNGLE_BUTTON:
-                case OAK_BUTTON:
-                case SPRUCE_BUTTON:
-                case STONE_BUTTON:
-                case COMPARATOR:
-                case REPEATER:
-                    return PermissableAction.BUTTON;
+            case LEVER:
+                return PermissableAction.LEVER;
+            case ACACIA_BUTTON:
+            case BIRCH_BUTTON:
+            case DARK_OAK_BUTTON:
+            case JUNGLE_BUTTON:
+            case OAK_BUTTON:
+            case SPRUCE_BUTTON:
+            case STONE_BUTTON:
+            case COMPARATOR:
+            case REPEATER:
+                return PermissableAction.BUTTON;
 
-                case ACACIA_DOOR:
-                case BIRCH_DOOR:
-                case IRON_DOOR:
-                case JUNGLE_DOOR:
-                case OAK_DOOR:
-                case SPRUCE_DOOR:
-                case DARK_OAK_DOOR:
+            case ACACIA_DOOR:
+            case BIRCH_DOOR:
+            case IRON_DOOR:
+            case JUNGLE_DOOR:
+            case OAK_DOOR:
+            case SPRUCE_DOOR:
+            case DARK_OAK_DOOR:
 
-                case ACACIA_TRAPDOOR:
-                case BIRCH_TRAPDOOR:
-                case DARK_OAK_TRAPDOOR:
-                case IRON_TRAPDOOR:
-                case JUNGLE_TRAPDOOR:
-                case OAK_TRAPDOOR:
-                case SPRUCE_TRAPDOOR:
+            case ACACIA_TRAPDOOR:
+            case BIRCH_TRAPDOOR:
+            case DARK_OAK_TRAPDOOR:
+            case IRON_TRAPDOOR:
+            case JUNGLE_TRAPDOOR:
+            case OAK_TRAPDOOR:
+            case SPRUCE_TRAPDOOR:
 
-                case ACACIA_FENCE_GATE:
-                case BIRCH_FENCE_GATE:
-                case DARK_OAK_FENCE_GATE:
-                case JUNGLE_FENCE_GATE:
-                case OAK_FENCE_GATE:
-                case SPRUCE_FENCE_GATE:
-                    return PermissableAction.DOOR;
+            case ACACIA_FENCE_GATE:
+            case BIRCH_FENCE_GATE:
+            case DARK_OAK_FENCE_GATE:
+            case JUNGLE_FENCE_GATE:
+            case OAK_FENCE_GATE:
+            case SPRUCE_FENCE_GATE:
+                return PermissableAction.DOOR;
 
-                case CHEST:
-                case TRAPPED_CHEST:
-                case CHEST_MINECART:
+            case CHEST:
+            case TRAPPED_CHEST:
+            case CHEST_MINECART:
 
-                case SHULKER_BOX:
-                case BLACK_SHULKER_BOX:
-                case BLUE_SHULKER_BOX:
-                case BROWN_SHULKER_BOX:
-                case CYAN_SHULKER_BOX:
-                case GRAY_SHULKER_BOX:
-                case GREEN_SHULKER_BOX:
-                case LIGHT_BLUE_SHULKER_BOX:
-                case LIGHT_GRAY_SHULKER_BOX:
-                case LIME_SHULKER_BOX:
-                case MAGENTA_SHULKER_BOX:
-                case ORANGE_SHULKER_BOX:
-                case PINK_SHULKER_BOX:
-                case PURPLE_SHULKER_BOX:
-                case RED_SHULKER_BOX:
-                case WHITE_SHULKER_BOX:
-                case YELLOW_SHULKER_BOX:
+            case SHULKER_BOX:
+            case BLACK_SHULKER_BOX:
+            case BLUE_SHULKER_BOX:
+            case BROWN_SHULKER_BOX:
+            case CYAN_SHULKER_BOX:
+            case GRAY_SHULKER_BOX:
+            case GREEN_SHULKER_BOX:
+            case LIGHT_BLUE_SHULKER_BOX:
+            case LIGHT_GRAY_SHULKER_BOX:
+            case LIME_SHULKER_BOX:
+            case MAGENTA_SHULKER_BOX:
+            case ORANGE_SHULKER_BOX:
+            case PINK_SHULKER_BOX:
+            case PURPLE_SHULKER_BOX:
+            case RED_SHULKER_BOX:
+            case WHITE_SHULKER_BOX:
+            case YELLOW_SHULKER_BOX:
 
-                case FURNACE:
-                case DROPPER:
-                case DISPENSER:
-                case ENCHANTING_TABLE:
-                case BREWING_STAND:
-                case CAULDRON:
-                case HOPPER:
-                case BEACON:
-                case JUKEBOX:
-                case ANVIL:
-                case CHIPPED_ANVIL:
-                case DAMAGED_ANVIL:
-                    return PermissableAction.CONTAINER;
-                default:
-                    return null;
+            case FURNACE:
+            case DROPPER:
+            case DISPENSER:
+            case ENCHANTING_TABLE:
+            case BREWING_STAND:
+            case CAULDRON:
+            case HOPPER:
+            case BEACON:
+            case JUKEBOX:
+            case ANVIL:
+            case CHIPPED_ANVIL:
+            case DAMAGED_ANVIL:
+                return PermissableAction.CONTAINER;
+            default:
+                return null;
             }
         } else {
             switch (material) {
-                case LEVER:
-                    return PermissableAction.LEVER;
-                case DARK_OAK_DOOR:
-                case ACACIA_DOOR:
-                case BIRCH_DOOR:
-                case IRON_DOOR:
-                case JUNGLE_DOOR:
-                case SPRUCE_DOOR:
-                case ACACIA_FENCE_GATE:
-                case BIRCH_FENCE_GATE:
-                case OAK_FENCE_GATE:
-                case DARK_OAK_FENCE_GATE:
-                case JUNGLE_FENCE_GATE:
-                case SPRUCE_FENCE_GATE:
-                    return PermissableAction.DOOR;
-                case CHEST:
-                case ENDER_CHEST:
-                case TRAPPED_CHEST:
-                case DISPENSER:
-                case ENCHANTING_TABLE:
-                case DROPPER:
-                case FURNACE:
-                case HOPPER:
-                case ANVIL:
-                case CHIPPED_ANVIL:
-                case DAMAGED_ANVIL:
-                case BREWING_STAND:
-                    return PermissableAction.CONTAINER;
-                default:
-                    return null;
+            case LEVER:
+                return PermissableAction.LEVER;
+            case DARK_OAK_DOOR:
+            case ACACIA_DOOR:
+            case BIRCH_DOOR:
+            case IRON_DOOR:
+            case JUNGLE_DOOR:
+            case SPRUCE_DOOR:
+            case ACACIA_FENCE_GATE:
+            case BIRCH_FENCE_GATE:
+            case OAK_FENCE_GATE:
+            case DARK_OAK_FENCE_GATE:
+            case JUNGLE_FENCE_GATE:
+            case SPRUCE_FENCE_GATE:
+                return PermissableAction.DOOR;
+            case CHEST:
+            case ENDER_CHEST:
+            case TRAPPED_CHEST:
+            case DISPENSER:
+            case ENCHANTING_TABLE:
+            case DROPPER:
+            case FURNACE:
+            case HOPPER:
+            case ANVIL:
+            case CHIPPED_ANVIL:
+            case DAMAGED_ANVIL:
+            case BREWING_STAND:
+                return PermissableAction.CONTAINER;
+            default:
+                return null;
             }
         }
     }
@@ -376,6 +406,8 @@ public class FactionsPlayerListener implements Listener {
         // Update the lastLoginTime for this fplayer
         me.setLastLoginTime(System.currentTimeMillis());
 
+        playerChecks.put(player.getUniqueId(), player.getLocation());
+
         // Store player's current FLocation and notify them where they are
         me.setLastStoodAt(new FLocation(player.getLocation()));
 
@@ -383,35 +415,40 @@ public class FactionsPlayerListener implements Listener {
 
         // Check for Faction announcements. Let's delay this so they actually see it.
         Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
-            if (me.isOnline()) me.getFaction().sendUnreadAnnouncements(me);
+            if (me.isOnline())
+                me.getFaction().sendUnreadAnnouncements(me);
         }, 33L); // Don't ask me why.
 
         if (SavageFactions.plugin.getConfig().getBoolean("scoreboard.default-enabled", false)) {
             FScoreboard.init(me);
-            FScoreboard.get(me).setDefaultSidebar(new FDefaultSidebar(), SavageFactions.plugin.getConfig().getInt("scoreboard.default-update-interval", 20));
+            FScoreboard.get(me).setDefaultSidebar(new FDefaultSidebar(),
+                    SavageFactions.plugin.getConfig().getInt("scoreboard.default-update-interval", 20));
             FScoreboard.get(me).setSidebarVisibility(me.showScoreboard());
         }
 
         Faction myFaction = me.getFaction();
         if (!myFaction.isWilderness()) {
             for (FPlayer other : myFaction.getFPlayersWhereOnline(true)) {
-                if (other != me && other.isMonitoringJoins()) other.msg(TL.FACTION_LOGIN, me.getName());
+                if (other != me && other.isMonitoringJoins())
+                    other.msg(TL.FACTION_LOGIN, me.getName());
             }
         }
 
         fallMap.put(me.getPlayer(), false);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()), 180L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(SavageFactions.plugin, () -> fallMap.remove(me.getPlayer()),
+                180L);
 
         if (me.isSpyingChat() && !player.hasPermission(Permission.CHATSPY.node)) {
             me.setSpyingChat(false);
-            SavageFactions.plugin.log(Level.INFO, "Found %s spying chat without permission on login. Disabled their chat spying.", player.getName());
+            SavageFactions.plugin.log(Level.INFO,
+                    "Found %s spying chat without permission on login. Disabled their chat spying.", player.getName());
         }
 
         if (me.isAdminBypassing() && !player.hasPermission(Permission.BYPASS.node)) {
             me.setIsAdminBypassing(false);
-            SavageFactions.plugin.log(Level.INFO, "Found %s on admin Bypass without permission on login. Disabled it for them.", player.getName());
+            SavageFactions.plugin.log(Level.INFO,
+                    "Found %s on admin Bypass without permission on login. Disabled it for them.", player.getName());
         }
-
 
         // If they have the permission, don't let them autoleave. Bad inverted setter :\
         me.setAutoLeave(!player.hasPermission(Permission.AUTO_LEAVE_BYPASS.node));
@@ -433,11 +470,13 @@ public class FactionsPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerQuit(PlayerQuitEvent event) {
-        FPlayer me = FPlayers.getInstance().getByPlayer(event.getPlayer());
+        Player this_ = event.getPlayer();
+        FPlayer me = FPlayers.getInstance().getByPlayer(this_);
 
         // Make sure player's power is up to date when they log off.
         me.getPower();
-        // and update their last login time to point to when the logged off, for auto-remove routine
+        // and update their last login time to point to when the logged off, for
+        // auto-remove routine
         me.setLastLoginTime(System.currentTimeMillis());
 
         me.logout(); // cache kills / deaths
@@ -449,12 +488,16 @@ public class FactionsPlayerListener implements Listener {
             SavageFactions.plugin.getTimers().remove(me.getPlayer().getUniqueId());
         }
 
+        playerChecks.remove(this_.getUniqueId());
+
         Faction myFaction = me.getFaction();
-        if (!myFaction.isWilderness()) myFaction.memberLoggedOff();
+        if (!myFaction.isWilderness())
+            myFaction.memberLoggedOff();
 
         if (!myFaction.isWilderness()) {
             for (FPlayer player : myFaction.getFPlayersWhereOnline(true))
-                if (player != me && player.isMonitoringJoins()) player.msg(TL.FACTION_LOGOUT, me.getName());
+                if (player != me && player.isMonitoringJoins())
+                    player.msg(TL.FACTION_LOGOUT, me.getName());
 
         }
 
@@ -469,28 +512,34 @@ public class FactionsPlayerListener implements Listener {
         string = string.replace("{Faction}", faction.getTag())
                 .replace("{online}", faction.getOnlinePlayers().size() + "")
                 .replace("{offline}", faction.getFPlayers().size() - faction.getOnlinePlayers().size() + "")
-                .replace("{chunks}", faction.getAllClaims().size() + "")
-                .replace("{power}", faction.getPower() + "")
+                .replace("{chunks}", faction.getAllClaims().size() + "").replace("{power}", faction.getPower() + "")
                 .replace("{leader}", faction.getFPlayerAdmin() + "");
 
         return string;
     }
 
-    public void enableFly(FPlayer me) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable")) return; // Looks prettier sorry
-        if (!me.canFlyAtLocation()) return;
+    public void checkCanFly(FPlayer me) {
+        if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable"))
+            return; // Looks prettier sorry
+        if (!me.canFlyAtLocation() || me.checkIfNearbyEnemies()) {
+            me.setFFlying(false, false);
+            return;
+        }
+        if (me.isFlying()) return; // Already flying, don't bother
         me.setFFlying(true, false);
         CmdFly.flyMap.put(me.getName(), true);
         if (CmdFly.particleTask == null)
-            if (Conf.enableFlyParticles) CmdFly.startParticles();
+            if (Conf.enableFlyParticles)
+                CmdFly.startParticles();
     }
 
-    //inspect
+    // inspect
     @EventHandler
     public void onInspect(PlayerInteractEvent e) {
         if (e.getAction().name().contains("BLOCK")) {
             FPlayer fplayer = FPlayers.getInstance().getByPlayer(e.getPlayer());
-            if (!fplayer.isInspectMode()) return;
+            if (!fplayer.isInspectMode())
+                return;
             e.setCancelled(true);
             if (!fplayer.isAdminBypassing()) {
                 if (!fplayer.hasFaction()) {
@@ -498,11 +547,13 @@ public class FactionsPlayerListener implements Listener {
                     fplayer.msg(TL.COMMAND_INSPECT_DISABLED_NOFAC);
                     return;
                 }
-                if (fplayer.getFaction() != Board.getInstance().getFactionAt(new FLocation(e.getPlayer().getLocation()))) {
+                if (fplayer.getFaction() != Board.getInstance()
+                        .getFactionAt(new FLocation(e.getPlayer().getLocation()))) {
                     fplayer.msg(TL.COMMAND_INSPECT_NOTINCLAIM);
                     return;
                 }
-            } else fplayer.msg(TL.COMMAND_INSPECT_BYPASS);
+            } else
+                fplayer.msg(TL.COMMAND_INSPECT_BYPASS);
             List<String[]> info = CoreProtect.getInstance().getAPI().blockLookup(e.getClickedBlock(), 0);
             if (info.size() == 0) {
                 e.getPlayer().sendMessage(TL.COMMAND_INSPECT_NODATA.toString());
@@ -511,21 +562,18 @@ public class FactionsPlayerListener implements Listener {
             Player player = e.getPlayer();
             CoreProtectAPI coAPI = CoreProtect.getInstance().getAPI();
             player.sendMessage(TL.COMMAND_INSPECT_HEADER.toString().replace("{x}", e.getClickedBlock().getX() + "")
-                    .replace("{y}", e.getClickedBlock().getY() + "")
-                    .replace("{z}", e.getClickedBlock().getZ() + ""));
+                    .replace("{y}", e.getClickedBlock().getY() + "").replace("{z}", e.getClickedBlock().getZ() + ""));
             String rowFormat = TL.COMMAND_INSPECT_ROW.toString();
             for (int i = 0; i < info.size(); i++) {
                 CoreProtectAPI.ParseResult row = coAPI.parseResult(info.get(i));
-                player.sendMessage(rowFormat
-                        .replace("{time}", convertTime(row.getTime()))
-                        .replace("{action}", row.getActionString())
-                        .replace("{player}", row.getPlayer())
+                player.sendMessage(rowFormat.replace("{time}", convertTime(row.getTime()))
+                        .replace("{action}", row.getActionString()).replace("{player}", row.getPlayer())
                         .replace("{block-type}", row.getType().toString().toLowerCase()));
             }
         }
     }
 
-    //For disabling enderpearl throws
+    // For disabling enderpearl throws
     @EventHandler
     public void onPearl(PlayerInteractEvent e) {
         Player player = e.getPlayer();
@@ -544,50 +592,19 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public static BukkitTask positionTask = null;
+    public final static HashMap<UUID, Location> playerChecks = new HashMap<UUID, Location>();
     public static Map<UUID, Location> lastLocations = new HashMap<>();
 
     public void startPositionCheck() {
-        positionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SavageFactions.plugin, () -> {
-            if (Bukkit.getOnlinePlayers().size() > 0) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (!lastLocations.containsKey(player.getUniqueId())) {
-                        lastLocations.put(player.getUniqueId(), player.getLocation());
-                        continue;
-                    }
-                    refreshPosition(player, lastLocations.get(player.getUniqueId()), player.getLocation());
-                    lastLocations.put(player.getUniqueId(), player.getLocation());
-                    if (CmdFly.flyMap.containsKey(player.getName())) {
-                        String name = player.getName();
-                        if (!player.isFlying()
-                                || player.getGameMode() == GameMode.CREATIVE
-                                || !SavageFactions.plugin.mc17 && player.getGameMode() == GameMode.SPECTATOR) {
-                            continue;
-                        }
-                        FPlayer fPlayer = FPlayers.getInstance().getByPlayer(player);
-                        Faction myFaction = fPlayer.getFaction();
-                        if (myFaction.isWilderness()) {
-                            Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> fPlayer.setFlying(false));
-                            CmdFly.flyMap.remove(player.getName());
-                            continue;
-                        }
-                        Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> {
-                            if (!fPlayer.checkIfNearbyEnemies()) {
-                                FLocation myFloc = new FLocation(player.getLocation());
-                                if (Board.getInstance().getFactionAt(myFloc) != myFaction) {
-                                    if (!CmdFly.checkBypassPerms(fPlayer, player, Board.getInstance().getFactionAt(myFloc))) {
-                                        fPlayer.setFFlying(false, false);
-                                        CmdFly.flyMap.remove(name);
-                                    }
-                                }
-                            }
-                        });
-                    }
-
-                }
+        positionTask = Bukkit.getScheduler().runTaskTimer(SavageFactions.plugin, () -> {
+            if (playerChecks.size() <= 0) return;
+            for (Entry<UUID, Location> check : playerChecks.entrySet()) {
+                Player player = Bukkit.getPlayer(check.getKey());
+                refreshPosition(player, check.getValue(), player.getLocation());
+                lastLocations.put(player.getUniqueId(), player.getLocation());
             }
         }, 5L, 5L);
     }
-
 
     public void refreshPosition(Player player, Location oldLocation, Location newLocation) {
         FPlayer me = FPlayers.getInstance().getByPlayer(player);
@@ -648,11 +665,8 @@ public class FactionsPlayerListener implements Listener {
                     }, 5);
                 }
             }
-
-            // enable fly :)
-            if (!me.isFlying()) {
-                enableFly(me);
-            }
+            // Handle fly
+            this.checkCanFly(me);
 
             if (me.getAutoClaimFor() != null) {
                 me.attemptClaim(me.getAutoClaimFor(), newLocation, true);

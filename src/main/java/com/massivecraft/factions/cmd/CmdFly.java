@@ -84,28 +84,20 @@ public class CmdFly extends FCommand {
                 return false;
             }
 
-            if (!(me.hasPermission("factions.fly.neutral") || access == Access.ALLOW) && toFac.getRelationTo(fme.getFaction()) == Relation.NEUTRAL && !isSystemFaction(toFac)) {
+            if (!(me.hasPermission("factions.fly.neutral") || access == Access.ALLOW) && toFac.getRelationTo(fme.getFaction()) == Relation.NEUTRAL && !toFac.isSystemFaction()) {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
 
             return me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction());
         }
-        return true;
-    }
-
-    public static Boolean isSystemFaction(Faction faction) {
-        return faction.isSafeZone() ||
-                faction.isWarZone() ||
-                faction.isWilderness();
+        return fme.canFlyAtLocation();
     }
 
     public static void disableFlight(final FPlayer fme) {
         fme.setFlying(false);
         flyMap.remove(fme.getPlayer().getName());
     }
-
-
 
     public boolean isInFlightChecker(Player player) {
         return flyMap.containsKey(player.getName());

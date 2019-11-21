@@ -25,6 +25,10 @@ public class CmdAdmin extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
+        if (context.player == null) {
+            context.sender.sendMessage("You must execute this as a player.");
+            return;
+        }
         // Allows admins bypass this.
         if (!context.fPlayer.isAdminBypassing() && !context.fPlayer.getRole().equals(Role.LEADER)) {
             context.msg(TL.COMMAND_ADMIN_NOTADMIN);

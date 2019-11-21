@@ -3,11 +3,9 @@ package com.massivecraft.factions.zcore.fshop;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
-import com.massivecraft.factions.Conf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.Shop;
-import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
