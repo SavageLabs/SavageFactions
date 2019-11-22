@@ -669,7 +669,7 @@ fupgrades:
   upgrades:
     chest:
       displayitem:
-        slot: 23
+        slot: 22
         type: CHEST
         name: '&e&lUpgrade Chest Size'
         lore:
@@ -871,7 +871,7 @@ fupgrades:
           boost: 0.30
     tntbank:
       displayitem:
-        slot: 21
+        slot: 20
         type: TNT
         name: '&e&lUpgrade TNT Bank'
         lore:
@@ -895,6 +895,37 @@ fupgrades:
         2:
           cost: 2000000
           boost: 10000
+    warp:
+      displayitem:
+        slot: 24
+        type: BEACON
+        name: '&e&lUpgrade Faction Wars'
+        lore:
+          - '&7Increase max number of Faction Wars.'
+          - ''
+          - '&e&lTier'
+          - '&f&l* &7Current Level: &n{level}'
+          - ''
+          - '&e&lPerks'
+          - '&f&l* &7Level 1 - &f+1 WARP'
+          - '&7  - Cost: $250,000'
+          - '&f&l* &7Level 2 - &f+2 WARP'
+          - '&7  - Cost: $500,000'
+          - '&f&l* &7Level 3 - &f+3 WARP'
+          - '&7  - Cost: $750,000'
+          - ''
+          - '&e&lClick to &nUnlock'
+      #You can add as many levels as you want
+      levels:
+        1:
+          cost: 50000
+          boost: 1
+        2:
+          cost: 100000
+          boost: 2
+        3:
+          cost: 150000
+          boost: 3
   MainMenu:
     Title: '&c&l{faction}''s Upgrade Menu DEBUG'
     rows: 4

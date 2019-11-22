@@ -5,6 +5,7 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.addon.AddonManager;
+import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
 import com.massivecraft.factions.addon.upgradeaddon.UpgradeManager;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
 import com.massivecraft.factions.cmd.CommandContext;
@@ -115,6 +116,10 @@ public class SavageFactions extends MPlugin {
             return;
         }
 
+        AddonManager.getAddonManagerInstance().loadAddons();
+        upgradeManager = UpgradeManager.getUpgradeManagerInstance();
+        upgradeManager.initUpgrades();
+
         int version = Integer.parseInt(ReflectionUtils.PackageType.getServerVersion().split("_")[1]);
         switch (version) {
             case 7:
@@ -223,9 +228,6 @@ public class SavageFactions extends MPlugin {
                 new FactionsBlockListener(),
         };
 
-        AddonManager.getAddonManagerInstance().loadAddons();
-        upgradeManager = UpgradeManager.getUpgradeManagerInstance();
-        upgradeManager.initUpgrades();
 
         for (Listener eventListener : eventsListener)
             getServer().getPluginManager().registerEvents(eventListener, this);
@@ -357,6 +359,7 @@ public class SavageFactions extends MPlugin {
                 .registerTypeAdapter(FlyParticleData.class, new FlyParticleDataTypeAdapter())
                 .registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter())
                 .registerTypeAdapter(ChestLogInfo.class, new ChestLogInfoTypeAdapter())
+                .registerTypeAdapter(Upgrade.class, new UpgradeAdapter())
                 .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
     }
 

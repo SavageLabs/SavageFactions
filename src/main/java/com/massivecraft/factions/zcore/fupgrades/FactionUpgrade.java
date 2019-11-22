@@ -10,12 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 
 public abstract class FactionUpgrade extends Upgrade {
-
-    //TODO: Check all upgrades.
-    //TODO: Chest upgrade working.
-    //TODO: TNT upgrade working.
-
-
+    
     protected FactionUpgrade(String upgradeName){
 
         super(upgradeName);
