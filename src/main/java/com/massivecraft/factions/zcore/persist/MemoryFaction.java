@@ -59,6 +59,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	protected HashMap<String, List<String>> announcements = new HashMap<>();
 	protected ConcurrentHashMap<String, LazyLocation> warps = new ConcurrentHashMap<>();
 	protected ConcurrentHashMap<String, String> warpPasswords = new ConcurrentHashMap<>();
+	protected Integer maxWarps;
 	protected Set<String> altinvites = new HashSet<>();
 	protected int maxVaults;
 	protected Role defaultRole;
@@ -93,6 +94,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		this.maxVaults = Conf.defaultMaxVaults;
 		this.defaultRole = Role.RECRUIT;
 		this.tntLimit = SavageFactions.plugin.getConfig().getInt("ftnt.Bank-Limit");
+		this.maxWarps = SavageFactions.plugin.getConfig().getInt("max-warps");
 
 		resetPerms();
 	}
@@ -118,6 +120,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		announcements = old.announcements;
 		this.defaultRole = Role.NORMAL;
 		tntLimit = old.tntLimit;
+		maxWarps = old.maxWarps;
 
 		resetPerms(); // Reset on new Faction so it has default values.
 	}
@@ -162,6 +165,14 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 
 	public boolean isWarp(String name) {
 		return this.warps.containsKey(name);
+	}
+
+	public Integer getMaxWarps(){
+		return maxWarps;
+	}
+
+	public void setMaxWarps(Integer warps){
+		this.maxWarps = warps;
 	}
 
 	public boolean removeWarp(String name) {

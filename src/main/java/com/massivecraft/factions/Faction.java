@@ -49,6 +49,10 @@ public interface Faction extends EconomyParticipator {
 
     boolean isWarp(String name);
 
+    Integer getMaxWarps();
+
+    void setMaxWarps(Integer warps);
+
     boolean hasWarpPassword(String warp);
 
     boolean isWarpPassword(String warp, String password);

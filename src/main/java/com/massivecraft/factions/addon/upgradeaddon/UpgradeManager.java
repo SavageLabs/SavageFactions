@@ -44,6 +44,7 @@ public class UpgradeManager {
          new MemberUpgrade();
          new SpawnerUpgrade();
          new TntUpgrade();
+         new WarpUpgrade();
 
         setupUpgrades();
 

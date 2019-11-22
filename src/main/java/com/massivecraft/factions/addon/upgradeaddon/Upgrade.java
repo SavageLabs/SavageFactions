@@ -11,7 +11,6 @@ import java.util.Set;
 
 public abstract class Upgrade {
 
-
     private final transient SavageFactions plugin = SavageFactions.plugin;
 
     private String upgradeName;
