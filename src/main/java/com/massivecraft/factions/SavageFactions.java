@@ -5,6 +5,8 @@ import ch.njol.skript.SkriptAddon;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.addon.AddonManager;
+import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
+import com.massivecraft.factions.addon.upgradeaddon.UpgradeManager;
 import com.massivecraft.factions.cmd.CmdAutoHelp;
 import com.massivecraft.factions.cmd.CommandContext;
 import com.massivecraft.factions.cmd.FCmdRoot;
@@ -86,6 +88,7 @@ public class SavageFactions extends MPlugin {
     private boolean mvdwPlaceholderAPIManager = false;
     private Listener[] eventsListener;
     private Worldguard wg;
+    private UpgradeManager upgradeManager;
 
     public SavageFactions() {
         plugin = this;
@@ -112,6 +115,10 @@ public class SavageFactions extends MPlugin {
             getServer().getPluginManager().disablePlugin(plugin);
             return;
         }
+
+        AddonManager.getAddonManagerInstance().loadAddons();
+        upgradeManager = UpgradeManager.getUpgradeManagerInstance();
+        upgradeManager.initUpgrades();
 
         int version = Integer.parseInt(ReflectionUtils.PackageType.getServerVersion().split("_")[1]);
         switch (version) {
@@ -219,10 +226,8 @@ public class SavageFactions extends MPlugin {
                 new FactionsEntityListener(),
                 new FactionsExploitListener(),
                 new FactionsBlockListener(),
-                new UpgradeListener(),
         };
 
-        AddonManager.getAddonManagerInstance().loadAddons();
 
         for (Listener eventListener : eventsListener)
             getServer().getPluginManager().registerEvents(eventListener, this);
@@ -354,6 +359,7 @@ public class SavageFactions extends MPlugin {
                 .registerTypeAdapter(FlyParticleData.class, new FlyParticleDataTypeAdapter())
                 .registerTypeAdapter(ItemStack.class, new ItemStackTypeAdapter())
                 .registerTypeAdapter(ChestLogInfo.class, new ChestLogInfoTypeAdapter())
+                .registerTypeAdapter(Upgrade.class, new UpgradeAdapter())
                 .registerTypeAdapterFactory(EnumTypeAdapter.ENUM_FACTORY);
     }
 
@@ -642,5 +648,9 @@ public class SavageFactions extends MPlugin {
 
     public void debug(String s) {
         debug(Level.INFO, s);
+    }
+
+    public UpgradeManager getUpgradeManager() {
+        return upgradeManager;
     }
 }

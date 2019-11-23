@@ -603,7 +603,7 @@ public class FactionsPlayerListener implements Listener {
                 refreshPosition(player, check.getValue(), player.getLocation());
                 lastLocations.put(player.getUniqueId(), player.getLocation());
             }
-        }, 5L, 5L);
+        }, 5L, 10L);
     }
 
     public void refreshPosition(Player player, Location oldLocation, Location newLocation) {

@@ -1,10 +1,13 @@
 package com.massivecraft.factions.addon.upgradeaddon;
 
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class UpgradeManager {
@@ -13,6 +16,7 @@ public class UpgradeManager {
 
     private Set<Upgrade> upgrades = new HashSet<>();
     private SavageFactions plugin;
+    private List<Listener> listenerList = new ArrayList<>();
 
     private UpgradeManager(final SavageFactions plugin){
 
@@ -33,14 +37,14 @@ public class UpgradeManager {
 
     public void initUpgrades(){
 
-        /**
-         * Waiting for new upgrade system implementation.
-         * new PowerUpgrade();
-         * new ChestUpgrade();
-         * new ExpUpgrade();
-         * new CropUpgrade();
-         * new MemberUpgrade();
-         * new SpawnerUpgrade();**/
+         new PowerUpgrade();
+         new ChestUpgrade();
+         new ExpUpgrade();
+         new CropUpgrade();
+         new MemberUpgrade();
+         new SpawnerUpgrade();
+         new TntUpgrade();
+         new WarpUpgrade();
 
         setupUpgrades();
 
@@ -87,10 +91,12 @@ public class UpgradeManager {
 
         for (Upgrade upgrade : upgrades) {
 
-            for (Listener listener : upgrade.listenersToRegister()) {
+            if (upgrade.listenersToRegister() == null) continue;
 
-                if (!HandlerList.getRegisteredListeners(plugin).contains(listener)) {
+            for (Listener listener : upgrade.listenersToRegister()) {
+                if (!listenerList.contains(listener)) {
                     plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+                    listenerList.add(listener);
                 }
 
             }

@@ -37,7 +37,7 @@ public class CmdSetFWarp extends FCommand {
         // Checks if warp with same name already exists and ignores maxWarp check if it does.
         boolean warpExists = context.faction.isWarp(warp);
 
-        int maxWarps = SavageFactions.plugin.getConfig().getInt("max-warps", 5);
+        int maxWarps = context.faction.getMaxWarps();
         boolean tooManyWarps = maxWarps <= context.faction.getWarps().size();
         if (tooManyWarps && !warpExists) {
             context.msg(TL.COMMAND_SETFWARP_LIMIT, maxWarps);

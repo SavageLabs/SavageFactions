@@ -11,7 +11,7 @@ import java.util.Set;
 
 public abstract class Upgrade {
 
-    private final SavageFactions plugin = SavageFactions.plugin;
+    private final transient SavageFactions plugin = SavageFactions.plugin;
 
     private String upgradeName;
     private Integer maxLevel;
@@ -109,9 +109,14 @@ public abstract class Upgrade {
         return 0;
     }
 
+    /**
+     * Method called on level up.
+     */
+    public abstract void onLevelUp(Faction faction);
+
     private void setupUpgrade() {
 
-//        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
+        SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
 
     }
     /**

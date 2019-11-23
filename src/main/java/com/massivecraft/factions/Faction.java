@@ -1,5 +1,6 @@
 package com.massivecraft.factions;
 
+import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.iface.EconomyParticipator;
 import com.massivecraft.factions.iface.RelationParticipator;
@@ -11,7 +12,6 @@ import com.massivecraft.factions.util.LazyLocation;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -49,6 +49,10 @@ public interface Faction extends EconomyParticipator {
 
     boolean isWarp(String name);
 
+    Integer getMaxWarps();
+
+    void setMaxWarps(Integer warps);
+
     boolean hasWarpPassword(String warp);
 
     boolean isWarpPassword(String warp, String password);
@@ -83,9 +87,9 @@ public interface Faction extends EconomyParticipator {
 
     void deinvite(FPlayer fplayer);
 
-    void setUpgrade(UpgradeType upgrade, int level);
+    void setUpgrade(Upgrade upgrade, int level);
 
-    int getUpgrade(UpgradeType upgrade);
+    int getUpgrade(Upgrade upgrade);
 
     boolean isInvited(FPlayer fplayer);
 
@@ -110,6 +114,10 @@ public interface Faction extends EconomyParticipator {
     Location getCheckpoint();
 
     void setCheckpoint(Location location);
+
+    int getTntLimit();
+
+    void setTntLimit(Integer tntLimit);
 
     void addTnt(int amt);
 

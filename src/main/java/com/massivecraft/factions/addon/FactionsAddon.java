@@ -9,6 +9,8 @@ import java.util.Set;
 
 public abstract class FactionsAddon {
 
+    //Adding our custom config impl to addons?
+
     private String addonName;
     private SavageFactions plugin;
 

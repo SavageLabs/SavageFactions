@@ -4,7 +4,6 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.zcore.fupgrades.UpgradeType;
 import com.massivecraft.factions.zcore.util.TL;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Relational;
@@ -176,7 +175,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_tntbank_balance":
                 return String.valueOf(faction.getTnt());
             case "faction_maxmembers":
-                return String.valueOf(faction.getUpgrade(UpgradeType.MEMBER) == 0 ? Conf.factionMemberLimit : Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.MainMenu.Members.Member-Boost.level-" + faction.getUpgrade(UpgradeType.MEMBER)));
+                return String.valueOf(faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) == 0 ? Conf.factionMemberLimit :
+                        Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "member" + ".levels." + faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) + ".boost"));
             case "faction_name_at_location":
                 Faction factionAtLocation = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
                 return factionAtLocation != null ? factionAtLocation.getTag() : Factions.getInstance().getWilderness().getTag();
