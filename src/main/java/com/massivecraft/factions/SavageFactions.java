@@ -116,7 +116,6 @@ public class SavageFactions extends MPlugin {
             return;
         }
 
-        AddonManager.getAddonManagerInstance().loadAddons();
         upgradeManager = UpgradeManager.getUpgradeManagerInstance();
         upgradeManager.initUpgrades();
 
@@ -247,6 +246,7 @@ public class SavageFactions extends MPlugin {
         }
 
         this.setupPlaceholderAPI();
+        AddonManager.getAddonManagerInstance().loadAddons();
         this.postEnable();
         this.loadSuccessful = true;
         // Set startup finished to true. to give plugins hooking in a greenlight
