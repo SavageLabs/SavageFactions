@@ -429,6 +429,7 @@ fperm-gui:
         ally: 21
         enemy: 23
         neutral: 25
+        ownerclaim: 31
       # Material to be displayed
       materials:
         recruit: WOOD_SWORD
@@ -439,6 +440,7 @@ fperm-gui:
         ally: GOLD_AXE
         enemy: DIAMOND_AXE
         neutral: WOOD_AXE
+        ownerclaim: STONE_AXE
       Placeholder-Item:
         Name: '&cClick to edit {relation} permissions!'
     action:

@@ -16,6 +16,7 @@ import java.util.List;
 
 
 public enum Relation implements Permissable {
+    OWNERCLAIM(5, TL.RELATION_OWNERCLAIM_SINGULAR.toString()),
     MEMBER(4, TL.RELATION_MEMBER_SINGULAR.toString()),
     ALLY(3, TL.RELATION_ALLY_SINGULAR.toString()),
     TRUCE(2, TL.RELATION_TRUCE_SINGULAR.toString()),
@@ -38,11 +39,14 @@ public enum Relation implements Permissable {
             return ALLY;
         } else if (s.equalsIgnoreCase(TRUCE.nicename)) {
             return TRUCE;
+        } else if (s.equalsIgnoreCase(OWNERCLAIM.nicename)) {
+            return OWNERCLAIM;
         } else if (s.equalsIgnoreCase(ENEMY.nicename)) {
             return ENEMY;
         } else {
             return NEUTRAL; // If they somehow mess things up, go back to default behavior.
         }
+
     }
 
     @Override
@@ -68,7 +72,7 @@ public enum Relation implements Permissable {
     }
 
     public boolean isMember() {
-        return this == MEMBER;
+        return this == MEMBER || this == OWNERCLAIM;
     }
 
     public boolean isAlly() {
@@ -98,6 +102,8 @@ public enum Relation implements Permissable {
     public ChatColor getColor() {
 
         switch (this) {
+            // Just use member chat color since its ownerclaim member ( its just used for /f perms ).
+            case OWNERCLAIM:
             case MEMBER:
                 return Conf.colorMember;
             case ALLY:

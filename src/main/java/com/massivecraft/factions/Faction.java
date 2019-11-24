@@ -244,6 +244,8 @@ public interface Faction extends EconomyParticipator {
 
     Access getAccess(FPlayer player, PermissableAction permissableAction);
 
+    Access getOwnerclaimAccess(FPlayer fplayer, PermissableAction permissableAction);
+
     boolean setPermission(Permissable permissable, PermissableAction permissableAction, Access access);
 
     void resetPerms();
