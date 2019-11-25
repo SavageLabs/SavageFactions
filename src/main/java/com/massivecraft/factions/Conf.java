@@ -607,6 +607,11 @@ public class Conf {
         defaultFactionPermissions.put("MODERATOR", new DefaultPermissions(true));
         defaultFactionPermissions.put("NORMAL MEMBER", new DefaultPermissions(false));
         defaultFactionPermissions.put("RECRUIT", new DefaultPermissions(false));
+        defaultFactionPermissions.put("ALLY", new DefaultPermissions(false));
+        defaultFactionPermissions.put("ENEMY", new DefaultPermissions(false));
+        defaultFactionPermissions.put("TRUCE", new DefaultPermissions(false));
+        defaultFactionPermissions.put("NEUTRAL", new DefaultPermissions(false));
+
     }
 
 

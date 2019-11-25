@@ -46,6 +46,7 @@ public abstract class FactionUpgrade extends Upgrade {
 
         ItemStack item = getGuiItem();
         ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.name")));
         itemMeta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(SavageFactions.plugin.getConfig().getStringList("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.lore"), new Placeholder("{level}", faction.getUpgrade(this) + ""))));
         item.setItemMeta(itemMeta);
 
