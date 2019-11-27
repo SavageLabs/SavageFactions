@@ -42,7 +42,6 @@ public class PermissableRelationFrame {
                 e.setCancelled(true);
                 // Closing and opening resets the cursor.
                 // e.getWhoClicked().closeInventory();
-                System.out.println(getPermissable(key));
                 new PermissableActionFrame(fplayer.getFaction()).buildGUI(fplayer, getPermissable(key));
             }));
         }
