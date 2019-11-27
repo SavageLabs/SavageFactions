@@ -1,13 +1,10 @@
 package com.massivecraft.factions.cmd;
 
-import com.earth2me.essentials.IConf;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.event.FPlayerLeaveEvent;
 import com.massivecraft.factions.struct.BanInfo;
 import com.massivecraft.factions.struct.Permission;
-import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;

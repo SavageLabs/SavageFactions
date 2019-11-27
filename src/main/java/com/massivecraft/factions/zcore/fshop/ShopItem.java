@@ -2,9 +2,7 @@ package com.massivecraft.factions.zcore.fshop;
 
 import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 

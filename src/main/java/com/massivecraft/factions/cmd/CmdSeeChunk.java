@@ -20,7 +20,6 @@ public class CmdSeeChunk extends FCommand {
     public static HashMap<String, Boolean> seeChunkMap = new HashMap<>();
     Long interval = 10L;
     private boolean useParticles;
-    private int length;
     private ParticleEffect effect;
     private int taskID = -1;
 

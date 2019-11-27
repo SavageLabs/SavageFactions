@@ -46,11 +46,14 @@ public class CommandRequirements {
         }
 
         if (context.player != null) {
+
             // Is Player
             if (!context.fPlayer.hasFaction() && memberOnly) {
                 if (informIfNot) context.msg(TL.GENERIC_MEMBERONLY);
                 return false;
             }
+            
+            if (context.fPlayer.isAdminBypassing()) return true;
 
             if (!SavageFactions.plugin.perm.has(context.sender, permission.node, informIfNot)) return false;
 

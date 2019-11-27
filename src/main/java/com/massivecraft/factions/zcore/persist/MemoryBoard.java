@@ -264,7 +264,6 @@ public abstract class MemoryBoard extends Board {
         // Add the faction key
         if (Conf.showMapFactionKey) {
             FancyMessage fRow = new FancyMessage("");
-            int count = 0;
             for (String key : fList.keySet()) {
                 fRow.then(String.format("%s: %s ", fList.get(key), key)).color(ChatColor.GRAY);
             }

@@ -437,7 +437,6 @@ public class SavageFactions extends MPlugin {
         // Must be a LinkedList to prevent UnsupportedOperationException.
         List<String> argsList = new LinkedList<>(Arrays.asList(args));
         CommandContext context = new CommandContext(sender, argsList, alias);
-        String cmd = Conf.baseCommandAliases.isEmpty() ? "/f" : "/" + Conf.baseCommandAliases.get(0);
 //        String cmdValid = (cmd + " " + TextUtil.implode(context.args, " ")).trim();
         List<FCommand> commandsList = cmdBase.subCommands;
         FCommand commandsEx = cmdBase;
