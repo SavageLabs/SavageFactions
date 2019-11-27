@@ -359,11 +359,13 @@ public class Conf {
     // Taller and wider for "bigger f map"
     public static int mapHeight = 17;
     public static int mapWidth = 40;
-    public static String mapYouAreHereIcon = "\u271c";
-    public static String mapFlatIcon = "\u2589";
+//    public static String mapYouAreHereIcon = "\u271c";
+    public static String mapYouAreHereIcon = "+";
+//    public static String mapFlatIcon = "\u2589";
+    public static String mapFlatIcon = "-";
 
-    public static char[] mapKeyChrs = "\u2726\u2734\u2735\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f".toCharArray();
-//    public static transient char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
+//    public static char[] mapKeyChrs = "\u2726\u2734\u2735\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f".toCharArray();
+    public static char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
 
     // Grace Period Settings
     public static boolean graceEnabled = false;
