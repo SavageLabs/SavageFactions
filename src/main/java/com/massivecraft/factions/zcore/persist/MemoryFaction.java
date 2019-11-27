@@ -704,6 +704,19 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return Access.DENY;
 	}
 
+
+	public Access getOwnerclaimAccess(FPlayer fplayer, PermissableAction permissableAction) {
+		if (fplayer == null || permissableAction == null) return Access.DENY;
+
+
+		Map<PermissableAction, Access> accessMap = permissions.get(Relation.OWNERCLAIM);
+		if (accessMap != null && accessMap.containsKey(permissableAction)) {
+			return accessMap.get(permissableAction);
+		}
+
+		return Access.DENY;
+	}
+
 	public boolean setPermission(Permissable permissable, PermissableAction permissableAction, Access access) {
 		if (Conf.useLockedPermissions && Conf.lockedPermissions.contains(permissableAction)) return false;
 		Map<PermissableAction, Access> accessMap = permissions.get(permissable);

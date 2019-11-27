@@ -2,6 +2,7 @@ package com.massivecraft.factions;
 
 import com.google.common.collect.ImmutableMap;
 import com.massivecraft.factions.integration.dynmap.DynmapStyle;
+import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
 import com.massivecraft.factions.util.XMaterial;
@@ -607,6 +608,12 @@ public class Conf {
         defaultFactionPermissions.put("MODERATOR", new DefaultPermissions(true));
         defaultFactionPermissions.put("NORMAL MEMBER", new DefaultPermissions(false));
         defaultFactionPermissions.put("RECRUIT", new DefaultPermissions(false));
+        defaultFactionPermissions.put("OWNERCLAIM", new DefaultPermissions(false));
+        defaultFactionPermissions.put("ALLY", new DefaultPermissions(false));
+        defaultFactionPermissions.put("ENEMY", new DefaultPermissions(false));
+        defaultFactionPermissions.put("TRUCE", new DefaultPermissions(false));
+        defaultFactionPermissions.put("NEUTRAL", new DefaultPermissions(false));
+
     }
 
 

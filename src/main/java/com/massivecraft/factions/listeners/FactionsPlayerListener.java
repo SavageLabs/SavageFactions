@@ -241,9 +241,8 @@ public class FactionsPlayerListener implements Listener {
         boolean doPain = pain || Conf.handleExploitInteractionSpam; // Painbuild should take priority. But we want to
                                                                     // use exploit interaction as well.
         if (access != null) {
-            boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc)
-                    && !factionToCheck.getOwnerList(loc).isEmpty());
-            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName()))
+            boolean landOwned = (factionToCheck.doesLocationHaveOwnersSet(loc) && !factionToCheck.getOwnerList(loc).isEmpty());
+            if ((landOwned && factionToCheck.getOwnerListString(loc).contains(player.getName()) && me.getFaction().getOwnerclaimAccess(me, action) == Access.ALLOW)
                     || (me.getRole() == Role.LEADER && me.getFactionId().equals(factionToCheck.getId()))) {
                 return true;
             } else if (landOwned && !factionToCheck.getOwnerListString(loc).contains(player.getName())) {
