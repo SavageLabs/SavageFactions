@@ -76,6 +76,7 @@ public class PermissionsMapTypeAdapter implements JsonDeserializer<Map<Permissab
             } else if (Relation.fromString(name.toUpperCase()) != null) {
                 return Relation.fromString(name.toUpperCase());
             } else {
+                System.out.println("BRUH: " + name);
                 return null;
             }
         } else {

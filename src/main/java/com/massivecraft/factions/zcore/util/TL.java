@@ -946,6 +946,7 @@ public enum TL {
 	/**
 	 * Relations
 	 */
+	RELATION_OWNERCLAIM_SINGULAR("ownerclaim"),
 	RELATION_MEMBER_SINGULAR("member"),
 	RELATION_MEMBER_PLURAL("members"),
 	RELATION_ALLY_SINGULAR("ally"),
