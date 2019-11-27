@@ -162,8 +162,6 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
                 return String.valueOf(faction.getRelationCount(Relation.TRUCE));
             case "faction_online":
                 return String.valueOf(faction.getOnlinePlayers().size());
-            case "faction_can_see_online":
-                return String.valueOf(faction.getFactionMembersPlayerCanSee(player));
             case "faction_offline":
                 return String.valueOf(faction.getFPlayers().size() - faction.getOnlinePlayers().size());
             case "faction_size":

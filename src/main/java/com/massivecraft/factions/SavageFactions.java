@@ -29,9 +29,6 @@ import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.fupgrades.UpgradeListener;
-import io.illyria.skyblockx.core.IPlayer;
-import io.illyria.skyblockx.core.IPlayerKt;
-import io.illyria.skyblockx.core.Island;
 import me.lucko.commodore.CommodoreProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -118,8 +115,6 @@ public class SavageFactions extends MPlugin {
             getServer().getPluginManager().disablePlugin(plugin);
             return;
         }
-
-
 
         upgradeManager = UpgradeManager.getUpgradeManagerInstance();
         upgradeManager.initUpgrades();
