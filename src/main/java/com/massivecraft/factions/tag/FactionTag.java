@@ -11,6 +11,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+/**
+ * This code is derived from CmdrKittens (FactionsUUID).
+ * Credit for the implementation goes to them.
+ */
 public enum FactionTag implements Tag {
     HOME_X("{x}", (fac) -> fac.hasHome() ? String.valueOf(fac.getHome().getBlockX()) : Tag.isMinimalShow() ? null : "{ig}"),
     HOME_Y("{y}", (fac) -> fac.hasHome() ? String.valueOf(fac.getHome().getBlockY()) : Tag.isMinimalShow() ? null : "{ig}"),

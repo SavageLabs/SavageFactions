@@ -8,6 +8,11 @@ import org.bukkit.ChatColor;
 
 import java.util.function.Function;
 
+
+/**
+ * This code is derived from CmdrKittens (FactionsUUID).
+ * Credit for the implementation goes to them.
+ */
 public enum PlayerTag implements Tag {
     LAST_SEEN("{lastSeen}", (fp) -> {
         String humanized = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - fp.getLastLoginTime(), true, true) + TL.COMMAND_STATUS_AGOSUFFIX;

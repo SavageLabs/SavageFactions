@@ -12,6 +12,10 @@ import org.bukkit.ChatColor;
 
 import java.util.*;
 
+/**
+ * This code is derived from CmdrKittens (FactionsUUID).
+ * Credit for the implementation goes to them.
+ */
 public enum FancyTag implements Tag {
     ALLIES_LIST("{allies-list}", (target, fme, prefix, gm) -> processRelation(prefix, target, fme, Relation.ALLY)),
     ENEMIES_LIST("{enemies-list}", (target, fme, prefix, gm) -> processRelation(prefix, target, fme, Relation.ENEMY)),
