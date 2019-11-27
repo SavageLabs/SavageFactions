@@ -358,7 +358,7 @@ public class Conf {
 
     // Taller and wider for "bigger f map"
     public static int mapHeight = 17;
-    public static int mapWidth = 40;
+    public static int mapWidth = 49;
 //    public static String mapYouAreHereIcon = "\u271c";
     public static String mapYouAreHereIcon = "+";
 //    public static String mapFlatIcon = "\u2589";
