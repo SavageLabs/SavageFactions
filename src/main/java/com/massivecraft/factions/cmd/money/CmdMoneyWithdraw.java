@@ -32,6 +32,7 @@ public class CmdMoneyWithdraw extends FCommand {
     @Override
     public void perform(CommandContext context) {
         double amount = context.argAsDouble(0, 0d);
+        if (amount < 0) amount = amount * -1;
         EconomyParticipator faction = context.argAsFaction(1, context.faction);
         if (faction == null) {
             return;
