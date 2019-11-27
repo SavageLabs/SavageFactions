@@ -1074,6 +1074,22 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		return ret;
 	}
 
+	// filters by vanished
+	// btw - get a fuckin life lmao.
+	public int getFactionMembersPlayerCanSee(Player me) {
+		if (this.isPlayerFreeType()) return 0;
+		if (me.isOp()) return getOnlinePlayers().size();
+		int count = 0;
+		for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
+			FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+			if (fplayer.getFaction() == this && !fplayer.isAlt() && !fplayer.isVanished()) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+
 	// slightly faster check than getOnlinePlayers() if you just want to see if
 	// there are any players online
 	public boolean hasPlayersOnline() {

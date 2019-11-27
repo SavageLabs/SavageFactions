@@ -327,6 +327,8 @@ public interface Faction extends EconomyParticipator {
 
     ArrayList<Player> getOnlinePlayers();
 
+    int getFactionMembersPlayerCanSee(Player me);
+
     // slightly faster check than getOnlinePlayers() if you just want to see if
     // there are any players online
     boolean hasPlayersOnline();
