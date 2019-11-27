@@ -694,7 +694,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			return Access.DENY;
 		}
 
-		Permissable perm = player.getFaction() == null ? player.getRole() : player.getFaction().getRelationTo(this);
+		Permissable perm = player.getFaction() == this ? player.getRole() : player.getFaction().getRelationTo(this);
 
 		Map<PermissableAction, Access> accessMap = permissions.get(perm);
 		if (accessMap != null && accessMap.containsKey(permissableAction)) {
