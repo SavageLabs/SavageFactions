@@ -64,7 +64,8 @@ public class CmdFly extends FCommand {
 
     public static boolean checkBypassPerms(FPlayer fme, Player me, Faction toFac) {
 
-        if (Conf.denyFlightIfInNoClaimingWorld && !Conf.worldsNoClaiming.isEmpty() && Conf.worldsNoClaiming.stream().anyMatch(me.getWorld().getName()::equalsIgnoreCase)) return false;
+        if (Conf.denyFlightIfInNoClaimingWorld && !Conf.worldsNoClaiming.isEmpty() && Conf.worldsNoClaiming.stream().anyMatch(me.getWorld().getName()::equalsIgnoreCase))
+            return false;
         if (toFac != fme.getFaction()) {
             if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness() || !me.hasPermission("factions.fly.safezone") && toFac.isSafeZone() || !me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
@@ -88,7 +89,7 @@ public class CmdFly extends FCommand {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
-
+            System.out.println("hasPerm: " + (me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction())));
             return me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction());
         }
         return fme.canFlyAtLocation();
@@ -113,8 +114,12 @@ public class CmdFly extends FCommand {
 
         FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
-        if (!checkBypassPerms(context.fPlayer, context.player, toFac)) return;
+        if (!checkBypassPerms(context.fPlayer, context.player, toFac)) {
+
+            return;
+        }
         if (context.fPlayer.checkIfNearbyEnemies()) {
+
             return;
         }
 
