@@ -85,7 +85,7 @@ public class FactionsBlockListener implements Listener {
 
     private static boolean CheckPlayerAccess(Player player, FPlayer me, FLocation loc, Faction myFaction, Access access, PermissableAction action, boolean shouldHurt) {
         boolean landOwned = (myFaction.doesLocationHaveOwnersSet(loc) && !myFaction.getOwnerList(loc).isEmpty());
-        if ((landOwned && myFaction.getOwnerListString(loc).contains(player.getName())) || (me.getRole() == Role.LEADER && me.getFactionId().equals(myFaction.getId())))
+        if ((landOwned && myFaction.getOwnerListString(loc).contains(player.getName()) && myFaction.getOwnerclaimAccess(me, action) == Access.ALLOW) || (me.getRole() == Role.LEADER && me.getFactionId().equals(myFaction.getId())))
             return true;
         else if (landOwned && !myFaction.getOwnerListString(loc).contains(player.getName())) {
             me.msg(TL.ACTIONS_OWNEDTERRITORYDENY.toString().replace("{owners}", myFaction.getOwnerListString(loc)));
