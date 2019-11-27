@@ -6,6 +6,11 @@ import com.massivecraft.factions.SavageFactions;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 
+
+/**
+ * This code is derived from CmdrKittens (FactionsUUID).
+ * Credit for the implementation goes to them.
+ */
 public interface Tag {
     int ARBITRARY_LIMIT = 25000;
 

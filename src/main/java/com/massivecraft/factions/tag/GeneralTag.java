@@ -7,6 +7,11 @@ import org.bukkit.Bukkit;
 
 import java.util.function.Supplier;
 
+
+/**
+ * This code is derived from CmdrKittens (FactionsUUID).
+ * Credit for the implementation goes to them.
+ */
 public enum GeneralTag implements Tag {
     MAX_WARPS("{max-warps}", () -> String.valueOf(SavageFactions.plugin.getConfig().getInt("max-warps", 5))),
     MAX_ALLIES("{max-allies}", () -> getRelation("ally")),
