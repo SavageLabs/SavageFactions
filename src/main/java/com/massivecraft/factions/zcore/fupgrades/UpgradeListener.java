@@ -31,13 +31,7 @@ public class UpgradeListener implements Listener {
         if (!faction.isWilderness()) {
             int level = faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("exp"));
             double multiplier = SavageFactions.plugin.getConfig().getDouble("fupgrades.upgrades." + "exp" + ".levels." + faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("exp")) + ".boost");
-           System.out.println("el multiplier es de " + multiplier);
-            if (level != 0 && multiplier > 0.0) //spawnMoreExp(e, multiplier);
-            {
-                double newExp = e.getDroppedExp() * multiplier;
-                e.setDroppedExp((int) newExp);
-                System.out.println("La nueva xp es" + newExp);
-            }
+            if (level != 0 && multiplier > 0.0) spawnMoreExp(e, multiplier);
         }
     }
 
