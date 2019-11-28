@@ -143,7 +143,7 @@ public class Econ {
         if (!econ.has(fromAcc, amount)) {
             // There was not enough money to pay
             if (invoker != null && notify) {
-                invoker.msg("<h>%s<b> can't afford to transfer <h>%s<b> to %s<b>.", from.describeTo(invoker, true), moneyString(amount), to.describeTo(invoker));
+                invoker.msg(TL.COMMAND_MONEYTRANSFERFF_TRANSFERCANTAFFORD, from.describeTo(invoker, true), moneyString(amount), to.describeTo(invoker));
             }
             return false;
         }
@@ -215,7 +215,8 @@ public class Econ {
         if (currentBalance >= delta) affordable = true;
 
         if (!affordable) {
-            if (toDoThis != null && !toDoThis.isEmpty()) ep.msg("<h>%s<i> can't afford <h>%s<i> %s.", ep.describeTo(ep, true), moneyString(delta), toDoThis);
+            if (toDoThis != null && !toDoThis.isEmpty())
+                ep.msg(TL.COMMAND_MONEY_CANTAFFORD, ep.describeTo(ep, true), moneyString(delta), toDoThis);
             return false;
         }
         return true;
@@ -238,7 +239,8 @@ public class Econ {
             EconomyResponse er = econ.depositPlayer(acc, delta);
             if (er.transactionSuccess()) {
                 modifyUniverseMoney(-delta);
-                if (forDoingThis != null && !forDoingThis.isEmpty()) ep.msg("<h>%s<i> gained <h>%s<i> %s.", You, moneyString(delta), forDoingThis);
+                if (forDoingThis != null && !forDoingThis.isEmpty())
+                    ep.msg(TL.COMMAND_MONEY_GAINED, You, moneyString(delta), forDoingThis);
                 return true;
             } else {
                 // transfer to account failed
