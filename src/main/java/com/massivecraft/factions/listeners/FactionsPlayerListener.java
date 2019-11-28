@@ -518,9 +518,9 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public void checkCanFly(FPlayer me) {
-        if (!me.canFlyAtLocation() || me.checkIfNearbyEnemies()) {
-            if (me.isFlying())
-                me.setFFlying(false, false);
+        if (me.isFlying() && (!me.canFlyAtLocation() || me.checkIfNearbyEnemies())) {
+            me.setFFlying(false, false);
+            me.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(me.getLastStoodAt()).getTag());
             return;
         }
         if (me.isFlying() || !SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable"))
