@@ -456,6 +456,9 @@ public enum TL {
 	COMMAND_MONEY_LONG("&c&l[!]&7 The faction money commands."),
 	COMMAND_MONEY_DESCRIPTION("Faction money commands"),
 
+	COMMAND_MONEY_CANTAFFORD("&c&l[!]&7 &c%1$s&7 can't afford &c%2$s&7 %3$s"),
+	COMMAND_MONEY_GAINED("&c&l[!]&7 &c%1$s&7 gained &c%2$s %2%6"),
+
 	COMMAND_MONEYBALANCE_SHORT("show faction balance"),
 	COMMAND_MONEYBALANCE_DESCRIPTION("Show your factions current money balance"),
 
@@ -464,6 +467,7 @@ public enum TL {
 
 	COMMAND_MONEYTRANSFERFF_DESCRIPTION("Transfer f -> f"),
 	COMMAND_MONEYTRANSFERFF_TRANSFER("&c&l[!]&7 &c%1$s&7 transferred&c %2$s &7from the faction &c\"%3$s\"&7 to the faction&c \"%4$s\"&7"),
+	COMMAND_MONEYTRANSFERFF_TRANSFERCANTAFFORD("&c&l[!]&7 &c%1$s&7 can't afford to transfer &c%2$s &7to %3$s"),
 
 	COMMAND_MONEYTRANSFERFP_DESCRIPTION("Transfer f -> plugin"),
 	COMMAND_MONEYTRANSFERFP_TRANSFER("&c&l[!]&7 &c%1$s &7transferred&c %2$s &7from the faction&c \"%3$s\" &7to the player &c\"%4$s\""),
@@ -473,6 +477,7 @@ public enum TL {
 
 	COMMAND_MONEYWITHDRAW_DESCRIPTION("Withdraw money"),
 	COMMAND_MONEYWITHDRAW_WITHDRAW("&c&l[!]&7 &c%1$s&7 withdrew&c %2$s &7from the faction bank:&c %3$s"),
+	COMMAND_MONEYWITHDRAW_WITHDRAWTOOYOUNG("&c&l[!]&7 &c%1$s&7 is too young to withdraw money like this"),
 
 	COMMAND_OPEN_TOOPEN("to open or close the faction"),
 	COMMAND_OPEN_FOROPEN("for opening or closing the faction"),

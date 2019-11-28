@@ -309,7 +309,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		if (Econ.shouldBeUsed() && !disbanderIsConsole) {
 			// Should we prevent to withdraw money if the faction was just created
 			if (Conf.econFactionStartingBalance != 0 && (System.currentTimeMillis() - this.foundedDate) <= (Conf.econDenyWithdrawWhenMinutesAgeLessThan * 6000)) {
-				msg("Your faction is too young to withdraw money like this");
+				msg(TL.COMMAND_MONEYWITHDRAW_WITHDRAWTOOYOUNG, this.getTag());
 			} else {
 				//Give all the faction's money to the disbander
 				double amount = Econ.getBalance(this.getAccountId());

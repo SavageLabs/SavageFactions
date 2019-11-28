@@ -12,13 +12,13 @@ public class UpgradeAdapter implements JsonSerializer<Upgrade>, JsonDeserializer
     @Override
     public Upgrade deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObj = json.getAsJsonObject();
-        return SavageFactions.plugin.getUpgradeManager().getUpgradeByName(jsonObj.get("name").toString().replace("\"", ""));
+        return SavageFactions.plugin.getUpgradeManager().getUpgradeByName(jsonObj.get("name").toString().toLowerCase().replace("\"", ""));
     }
 
     @Override
     public JsonElement serialize(Upgrade src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
-        result.add("name", new JsonPrimitive(src.getUpgradeName()));
+        result.add("name", new JsonPrimitive(src.getUpgradeName().toLowerCase()));
         return result;
     }
 }
