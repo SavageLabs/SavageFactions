@@ -90,7 +90,7 @@ public class CmdTnt extends FCommand {
                     context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_TNT.toString());
                     return;
                 }
-                int fullStacks = Math.round(amount / 64);
+                int fullStacks = amount / 64;
                 int remainderAmt = amount - (fullStacks * 64);
                 if ((remainderAmt == 0 && !hasAvaliableSlot(context.player, fullStacks))) {
                     context.msg(TL.COMMAND_TNT_WIDTHDRAW_NOTENOUGH_SPACE);
@@ -131,7 +131,7 @@ public class CmdTnt extends FCommand {
     }
 
     public boolean hasAvaliableSlot(Player player, int howmany) {
-        Integer check = 0;
+        int check = 0;
         for (ItemStack item : player.getInventory().getContents()) {
             if (item == null) {
                 check++;
