@@ -114,14 +114,11 @@ public class CmdFly extends FCommand {
 
         FLocation myfloc = new FLocation(context.player.getLocation());
         Faction toFac = Board.getInstance().getFactionAt(myfloc);
-        if (!checkBypassPerms(context.fPlayer, context.player, toFac)) {
 
+        if (!checkBypassPerms(context.fPlayer, context.player, toFac))
             return;
-        }
-        if (context.fPlayer.checkIfNearbyEnemies()) {
-
+        if (context.fPlayer.checkIfNearbyEnemies())
             return;
-        }
 
         if (context.args.size() == 1) {
             toggleFlight(context.argAsBool(0), context.fPlayer, context);
@@ -138,7 +135,7 @@ public class CmdFly extends FCommand {
         }
 
 
-        if (fme.canFlyAtLocation())
+        if (fme.canFlyAtLocation()) {
             context.doWarmUp(WarmUpUtil.Warmup.FLIGHT, TL.WARMUPS_NOTIFY_FLIGHT, "Fly", () -> {
                 fme.setFlying(true);
                 flyMap.put(fme.getPlayer().getName(), true);
@@ -148,6 +145,9 @@ public class CmdFly extends FCommand {
                     }
                 }
             }, SavageFactions.plugin.getConfig().getLong("warmups.f-fly", 0));
+        } else {
+            fme.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(fme.getLastStoodAt()).getTag());
+        }
     }
 
     @Override
