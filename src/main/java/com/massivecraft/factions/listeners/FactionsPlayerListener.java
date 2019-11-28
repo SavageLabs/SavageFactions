@@ -405,7 +405,7 @@ public class FactionsPlayerListener implements Listener {
         // Update the lastLoginTime for this fplayer
         me.setLastLoginTime(System.currentTimeMillis());
 
-        playerChecks.put(player.getUniqueId(), player.getLocation());
+        lastLocations.put(player.getUniqueId(), player.getLocation());
 
         // Store player's current FLocation and notify them where they are
         me.setLastStoodAt(new FLocation(player.getLocation()));
@@ -487,7 +487,7 @@ public class FactionsPlayerListener implements Listener {
             SavageFactions.plugin.getTimers().remove(me.getPlayer().getUniqueId());
         }
 
-        playerChecks.remove(this_.getUniqueId());
+        lastLocations.remove(this_.getUniqueId());
 
         Faction myFaction = me.getFaction();
         if (!myFaction.isWilderness())
@@ -518,18 +518,17 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public void checkCanFly(FPlayer me) {
-        if (!SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable"))
-            return; // Looks prettier sorry
         if (!me.canFlyAtLocation() || me.checkIfNearbyEnemies()) {
-            me.setFFlying(false, false);
+            if (me.isFlying())
+                me.setFFlying(false, false);
             return;
         }
-        if (me.isFlying()) return; // Already flying, don't bother
+        if (me.isFlying() || !SavageFactions.plugin.getConfig().getBoolean("ffly.AutoEnable"))
+            return;
         me.setFFlying(true, false);
         CmdFly.flyMap.put(me.getName(), true);
-        if (CmdFly.particleTask == null)
-            if (Conf.enableFlyParticles)
-                CmdFly.startParticles();
+        if (CmdFly.particleTask == null && Conf.enableFlyParticles)
+            CmdFly.startParticles();
     }
 
     // inspect
@@ -554,7 +553,7 @@ public class FactionsPlayerListener implements Listener {
             } else
                 fplayer.msg(TL.COMMAND_INSPECT_BYPASS);
             List<String[]> info = CoreProtect.getInstance().getAPI().blockLookup(e.getClickedBlock(), 0);
-            if (info.size() == 0) {
+            if (info.isEmpty()) {
                 e.getPlayer().sendMessage(TL.COMMAND_INSPECT_NODATA.toString());
                 return;
             }
@@ -591,13 +590,12 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public static BukkitTask positionTask = null;
-    public final static HashMap<UUID, Location> playerChecks = new HashMap<UUID, Location>();
-    public static Map<UUID, Location> lastLocations = new HashMap<>();
+    public final static Map<UUID, Location> lastLocations = new HashMap<>();
 
     public void startPositionCheck() {
         positionTask = Bukkit.getScheduler().runTaskTimer(SavageFactions.plugin, () -> {
-            if (playerChecks.size() <= 0) return;
-            for (Entry<UUID, Location> check : playerChecks.entrySet()) {
+            if (lastLocations.isEmpty()) return;
+            for (Entry<UUID, Location> check : lastLocations.entrySet()) {
                 Player player = Bukkit.getPlayer(check.getKey());
                 refreshPosition(player, check.getValue(), player.getLocation());
                 lastLocations.put(player.getUniqueId(), player.getLocation());
@@ -620,17 +618,13 @@ public class FactionsPlayerListener implements Listener {
         }
 
         // quick check to make sure player is moving between chunks; good performance boost
-        if (oldLocation.getBlockX() >> 4 == newLocation.getBlockX() >> 4
-                && oldLocation.getBlockZ() >> 4 == newLocation.getBlockZ() >> 4
-                && oldLocation.getWorld() == newLocation.getWorld()) {
+        if (oldLocation.getChunk() == newLocation.getChunk() && oldLocation.getWorld().getName().equalsIgnoreCase(newLocation.getWorld().getName()))
             return;
-        }
-
 
         // Did we change coord?
         FLocation from = me.getLastStoodAt();
         FLocation to = new FLocation(player.getLocation());
-
+        
         if (from.equals(to)) return;
 
         // Yes we did change coord (:
@@ -639,8 +633,8 @@ public class FactionsPlayerListener implements Listener {
         // Did we change "host"(faction)?
         Faction factionFrom = Board.getInstance().getFactionAt(from);
         Faction factionTo = Board.getInstance().getFactionAt(to);
-        boolean changedFaction = (factionFrom != factionTo);
 
+        boolean changedFaction = (factionFrom != factionTo);
 
         if (changedFaction) {
             Bukkit.getScheduler().runTask(SavageFactions.plugin, () -> Bukkit.getServer().getPluginManager().callEvent(new FPlayerEnteredFactionEvent(factionTo, factionFrom, me)));
