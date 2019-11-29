@@ -52,8 +52,9 @@ public class CmdTntFill extends FCommand {
         }
 
         context.msg(TL.COMMAND_TNTFILL_HEADER);
-        int radius = context.argAsInt(0, 0); // We don't know the max yet, so let's not assume.
-        int amount = context.argAsInt(1, 0); // We don't know the max yet, so let's not assume.
+        // We don't know the max yet, so let's not assume.
+        int radius = context.argAsInt(0, 0);
+        int amount = context.argAsInt(1, 0);
 
         if (amount < 0) {
             context.msg(TL.COMMAND_TNT_POSITIVE);
@@ -84,18 +85,14 @@ public class CmdTntFill extends FCommand {
                     if (!(blockState instanceof Dispenser)) continue;
                     Dispenser dis = (Dispenser) blockState;
                     // skip if we can't add anything
-                    if (isInventoryFull(dis.getInventory())) continue;
+                    if (isInvFull(dis.getInventory())) continue;
                     opDispensers.add((Dispenser) blockState);
                 }
         if (opDispensers.isEmpty()) {
             context.fPlayer.msg(TL.COMMAND_TNTFILL_NODISPENSERS.toString().replace("{radius}", radius + ""));
             return;
         }
-
-        // What's the required amount of resources
         int requiredTnt = (opDispensers.size() * amount);
-
-        // Do I have enough tnt in my inventory?
         int playerTnt = getTNTInside(context.player);
         // if player does not have enough tnt, just take whatever he has and add it to the bank
         // then use the bank as source. If bank < required abort.
@@ -114,14 +111,13 @@ public class CmdTntFill extends FCommand {
             // Take TNT from the player
             fillDispensers(context.fPlayer, opDispensers, amount);
         }
-        // Remove used TNT from player inventory.
         context.sendMessage(TL.COMMAND_TNTFILL_SUCCESS.toString().replace("{amount}", requiredTnt + "").replace("{dispensers}", opDispensers.size() + ""));
     }
 
     // Actually fill every dispenser with the precise amount.
     private void fillDispensers(FPlayer fPlayer, List<Dispenser> dispensers, int count) {
         for (Dispenser dispenser : dispensers) {
-            int canBeAdded = getAmountOfItemsThatCanBeAdded(dispenser.getInventory(), Material.TNT);
+            int canBeAdded = getAddable(dispenser.getInventory(), Material.TNT);
             if (canBeAdded <= 0) continue;
             int toAdd = Math.min(canBeAdded, count);
             if (toAdd > getTNTInside(fPlayer.getPlayer())) {
@@ -135,7 +131,7 @@ public class CmdTntFill extends FCommand {
 
     private void fillDispensers(CommandContext context, List<Dispenser> dispensers, int count) {
         for (Dispenser dispenser : dispensers) {
-            int canBeAdded = getAmountOfItemsThatCanBeAdded(dispenser.getInventory(), Material.TNT);
+            int canBeAdded = getAddable(dispenser.getInventory(), Material.TNT);
             if (canBeAdded <= 0) continue;
             int toAdd = Math.min(canBeAdded, count);
             if (context.faction.getTnt() < toAdd) {
@@ -174,7 +170,7 @@ public class CmdTntFill extends FCommand {
         return count;
     }
 
-    public int getAmountOfItemsThatCanBeAdded(Inventory inv, Material material) {
+    public int getAddable(Inventory inv, Material material) {
         int output = 0;
         int notempty = 0;
         for (int i = 0; i < inv.getSize(); ++i) {
@@ -190,7 +186,7 @@ public class CmdTntFill extends FCommand {
         return output += (inv.getSize() - notempty) * 64;
     }
 
-    public boolean isInventoryFull(Inventory inv) {
+    public boolean isInvFull(Inventory inv) {
         return inv.firstEmpty() == -1;
     }
 
