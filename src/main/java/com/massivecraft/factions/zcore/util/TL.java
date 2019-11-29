@@ -896,6 +896,7 @@ public enum TL {
 	GENERIC_PUBLICLAND("Public faction land."),
 	GENERIC_FACTIONLESS("factionless"),
 	GENERIC_SERVERADMIN("A server admin"),
+	GENERIC_SERVER("Server"),
 	GENERIC_DISABLED("disabled"),
 	GENERIC_ENABLED("enabled"),
 	GENERIC_INFINITY("âˆž"),
@@ -951,6 +952,12 @@ public enum TL {
 	ECON_MONEYTRASFERREDFROM("%1$s was transferred from %2$s to %3$s."),
 	ECON_PERSONGAVEMONEYTO("%1$s gave %2$s to %3$s."),
 	ECON_PERSONTOOKMONEYFROM("%1$s took %2$s from %3$s."),
+	ECON_MONEYLOST("&c%s &7lost &c%s &7%s."),
+	ECON_CANTAFFORD("&c%s &7can't afford &c%s&7 %s."),
+	ECON_UNABLETOTRANSFER("&7Unable to transfer &c%s&7 to &c%s&7 from &c%s&7."),
+	ECON_PLAYERBALANCE("&c%s&7's balance is &c%s&7."),
+	ECON_DEPOSITFAILED("&c%s&7 would have gained &c%s&7 %s, but the deposit failed."),
+	ECON_CANTCONTROLMONEY("&c%s&7 lacks permission to control &c%s&7's money."),
 	ECON_MONEYTRASFERREDFROMPERSONTOPERSON("%1$s transferred %2$s from %3$s to %4$s."),
 
 	/**
