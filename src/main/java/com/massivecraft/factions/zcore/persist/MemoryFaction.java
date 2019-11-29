@@ -168,7 +168,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	}
 
 	public Integer getMaxWarps(){
-		return maxWarps;
+		return maxWarps == null ? SavageFactions.plugin.getConfig().getInt("max-warps", 1) : maxWarps;
 	}
 
 	public void setMaxWarps(Integer warps){
