@@ -39,7 +39,6 @@ public class CmdNear extends FCommand {
                     context.sendMessage(format.replace("{playername}", player.getDisplayName()).replace("{distance}", (int) distance + ""));
                 }
             }
-
         }
     }
 

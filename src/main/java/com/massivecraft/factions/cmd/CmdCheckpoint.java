@@ -48,9 +48,7 @@ public class CmdCheckpoint extends FCommand {
         if (checkfaction.getId().equals(Factions.getInstance().getWilderness().getId()) || checkfaction.getId().equals(context.faction.getId())) {
             context.msg(TL.COMMAND_CHECKPOINT_GO);
 
-            context.doWarmUp(WarmUpUtil.Warmup.CHECKPOINT, TL.WARMUPS_NOTIFY_TELEPORT, "Checkpoint", () -> {
-                context.player.teleport(context.faction.getCheckpoint());
-            }, SavageFactions.plugin.getConfig().getLong("warmups.f-checkpoint", 0));
+            context.doWarmUp(WarmUpUtil.Warmup.CHECKPOINT, TL.WARMUPS_NOTIFY_TELEPORT, "Checkpoint", () -> context.player.teleport(context.faction.getCheckpoint()), SavageFactions.plugin.getConfig().getLong("warmups.f-checkpoint", 0));
         } else {
             context.msg(TL.COMMAND_CHECKPOINT_CLAIMED);
         }

@@ -125,6 +125,7 @@ public enum TL {
     COMMAND_CONTEXT_ADMINISTER_SAME_RANK_CONTROL("&c[!] Moderators can't control each other..."),
     COMMAND_CONTEXT_ADMINISTER_MOD_REQUIRED("&c[!] You must be a faction moderator to do that."),
 
+	COMMAND_UPGRADES_DISABLED("&c[!] &7Faction Upgrades are &cdisabled&7."),
 	COMMAND_UPGRADES_DESCRIPTION("&cOpen the Upgrades Menu"),
 
 	COMMAND_ADMIN_NOTMEMBER("&c&l[!] &7%1$s &cis not a member in your faction."),

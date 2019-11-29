@@ -15,7 +15,6 @@ public class CmdShop extends FCommand {
     }
 
 
-
     @Override
     public void perform(CommandContext context) {
         new ShopGUI(SavageFactions.plugin, SavageFactions.plugin.color(Shop.shopTitle), Shop.rows).buildGUI(context.fPlayer);

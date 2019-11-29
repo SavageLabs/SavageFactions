@@ -27,14 +27,11 @@ public class CmdConvert extends FCommand {
             context.sender.sendMessage(TL.COMMAND_CONVERT_BACKEND_RUNNING.toString());
             return;
         }
-        switch (nb) {
-            case JSON:
-                FactionsJSON.convertTo();
-                break;
-            default:
-                context.sender.sendMessage(TL.COMMAND_CONVERT_BACKEND_INVALID.toString());
-                return;
-
+        if (nb == Backend.JSON) {
+            FactionsJSON.convertTo();
+        } else {
+            context.sender.sendMessage(TL.COMMAND_CONVERT_BACKEND_INVALID.toString());
+            return;
         }
         Conf.backEnd = nb;
     }

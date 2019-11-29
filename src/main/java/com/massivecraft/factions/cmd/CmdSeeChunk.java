@@ -12,7 +12,6 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class CmdSeeChunk extends FCommand {
 
@@ -58,7 +57,7 @@ public class CmdSeeChunk extends FCommand {
 
     private void manageTask() {
         if (taskID != -1) {
-            if (seeChunkMap.keySet().size() == 0) {
+            if (seeChunkMap.isEmpty()) {
                 Bukkit.getScheduler().cancelTask(taskID);
                 taskID = -1;
             }
@@ -68,18 +67,13 @@ public class CmdSeeChunk extends FCommand {
     }
 
     private void startTask() {
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, new Runnable() {
-            @Override
-            public void run() {
-                Iterator<String> itr = seeChunkMap.keySet().iterator();
-                while (itr.hasNext()) {
-                    Object nameObject = itr.next();
-                    String name = nameObject + "";
-                    Player player = Bukkit.getPlayer(name);
-                    showBorders(player);
-                }
-                manageTask();
+        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(SavageFactions.plugin, () -> {
+            for (Object nameObject : seeChunkMap.keySet()) {
+                String name = nameObject + "";
+                Player player = Bukkit.getPlayer(name);
+                showBorders(player);
             }
+            manageTask();
         }, 0, interval);
     }
 

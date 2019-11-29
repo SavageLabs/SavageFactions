@@ -27,7 +27,7 @@ public class CmdSetFWarp extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
-        if (!(context.fPlayer.getRelationToLocation() == Relation.MEMBER)) {
+        if (context.fPlayer.getRelationToLocation() != Relation.MEMBER) {
             context.msg(TL.COMMAND_SETFWARP_NOTCLAIMED);
             return;
         }

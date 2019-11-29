@@ -20,7 +20,7 @@ public class CmdAutoHelp extends FCommand {
 
     @Override
     public void perform(CommandContext context) {
-        if (context.commandChain.size() == 0) {
+        if (context.commandChain.isEmpty()) {
             return;
         }
         FCommand pcmd = context.commandChain.get(context.commandChain.size() - 1);

@@ -40,9 +40,7 @@ public class CmdFly extends FCommand {
                 Player player = Bukkit.getPlayer(name);
                 if (player == null) continue;
                 if (!player.isFlying()) continue;
-                if (!SavageFactions.plugin.mc17) {
-                    if (player.getGameMode() == GameMode.SPECTATOR) continue;
-                }
+                if (!SavageFactions.plugin.mc17 && player.getGameMode() == GameMode.SPECTATOR) continue;
 
                 FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
                 if (fplayer.isVanished()) continue;
@@ -89,7 +87,7 @@ public class CmdFly extends FCommand {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
-            System.out.println("hasPerm: " + (me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction())));
+            //System.out.println("hasPerm: " + (me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction())));
             return me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction());
         }
         return fme.canFlyAtLocation();
@@ -139,10 +137,8 @@ public class CmdFly extends FCommand {
             context.doWarmUp(WarmUpUtil.Warmup.FLIGHT, TL.WARMUPS_NOTIFY_FLIGHT, "Fly", () -> {
                 fme.setFlying(true);
                 flyMap.put(fme.getPlayer().getName(), true);
-                if (particleTask == null) {
-                    if (Conf.enableFlyParticles) {
-                        startParticles();
-                    }
+                if (particleTask == null && Conf.enableFlyParticles) {
+                    startParticles();
                 }
             }, SavageFactions.plugin.getConfig().getLong("warmups.f-fly", 0));
         } else {

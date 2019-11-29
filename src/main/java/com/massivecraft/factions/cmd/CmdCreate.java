@@ -41,7 +41,7 @@ public class CmdCreate extends FCommand {
         }
 
         ArrayList<String> tagValidationErrors = MiscUtil.validateTag(tag);
-        if (tagValidationErrors.size() > 0) {
+        if (!tagValidationErrors.isEmpty()) {
             context.sendMessage(tagValidationErrors);
             return;
         }

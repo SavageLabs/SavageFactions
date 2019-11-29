@@ -55,10 +55,9 @@ public class CmdGetVault extends FCommand {
 
     public boolean inventoryContains(Inventory inventory, ItemStack item) {
         int count = 0;
-        ItemStack[] items = inventory.getContents();
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getType() == item.getType() && items[i].getDurability() == item.getDurability()) {
-                count += items[i].getAmount();
+        for (ItemStack itemStack : inventory.getContents()) {
+            if (itemStack != null && itemStack.getType() == item.getType() && itemStack.getDurability() == item.getDurability()) {
+                count += itemStack.getAmount();
             }
             if (count >= item.getAmount()) {
                 return true;

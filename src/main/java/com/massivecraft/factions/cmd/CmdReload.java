@@ -26,7 +26,6 @@ public class CmdReload extends FCommand {
         SavageFactions.plugin.loadLang();
 
 
-
         if (SavageFactions.plugin.getConfig().getBoolean("enable-faction-flight")) {
             SavageFactions.plugin.factionsFlight = true;
         }

@@ -23,8 +23,7 @@ public class CmdSetBanner extends FCommand {
 
         context.faction.setBannerPattern(context.player.getItemInHand());
         context.msg(TL.COMMAND_SETBANNER_SUCCESS);
-
-
+        
     }
 
     @Override

@@ -47,43 +47,32 @@ public class CmdList extends FCommand {
         // remove exempt factions
         if (context.fPlayer != null && context.fPlayer.getPlayer() != null && !context.fPlayer.getPlayer().hasPermission("factions.show.bypassexempt")) {
             List<String> exemptFactions = SavageFactions.plugin.getConfig().getStringList("show-exempt");
-            Iterator<Faction> factionIterator = factionList.iterator();
 
-            while (factionIterator.hasNext()) {
-                Faction next = factionIterator.next();
-                if (exemptFactions.contains(next.getTag()))
-                    factionIterator.remove();
-            }
+            factionList.removeIf(next -> exemptFactions.contains(next.getTag()));
         }
 
         // Sort by total followers first
-        Collections.sort(factionList, new Comparator<Faction>() {
-            @Override
-            public int compare(Faction f1, Faction f2) {
-                int f1Size = f1.getFPlayers().size();
-                int f2Size = f2.getFPlayers().size();
-                if (f1Size < f2Size) {
-                    return 1;
-                } else if (f1Size > f2Size) {
-                    return -1;
-                }
-                return 0;
+        factionList.sort((f1, f2) -> {
+            int f1Size = f1.getFPlayers().size();
+            int f2Size = f2.getFPlayers().size();
+            if (f1Size < f2Size) {
+                return 1;
+            } else if (f1Size > f2Size) {
+                return -1;
             }
+            return 0;
         });
 
         // Then sort by how many members are online now
-        Collections.sort(factionList, new Comparator<Faction>() {
-            @Override
-            public int compare(Faction f1, Faction f2) {
-                int f1Size = f1.getFPlayersWhereOnline(true).size();
-                int f2Size = f2.getFPlayersWhereOnline(true).size();
-                if (f1Size < f2Size) {
-                    return 1;
-                } else if (f1Size > f2Size) {
-                    return -1;
-                }
-                return 0;
+        factionList.sort((f1, f2) -> {
+            int f1Size = f1.getFPlayersWhereOnline(true).size();
+            int f2Size = f2.getFPlayersWhereOnline(true).size();
+            if (f1Size < f2Size) {
+                return 1;
+            } else if (f1Size > f2Size) {
+                return -1;
             }
+            return 0;
         });
 
         ArrayList<String> lines = new ArrayList<>();

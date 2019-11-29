@@ -31,7 +31,7 @@ public class CmdFWarp extends FCommand {
     @Override
     public void perform(CommandContext context) {
 
-        if (context.args.size() == 0) {
+        if (context.args.isEmpty()) {
             new FactionWarpsFrame(context.faction).buildGUI(context.fPlayer);
         } else if (context.args.size() > 2) {
             context.msg(TL.COMMAND_FWARP_COMMANDFORMAT);
