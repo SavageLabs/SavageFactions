@@ -564,8 +564,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		if (!Conf.homesMustBeInClaimedTerritory || this.home == null || (this.home.getLocation() != null && Board.getInstance().getFactionAt(new FLocation(this.home.getLocation())) == this)) {
 			return;
 		}
-
-		msg("<b>Your faction home has been un-set since it is no longer in your territory.");
+		msg(TL.COMMAND_HOME_UNSET);
 		this.home = null;
 	}
 
@@ -769,7 +768,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	/**
 	 * Read only map of Permissions.
 	 *
-	 * @return
+	 * @return unmodifiable permissions map
 	 */
 	public Map<Permissable, Map<PermissableAction, Access>> getPermissions() {
 		return Collections.unmodifiableMap(permissions);
@@ -1064,10 +1063,10 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			return ret;
 		}
 
-		for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
-			FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+		for (Player p : SavageFactions.plugin.getServer().getOnlinePlayers()) {
+			FPlayer fplayer = FPlayers.getInstance().getByPlayer(p);
 			if (fplayer.getFaction() == this && !fplayer.isAlt()) {
-				ret.add(player);
+				ret.add(p);
 			}
 		}
 
@@ -1080,8 +1079,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		if (this.isPlayerFreeType()) return 0;
 		if (me.isOp()) return getOnlinePlayers().size();
 		int count = 0;
-		for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
-			FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+		for (Player p : SavageFactions.plugin.getServer().getOnlinePlayers()) {
+			FPlayer fplayer = FPlayers.getInstance().getByPlayer(p);
 			if (fplayer.getFaction() == this && !fplayer.isAlt() && !fplayer.isVanished()) {
 				count++;
 			}
@@ -1098,8 +1097,8 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			return false;
 		}
 
-		for (Player player : SavageFactions.plugin.getServer().getOnlinePlayers()) {
-			FPlayer fplayer = FPlayers.getInstance().getByPlayer(player);
+		for (Player p : SavageFactions.plugin.getServer().getOnlinePlayers()) {
+			FPlayer fplayer = FPlayers.getInstance().getByPlayer(p);
 			if (fplayer != null && fplayer.getFaction() == this) {
 				return true;
 			}
@@ -1134,7 +1133,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 	}
 
 
-	// used when current leader is about to be removed from the faction;
+	// used when current leader is about to be removed from the faction
 	// promotes new leader, or disbands faction if no other members left
 	@Override
 	public void promoteNewLeader() {
@@ -1172,7 +1171,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 			}
 
 			for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
-				fplayer.msg("The faction %s<i> was disbanded.", this.getTag(fplayer));
+				fplayer.msg(TL.COMMAND_DISBAND_BROADCAST_GENERIC, this.getTag(fplayer));
 			}
 
 			FactionDisbandEvent disbandEvent = new FactionDisbandEvent(null, getId(), autoLeave ? PlayerDisbandReason.INACTIVITY : PlayerDisbandReason.LEAVE);
@@ -1184,8 +1183,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 				oldLeader.setRole(Role.NORMAL);
 			}
 			replacements.get(0).setRole(Role.LEADER);
-			//TODO:TL
-			this.msg("<i>Faction admin <h>%s<i> has been removed. %s<i> has been promoted as the new faction admin.", oldLeader == null ? "" : oldLeader.getName(), replacements.get(0).getName());
+			this.msg(TL.COMMAND_ADMIN_PROMOTED_AUTOLEAVE, oldLeader == null ? "" : oldLeader.getName(), replacements.get(0).getName());
 			SavageFactions.plugin.log("Faction " + this.getTag() + " (" + this.getId() + ") admin was removed. Replacement admin: " + replacements.get(0).getName());
 		}
 	}
@@ -1315,8 +1313,7 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 				ownerList.append(", ");
 			}
 			OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(anOwnerData));
-			//TODO:TL
-			ownerList.append(offlinePlayer != null ? offlinePlayer.getName() : "null player");
+			ownerList.append(offlinePlayer != null ? offlinePlayer.getName() : TL.GENERIC_NULLPLAYER.toString());
 		}
 		return ownerList.toString();
 	}
@@ -1352,7 +1349,6 @@ public abstract class MemoryFaction implements Faction, EconomyParticipator {
 		for (FPlayer fPlayer : fplayers) {
 			fPlayer.resetFactionData(false);
 		}
-
 
 		for (FPlayer fPlayer : alts) {
 			fPlayer.resetFactionData(false);

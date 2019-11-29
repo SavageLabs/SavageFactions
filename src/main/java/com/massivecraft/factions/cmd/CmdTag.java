@@ -38,7 +38,7 @@ public class CmdTag extends FCommand {
         }
 
         ArrayList<String> errors = MiscUtil.validateTag(tag);
-        if (errors.size() > 0) {
+        if (!errors.isEmpty()) {
             context.sendMessage(errors);
             return;
         }
