@@ -65,7 +65,9 @@ public class CmdFly extends FCommand {
         if (Conf.denyFlightIfInNoClaimingWorld && !Conf.worldsNoClaiming.isEmpty() && Conf.worldsNoClaiming.stream().anyMatch(me.getWorld().getName()::equalsIgnoreCase))
             return false;
         if (toFac != fme.getFaction()) {
-            if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness() || !me.hasPermission("factions.fly.safezone") && toFac.isSafeZone() || !me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
+            if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness()
+                    || !me.hasPermission("factions.fly.safezone") && toFac.isSafeZone()
+                    || !me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
@@ -87,7 +89,6 @@ public class CmdFly extends FCommand {
                 fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
-            //System.out.println("hasPerm: " + (me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction())));
             return me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction());
         }
         return fme.canFlyAtLocation();
@@ -117,7 +118,6 @@ public class CmdFly extends FCommand {
             return;
         if (context.fPlayer.checkIfNearbyEnemies())
             return;
-
         if (context.args.size() == 1) {
             toggleFlight(context.argAsBool(0), context.fPlayer, context);
         } else {

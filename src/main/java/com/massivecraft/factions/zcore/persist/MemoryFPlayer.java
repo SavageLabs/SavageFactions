@@ -949,9 +949,9 @@ public abstract class MemoryFPlayer implements FPlayer {
         if ((faction == getFaction() && getRole() == Role.LEADER) || isAdminBypassing) {
             return true;
         }
-//        if (faction.isSystemFaction()) {
-//            return CmdFly.checkBypassPerms(this, this.getPlayer(), faction);
-//        }
+        if (faction.isSystemFaction() && hasFaction()) {
+            return CmdFly.checkBypassPerms(this, this.getPlayer(), faction);
+        }
         Access access = faction.getAccess(this, PermissableAction.FLY);
         return access == null || access == Access.ALLOW;
     }

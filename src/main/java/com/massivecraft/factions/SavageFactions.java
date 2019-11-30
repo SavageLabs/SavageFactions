@@ -154,7 +154,7 @@ public class SavageFactions extends MPlugin {
 
         // Load Conf from disk
         Conf.load();
-        Shop.save();
+     
         Shop.load();
 
         if (Conf.useTrackX) {
