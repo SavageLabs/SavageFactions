@@ -284,6 +284,7 @@ public enum TL {
 	COMMAND_DEINVITE_MIGHTWANT("&c&l[!]&7 You might want to: &c%1$s"),
     COMMAND_DEINVITE_REVOKED("&c&l[!]&7 &7%1$s &crevoked&7 your invitation to &c%2$s&7."),
 	COMMAND_DEINVITE_REVOKES("&c&l[!]&7 %1$s&c revoked &7%2$s's&c invitation."),
+	COMMAND_DEINVITE_NOINVITES("&c&l[!]&7 There are no pending invites you can revoke."),
 	COMMAND_DEINVITE_DESCRIPTION("Remove a pending invitation"),
 
 	COMMAND_DELFWARP_DELETED("&c&l[!]&7 Deleted warp &c%1$s"),
