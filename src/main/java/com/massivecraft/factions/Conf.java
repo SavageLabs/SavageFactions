@@ -232,6 +232,7 @@ public class Conf {
     public static Set<Material> territoryDenyUseageMaterials = new HashSet<>();
     public static Set<Material> territoryDenyUseageMaterialsWhenOffline = new HashSet<>();
     public static transient Set<EntityType> safeZoneNerfedCreatureTypes = new HashSet<>();
+    public static boolean safeZoneNerfIgnorePluginSpawns = false;
     public static boolean sendFactionChangeMessage = true;
     /// <summary>
     /// This defines a set of materials which should always be allowed to use, regardless of factions permissions.

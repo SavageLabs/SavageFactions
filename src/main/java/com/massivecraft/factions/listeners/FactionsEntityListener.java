@@ -47,7 +47,8 @@ public class FactionsEntityListener implements Listener {
                 powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_WARZONE.toString());
                 powerLossEvent.setCancelled(true);
             }
-            if (Conf.worldsNoPowerLoss.contains(player.getWorld().getName())) powerLossEvent.setMessage(TL.PLAYER_POWER_LOSS_WARZONE.toString());
+            if (Conf.worldsNoPowerLoss.contains(player.getWorld().getName()))
+                powerLossEvent.setMessage(TL.PLAYER_POWER_LOSS_WARZONE.toString());
         } else if (faction.isWilderness() && !Conf.wildernessPowerLoss && !Conf.worldsNoWildernessProtection.contains(player.getWorld().getName())) {
             powerLossEvent.setMessage(TL.PLAYER_POWER_NOLOSS_WILDERNESS.toString());
             powerLossEvent.setCancelled(true);
@@ -64,7 +65,7 @@ public class FactionsEntityListener implements Listener {
         Bukkit.getPluginManager().callEvent(powerLossEvent);
 
         // Call player onDeath if the event is not cancelled
-        if (!powerLossEvent.isCancelled())fplayer.onDeath();
+        if (!powerLossEvent.isCancelled()) fplayer.onDeath();
 
         // Send the message from the powerLossEvent
         final String msg = powerLossEvent.getMessage();
@@ -412,10 +413,7 @@ public class FactionsEntityListener implements Listener {
             }
         }
 
-        if (defendFaction.isPeaceful()) {
-            if (notify) attacker.msg(TL.PLAYER_PVP_PEACEFUL);
-            return false;
-        } else if (attackFaction.isPeaceful()) {
+        if (defendFaction.isPeaceful() || attackFaction.isPeaceful()) {
             if (notify) attacker.msg(TL.PLAYER_PVP_PEACEFUL);
             return false;
         }
@@ -454,7 +452,8 @@ public class FactionsEntityListener implements Listener {
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.getLocation() == null) return;
         if (Conf.safeZoneNerfedCreatureTypes.contains(event.getEntityType()) && Board.getInstance().getFactionAt(new FLocation(event.getLocation())).noMonstersInTerritory()) {
-            event.setCancelled(true);
+            if (!Conf.safeZoneNerfIgnorePluginSpawns || !event.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.CUSTOM))
+                event.setCancelled(true);
         }
     }
 
@@ -468,7 +467,8 @@ public class FactionsEntityListener implements Listener {
         if (!Conf.safeZoneNerfedCreatureTypes.contains(MiscUtil.creatureTypeFromEntity(event.getEntity()))) return;
 
         // in case the target is in a safe zone.
-        if (Board.getInstance().getFactionAt(new FLocation(target.getLocation())).noMonstersInTerritory()) event.setCancelled(true);
+        if (Board.getInstance().getFactionAt(new FLocation(target.getLocation())).noMonstersInTerritory())
+            event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -498,8 +498,8 @@ public class FactionsEntityListener implements Listener {
     public void onHangerBreak(HangingBreakByEntityEvent e) {
         if (!(e.getRemover() instanceof Player)) return;
         Player p = (Player) e.getRemover();
-        
-        if(e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
+
+        if (e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(p, e.getEntity().getLocation(), "destroy", false)) {
                 e.setCancelled(true);
             }
@@ -509,11 +509,11 @@ public class FactionsEntityListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onPaintingPlace(HangingPlaceEvent e) {
         if (e.getPlayer() == null) return;
-        
-        if(e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
+
+        if (e.getEntity().getType() == EntityType.PAINTING || e.getEntity().getType() == EntityType.ITEM_FRAME) {
             if (!FactionsBlockListener.playerCanBuildDestroyBlock(e.getPlayer(), e.getBlock().getLocation(), "build", false)) {
                 e.setCancelled(true);
-                // Fix: update player's inventory to avoid items glitches
+                // Fix: update player's inventory to avoid inventory desync
                 e.getPlayer().updateInventory();
             }
         }
@@ -639,7 +639,8 @@ public class FactionsEntityListener implements Listener {
         Faction claimFaction = Board.getInstance().getFactionAt(fLoc);
 
         if (claimFaction.isWilderness()) return Conf.wildernessDenyEndermanBlocks;
-        else if (claimFaction.isNormal()) return claimFaction.hasPlayersOnline() ? Conf.territoryDenyEndermanBlocks : Conf.territoryDenyEndermanBlocksWhenOffline;
+        else if (claimFaction.isNormal())
+            return claimFaction.hasPlayersOnline() ? Conf.territoryDenyEndermanBlocks : Conf.territoryDenyEndermanBlocksWhenOffline;
         else if (claimFaction.isSafeZone()) return Conf.safeZoneDenyEndermanBlocks;
         else if (claimFaction.isWarZone()) return Conf.warZoneDenyEndermanBlocks;
 
