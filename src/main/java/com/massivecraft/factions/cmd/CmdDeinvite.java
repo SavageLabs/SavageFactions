@@ -29,20 +29,20 @@ public class CmdDeinvite extends FCommand {
     @Override
     public void perform(CommandContext context) {
 
+        if (context.faction.getInvites().isEmpty()) {
+            context.msg(TL.COMMAND_DEINVITE_NOINVITES);
+            return;
+        }
         // Check if arg 0 == null so you don't have
         // `No player "null" could be found.` message.
         if (context.args.isEmpty()) {
-            if (context.faction.getInvites().isEmpty()) {
-                context.msg(TL.COMMAND_DEINVITE_NOINVITES);
-            } else {
-                FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
-                for (String id : context.faction.getInvites()) {
-                    FPlayer fp = FPlayers.getInstance().getById(id);
-                    String name = fp != null ? fp.getName() : id;
-                    msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_DEINVITE_CLICKTODEINVITE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
-                }
-                context.sendFancyMessage(msg);
+            FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
+            for (String id : context.faction.getInvites()) {
+                FPlayer fp = FPlayers.getInstance().getById(id);
+                String name = fp != null ? fp.getName() : id;
+                msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_DEINVITE_CLICKTODEINVITE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
             }
+            context.sendFancyMessage(msg);
             return;
         }
 
@@ -56,17 +56,13 @@ public class CmdDeinvite extends FCommand {
 
         FPlayer you = context.argAsBestFPlayerMatch(0);
         if (you == null) {
-            if (context.faction.getInvites().isEmpty()) {
-                context.msg(TL.COMMAND_DEINVITE_NOINVITES);
-            } else {
-                FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
-                for (String id : context.faction.getInvites()) {
-                    FPlayer fp = FPlayers.getInstance().getById(id);
-                    String name = fp != null ? fp.getName() : id;
-                    msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_DEINVITE_CLICKTODEINVITE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
-                }
-                context.sendFancyMessage(msg);
+            FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
+            for (String id : context.faction.getInvites()) {
+                FPlayer fp = FPlayers.getInstance().getById(id);
+                String name = fp != null ? fp.getName() : id;
+                msg.then(name + " ").color(ChatColor.WHITE).tooltip(TL.COMMAND_DEINVITE_CLICKTODEINVITE.format(name)).command("/" + Conf.baseCommandAliases.get(0) + " deinvite " + name);
             }
+            context.sendFancyMessage(msg);
             return;
         }
 
