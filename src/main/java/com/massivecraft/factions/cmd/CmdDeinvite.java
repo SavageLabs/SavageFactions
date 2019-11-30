@@ -33,8 +33,7 @@ public class CmdDeinvite extends FCommand {
             context.msg(TL.COMMAND_DEINVITE_NOINVITES);
             return;
         }
-        // Check if arg 0 == null so you don't have
-        // `No player "null" could be found.` message.
+        // Check if no player was specified, to avoid `No player "null" could be found.` message.
         if (context.args.isEmpty()) {
             FancyMessage msg = new FancyMessage(TL.COMMAND_DEINVITE_CANDEINVITE.toString()).color(ChatColor.GOLD);
             for (String id : context.faction.getInvites()) {
