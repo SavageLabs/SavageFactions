@@ -29,9 +29,9 @@ public class CmdDeinvite extends FCommand {
     @Override
     public void perform(CommandContext context) {
 
-        // Check if arg 0 == null do you don't have
+        // Check if arg 0 == null so you don't have
         // `No player "null" could be found.` message.
-        if (context.args.get(0) == null) {
+        if (context.args.isEmpty()) {
             if (context.faction.getInvites().isEmpty()) {
                 context.msg(TL.COMMAND_DEINVITE_NOINVITES);
             } else {
@@ -46,7 +46,6 @@ public class CmdDeinvite extends FCommand {
             return;
         }
 
-        FPlayer you = context.argAsBestFPlayerMatch(0);
         if (!context.fPlayer.isAdminBypassing()) {
             Access access = context.faction.getAccess(context.fPlayer, PermissableAction.INVITE);
             if (access != Access.ALLOW && context.fPlayer.getRole() != Role.LEADER) {
@@ -55,6 +54,7 @@ public class CmdDeinvite extends FCommand {
             }
         }
 
+        FPlayer you = context.argAsBestFPlayerMatch(0);
         if (you == null) {
             if (context.faction.getInvites().isEmpty()) {
                 context.msg(TL.COMMAND_DEINVITE_NOINVITES);
