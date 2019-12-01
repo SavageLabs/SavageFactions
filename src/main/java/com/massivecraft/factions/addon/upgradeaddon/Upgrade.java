@@ -22,12 +22,12 @@ public abstract class Upgrade {
     private ItemStack guiItem;
     private Integer guiPosition;
 
-    protected Upgrade(String upgradeName){
+    protected Upgrade(String upgradeName) {
         this.upgradeName = upgradeName;
         setupUpgrade();
     }
 
-    public Upgrade(String upgradeName, Integer maxLevel, Map<Integer, Integer> costPerLevel, ItemStack guiItem, Integer guiPosition){
+    public Upgrade(String upgradeName, Integer maxLevel, Map<Integer, Integer> costPerLevel, ItemStack guiItem, Integer guiPosition) {
 
         this.upgradeName = upgradeName;
 
@@ -47,7 +47,7 @@ public abstract class Upgrade {
 
         this.guiItem = guiItem;
 
-        if (guiPosition < 0 || guiPosition > 53){
+        if (guiPosition < 0 || guiPosition > 53) {
 
             throw new IllegalArgumentException("guiPosition must be an Integer between 0 and 53");
 
@@ -61,6 +61,7 @@ public abstract class Upgrade {
 
     /**
      * Method to define listeners you want to register. You don't need to register them.
+     *
      * @return Set of listeners you want to register.
      */
     public abstract Set<Listener> listenersToRegister();
@@ -99,6 +100,7 @@ public abstract class Upgrade {
 
     /**
      * Returns level cost
+     *
      * @param level level you want to get cost
      * @return level cost
      */
@@ -119,8 +121,10 @@ public abstract class Upgrade {
         SavageFactions.plugin.getUpgradeManager().addUpgrade(this);
 
     }
+
     /**
      * Method to build the item that will appear in upgrade menu. You can return guiItem instance variable.
+     *
      * @param faction faction
      * @return ItemStack
      */

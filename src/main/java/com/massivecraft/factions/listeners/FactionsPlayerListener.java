@@ -322,6 +322,8 @@ public class FactionsPlayerListener implements Listener {
             case TRAPPED_CHEST:
             case CHEST_MINECART:
 
+            case BARREL:
+
             case SHULKER_BOX:
             case BLACK_SHULKER_BOX:
             case BLUE_SHULKER_BOX:
@@ -449,6 +451,13 @@ public class FactionsPlayerListener implements Listener {
                     "Found %s on admin Bypass without permission on login. Disabled it for them.", player.getName());
         }
 
+        Bukkit.getScheduler().runTaskLater(SavageFactions.plugin, () -> {
+            // Fix fly desync when joining
+            if (me.isFlying() && !player.isFlying()) {
+                me.setFFlying(false, false, false);
+            }
+        }, 5L);
+
         // If they have the permission, don't let them autoleave. Bad inverted setter :\
         me.setAutoLeave(!player.hasPermission(Permission.AUTO_LEAVE_BYPASS.node));
         me.setTakeFallDamage(true);
@@ -518,7 +527,7 @@ public class FactionsPlayerListener implements Listener {
     }
 
     public void checkCanFly(FPlayer me) {
-        if (!me.canFlyAtLocation() || me.checkIfNearbyEnemies()) {
+        if (!me.canFlyAtLocation(me.getLastStoodAt(),false) || me.checkIfNearbyEnemies()) {
             if (me.isFlying()) {
                 me.setFFlying(false, false);
                 me.msg(TL.COMMAND_FLY_NO_ACCESS, Board.getInstance().getFactionAt(me.getLastStoodAt()).getTag());

@@ -899,26 +899,32 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public void setFFlying(boolean fly, boolean damage) {
+        setFFlying(fly, damage, true);
+    }
+
+    public void setFFlying(boolean fly, boolean damage, boolean verbose) {
         Player player = getPlayer();
         if (player != null) {
             player.setAllowFlight(fly);
             player.setFlying(fly);
         }
-
-        if (!damage) {
-            msg(TL.COMMAND_FLY_CHANGE, fly ? TL.GENERIC_ENABLED : TL.GENERIC_DISABLED);
-            if (!fly) {
-                sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3) + ""));
+        if (verbose) {
+            if (!damage) {
+                msg(TL.COMMAND_FLY_CHANGE, fly ? TL.GENERIC_ENABLED : TL.GENERIC_DISABLED);
+                if (!fly) {
+                    sendMessage(TL.COMMAND_FLY_COOLDOWN.toString().replace("{amount}", SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3) + ""));
+                }
+            } else {
+                msg(TL.COMMAND_FLY_DAMAGE);
             }
-
-        } else {
-            msg(TL.COMMAND_FLY_DAMAGE);
         }
 
         // If leaving fly mode, don't let them take fall damage for x seconds.
         if (!fly) {
+            if (player != null)
+                player.setFallDistance(-10000);
             int cooldown = SavageFactions.plugin.getConfig().getInt("fly-falldamage-cooldown", 3);
-            CmdFly.flyMap.remove(player.getName());
+            CmdFly.flyMap.remove(this.getName());
 
             // If the value is 0 or lower, make them take fall damage.
             // Otherwise, start a timer and have this cancel after a few seconds.
@@ -945,12 +951,16 @@ public abstract class MemoryFPlayer implements FPlayer {
     }
 
     public boolean canFlyAtLocation(FLocation location) {
+        return canFlyAtLocation(location, true);
+    }
+
+    public boolean canFlyAtLocation(FLocation location, boolean verbose) {
         Faction faction = Board.getInstance().getFactionAt(location);
         if ((faction == getFaction() && getRole() == Role.LEADER) || isAdminBypassing) {
             return true;
         }
         if (faction.isSystemFaction() && hasFaction()) {
-            return CmdFly.checkBypassPerms(this, this.getPlayer(), faction);
+            return CmdFly.checkBypassPerms(this, this.getPlayer(), faction, verbose);
         }
         Access access = faction.getAccess(this, PermissableAction.FLY);
         return access == null || access == Access.ALLOW;

@@ -2,7 +2,6 @@ package com.massivecraft.factions.addon.upgradeaddon;
 
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.zcore.fupgrades.upgrades.*;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class UpgradeManager {
     private SavageFactions plugin;
     private List<Listener> listenerList = new ArrayList<>();
 
-    private UpgradeManager(final SavageFactions plugin){
+    private UpgradeManager(final SavageFactions plugin) {
 
         this.plugin = plugin;
 
@@ -28,51 +27,51 @@ public class UpgradeManager {
 
         if (upgradeManagerInstance == null) {
 
-           upgradeManagerInstance = new UpgradeManager(SavageFactions.plugin);
+            upgradeManagerInstance = new UpgradeManager(SavageFactions.plugin);
         }
 
         return upgradeManagerInstance;
 
     }
 
-    public void initUpgrades(){
+    public void initUpgrades() {
 
-         new PowerUpgrade();
-         new ChestUpgrade();
-         new ExpUpgrade();
-         new CropUpgrade();
-         new MemberUpgrade();
-         new SpawnerUpgrade();
-         new TntUpgrade();
-         new WarpUpgrade();
+        new PowerUpgrade();
+        new ChestUpgrade();
+        new ExpUpgrade();
+        new CropUpgrade();
+        new MemberUpgrade();
+        new SpawnerUpgrade();
+        new TntUpgrade();
+        new WarpUpgrade();
 
         setupUpgrades();
 
     }
 
-    protected void setupUpgrades(){
+    protected void setupUpgrades() {
 
         registerUpgradesListeners();
 
     }
 
-    public void addUpgrade(Upgrade upgrade){
+    public void addUpgrade(Upgrade upgrade) {
 
         this.upgrades.add(upgrade);
 
     }
 
-    public void removeUpgrade(Upgrade upgrade){
+    public void removeUpgrade(Upgrade upgrade) {
 
         this.upgrades.remove(upgrade);
 
     }
 
-    public Upgrade getUpgradeByName(String upgradeName){
+    public Upgrade getUpgradeByName(String upgradeName) {
 
         Upgrade res = null;
 
-        for (Upgrade upgrade : getUpgrades()){
+        for (Upgrade upgrade : getUpgrades()) {
 
             if (upgrade.getUpgradeName().equals(upgradeName)) {
 
@@ -87,7 +86,7 @@ public class UpgradeManager {
 
     }
 
-    private void registerUpgradesListeners(){
+    private void registerUpgradesListeners() {
 
         for (Upgrade upgrade : upgrades) {
 

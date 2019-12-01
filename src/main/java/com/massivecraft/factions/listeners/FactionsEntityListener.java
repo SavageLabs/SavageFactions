@@ -19,6 +19,7 @@ import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.hanging.HangingBreakEvent.RemoveCause;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -73,6 +74,65 @@ public class FactionsEntityListener implements Listener {
     }
 
     /**
+     * Handle damage dealt to vehicles, such as minecarts (they could be container minecarts too)
+     */
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void onVehicleDamage(VehicleDamageEvent event) {
+        Vehicle damagee = event.getVehicle();
+        Entity damager = event.getAttacker();
+        if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Entity) {
+            damager = (Entity) ((Projectile) damager).getShooter();
+        }
+        if (damager instanceof Player && event.getVehicle().getType().toString().contains("MINECART")) {
+            // Generate the action message.
+            String entityAction;
+
+            if (event.getVehicle().getType().toString().contains("MINECART")) {
+                entityAction = "minecarts";
+            } else {
+                entityAction = "";
+            }
+            if (!FactionsBlockListener.playerCanBuildDestroyBlock((Player) damager, damagee.getLocation(), "destroy " + entityAction, false)) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    /**
+     * Fix tnt minecart ignition
+     */
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    public void onProjHit(ProjectileHitEvent event) {
+        if (!Conf.territoryBlockTNTMinecartIgnition) return;
+        if (event.getEntity() == null) return;
+        Entity damagee = null;
+        try {
+            damagee = event.getHitEntity();
+        } catch (NoSuchMethodError ex) {
+            for (Entity inradius : event.getEntity().getNearbyEntities(3.5, 3.5, 3.5)) {
+                if (inradius.getType().name().contains("MINECART")) {
+                    damagee = inradius;
+                    break;
+                }
+            }
+        }
+        if (damagee != null && event.getEntity().getShooter() instanceof Player && event.getEntity().getFireTicks() > 0) {
+            Player damager = (Player) event.getEntity().getShooter();
+            String entityAction;
+            if (damagee.getType().name().contains("MINECART")) {
+                entityAction = "minecarts";
+            } else {
+                entityAction = "";
+            }
+            if (!FactionsBlockListener.playerCanBuildDestroyBlock((Player) damager, damagee.getLocation(), "destroy " + entityAction, false)) {
+                event.getEntity().setFireTicks(0);
+                event.getEntity().remove();
+            }
+        }
+    }
+
+
+    /**
      * Who can I hurt? I can never hurt members or allies. I can always hurt enemies. I can hurt neutrals as long as
      * they are outside their own territory.
      */
@@ -125,10 +185,11 @@ public class FactionsEntityListener implements Listener {
                         // Generate the action message.
                         String entityAction;
 
-                        if (damagee.getType() == EntityType.ITEM_FRAME) entityAction = "item frames";
-                        else entityAction = "armor stands";
-
-
+                        if (damagee.getType() == EntityType.ITEM_FRAME) {
+                            entityAction = "item frames";
+                        } else {
+                            entityAction = "armor stands";
+                        }
                         if (!FactionsBlockListener.playerCanBuildDestroyBlock((Player) damager, damagee.getLocation(), "destroy " + entityAction, false))
                             event.setCancelled(true);
 

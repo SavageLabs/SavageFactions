@@ -353,9 +353,13 @@ public interface FPlayer extends EconomyParticipator {
 
     void setFFlying(boolean fly, boolean damage);
 
+    void setFFlying(boolean fly, boolean damage, boolean verbose);
+
     boolean canFlyAtLocation();
 
     boolean canFlyAtLocation(FLocation location);
+
+    boolean canFlyAtLocation(FLocation location, boolean verbose);
 
     boolean isEnteringPassword();
 

@@ -59,8 +59,11 @@ public class CmdFly extends FCommand {
             }
         }, 10L, 3L);
     }
-
     public static boolean checkBypassPerms(FPlayer fme, Player me, Faction toFac) {
+        return checkBypassPerms(fme,me,toFac,true);
+    }
+
+    public static boolean checkBypassPerms(FPlayer fme, Player me, Faction toFac, boolean verbose) {
 
         if (Conf.denyFlightIfInNoClaimingWorld && !Conf.worldsNoClaiming.isEmpty() && Conf.worldsNoClaiming.stream().anyMatch(me.getWorld().getName()::equalsIgnoreCase))
             return false;
@@ -68,25 +71,30 @@ public class CmdFly extends FCommand {
             if (!me.hasPermission("factions.fly.wilderness") && toFac.isWilderness()
                     || !me.hasPermission("factions.fly.safezone") && toFac.isSafeZone()
                     || !me.hasPermission("factions.fly.warzone") && toFac.isWarZone()) {
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
+                if (verbose)
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
             Access access = toFac.getAccess(fme, PermissableAction.FLY);
             if ((!(me.hasPermission("factions.fly.enemy") || access == Access.ALLOW)) && toFac.getRelationTo(fme.getFaction()) == Relation.ENEMY) {
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
+                if (verbose)
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
             if (!(me.hasPermission("factions.fly.ally") || access == Access.ALLOW) && toFac.getRelationTo(fme.getFaction()) == Relation.ALLY) {
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
+                if (verbose)
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
             if (!(me.hasPermission("factions.fly.truce") || access == Access.ALLOW) && toFac.getRelationTo(fme.getFaction()) == Relation.TRUCE) {
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
+                if (verbose)
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
 
             if (!(me.hasPermission("factions.fly.neutral") || access == Access.ALLOW) && toFac.getRelationTo(fme.getFaction()) == Relation.NEUTRAL && !toFac.isSystemFaction()) {
-                fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
+                if (verbose)
+                    fme.msg(TL.COMMAND_FLY_NO_ACCESS, toFac.getTag(fme));
                 return false;
             }
             return me.hasPermission("factions.fly") && (access != Access.DENY || toFac.isSystemFaction());
