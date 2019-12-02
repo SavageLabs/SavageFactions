@@ -10,6 +10,7 @@ import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.ItemBuilder;
 import com.massivecraft.factions.zcore.util.TL;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,7 +39,6 @@ public class FactionsBlockListener implements Listener {
      * @return
      */
     public static boolean playerCanBuildDestroyBlock(Player player, Location location, String action, boolean justCheck) {
-
         if (Conf.playersWhoBypassAllProtection.contains(player.getName())) return true;
 
         FPlayer me = FPlayers.getInstance().getById(player.getUniqueId().toString());
@@ -67,8 +67,10 @@ public class FactionsBlockListener implements Listener {
             if (!justCheck) me.msg(TL.ACTION_DENIED_WARZONE, action);
             return false;
         } else if (!otherFaction.getId().equals(myFaction.getId())) { // If the faction target is not my own
+
             if (SavageFactions.plugin.getConfig().getBoolean("hcf.raidable", false) && otherFaction.getLandRounded() > otherFaction.getPowerRounded())
                 return true;
+            if (Conf.allowPlayersToMineOtherFactionsSpawnersWithPerm && action.equals(Conf.mineSpawnersAction)) return true;
             // Get faction pain build access relation to me
             boolean pain = !justCheck && otherFaction.getAccess(me, PermissableAction.PAIN_BUILD) == Access.ALLOW;
             return CheckActionState(otherFaction, loc, me, PermissableAction.fromString(action), pain);
@@ -128,7 +130,7 @@ public class FactionsBlockListener implements Listener {
         if (!event.canBuild()) return;
         if (event.getBlockPlaced().getType() == Material.FIRE) return;
         boolean isSpawner = event.getBlock().getType().equals(XMaterial.SPAWNER.parseMaterial());
-        if (!playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), !isSpawner ? "build" : "mine spawners", false)) {
+        if (!playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), !isSpawner ? "build" : Conf.mineSpawnersAction, false)) {
             event.setCancelled(true);
             return;
         }
@@ -320,7 +322,7 @@ public class FactionsBlockListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
         boolean isSpawner = event.getBlock().getType() == XMaterial.SPAWNER.parseMaterial();
-        if (!playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), !isSpawner ? "destroy" : "mine spawners", false)) {
+        if (!playerCanBuildDestroyBlock(event.getPlayer(), event.getBlock().getLocation(), !isSpawner ? "destroy" : Conf.mineSpawnersAction, false)) {
             event.setCancelled(true);
             return;
         }

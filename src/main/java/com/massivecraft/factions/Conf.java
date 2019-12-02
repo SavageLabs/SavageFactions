@@ -236,6 +236,8 @@ public class Conf {
     public static Set<Material> territoryDenySwitchMaterials = new HashSet<>();
 
     public static boolean allowCreeperEggingChests = true;
+    public static String mineSpawnersAction = "mine spawners";
+    public static boolean allowPlayersToMineOtherFactionsSpawnersWithPerm = true;
 
     // Economy settings
     public static boolean econEnabled = false;
