@@ -122,13 +122,13 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_description":
                 return faction.getDescription();
             case "faction_claims":
-                return String.valueOf(faction.getAllClaims().size());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getAllClaims().size()) : "0";
             case "faction_maxclaims":
                 return String.valueOf(Conf.claimedLandsMax);
             case "faction_points":
-                return String.valueOf(faction.getPoints());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPoints()) : "0";
             case "faction_strikes":
-                return String.valueOf(faction.getStrikes());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getStrikes()) : "0";
             case "faction_maxstrikes":
                 return String.valueOf(Conf.maxStrikes);
             case "faction_founded":
