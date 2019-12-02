@@ -237,7 +237,7 @@ public class Conf {
 
     public static boolean allowCreeperEggingChests = true;
     public static String mineSpawnersAction = "mine spawners";
-    public static boolean allowPlayersToMineOtherFactionsSpawnersWithPerm = true;
+    public static boolean allowPlayersToMineOtherFactionsSpawnersWithPerm = false;
 
     // Economy settings
     public static boolean econEnabled = false;
