@@ -17,6 +17,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdHome extends FCommand {
 

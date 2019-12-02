@@ -10,6 +10,10 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdTop extends FCommand {
 
     public CmdTop() {

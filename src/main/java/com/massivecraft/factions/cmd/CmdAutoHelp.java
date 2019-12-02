@@ -6,6 +6,10 @@ import com.massivecraft.factions.zcore.util.TL;
 
 import java.util.ArrayList;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdAutoHelp extends FCommand {
 
     public CmdAutoHelp() {

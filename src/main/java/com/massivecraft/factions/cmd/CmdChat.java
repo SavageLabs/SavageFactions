@@ -8,6 +8,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdChat extends FCommand {
 
     public CmdChat() {

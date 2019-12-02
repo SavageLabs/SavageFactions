@@ -11,6 +11,10 @@ import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdVault extends FCommand {
 
     public CmdVault() {

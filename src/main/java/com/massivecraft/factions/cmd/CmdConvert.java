@@ -7,6 +7,10 @@ import com.massivecraft.factions.zcore.persist.json.FactionsJSON;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.command.ConsoleCommandSender;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdConvert extends FCommand {
 
     public CmdConvert() {

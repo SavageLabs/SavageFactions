@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 /*
     Object that contains information about a command being executed,
     args, player, faction

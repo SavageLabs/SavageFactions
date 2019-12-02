@@ -13,6 +13,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public abstract class FRelationCommand extends FCommand {
 
     public Relation targetRelation;

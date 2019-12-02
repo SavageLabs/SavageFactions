@@ -13,6 +13,9 @@ import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.HashMap;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdDisband extends FCommand {
 

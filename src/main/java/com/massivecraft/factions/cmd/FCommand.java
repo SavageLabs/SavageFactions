@@ -14,6 +14,9 @@ import org.bukkit.ChatColor;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public abstract class FCommand {
 

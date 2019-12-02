@@ -233,8 +233,7 @@ public class SavageFactions extends MPlugin {
 
         // since some other plugins execute commands directly through this command interface, provide it
         this.getCommand(refCommand).setExecutor(cmdBase);
-
-        // Dont forget to skid this Driftay :D
+        
         if (!CommodoreProvider.isSupported()) this.getCommand(refCommand).setTabCompleter(this);
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {

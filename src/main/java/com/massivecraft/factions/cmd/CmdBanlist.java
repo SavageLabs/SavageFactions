@@ -11,6 +11,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdBanlist extends FCommand {
 
     public CmdBanlist() {

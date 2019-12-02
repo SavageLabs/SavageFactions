@@ -9,6 +9,10 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+**/
+
 public class CmdAdmin extends FCommand {
 
     public CmdAdmin() {

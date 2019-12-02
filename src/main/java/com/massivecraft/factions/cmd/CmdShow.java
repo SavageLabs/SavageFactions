@@ -12,6 +12,10 @@ import mkremins.fanciful.FancyMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdShow extends FCommand {
 
     List<String> defaults = new ArrayList<>();

@@ -7,6 +7,10 @@ import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdSaveAll extends FCommand {
 
     public CmdSaveAll() {

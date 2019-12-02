@@ -12,6 +12,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdClaimLine extends FCommand {
 
     public static final BlockFace[] axis = {BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST};

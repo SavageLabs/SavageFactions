@@ -13,6 +13,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdKickAlt extends FCommand{
 
     public CmdKickAlt(){

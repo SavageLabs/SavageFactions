@@ -10,6 +10,9 @@ import com.massivecraft.factions.zcore.util.TagUtil;
 
 import java.util.*;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdList extends FCommand {
 

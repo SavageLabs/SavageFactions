@@ -12,6 +12,9 @@ import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdCreate extends FCommand {
 

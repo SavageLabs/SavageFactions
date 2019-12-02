@@ -6,6 +6,10 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdAHome extends FCommand {
 
     public CmdAHome() {

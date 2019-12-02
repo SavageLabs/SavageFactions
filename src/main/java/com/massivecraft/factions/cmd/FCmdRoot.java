@@ -19,6 +19,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.Level;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class FCmdRoot extends FCommand implements CommandExecutor {
 
     public BrigadierManager brigadierManager;

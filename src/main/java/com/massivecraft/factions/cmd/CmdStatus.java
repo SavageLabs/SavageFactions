@@ -8,6 +8,10 @@ import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdStatus extends FCommand {
 
     public CmdStatus() {
