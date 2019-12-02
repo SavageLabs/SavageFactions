@@ -30,7 +30,7 @@ public class CmdAdmin extends FCommand {
     @Override
     public void perform(CommandContext context) {
         if (context.player == null) {
-            context.sender.sendMessage("You must execute this as a player.");
+            context.msg(TL.GENERIC_CONSOLEONLY);
             return;
         }
         // Allows admins bypass this.
@@ -84,7 +84,7 @@ public class CmdAdmin extends FCommand {
 
         // Inform all players
         for (FPlayer fplayer : FPlayers.getInstance().getOnlinePlayers()) {
-            fplayer.msg(TL.COMMAND_ADMIN_PROMOTED, context.player == null ? TL.GENERIC_SERVERADMIN.toString() : context.fPlayer.describeTo(fplayer, true), fyou.describeTo(fplayer), targetFaction.describeTo(fplayer));
+            fplayer.msg(TL.COMMAND_ADMIN_PROMOTEDNORMAL, context.player == null ? TL.GENERIC_SERVERADMIN.toString() : context.fPlayer.describeTo(fplayer, true), fyou.describeTo(fplayer), targetFaction.describeTo(fplayer));
         }
     }
 
