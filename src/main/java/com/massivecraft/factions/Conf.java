@@ -84,11 +84,6 @@ public class Conf {
     public static boolean chatTagRelationColored = true;
     public static String chatTagReplaceString = "[FACTION]";
     public static String chatTagReplaceTitleString = "[FACTION_TITLE]";
-    public static String chatTagInsertAfterString = "";
-    public static String chatTagInsertBeforeString = "";
-    public static int chatTagInsertIndex = 0;
-    public static boolean chatTagPadBefore = false;
-    public static boolean chatTagPadAfter = true;
     public static String chatTagFormat = "%s" + ChatColor.WHITE;
     public static String factionChatFormat = "%s:" + ChatColor.WHITE + " %s";
     public static String allianceChatFormat = ChatColor.LIGHT_PURPLE + "%s:" + ChatColor.WHITE + " %s";
@@ -171,21 +166,18 @@ public class Conf {
     public static boolean territoryEnemyPainBuild = false;
     public static boolean territoryEnemyPainBuildWhenOffline = false;
     public static boolean territoryEnemyDenyUseage = true;
-    public static boolean territoryEnemyProtectMaterials = true;
 
     public static boolean territoryAllyDenyBuild = true;
     public static boolean territoryAllyDenyBuildWhenOffline = true;
     public static boolean territoryAllyPainBuild = false;
     public static boolean territoryAllyPainBuildWhenOffline = false;
     public static boolean territoryAllyDenyUseage = true;
-    public static boolean territoryAllyProtectMaterials = true;
 
     public static boolean territoryTruceDenyBuild = true;
     public static boolean territoryTruceDenyBuildWhenOffline = true;
     public static boolean territoryTrucePainBuild = false;
     public static boolean territoryTrucePainBuildWhenOffline = false;
     public static boolean territoryTruceDenyUseage = true;
-    public static boolean territoryTruceProtectMaterials = true;
 
     public static boolean territoryBlockCreepers = false;
     public static boolean territoryBlockCreepersWhenOffline = false;
@@ -432,7 +424,7 @@ public class Conf {
     public static List<String> memberGUISkullLore = Arrays.asList("&cPower: {player-power}/{maxPower}", "&7left-click to kick", "&7right-click to promote");
 
 
-    // Use this to not fuck the server's disk.
+    // Use this to not abuse the server's disk.
     //   public static int maxChestLogItems = 1000;
 
     static {
@@ -471,18 +463,12 @@ public class Conf {
     static {
         baseCommandAliases.add("f");
 
-
-
         territoryEnemyDenyCommands.add("home");
         territoryEnemyDenyCommands.add("sethome");
         territoryEnemyDenyCommands.add("spawn");
         territoryEnemyDenyCommands.add("tpahere");
         territoryEnemyDenyCommands.add("tpaccept");
         territoryEnemyDenyCommands.add("tpa");
-
-
-
-
 
         territoryDenySwitchMaterials.add(XMaterial.ACACIA_FENCE_GATE.parseMaterial());
         territoryDenySwitchMaterials.add(XMaterial.BIRCH_FENCE_GATE.parseMaterial());

@@ -4,7 +4,6 @@ import com.massivecraft.factions.*;
 import com.massivecraft.factions.event.FactionDisbandEvent.PlayerDisbandReason;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.zcore.ffly.UtilFly;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
@@ -84,7 +83,7 @@ public class CmdDisband extends FCommand {
 					if (follower.getFaction() == faction) {
 						follower.msg(TL.COMMAND_DISBAND_BROADCAST_YOURS, amountString);
 						if (!follower.canFlyAtLocation()) {
-							follower.setFFlying(false, false);
+							follower.setFFlying(false, false, false);
 						}
 					} else {
 						follower.msg(TL.COMMAND_DISBAND_BROADCAST_NOTYOURS, amountString, faction.getTag(follower));
@@ -95,7 +94,7 @@ public class CmdDisband extends FCommand {
 			}
 			faction.disband(context.player, PlayerDisbandReason.COMMAND);
 			if (!context.fPlayer.canFlyAtLocation()) {
-				context.fPlayer.setFFlying(false, false);
+				context.fPlayer.setFFlying(false, false, false);
 			}
 		}
 	}
