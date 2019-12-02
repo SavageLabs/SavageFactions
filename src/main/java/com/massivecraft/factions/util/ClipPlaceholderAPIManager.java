@@ -123,6 +123,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
                 return faction.getDescription();
             case "faction_claims":
                 return String.valueOf(faction.getAllClaims().size());
+            case "faction_maxclaims":
+                return String.valueOf(Conf.claimedLandsMax);
             case "faction_founded":
                 return TL.sdf.format(faction.getFoundedDate());
             case "faction_joining":
