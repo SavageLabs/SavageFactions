@@ -17,14 +17,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 
 public class Econ {
 
-    private static final DecimalFormat format = new DecimalFormat(TL.ECON_FORMAT.toString());
+    private static final DecimalFormat format = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
     private static Economy econ = null;
 
     public static void setup() {
@@ -37,6 +39,7 @@ public class Econ {
             SavageFactions.plugin.log(integrationFail + " is not installed.");
             return;
         }
+        format.applyPattern(TL.ECON_FORMAT.toString());
 
         RegisteredServiceProvider<Economy> rsp = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
@@ -44,7 +47,6 @@ public class Econ {
             return;
         }
         econ = rsp.getProvider();
-
         SavageFactions.plugin.log("Economy integration through Vault plugin successful.");
 
         if (!Conf.econEnabled)
@@ -101,7 +103,7 @@ public class Econ {
         // Ohh by the way... Yes it could. For daily rent to the faction.
         if (i == fI && fI == fYou) return true;
         // Factions can be controlled by members that are moderators... or any member if any member can withdraw.
-        if (you instanceof Faction && fI == fYou && (Conf.bankMembersCanWithdraw || ((FPlayer) i).getRole().value >= Role.MODERATOR.value))
+        if (you instanceof Faction && fI == fYou && (Conf.bankMembersCanWithdraw || (i instanceof FPlayer && ((FPlayer) i).getRole().value >= Role.MODERATOR.value)))
             return true;
         // Otherwise you may not!;,,;
         i.msg(TL.ECON_CANTCONTROLMONEY, i.describeTo(i, true), you.describeTo(i));

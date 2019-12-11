@@ -116,9 +116,9 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_name":
                 return fPlayer.hasFaction() ? faction.getTag() : TL.NOFACTION_PREFIX.toString();
             case "faction_power":
-                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerRounded()) : Conf.powerFactionMax + "";
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerRounded()) : (int) Conf.powerFactionMax + "";
             case "faction_powermax":
-                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerMaxRounded()) : Conf.powerFactionMax + "";
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerMaxRounded()) : (int) Conf.powerFactionMax + "";
             case "faction_description":
                 return fPlayer.hasFaction() ? faction.getDescription() : "";
             case "faction_claims":
@@ -161,7 +161,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_land_refund":
                 return Econ.shouldBeUsed() ? Econ.moneyString(Econ.calculateTotalLandRefund(faction.getLandRounded())) : TL.ECON_OFF.format("refund");
             case "faction_bank_balance":
-                return Econ.shouldBeUsed() ? Econ.moneyString(Econ.getBalance(faction.getAccountId())) : TL.ECON_OFF.format("balance");
+                if (!Econ.shouldBeUsed()) return TL.ECON_OFF.format("balance");
+                return fPlayer.hasFaction() ? Econ.moneyString(Econ.getBalance(faction.getAccountId())) : "0";
             case "faction_allies":
                 return String.valueOf(faction.getRelationCount(Relation.ALLY));
             case "faction_enemies":
