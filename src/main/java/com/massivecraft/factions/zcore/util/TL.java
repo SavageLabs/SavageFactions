@@ -462,7 +462,7 @@ public enum TL {
 	COMMAND_MONEY_DESCRIPTION("Faction money commands"),
 
 	COMMAND_MONEY_CANTAFFORD("&c&l[!]&7 &c%1$s&7 can't afford &c%2$s&7 %3$s"),
-	COMMAND_MONEY_GAINED("&c&l[!]&7 &c%1$s&7 gained &c%2$s %2%6"),
+	COMMAND_MONEY_GAINED("&c&l[!]&7 &c%1$s&7 gained &c%2$s %3$s"),
 
 	COMMAND_MONEYBALANCE_SHORT("show faction balance"),
 	COMMAND_MONEYBALANCE_DESCRIPTION("Show your factions current money balance"),
