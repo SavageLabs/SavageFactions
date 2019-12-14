@@ -203,7 +203,7 @@ public class TextUtil {
         }
     }
 
-    public ArrayList<String> getPage(List<String> lines, int pageHumanBased, String title) {
+    public List<String> getPage(List<String> lines, int pageHumanBased, String title) {
         ArrayList<String> ret = new ArrayList<>();
         int pageZeroBased = pageHumanBased - 1;
         int pageheight = 9;

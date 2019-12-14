@@ -1120,7 +1120,8 @@ public abstract class MemoryFPlayer implements FPlayer {
                 if (efplayer == null) {
                     continue;
                 }
-                if (efplayer.isVanished()) continue;
+                // canSee handles most vanish plugins, instead of supporting Essentials only
+                if (!me.canSee(eplayer) || efplayer.isVanished()) continue;
                 if (this.getRelationTo(efplayer).equals(Relation.ENEMY) && !efplayer.isStealthEnabled()) {
                     setFlying(false);
                     msg(TL.COMMAND_FLY_ENEMY_NEAR);

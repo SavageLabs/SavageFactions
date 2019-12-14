@@ -140,70 +140,42 @@ public class FactionsChatListener implements Listener {
         String msg = event.getMessage();
         String eventFormat = event.getFormat();
         FPlayer me = FPlayers.getInstance().getByPlayer(talkingPlayer);
-        int InsertIndex;
 
         if (!Conf.chatTagReplaceString.isEmpty() && eventFormat.contains(Conf.chatTagReplaceString)) {
             // we're using the "replace" method of inserting the faction tags
             if (eventFormat.contains(Conf.chatTagReplaceTitleString)) {
                 eventFormat = eventFormat.replace(Conf.chatTagReplaceTitleString, me.getTitle());
             }
-
-            InsertIndex = eventFormat.indexOf(Conf.chatTagReplaceString);
-            eventFormat = eventFormat.replace(Conf.chatTagReplaceString, TL.NOFACTION_PREFIX.toString());
-            Conf.chatTagPadAfter = false;
-            Conf.chatTagPadBefore = false;
-        } else if (!Conf.chatTagInsertAfterString.isEmpty() && eventFormat.contains(Conf.chatTagInsertAfterString)) {
-            // we're using the "insert after string" method
-            InsertIndex = eventFormat.indexOf(Conf.chatTagInsertAfterString) + Conf.chatTagInsertAfterString.length();
-        } else if (!Conf.chatTagInsertBeforeString.isEmpty() && eventFormat.contains(Conf.chatTagInsertBeforeString)) {
-            // we're using the "insert before string" method
-            InsertIndex = eventFormat.indexOf(Conf.chatTagInsertBeforeString);
-        } else {
-            // we'll fall back to using the index place method
-            InsertIndex = Conf.chatTagInsertIndex;
-            if (InsertIndex > eventFormat.length()) {
-                return;
-            }
-        }
-
-        String formatStart = eventFormat.substring(0, InsertIndex) + ((Conf.chatTagPadBefore && !me.getChatTag().isEmpty() && !me.getFaction().isWilderness()) ? " " : "");
-        String formatEnd = ((Conf.chatTagPadAfter && !me.getChatTag().isEmpty() && !me.getFaction().isWilderness()) ? " " : "") + eventFormat.substring(InsertIndex);
-
-        String nonColoredMsgFormat = formatStart + me.getChatTag().trim() + formatEnd;
-
-        // Relation Colored?
-        if (Conf.chatTagRelationColored) {
-            for (Player listeningPlayer : event.getRecipients()) {
-                FPlayer you = FPlayers.getInstance().getByPlayer(listeningPlayer);
-                String yourFormat = formatStart + me.getChatTag(you).trim() + formatEnd;
-                try {
-                    listeningPlayer.sendMessage(String.format(yourFormat, talkingPlayer.getDisplayName(), msg));
-                } catch (UnknownFormatConversionException ex) {
-                    Conf.chatTagInsertIndex = 0;
-                    SavageFactions.plugin.log(Level.SEVERE, "Critical error in chat message formatting!");
-                    SavageFactions.plugin.log(Level.SEVERE, "NOTE: This has been automatically fixed right now by setting chatTagInsertIndex to 0.");
-                    SavageFactions.plugin.log(Level.SEVERE, "For a more proper fix, please read this regarding chat configuration: http://massivecraft.com/plugins/factions/config#Chat_configuration");
-                    return;
+            if (!me.hasFaction() || !Conf.chatTagRelationColored) {
+                eventFormat = eventFormat.replace(Conf.chatTagReplaceString, me.hasFaction() ? me.getChatTag().trim() : TL.NOFACTION_PREFIX.toString());
+            } else {
+                for (Player listeningPlayer : event.getRecipients()) {
+                    FPlayer you = FPlayers.getInstance().getByPlayer(listeningPlayer);
+                    String yourFormat = eventFormat.replace(Conf.chatTagReplaceString,me.getChatTag(you).trim());
+                    try {
+                        listeningPlayer.sendMessage(String.format(yourFormat, talkingPlayer.getDisplayName(), msg));
+                    } catch (UnknownFormatConversionException ex) {
+                        SavageFactions.plugin.log(Level.SEVERE, "UnknownFormatConversionException - ChatTagReplace RelationColored");
+                        return;
+                    }
                 }
-            }
 
-            // Messages are sent to players individually
-            // This still leaves a chance for other plugins to pick it up
-            event.getRecipients().clear();
+                // Messages are sent to players individually
+                // This still leaves a chance for other plugins to pick it up
+                event.getRecipients().clear();
+            }
         }
+
         // Message with no relation color.
-        event.setFormat(nonColoredMsgFormat);
+        event.setFormat(eventFormat);
     }
 
     private void doWarmup(final String warp, final FPlayer fme) {
-        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, new Runnable() {
-            @Override
-            public void run() {
-                Player player = Bukkit.getPlayer(fme.getPlayer().getUniqueId());
-                if (player != null) {
-                    player.teleport(fme.getFaction().getWarp(warp).getLocation());
-                    fme.msg(TL.COMMAND_FWARP_WARPED, warp);
-                }
+        WarmUpUtil.process(fme, WarmUpUtil.Warmup.WARP, TL.WARMUPS_NOTIFY_TELEPORT, warp, () -> {
+            Player player = Bukkit.getPlayer(fme.getPlayer().getUniqueId());
+            if (player != null) {
+                player.teleport(fme.getFaction().getWarp(warp).getLocation());
+                fme.msg(TL.COMMAND_FWARP_WARPED, warp);
             }
         }, SavageFactions.plugin.getConfig().getLong("warmups.f-warp", 0));
     }

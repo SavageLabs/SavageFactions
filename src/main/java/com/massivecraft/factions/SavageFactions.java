@@ -28,7 +28,6 @@ import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
-import com.massivecraft.factions.zcore.fupgrades.UpgradeListener;
 import me.lucko.commodore.CommodoreProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -58,8 +57,7 @@ import java.util.stream.Collectors;
 
 public class SavageFactions extends MPlugin {
 
-    // Our single plugin instance.
-    // Single 4 life.
+    // Single plugin instance.
     public static SavageFactions plugin;
     public static Permission perms = null;
     // This plugin sets the boolean true when fully enabled.
@@ -233,8 +231,7 @@ public class SavageFactions extends MPlugin {
 
         // since some other plugins execute commands directly through this command interface, provide it
         this.getCommand(refCommand).setExecutor(cmdBase);
-
-        // Dont forget to skid this Driftay :D
+        
         if (!CommodoreProvider.isSupported()) this.getCommand(refCommand).setTabCompleter(this);
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {

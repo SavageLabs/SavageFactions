@@ -5,6 +5,10 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Location;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdCoords extends FCommand {
 
     public CmdCoords() {

@@ -8,6 +8,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdNear extends FCommand {
     public CmdNear() {
         super();

@@ -11,6 +11,10 @@ import org.bukkit.Bukkit;
 
 import java.util.logging.Level;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdBan extends FCommand {
 
     public CmdBan() {

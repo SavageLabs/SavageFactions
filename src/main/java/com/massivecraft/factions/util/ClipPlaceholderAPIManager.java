@@ -116,15 +116,21 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_name":
                 return fPlayer.hasFaction() ? faction.getTag() : TL.NOFACTION_PREFIX.toString();
             case "faction_power":
-                return String.valueOf(faction.getPowerRounded());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerRounded()) : (int) Conf.powerFactionMax + "";
             case "faction_powermax":
-                return String.valueOf(faction.getPowerMaxRounded());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPowerMaxRounded()) : (int) Conf.powerFactionMax + "";
             case "faction_description":
-                return faction.getDescription();
+                return fPlayer.hasFaction() ? faction.getDescription() : "";
             case "faction_claims":
-                return String.valueOf(faction.getAllClaims().size());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getAllClaims().size()) : "0";
             case "faction_maxclaims":
                 return String.valueOf(Conf.claimedLandsMax);
+            case "faction_points":
+                return fPlayer.hasFaction() ? String.valueOf(faction.getPoints()) : "0";
+            case "faction_strikes":
+                return fPlayer.hasFaction() ? String.valueOf(faction.getStrikes()) : "0";
+            case "faction_maxstrikes":
+                return String.valueOf(Conf.maxStrikes);
             case "faction_founded":
                 return TL.sdf.format(faction.getFoundedDate());
             case "faction_joining":
@@ -155,7 +161,8 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_land_refund":
                 return Econ.shouldBeUsed() ? Econ.moneyString(Econ.calculateTotalLandRefund(faction.getLandRounded())) : TL.ECON_OFF.format("refund");
             case "faction_bank_balance":
-                return Econ.shouldBeUsed() ? Econ.moneyString(Econ.getBalance(faction.getAccountId())) : TL.ECON_OFF.format("balance");
+                if (!Econ.shouldBeUsed()) return TL.ECON_OFF.format("balance");
+                return fPlayer.hasFaction() ? Econ.moneyString(Econ.getBalance(faction.getAccountId())) : "0";
             case "faction_allies":
                 return String.valueOf(faction.getRelationCount(Relation.ALLY));
             case "faction_enemies":
@@ -163,24 +170,28 @@ public class ClipPlaceholderAPIManager extends PlaceholderExpansion implements R
             case "faction_truces":
                 return String.valueOf(faction.getRelationCount(Relation.TRUCE));
             case "faction_online":
-                return String.valueOf(faction.getOnlinePlayers().size());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getOnlinePlayers().size()) : "0";
             case "faction_can_see_online":
                 return String.valueOf(faction.getFactionMembersPlayerCanSee(player));
             case "faction_offline":
-                return String.valueOf(faction.getFPlayers().size() - faction.getOnlinePlayers().size());
+                return fPlayer.hasFaction() ? (String.valueOf(faction.getFPlayers().size() - faction.getOnlinePlayers().size())) : "0";
             case "faction_size":
-                return String.valueOf(faction.getFPlayers().size());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getFPlayers().size()) : "0";
             case "faction_kills":
-                return String.valueOf(faction.getKills());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getKills()) : "0";
             case "faction_deaths":
-                return String.valueOf(faction.getDeaths());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getDeaths()) : "0";
             case "faction_maxvaults":
-                return String.valueOf(faction.getMaxVaults());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getMaxVaults()) : Conf.defaultMaxVaults + "";
             case "faction_tntbank_balance":
-                return String.valueOf(faction.getTnt());
+                return fPlayer.hasFaction() ? String.valueOf(faction.getTnt()) : "0";
             case "faction_maxmembers":
-                return String.valueOf(faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) == 0 ? Conf.factionMemberLimit :
-                        Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "member" + ".levels." + faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) + ".boost"));
+                if (fPlayer.hasFaction()) {
+                    return String.valueOf(faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) == 0 ? Conf.factionMemberLimit :
+                            Conf.factionMemberLimit + SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + "member" + ".levels." + faction.getUpgrade(SavageFactions.plugin.getUpgradeManager().getUpgradeByName("member")) + ".boost"));
+                } else {
+                    return Conf.factionMemberLimit + "";
+                }
             case "faction_name_at_location":
                 Faction factionAtLocation = Board.getInstance().getFactionAt(new FLocation(player.getLocation()));
                 return factionAtLocation != null ? factionAtLocation.getTag() : Factions.getInstance().getWilderness().getTag();

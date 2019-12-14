@@ -5,6 +5,9 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.util.TL;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdOwner extends FCommand {
 

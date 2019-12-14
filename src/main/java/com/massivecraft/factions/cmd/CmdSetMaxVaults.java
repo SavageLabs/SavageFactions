@@ -5,6 +5,10 @@ import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.ChatColor;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdSetMaxVaults extends FCommand {
 
     public CmdSetMaxVaults() {

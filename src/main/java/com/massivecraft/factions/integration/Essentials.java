@@ -27,7 +27,7 @@ public class Essentials {
         if (!Conf.homesTeleportCommandEssentialsIntegration || essentials == null) return false;
 
         Teleport teleport = essentials.getUser(player).getTeleport();
-        Trade trade = new Trade(new BigDecimal(Conf.econCostHome), essentials);
+        Trade trade = new Trade(BigDecimal.valueOf(Conf.econCostHome), essentials);
         try {
             teleport.teleport(loc, trade, TeleportCause.PLUGIN);
         } catch (Exception e) {

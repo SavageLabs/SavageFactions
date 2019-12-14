@@ -14,6 +14,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdKick extends FCommand {
 
     public CmdKick() {

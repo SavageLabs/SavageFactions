@@ -12,6 +12,10 @@ import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdTag extends FCommand {
 
     public CmdTag() {

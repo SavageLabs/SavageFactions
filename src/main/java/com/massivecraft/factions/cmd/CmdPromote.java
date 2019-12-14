@@ -1,5 +1,9 @@
 package com.massivecraft.factions.cmd;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdPromote extends FPromoteCommand {
 
     public CmdPromote() {

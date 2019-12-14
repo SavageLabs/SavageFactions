@@ -6,6 +6,9 @@ import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdMap extends FCommand {
 

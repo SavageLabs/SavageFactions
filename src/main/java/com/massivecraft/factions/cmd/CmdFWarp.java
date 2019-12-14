@@ -12,6 +12,10 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdFWarp extends FCommand {
 
     public CmdFWarp() {

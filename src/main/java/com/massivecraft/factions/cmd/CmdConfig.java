@@ -14,6 +14,10 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdConfig extends FCommand {
 
     private static HashMap<String, String> properFieldNames = new HashMap<>();

@@ -3,6 +3,10 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.zcore.util.TL;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdInspect extends FCommand {
     public CmdInspect() {
         super();

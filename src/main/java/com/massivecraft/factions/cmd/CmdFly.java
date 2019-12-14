@@ -16,6 +16,10 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdFly extends FCommand {
 
 

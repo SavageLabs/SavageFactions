@@ -6,6 +6,10 @@ import com.massivecraft.factions.struct.Role;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.TL;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class FPromoteCommand extends FCommand {
 
     public int relative = 0;

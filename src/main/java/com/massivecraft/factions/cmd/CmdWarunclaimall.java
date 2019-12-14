@@ -9,6 +9,10 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdWarunclaimall extends FCommand {
 
     public CmdWarunclaimall() {

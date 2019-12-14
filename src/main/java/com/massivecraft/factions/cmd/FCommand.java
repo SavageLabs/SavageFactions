@@ -14,6 +14,9 @@ import org.bukkit.ChatColor;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public abstract class FCommand {
 
@@ -231,7 +234,7 @@ public abstract class FCommand {
             args.add("[" + optionalArg.getKey() + val + "]");
         }
 
-        if (args.size() > 0) {
+        if (!args.isEmpty()) {
             ret.append(SavageFactions.plugin.txt.parseTags(" "));
             ret.append(TextUtil.implode(args, " "));
         }

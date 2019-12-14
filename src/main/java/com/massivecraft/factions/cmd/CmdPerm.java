@@ -15,6 +15,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdPerm extends FCommand {
 
 	public CmdPerm() {

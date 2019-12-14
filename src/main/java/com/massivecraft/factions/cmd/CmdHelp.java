@@ -10,6 +10,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
 
 public class CmdHelp extends FCommand {
 

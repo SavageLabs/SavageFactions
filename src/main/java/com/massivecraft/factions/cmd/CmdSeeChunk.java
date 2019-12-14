@@ -13,6 +13,10 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
+/**
+ * This class was originally written by Dariasc (FactionsUUID)
+ **/
+
 public class CmdSeeChunk extends FCommand {
 
     //Used a hashmap cuz imma make a particle selection gui later, will store it where the boolean is rn.
