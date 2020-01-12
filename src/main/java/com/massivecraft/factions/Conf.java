@@ -18,11 +18,12 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
 
+import javax.persistence.Transient;
 import java.util.*;
 
 public class Conf {
 
-    public static boolean useTrackX = true;
+    public static transient boolean useTrackX = false;
 
     // Region Style
     public static final transient String DYNMAP_STYLE_LINE_COLOR = "#00FF00";
