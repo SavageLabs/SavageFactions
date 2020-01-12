@@ -28,9 +28,9 @@ repositories {
     maven {
         url 'http://repo.extendedclip.com/content/repositories/placeholderapi/'
     }
-    maven {
-        url 'http://repo.mvdw-software.com/content/repositories/mvdw-software/'
-    }
+//    maven {
+//        url 'http://repo.mvdw-software.com/content/repositories/mvdw-software/'
+//    }
     maven {
         url 'https://www.myget.org/F/prosavage/maven/'
     }
@@ -111,9 +111,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'net.savagellc:trackx:1.5'
     compileOnly 'me.clip:placeholderapi:2.10.4'
-    compileOnly ('be.maximvdw:MVdWPlaceholderAPI:2.2.3-SNAPSHOT') {
-        exclude group: 'org.spigotmc', module: 'spigot'
-    }
+//    compileOnly ('be.maximvdw:MVdWPlaceholderAPI:2.2.3-SNAPSHOT') {
+//        exclude group: 'org.spigotmc', module: 'spigot'
+//    }
     compileOnly 'net.coreprotect:CoreProtect:2'
     compileOnly ('com.github.SkriptLang:Skript:dev37c') {
         exclude group: '*', module: '*'
