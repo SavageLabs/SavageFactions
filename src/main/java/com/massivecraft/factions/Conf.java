@@ -17,13 +17,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
-
 import javax.persistence.Transient;
 import java.util.*;
 
 public class Conf {
-
-    public static transient boolean useTrackX = false;
 
     // Region Style
     public static final transient String DYNMAP_STYLE_LINE_COLOR = "#00FF00";
@@ -356,12 +353,12 @@ public class Conf {
     // Taller and wider for "bigger f map"
     public static int mapHeight = 17;
     public static int mapWidth = 49;
-//    public static String mapYouAreHereIcon = "\u271c";
+    //    public static String mapYouAreHereIcon = "\u271c";
     public static String mapYouAreHereIcon = "+";
-//    public static String mapFlatIcon = "\u2589";
+    //    public static String mapFlatIcon = "\u2589";
     public static String mapFlatIcon = "-";
 
-//    public static char[] mapKeyChrs = "\u2726\u2734\u2735\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f".toCharArray();
+    //    public static char[] mapKeyChrs = "\u2726\u2734\u2735\u2777\u2778\u2779\u277a\u277b\u277c\u277d\u277e\u277f".toCharArray();
     public static char[] mapKeyChrs = "\\/#$%=&^ABCDEFGHJKLMNOPQRSTUVWXYZ1234567890abcdeghjmnopqrsuvwxyz?".toCharArray();
 
     // Grace Period Settings
