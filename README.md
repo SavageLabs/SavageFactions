@@ -1,7 +1,9 @@
-# illyriaFactions
+# SavageFactions
 [![issues](https://img.shields.io/github/issues/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/issues) [![forks](https://img.shields.io/github/forks/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/network) [![stars](https://img.shields.io/github/stars/illyria-io/illyriaFactions)](https://github.com/illyria-io/illyriaFactions/stargazers) ![gradle](https://img.shields.io/badge/build-gradle-brightgreen)
 
-illyriaFactions is a fork of the popular Factions plugin FactionsUUID. Our goal is to make the ultimate competitive factions experience.
+## Discontinued - Check out my new Factions plugin [FactionsX](https://github.com/ProSavage/FactionsX)
+
+SavageFactions is a fork of the popular Factions plugin FactionsUUID. Our goal is to make the ultimate competitive factions experience.
 
 The plugin contains lots of new revolutionary features, which can be looked at in further detail on the wiki.
 
@@ -24,7 +26,7 @@ This plugin has an extensive API and viewable Javadocs.
 The Javadocs can be found in the javadocs folder, they are generated at every major release.
 They are also hosted on my webserver and can be found [here](http://prosavage.net/factions_javadoc/)
 
-If you would like to fork/contribute to illyriaFactions I have made a video on how to compile the plugin correctly.
+If you would like to fork/contribute to SavageFactions I have made a video on how to compile the plugin correctly.
 The video can be found [here](https://www.youtube.com/watch?v=fnDwjA2gX-E).
 
 
