@@ -31,7 +31,6 @@ import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import me.lucko.commodore.CommodoreProvider;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import net.savagellc.trackx.TrackX;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -152,12 +151,8 @@ public class SavageFactions extends MPlugin {
 
         // Load Conf from disk
         Conf.load();
-     
         Shop.load();
 
-        if (Conf.useTrackX) {
-            TrackX.startTracking("savagefactions", plugin.getDescription().getVersion(),"com.massivecraft.factions");
-        }
         new ConfigVersion.Checker().checkLevel().TakeActionIfRequired().save();
 
         com.massivecraft.factions.integration.Essentials.setup();
@@ -231,7 +226,7 @@ public class SavageFactions extends MPlugin {
 
         // since some other plugins execute commands directly through this command interface, provide it
         this.getCommand(refCommand).setExecutor(cmdBase);
-        
+
         if (!CommodoreProvider.isSupported()) this.getCommand(refCommand).setTabCompleter(this);
 
         if (getDescription().getFullName().contains("BETA") || getDescription().getFullName().contains("ALPHA")) {

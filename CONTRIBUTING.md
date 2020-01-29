@@ -16,7 +16,7 @@
 
 #### **Did you fix whitespace, format code, or make a purely cosmetic patch?**
 
-Please specify what changes you made to the formatting etc., as it allows us to get an idea of how this will change our files overall.
+Please specify what changes you made to the formatting etc., as it allows us to get an idea of how this will change our files overall. Use tabs instead of spaces.
 
 #### **Do you intend to add a new feature or change an existing one?**
 

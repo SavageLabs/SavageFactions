@@ -109,7 +109,6 @@ dependencies {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'net.savagellc:trackx:1.5'
     compileOnly 'me.clip:placeholderapi:2.10.4'
 //    compileOnly ('be.maximvdw:MVdWPlaceholderAPI:2.2.3-SNAPSHOT') {
 //        exclude group: 'org.spigotmc', module: 'spigot'
