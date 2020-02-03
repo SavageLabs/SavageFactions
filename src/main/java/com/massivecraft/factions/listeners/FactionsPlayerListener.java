@@ -761,8 +761,11 @@ public class FactionsPlayerListener implements Listener {
         // Do type null checks so if XMaterial has a parsing issue and fills null as a value it will not bypass.
         // territoryCancelAndAllowItemUseMaterial bypass the protection system but only if they're not clicking on territoryDenySwitchMaterials
         // if they're clicking on territoryDenySwitchMaterials, let the protection system handle the permissions
-        if (type != null && !Conf.territoryDenySwitchMaterials.contains(block.getType())) {
+        if (type != null
+                && FPlayers.getInstance().getByPlayer(player).getFaction() != Board.getInstance().getFactionAt(new FLocation(player.getLocation()))
+                && !Conf.territoryDenySwitchMaterials.contains(block.getType())) {
             if (Conf.territoryCancelAndAllowItemUseMaterial.contains(type)) {
+                event.setCancelled(true);
                 return;
             }
         }
