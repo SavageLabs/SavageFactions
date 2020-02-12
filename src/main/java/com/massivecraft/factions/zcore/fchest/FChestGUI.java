@@ -4,6 +4,9 @@ import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.SavageFactions;
+import com.massivecraft.factions.util.XMaterial;
+import com.massivecraft.factions.zcore.util.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,11 +31,14 @@ public class FChestGUI {
         List<GuiItem> guiItems = new ArrayList<>();
         for (ItemStack itemStack : items)
             guiItems.add(new GuiItem(itemStack, event -> event.setCancelled(true)));
+        ItemStack dummyItem = new ItemBuilder(XMaterial.GLASS_PANE.parseItem()).name("&cEMPTY").build();
+        for (int i = 0; i < 54; i++) {
+            guiItems.add(new GuiItem(dummyItem, event -> event.setCancelled(true)));
+        }
         pane.populateWithGuiItems(guiItems);
         gui.addPane(pane);
         gui.update();
         gui.show(humanEntity);
-
     }
 
 
