@@ -13,11 +13,16 @@ import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class was originally written by Dariasc (FactionsUUID)
  **/
 
 public abstract class FRelationCommand extends FCommand {
+
+    private static Map<String, Long> relationCool = new HashMap<>();
 
     public Relation targetRelation;
 
@@ -54,10 +59,16 @@ public abstract class FRelationCommand extends FCommand {
             return;
         }
 
+        if (relationCool.containsKey(context.faction.getId()) && System.currentTimeMillis() - relationCool.get(context.faction.getId()) < (Conf.relationWishCooldownSeconds * 1000)) {
+            context.msg(TL.COMMAND_RELATIONS_COOLDOWN, String.valueOf(Conf.relationWishCooldownSeconds));
+            return;
+        }
+
         if (hasMaxRelations(context.faction, them, targetRelation)) {
             // We message them down there with the count.
             return;
         }
+        relationCool.put(context.faction.getId(), System.currentTimeMillis());
         Relation oldRelation = context.faction.getRelationTo(them, true);
         FactionRelationWishEvent wishEvent = new FactionRelationWishEvent(context.fPlayer, context.faction, them, oldRelation, targetRelation);
         Bukkit.getPluginManager().callEvent(wishEvent);
