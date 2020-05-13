@@ -1,5 +1,6 @@
 package com.massivecraft.factions.util;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
@@ -72,7 +73,7 @@ public class FactionWarpsFrame {
 
     private ItemStack buildWarpAsset(final Map.Entry<String, LazyLocation> warp, final Faction faction) {
         final ConfigurationSection config = this.section.getConfigurationSection("warp-item");
-        final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         final ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.replacePlaceholders(config.getStringList("Lore"), new Placeholder("{warp-protected}", faction.hasWarpPassword(warp.getKey()) ? "Enabled" : "Disabled"), new Placeholder("{warp-cost}", SavageFactions.plugin.getConfig().getBoolean("warp-cost.enabled", false) ? Integer.toString(SavageFactions.plugin.getConfig().getInt("warp-cost.warp", 5)) : "Disabled"))));
@@ -84,7 +85,7 @@ public class FactionWarpsFrame {
 
     private ItemStack buildDummyItem() {
         final ConfigurationSection config = this.section.getConfigurationSection("dummy-item");
-        final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        final ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         final ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));

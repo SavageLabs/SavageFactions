@@ -1,10 +1,10 @@
 package com.massivecraft.factions.zcore.fupgrades;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
 import com.massivecraft.factions.util.Placeholder;
-import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -31,7 +31,7 @@ public abstract class FactionUpgrade extends Upgrade {
 
         this.setGuiPosition(SavageFactions.plugin.getConfig().getInt("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.slot"));
 
-        ItemStack item = new ItemStack(XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.type")).parseMaterial());
+        ItemStack item = new ItemStack(XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.type")).get().parseMaterial());
         ItemMeta guiItemMeta = item.getItemMeta();
         guiItemMeta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.name")));
         guiItemMeta.setLore(SavageFactions.plugin.colorList(SavageFactions.plugin.getConfig().getStringList("fupgrades.upgrades." + this.getUpgradeName() + ".displayitem.lore")));

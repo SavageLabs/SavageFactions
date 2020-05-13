@@ -1,10 +1,10 @@
 package com.massivecraft.factions.zcore.fupgrades;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.CropState;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

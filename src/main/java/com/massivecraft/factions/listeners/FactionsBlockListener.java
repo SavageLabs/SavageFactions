@@ -1,16 +1,15 @@
 package com.massivecraft.factions.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.integration.Worldguard;
 import com.massivecraft.factions.struct.Permission;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
 import com.massivecraft.factions.zcore.util.ItemBuilder;
 import com.massivecraft.factions.zcore.util.TL;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

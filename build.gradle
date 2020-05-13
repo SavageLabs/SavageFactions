@@ -51,6 +51,7 @@ repositories {
 
 dependencies {
     implementation 'com.github.stefvanschie.inventoryframework:IF:0.5.8'
+    implementation group: 'com.github.cryptomorin', name: 'XSeries', version: '5.3.1'
     compileOnly ('org.spigotmc:spigot-api:1.15-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5', module: 'bungeecord-chat'
         exclude group: 'javax.persistence', module: 'persistence-api'
@@ -132,6 +133,7 @@ shadowJar {
     mergeServiceFiles()
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
+    relocate 'com.cryptomorin.xseries', 'com.massivecraft.factions.shade.xseries'
     relocate 'com.github.stefvanschie.inventoryframework', 'com.massivecraft.factions.shade.stefvanschie.inventoryframework'
     relocate 'mkremins.fanciful', 'com.massivecraft.factions.shade.mkremins.fanciful'
     relocate 'com.google.gson', 'com.massivecraft.factions.shade.com.google.gson'

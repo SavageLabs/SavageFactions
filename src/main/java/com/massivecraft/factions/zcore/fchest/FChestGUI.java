@@ -1,12 +1,11 @@
 package com.massivecraft.factions.zcore.fchest;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.util.ItemBuilder;
-import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 

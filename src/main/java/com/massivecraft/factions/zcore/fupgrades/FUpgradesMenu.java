@@ -1,14 +1,13 @@
 package com.massivecraft.factions.zcore.fupgrades;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.*;
 import com.massivecraft.factions.addon.upgradeaddon.Upgrade;
-import com.massivecraft.factions.util.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -57,7 +56,7 @@ public class FUpgradesMenu {
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fupgrades.MainMenu.DummyItem");
-        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         // meta is null for air.
         if (meta != null) {

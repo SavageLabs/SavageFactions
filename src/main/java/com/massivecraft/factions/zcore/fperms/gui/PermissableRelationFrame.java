@@ -1,5 +1,6 @@
 package com.massivecraft.factions.zcore.fperms.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
@@ -8,7 +9,6 @@ import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.struct.Role;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +52,7 @@ public class PermissableRelationFrame {
     }
 
     private ItemStack buildAsset(String loc, String relation) {
-        ItemStack item = XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString(loc)).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(SavageFactions.plugin.getConfig().getString(loc)).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(SavageFactions.plugin.color(SavageFactions.plugin.getConfig().getString("fperm-gui.relation.Placeholder-Item.Name").replace("{relation}", relation)));
@@ -63,7 +63,7 @@ public class PermissableRelationFrame {
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-item");
-        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         // So u can set it to air.
         if (meta != null) {

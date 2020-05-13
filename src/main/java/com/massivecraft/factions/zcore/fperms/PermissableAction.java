@@ -1,9 +1,9 @@
 package com.massivecraft.factions.zcore.fperms;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.SavageFactions;
 import com.massivecraft.factions.util.Placeholder;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.util.TL;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -90,7 +90,7 @@ public enum PermissableAction {
 
     public ItemStack buildAsset(FPlayer fme, Permissable perm) {
         ConfigurationSection section = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.action");
-        ItemStack item = XMaterial.matchXMaterial(section.getString("Materials." + this.name)).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(section.getString("Materials." + this.name)).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(SavageFactions.plugin.color(section.getString("placeholder-item.name").replace("{action}", this.name)));

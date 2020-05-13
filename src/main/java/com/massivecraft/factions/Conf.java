@@ -1,11 +1,10 @@
 package com.massivecraft.factions;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableMap;
 import com.massivecraft.factions.integration.dynmap.DynmapStyle;
-import com.massivecraft.factions.struct.Relation;
 import com.massivecraft.factions.util.Particles.ParticleEffect;
 import com.massivecraft.factions.util.Particles.Particles;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.ffly.FlyParticle;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.ColorableCloud;
 import com.massivecraft.factions.zcore.ffly.flyparticledata.FlyParticleData;
@@ -17,7 +16,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
-import javax.persistence.Transient;
 import java.util.*;
 
 public class Conf {

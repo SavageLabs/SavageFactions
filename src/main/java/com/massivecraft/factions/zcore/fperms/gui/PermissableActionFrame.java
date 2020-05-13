@@ -1,12 +1,12 @@
 package com.massivecraft.factions.zcore.fperms.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.github.stefvanschie.inventoryframework.Gui;
 import com.github.stefvanschie.inventoryframework.GuiItem;
 import com.github.stefvanschie.inventoryframework.pane.PaginatedPane;
 import com.massivecraft.factions.FPlayer;
 import com.massivecraft.factions.Faction;
 import com.massivecraft.factions.SavageFactions;
-import com.massivecraft.factions.util.XMaterial;
 import com.massivecraft.factions.zcore.fperms.Access;
 import com.massivecraft.factions.zcore.fperms.Permissable;
 import com.massivecraft.factions.zcore.fperms.PermissableAction;
@@ -80,7 +80,7 @@ public class PermissableActionFrame {
 
     private ItemStack buildDummyItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.dummy-item");
-        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));
@@ -92,7 +92,7 @@ public class PermissableActionFrame {
 
     private ItemStack buildBackItem() {
         ConfigurationSection config = SavageFactions.plugin.getConfig().getConfigurationSection("fperm-gui.back-item");
-        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).parseItem();
+        ItemStack item = XMaterial.matchXMaterial(config.getString("Type")).get().parseItem();
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setLore(SavageFactions.plugin.colorList(config.getStringList("Lore")));

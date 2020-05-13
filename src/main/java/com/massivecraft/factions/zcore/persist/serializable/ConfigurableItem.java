@@ -1,6 +1,6 @@
 package com.massivecraft.factions.zcore.persist.serializable;
 
-import com.massivecraft.factions.util.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.zcore.util.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 

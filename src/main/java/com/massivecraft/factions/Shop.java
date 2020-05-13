@@ -1,6 +1,6 @@
 package com.massivecraft.factions;
 
-import com.massivecraft.factions.util.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.zcore.fshop.ShopItem;
 import com.massivecraft.factions.zcore.persist.serializable.ConfigurableItem;
 

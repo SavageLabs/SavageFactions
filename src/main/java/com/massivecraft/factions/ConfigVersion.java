@@ -1,7 +1,5 @@
 package com.massivecraft.factions;
 
-import org.bukkit.configuration.file.FileConfiguration;
-
 import java.io.IOException;
 
 public class ConfigVersion {

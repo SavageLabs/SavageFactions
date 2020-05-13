@@ -1,6 +1,6 @@
 package com.massivecraft.factions.util.Particles;
 
-import com.massivecraft.factions.util.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
