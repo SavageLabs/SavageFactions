@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.SavageFactions;
@@ -46,13 +47,13 @@ public class CmdVault extends FCommand {
             context.msg(TL.COMMAND_VAULT_INVALID);
             return;
         }
-        FLocation vaultFLocation = new FLocation(vaultLocation);
-        if (Board.getInstance().getFactionAt(vaultFLocation) != context.faction) {
+        if (vaultLocation.getBlock().getType() != XMaterial.CHEST.parseMaterial()) {
             context.faction.setVault(null);
             context.msg(TL.COMMAND_VAULT_INVALID);
             return;
         }
-        if (vaultLocation.getBlock().getType() != Material.CHEST) {
+        FLocation vaultFLocation = new FLocation(vaultLocation);
+        if (Board.getInstance().getFactionAt(vaultFLocation) != context.faction) {
             context.faction.setVault(null);
             context.msg(TL.COMMAND_VAULT_INVALID);
             return;
@@ -61,7 +62,6 @@ public class CmdVault extends FCommand {
         Inventory chestInv = chest.getBlockInventory();
         context.msg(TL.COMMAND_VAULT_OPENING);
         context.player.openInventory(chestInv);
-
 
     }
 
